@@ -44,7 +44,7 @@ export default async function AdminHome() {
     );
   }
 
-  const [{ data: competencies }, { data: classes }] = await Promise.all([
+  const [{ data: competencies }, { data: classes }, { data: contentLessons }] = await Promise.all([
     supabase
       .from("competencies")
       .select("id, exam_frequency, continues_from_id, link_confirmed"),
@@ -52,7 +52,19 @@ export default async function AdminHome() {
       .from("classes")
       .select("id, name, academic_year")
       .eq("teacher_id", teacher.id),
+    supabase
+      .from("lessons")
+      .select("id, content, status")
+      .eq("lesson_kind", "content"),
   ]);
+
+  const lessonsTotal = contentLessons?.length ?? 0;
+  const withNotes = (contentLessons ?? []).filter(
+    (l) => (l.content ?? "").trim().length > 0
+  ).length;
+  const publishedLessons = (contentLessons ?? []).filter(
+    (l) => l.status === "published"
+  ).length;
 
   const total = competencies?.length ?? 0;
   const withFreq = (competencies ?? []).filter((c) => c.exam_frequency).length;
@@ -105,6 +117,21 @@ export default async function AdminHome() {
         </div>
       </a>
 
+      <a className="card" href="/admin/lessons">
+        <h3>Lesson notes and files</h3>
+        <div className="meta">
+          Write notes, attach scanned handouts and past papers, and publish them
+          to students. Shows you which lessons have nothing prepared.
+        </div>
+        <div className="tags">
+          <span className={withNotes === lessonsTotal && lessonsTotal > 0 ? "tag" : "tag alert"}>
+            {lessonsTotal - withNotes} lessons with no notes
+          </span>
+          <span className="tag plain">{withNotes} of {lessonsTotal} written</span>
+          <span className="tag plain">{publishedLessons} published</span>
+        </div>
+      </a>
+
       <a className="card" href="/admin/links">
         <h3>Cross-year links</h3>
         <div className="meta">
@@ -124,8 +151,9 @@ export default async function AdminHome() {
 
       <h3 style={{ marginTop: 34 }}>Not built yet</h3>
       <p className="lede">
-        Students, the question bank and marking. Those need the term planner in
-        use first, so that a mark has a lesson to attach itself to.
+        Students and enrolment, the question bank, marking, and the mastery
+        engine. Each needs the one before it: a mark needs a question, a
+        question needs a lesson, and mastery needs marks.
       </p>
 
       <form action={signOut} style={{ marginTop: 24 }}>
