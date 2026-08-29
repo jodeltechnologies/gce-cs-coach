@@ -373,6 +373,27 @@ def emit_sql(doc):
                        f"({q(sid)}, 'correction', {q(note)}, {q(ls['title'])});")
         out.append("")
 
+    # Cross-year links. Emitted as UPDATEs that look the earlier category up by
+    # name, so they work regardless of the UUIDs the previous file generated.
+    # link_confirmed stays false: these are proposals until the teacher agrees.
+    links = doc.get("continues_from", [])
+    if links:
+        out.append("-- Proposed continuity with the previous year (unconfirmed).")
+        for link in links:
+            cid = ids.get(("comp", link["category"]))
+            prior = link.get("form4") or link.get("continues")
+            out.append(f"""UPDATE competencies SET
+  continues_from_id = (
+    SELECT c.id FROM competencies c
+    JOIN syllabi s ON s.id = c.syllabus_id
+    WHERE c.category_of_action = {q(prior)}
+      AND s.form_level = {q(link.get('from_form', 'Form 4'))}
+    LIMIT 1
+  ),
+  link_confirmed = false
+WHERE id = {q(cid)};""")
+        out.append("")
+
     for s in doc.get("practical_sections", []):
         pid = new()
         out.append(f"INSERT INTO practical_sections "

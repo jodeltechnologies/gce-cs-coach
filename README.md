@@ -24,7 +24,8 @@ The complete Cameroon curriculum for three levels, structured and queryable:
 validate with zero errors.
 
 Plus a website that reads it: pick a progression sheet, see the whole year by
-term and week with every objective in place.
+term and week with every objective in place. Public pages need no login. Behind
+a teacher sign-in there is an admin area with the two editors described below.
 
 ---
 
@@ -34,13 +35,27 @@ term and week with every objective in place.
 db/
   schema.sql        27 tables
   rls.sql           security policies — run this, it is not optional
+  auth.sql          teacher login and write access
   seed/             the three curricula, ready to run
 tools/
   curriculum/       the progression sheets as readable YAML
   load_curriculum.py  validates them and generates the SQL
-app/                the website (Next.js)
-lib/                database connection
+app/
+  page.js           list of progression sheets
+  syllabus/[id]/    a whole year by term and week
+  login/            teacher sign in
+  admin/            exam frequency editor, cross-year link confirmation
+lib/                database connections (browser and server)
+middleware.js       keeps /admin closed to strangers
+public/             school crest; drop minesec.png here for the ministry emblem
 ```
+
+## Colours
+
+Sampled from the school shield itself: green `#007A33`, yellow `#F0F060`, red
+`#D81818`. Green does the structural work, yellow highlights, red is reserved
+for Evaluation and Remediation weeks. Yellow is never put behind body text — it
+fails contrast on a phone screen in daylight.
 
 **`tools/curriculum/` is the part worth your attention.** Those three files are
 plain text. Every lesson, every objective, every week. If something is wrong you
@@ -71,15 +86,15 @@ log in with a short code you hand out and reset in two clicks.
 
 ## What is missing, and only you can supply it
 
-**Exam frequency.** The `exam_frequency` column on all 41 categories of action
-is empty. It is the field that turns this from a record of the syllabus into
-something that tells a student what to revise first. A four-way sort — rare,
-occasional, frequent, almost certain — is enough. Form 5's 23 matter most.
+**Exam frequency.** Empty on all 41 categories of action. It is the field that
+turns this from a record of the syllabus into something that tells a student
+what to revise first. **There is now a screen for it:** `/admin/exam-frequency`,
+Form 5 first, tappable on a phone, one save for the lot.
 
 **Six unconfirmed cross-year links.** The loader proposes that Form 5's
 "Analyzing simple logic circuits and expressions" continues Form 4's "Analysing
-simple logic circuits", and five others. They feed no recommendation until you
-confirm them.
+simple logic circuits", and five others. Confirm or reject them at
+`/admin/links`. They feed no recommendation until you decide.
 
 **Notes for six Form 5 categories.** Assistive technology, network hardware,
 data communication, the internet and blockchain, social networks, and digital

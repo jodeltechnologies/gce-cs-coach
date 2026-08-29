@@ -48,9 +48,13 @@ project, copy all of it, paste into a new query, click **Run**.
 |---|---|---|
 | 1 | `db/schema.sql` | Creates the 27 tables |
 | 2 | `db/rls.sql` | **Security. Do not skip this.** |
-| 3 | `db/seed/01_form4_computer_science.sql` | Loads Form 4 |
-| 4 | `db/seed/02_form5_computer_science.sql` | Loads Form 5 |
-| 5 | `db/seed/03_lower_sixth_ict.sql` | Loads Lower Sixth ICT |
+| 3 | `db/auth.sql` | Teacher login and write access |
+| 4 | `db/seed/01_form4_computer_science.sql` | Loads Form 4 |
+| 5 | `db/seed/02_form5_computer_science.sql` | Loads Form 5 |
+| 6 | `db/seed/03_lower_sixth_ict.sql` | Loads Lower Sixth ICT (must come after Form 4) |
+
+Form 4 must load before Form 5, because Form 5's file links its categories of
+action back to Form 4's by name.
 
 The three seed files are around 90 KB each. The web editor handles them, but it
 may pause for a few seconds. If it complains about size, use the command-line
@@ -102,6 +106,7 @@ Connection string → URI**.
 ```bash
 psql "YOUR-CONNECTION-STRING" -f db/schema.sql
 psql "YOUR-CONNECTION-STRING" -f db/rls.sql
+psql "YOUR-CONNECTION-STRING" -f db/auth.sql
 psql "YOUR-CONNECTION-STRING" -f db/seed/01_form4_computer_science.sql
 psql "YOUR-CONNECTION-STRING" -f db/seed/02_form5_computer_science.sql
 psql "YOUR-CONNECTION-STRING" -f db/seed/03_lower_sixth_ict.sql
@@ -119,7 +124,46 @@ it on a website or in GitHub. It bypasses all the security you just set up.
 
 ---
 
-## Step 3 — GitHub: put the code online
+## Step 3 — Create your teacher account
+
+The public pages need no login. The **admin** area does.
+
+1. In Supabase, go to **Authentication → Sign In / Providers** and turn **off**
+   "Allow new users to sign up". Do this first. Otherwise anyone on the
+   internet can create an account on your school system.
+
+2. Go to **Authentication → Users → Add user → Create new user**. Use your real
+   email and a strong password, and tick **Auto Confirm User** so you can sign
+   in straight away.
+
+3. Back in the **SQL Editor**, run this with your own details:
+
+   ```sql
+   INSERT INTO teachers (full_name, email, password_hash, grade, auth_user_id)
+   SELECT 'YOUR FULL NAME',
+          'you@example.com',
+          'managed-by-supabase-auth',
+          'YOUR GRADE',
+          id
+   FROM auth.users
+   WHERE email = 'you@example.com';
+   ```
+
+4. Check it linked. This must return exactly one row:
+
+   ```sql
+   SELECT t.full_name, u.email
+   FROM teachers t JOIN auth.users u ON u.id = t.auth_user_id;
+   ```
+
+**Creating the login is not enough on its own.** Signing in without that
+`teachers` row gets you into the admin area, but every save is refused by the
+database. The admin page detects this and tells you, rather than letting saves
+fail quietly.
+
+---
+
+## Step 4 — GitHub: put the code online
 
 Unzip this project, then from a terminal inside the folder:
 
@@ -145,7 +189,7 @@ small projects get compromised.
 
 ---
 
-## Step 4 — Vercel: publish the website
+## Step 5 — Vercel: publish the website
 
 1. Go to **vercel.com/new**.
 2. Find `gce-cs-coach` in the list and click **Import**.
@@ -220,6 +264,17 @@ Open `http://localhost:3000`.
 
 ---
 
+## Adding the MINESEC emblem
+
+The school crest is included. The MINESEC coat of arms is not, because it is a
+government emblem and I will not guess at or redraw an official seal.
+
+Save the official file as **`public/minesec.png`**, commit, and push. It appears
+in the masthead automatically, to the left of the ministry line. Until then the
+header simply leaves the space out rather than showing a broken image.
+
+---
+
 ## Honest note on what has been tested
 
 The database side is verified. The schema was checked for table-ordering
@@ -227,6 +282,18 @@ problems, all three curriculum files validate with zero errors, and the
 generated SQL was checked statement by statement.
 
 The website was **written but not built**, because the environment I worked in
-had no internet access and therefore could not run `npm install`. If the first
+has no internet access and therefore cannot run `npm install`. If the first
 Vercel build reports an error, send me the log and I'll fix it — the likely
 candidates are a package version and a small syntax slip, both quick.
+
+**Test the security yourself once it is live.** Sign out and visit `/admin` —
+you should land on the login page. Then run this in the Supabase SQL Editor;
+every row must say `true`:
+
+```sql
+SELECT tablename, rowsecurity FROM pg_tables
+WHERE schemaname = 'public' ORDER BY rowsecurity, tablename;
+```
+
+If any row says `false`, `db/rls.sql` did not run, and that table is readable
+by anyone on the internet.
