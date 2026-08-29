@@ -1,41 +1,35 @@
-import fs from "node:fs";
-import path from "node:path";
 import "./globals.css";
 
+// Browser tab. The template means every page reads "<page> · GCE CS Coach"
+// without each one having to repeat the suffix. app/icon.png supplies the tab
+// icon automatically — that is the school crest.
 export const metadata = {
-  title: "GCE Computer Science Coach — G.H.S. Mbonjo",
+  title: {
+    default: "GCE Computer Science Coach · G.H.S. Mbonjo",
+    template: "%s · GCE CS Coach",
+  },
   description:
-    "Progression sheets, lessons and objectives for GCE Computer Science and ICT — Government High School Mbonjo, Limbe",
+    "Progression sheets, lesson notes and term planning for GCE Computer Science and ICT — Government High School (Lycée) de Mbonjo, Limbe.",
+  applicationName: "GCE CS Coach",
 };
 
-export const viewport = { width: "device-width", initialScale: 1 };
-
-// The school crest ships with the project. The MINESEC coat of arms does not,
-// because it is a government emblem I should not guess at or redraw. Drop the
-// official file at public/minesec.png and it appears automatically; until then
-// the masthead simply omits it rather than showing a broken image.
-function hasMinesec() {
-  try {
-    return fs.existsSync(path.join(process.cwd(), "public", "minesec.png"));
-  } catch {
-    return false;
-  }
-}
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#1b8a2b",
+};
 
 export default function RootLayout({ children }) {
-  const minesec = hasMinesec();
   return (
     <html lang="en">
       <body>
         <header className="site">
           <div className="bar">
-            {minesec && (
-              <img
-                className="crest"
-                src="/minesec.png"
-                alt="Ministry of Secondary Education, Republic of Cameroon"
-              />
-            )}
+            <img
+              className="crest"
+              src="/minesec.png"
+              alt="Ministry of Secondary Education, Republic of Cameroon"
+            />
             <div className="titles">
               <p className="ministry">
                 Republic of Cameroon · Ministry of Secondary Education
@@ -43,14 +37,12 @@ export default function RootLayout({ children }) {
               <h1>
                 <a href="/">GCE Computer Science Coach</a>
               </h1>
-              <p className="school">Government High School (Lycée) de Mbonjo, Limbe</p>
+              <p className="school">
+                Government High School (Lycée) de Mbonjo, Limbe
+              </p>
               <p className="motto">Discipline, Hardwork &amp; Success</p>
             </div>
-            <img
-              className="crest"
-              src="/ghs-mbonjo.jpg"
-              alt="G.H.S. Mbonjo crest"
-            />
+            <img className="crest" src="/ghs-mbonjo.jpg" alt="G.H.S. Mbonjo crest" />
             <nav>
               <a href="/">Progression</a>
               <a href="/admin">Admin</a>

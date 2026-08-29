@@ -1,5 +1,7 @@
 import { createClient } from "../../../lib/supabase-server";
 
+export const metadata = { title: "Lesson notes" };
+
 export const dynamic = "force-dynamic";
 
 export default async function LessonsPage({ searchParams }) {

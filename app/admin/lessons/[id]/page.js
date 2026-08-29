@@ -7,6 +7,8 @@ import {
 } from "../actions";
 import Uploader from "./Uploader";
 
+export const metadata = { title: "Edit lesson" };
+
 export const dynamic = "force-dynamic";
 
 const textareaStyle = {

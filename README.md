@@ -47,15 +47,20 @@ app/
   admin/            exam frequency editor, cross-year link confirmation
 lib/                database connections (browser and server)
 middleware.js       keeps /admin closed to strangers
-public/             school crest; drop minesec.png here for the ministry emblem
+public/             both crests: MINESEC emblem and the school shield
+app/icon.png        browser tab icon
 ```
 
 ## Colours
 
-Sampled from the school shield itself: green `#007A33`, yellow `#F0F060`, red
-`#D81818`. Green does the structural work, yellow highlights, red is reserved
-for Evaluation and Remediation weeks. Yellow is never put behind body text — it
-fails contrast on a phone screen in daylight.
+Sampled from the MINESEC emblem: green `#1B8A2B` and `#006428`, gold `#F0C000`,
+red `#9C2F2F`. The school shield uses the same three, so the two crests sit
+together in the masthead without clashing.
+
+Green does the structural work. Gold is a border and badge colour, never text
+on white and never a large background — it fails contrast badly and this has to
+stay readable on a cheap phone in daylight. Red is reserved for Evaluation and
+Remediation weeks, and for anything genuinely wrong.
 
 **`tools/curriculum/` is the part worth your attention.** Those three files are
 plain text. Every lesson, every objective, every week. If something is wrong you

@@ -1,6 +1,8 @@
 import { createClient, getUser } from "../../../../lib/supabase-server";
 import { saveScheme } from "../actions";
 
+export const metadata = { title: "Term planner" };
+
 export const dynamic = "force-dynamic";
 
 const TERM_NAME = { 1: "First term", 2: "Second term", 3: "Third term" };

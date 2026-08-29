@@ -1,6 +1,8 @@
 import { createClient, getUser } from "../../../lib/supabase-server";
 import { createClass } from "./actions";
 
+export const metadata = { title: "Classes" };
+
 export const dynamic = "force-dynamic";
 
 export default async function ClassesPage() {

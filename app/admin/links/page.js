@@ -1,6 +1,8 @@
 import { createClient } from "../../../lib/supabase-server";
 import { decideLink } from "../actions";
 
+export const metadata = { title: "Cross-year links" };
+
 export const dynamic = "force-dynamic";
 
 export default async function LinksPage() {

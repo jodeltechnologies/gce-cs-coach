@@ -1,49 +1,53 @@
 /* ---------------------------------------------------------------------
-   Palette sampled directly from the G.H.S. Mbonjo shield.
+   Palette sampled from the MINESEC emblem.
 
-     green   #007A33   shield border, arc lettering, book, mountain
-     yellow  #F0F060   shield field and motto ribbon
-     red     #D81818   outer border, "DE MBONJO LIMBE", star
+     green  #1B8A2B / #006428   the ring and the open book
+     gold   #F0C000             the flame and the lettering ring
+     red    #9C2F2F             the flag band
 
-   Green does the structural work. Yellow is a highlight only, never a
-   large background and never behind body text -- yellow on white fails
-   every contrast check, and this has to stay readable on a cheap phone
-   screen in daylight. Red is reserved for the two things that genuinely
-   need attention: Evaluation and Remediation weeks.
+   The school shield uses the same three, so the two crests sit together in
+   the masthead without clashing.
+
+   Gold is a border and badge colour, never a text colour on white and never
+   a large background. Gold on white fails contrast badly, and this has to
+   stay readable on a cheap phone in daylight. Where gold appears behind
+   text, the text is --gold-ink, a dark brown-gold that passes.
    --------------------------------------------------------------------- */
 
 :root {
-  --green: #007a33;
-  --green-deep: #00602a;
-  --green-soft: #e6f2ea;
-  --yellow: #f0f060;
-  --yellow-soft: #fdfce4;
-  --red: #d81818;
-  --red-soft: #fdeceb;
+  --green: #1b8a2b;
+  --green-deep: #006428;
+  --green-soft: #e9f5ea;
+  --gold: #f0c000;
+  --gold-soft: #fdf6e0;
+  --gold-ink: #6b5200;
+  --red: #9c2f2f;
+  --red-soft: #f9ecec;
 
-  --bg: #fcfcf7;
+  --bg: #fbfdfa;
   --surface: #ffffff;
-  --ink: #17190f;
-  --muted: #61675a;
-  --line: #dfe3d6;
+  --ink: #161c15;
+  --muted: #5f6a5e;
+  --line: #dde5dc;
   --radius: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --green: #4cc47c;
-    --green-deep: #6fd897;
-    --green-soft: #10281a;
-    --yellow: #f0f060;
-    --yellow-soft: #26260f;
-    --red: #f2706b;
-    --red-soft: #2c1513;
+    --green: #4fc95f;
+    --green-deep: #74dd82;
+    --green-soft: #10240f;
+    --gold: #f0c000;
+    --gold-soft: #2a2208;
+    --gold-ink: #f0c000;
+    --red: #e08080;
+    --red-soft: #2b1616;
 
-    --bg: #101208;
-    --surface: #191c11;
-    --ink: #eef0e4;
-    --muted: #9aa08e;
-    --line: #2d3122;
+    --bg: #0d120c;
+    --surface: #161c15;
+    --ink: #e9efe7;
+    --muted: #96a094;
+    --line: #283026;
   }
 }
 
@@ -59,8 +63,9 @@ html, body {
   -webkit-text-size-adjust: 100%;
 }
 
-a { color: var(--green); text-decoration: none; }
+a { color: var(--green-deep); text-decoration: none; }
 a:hover { text-decoration: underline; }
+@media (prefers-color-scheme: dark) { a { color: var(--green); } }
 
 .wrap { max-width: 940px; margin: 0 auto; padding: 24px 18px 72px; }
 
@@ -69,7 +74,7 @@ a:hover { text-decoration: underline; }
 header.site {
   background: var(--surface);
   border-bottom: 3px solid var(--green);
-  box-shadow: inset 0 -6px 0 -3px var(--yellow);
+  box-shadow: inset 0 -6px 0 -3px var(--gold);
 }
 header.site .bar {
   max-width: 940px;
@@ -79,7 +84,7 @@ header.site .bar {
   align-items: center;
   gap: 14px;
 }
-header.site .crest { height: 52px; width: auto; flex: none; }
+header.site .crest { height: 54px; width: auto; flex: none; }
 header.site .titles { flex: 1; min-width: 0; }
 header.site .ministry {
   font-size: 0.63rem;
@@ -91,22 +96,18 @@ header.site .ministry {
 }
 header.site h1 { font-size: 1.02rem; margin: 0; letter-spacing: -0.01em; }
 header.site h1 a { color: var(--ink); }
-header.site .school { margin: 1px 0 0; font-size: 0.8rem; color: var(--green); }
-header.site .motto {
-  margin: 1px 0 0;
-  font-size: 0.72rem;
-  color: var(--muted);
-  font-style: italic;
-}
+header.site .school { margin: 1px 0 0; font-size: 0.8rem; color: var(--green-deep); font-weight: 600; }
+header.site .motto { margin: 1px 0 0; font-size: 0.72rem; color: var(--muted); font-style: italic; }
 header.site nav { margin-left: auto; font-size: 0.84rem; white-space: nowrap; }
 header.site nav a { margin-left: 14px; }
 
-@media (max-width: 560px) {
+@media (max-width: 620px) {
   header.site .crest { height: 40px; }
   header.site .ministry { display: none; }
+  header.site .motto { display: none; }
   header.site nav { width: 100%; margin: 8px 0 0; }
   header.site nav a:first-child { margin-left: 0; }
-  header.site .bar { flex-wrap: wrap; }
+  header.site .bar { flex-wrap: wrap; gap: 10px; }
 }
 
 /* ---- type ---- */
@@ -143,10 +144,8 @@ p.lede { color: var(--muted); margin: 4px 0 20px; }
   white-space: nowrap;
 }
 .tag.plain { background: transparent; border: 1px solid var(--line); color: var(--muted); }
-.tag.gold { background: var(--yellow-soft); color: #6b5f00; border: 1px solid var(--yellow); }
-.tag.alert { background: var(--red-soft); color: var(--red); }
-
-@media (prefers-color-scheme: dark) { .tag.gold { color: var(--yellow); } }
+.tag.gold { background: var(--gold-soft); color: var(--gold-ink); border: 1px solid var(--gold); }
+.tag.alert { background: var(--red-soft); color: var(--red); border: 1px solid var(--red); }
 
 /* ---- progression sheet rows ---- */
 
@@ -156,9 +155,9 @@ p.lede { color: var(--muted); margin: 4px 0 20px; }
   font-size: 0.72rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--green-deep);
-  background: var(--yellow-soft);
-  border: 1px solid var(--yellow);
+  color: var(--gold-ink);
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
   border-radius: 999px;
   padding: 1px 10px;
 }
@@ -171,12 +170,7 @@ p.lede { color: var(--muted); margin: 4px 0 20px; }
   align-items: baseline;
 }
 .lesson:last-child { border-bottom: none; }
-.lesson .num {
-  min-width: 40px;
-  color: var(--muted);
-  font-size: 0.8rem;
-  font-variant-numeric: tabular-nums;
-}
+.lesson .num { min-width: 40px; color: var(--muted); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
 .lesson .title { flex: 1; }
 .lesson.structural .title { color: var(--muted); font-style: italic; }
 
@@ -188,20 +182,20 @@ p.lede { color: var(--muted); margin: 4px 0 20px; }
   font-size: 0.76rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--surface);
+  color: #fff;
   background: var(--green);
   border-radius: 6px;
   padding: 4px 12px;
   display: inline-block;
   margin-bottom: 14px;
 }
-@media (prefers-color-scheme: dark) { .term-head { color: #0d1409; } }
+@media (prefers-color-scheme: dark) { .term-head { color: #0b140a; } }
 
 /* ---- notices ---- */
 
 .notice {
-  background: var(--yellow-soft);
-  border: 1px solid var(--yellow);
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
   border-left: 4px solid var(--green);
   border-radius: var(--radius);
   padding: 18px;
@@ -210,12 +204,7 @@ p.lede { color: var(--muted); margin: 4px 0 20px; }
 .notice.bad { background: var(--red-soft); border-color: var(--red); border-left-color: var(--red); }
 .notice h3 { margin-top: 0; }
 .notice.bad h3 { color: var(--red); }
-.notice code {
-  background: rgba(0,0,0,0.07);
-  padding: 1px 5px;
-  border-radius: 4px;
-  font-size: 0.86rem;
-}
+.notice code { background: rgba(0,0,0,0.07); padding: 1px 5px; border-radius: 4px; font-size: 0.86rem; }
 @media (prefers-color-scheme: dark) { .notice code { background: rgba(255,255,255,0.1); } }
 
 /* ---- forms ---- */
@@ -223,16 +212,17 @@ p.lede { color: var(--muted); margin: 4px 0 20px; }
 label.field { display: block; margin-bottom: 14px; }
 label.field span { display: block; font-size: 0.84rem; color: var(--muted); margin-bottom: 4px; }
 
-input[type="email"], input[type="password"], input[type="text"] {
+input[type="email"], input[type="password"], input[type="text"], select, textarea {
   width: 100%;
   padding: 10px 12px;
   font-size: 1rem;
+  font-family: inherit;
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
 }
-input:focus { outline: 2px solid var(--green); outline-offset: 1px; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--green); outline-offset: 1px; }
 
 button.primary {
   background: var(--green);
@@ -245,18 +235,11 @@ button.primary {
   cursor: pointer;
 }
 button.primary:hover { background: var(--green-deep); }
-@media (prefers-color-scheme: dark) { button.primary { color: #0d1409; } }
+@media (prefers-color-scheme: dark) { button.primary { color: #0b140a; } }
 
-button.link {
-  background: none;
-  border: none;
-  color: var(--green);
-  font-size: 0.84rem;
-  cursor: pointer;
-  padding: 0;
-}
+button.link { background: none; border: none; color: var(--green-deep); font-size: 0.84rem; cursor: pointer; padding: 0; }
+@media (prefers-color-scheme: dark) { button.link { color: var(--green); } }
 
-/* radio pills for the exam-frequency editor: big enough for a thumb */
 .freq { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 .freq label {
   cursor: pointer;
@@ -268,13 +251,8 @@ button.link {
   user-select: none;
 }
 .freq input { position: absolute; opacity: 0; width: 0; height: 0; }
-.freq label:has(input:checked) {
-  background: var(--green);
-  border-color: var(--green);
-  color: #fff;
-  font-weight: 600;
-}
-@media (prefers-color-scheme: dark) { .freq label:has(input:checked) { color: #0d1409; } }
+.freq label:has(input:checked) { background: var(--green); border-color: var(--green); color: #fff; font-weight: 600; }
+@media (prefers-color-scheme: dark) { .freq label:has(input:checked) { color: #0b140a; } }
 
 .row { padding: 13px 0; border-bottom: 1px solid var(--line); }
 .row:last-child { border-bottom: none; }
@@ -286,6 +264,7 @@ button.link {
   bottom: 0;
   background: var(--surface);
   border-top: 2px solid var(--green);
+  box-shadow: 0 -6px 14px rgba(0,0,0,0.05);
   padding: 12px 0;
   margin-top: 20px;
 }

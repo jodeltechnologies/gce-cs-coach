@@ -1,5 +1,7 @@
 import { getSupabase } from "../../../lib/supabase";
 
+export const metadata = { title: "Progression sheet" };
+
 export const dynamic = "force-dynamic";
 
 const KIND_LABEL = {

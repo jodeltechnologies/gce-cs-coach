@@ -1,6 +1,8 @@
 import { createClient } from "../../../lib/supabase-server";
 import { saveExamFrequencies } from "../actions";
 
+export const metadata = { title: "Exam frequency" };
+
 export const dynamic = "force-dynamic";
 
 const OPTIONS = [
