@@ -18,13 +18,10 @@ export default async function AdminHome() {
 
   const { data: teacher } = await supabase
     .from("teachers")
-    .select("full_name, grade")
+    .select("id, full_name, grade")
     .eq("auth_user_id", user?.id ?? "")
     .maybeSingle();
 
-  // Signed in with Supabase but no teachers row: the account exists and the
-  // curriculum is readable, but nothing can be written. Say so plainly rather
-  // than showing an empty page and letting saves fail silently.
   if (!teacher) {
     return (
       <>
@@ -47,15 +44,25 @@ export default async function AdminHome() {
     );
   }
 
-  const { data: competencies } = await supabase
-    .from("competencies")
-    .select("id, exam_frequency, continues_from_id, link_confirmed, syllabus_id");
+  const [{ data: competencies }, { data: classes }] = await Promise.all([
+    supabase
+      .from("competencies")
+      .select("id, exam_frequency, continues_from_id, link_confirmed"),
+    supabase
+      .from("classes")
+      .select("id, name, academic_year")
+      .eq("teacher_id", teacher.id),
+  ]);
 
   const total = competencies?.length ?? 0;
   const withFreq = (competencies ?? []).filter((c) => c.exam_frequency).length;
-  const pendingLinks = (competencies ?? []).filter(
-    (c) => c.continues_from_id && !c.link_confirmed
-  ).length;
+
+  // Distinguish "nothing to decide" from "no links exist at all". The first
+  // version treated both as All decided, which reported success when the
+  // links had simply never loaded.
+  const linked = (competencies ?? []).filter((c) => c.continues_from_id);
+  const pendingLinks = linked.filter((c) => !c.link_confirmed).length;
+  const noLinksLoaded = linked.length === 0;
 
   return (
     <>
@@ -72,11 +79,28 @@ export default async function AdminHome() {
           lets the system tell a student what to revise first.
         </div>
         <div className="tags">
-          <span className={withFreq === total ? "tag" : "tag gold"}>
+          <span className={withFreq === total && total > 0 ? "tag" : "tag gold"}>
             {withFreq} of {total} set
           </span>
           {withFreq < total && (
             <span className="tag plain">{total - withFreq} still empty</span>
+          )}
+        </div>
+      </a>
+
+      <a className="card" href="/admin/classes">
+        <h3>Classes and term planner</h3>
+        <div className="meta">
+          Track a class against its progression sheet: what is taught, how far
+          behind you are, and how many weeks until the next Evaluation.
+        </div>
+        <div className="tags">
+          {classes && classes.length > 0 ? (
+            <span className="tag">
+              {classes.length} {classes.length === 1 ? "class" : "classes"}
+            </span>
+          ) : (
+            <span className="tag gold">No classes yet</span>
           )}
         </div>
       </a>
@@ -88,18 +112,20 @@ export default async function AdminHome() {
           student&apos;s weak areas carry forward from last year.
         </div>
         <div className="tags">
-          {pendingLinks > 0 ? (
+          {noLinksLoaded ? (
+            <span className="tag alert">None loaded — run db/phase2.sql</span>
+          ) : pendingLinks > 0 ? (
             <span className="tag gold">{pendingLinks} awaiting your decision</span>
           ) : (
-            <span className="tag">All decided</span>
+            <span className="tag">{linked.length} confirmed</span>
           )}
         </div>
       </a>
 
       <h3 style={{ marginTop: 34 }}>Not built yet</h3>
       <p className="lede">
-        Students, question bank, marking and the term planner. The term planner
-        is next — it needs nothing that is not already in the database.
+        Students, the question bank and marking. Those need the term planner in
+        use first, so that a mark has a lesson to attach itself to.
       </p>
 
       <form action={signOut} style={{ marginTop: 24 }}>
