@@ -1,0 +1,684 @@
+syllabus:
+  title: Progression Sheet for Information and Communication Technologies for Lower Sixth
+  subject: ICT
+  level: GCE Advanced Level
+  level_short: A/L
+  form_level: Lower Sixth
+  issuing_authority: Regional Delegation for the South West, Inspectorate of Pedagogy in charge of the Teaching of Computer Science
+  scope: regional
+  region: South West
+  version_label: South West Progression (current)
+  effective_from: 2025
+  total_weeks: 36
+  weekly_periods_theory: 6
+  weekly_periods_practical: 2
+  coefficient: 5
+  module_label: Teaching Unit
+  has_modules: true
+  uses_competencies: false          # <- no Category of action column
+  has_competency_statements: false
+  has_practical_stream: true        # <- separate 2-hour column
+
+modules:
+  - {sequence: 1,  title: "Unit 1: Exploring Computer systems"}
+  - {sequence: 2,  title: "Unit 2: Computer Architecture (Hardware)"}
+  - {sequence: 3,  title: "Unit 3: Digital Arithmetic"}
+  - {sequence: 4,  title: "Unit 4: Boolean Logic and Digital Electronics"}
+  - {sequence: 5,  title: "Unit 5: Computer Software"}
+  - {sequence: 6,  title: "Unit 6: File Formats and file security"}
+  - {sequence: 7,  title: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"}
+  - {sequence: 8,  title: "Unit 8: Information Systems (IS)"}
+  - {sequence: 9,  title: "Unit 9: System Development Life Cycle (SDLC)"}
+  - {sequence: 10, title: "Unit 10: Project Management"}
+  - {sequence: 11, title: "Unit 11: Electronic Services"}
+
+lessons:
+  - {lesson_no: 1, title: "Diagnostic Evaluations, Remediation and Presentation of annual program", kind: diagnostic_evaluation, module: "Unit 1: Exploring Computer systems", term: 1, week: 1}
+  - lesson_no: 2
+    lesson_no_end: 3
+    title: History and Evolution of computers
+    module: "Unit 1: Exploring Computer systems"
+    term: 1
+    week: 1
+    content_points:
+      - Generations of Computers
+  - {lesson_no: 4, title: "Practical: Identify software and Hardware", kind: practical, module: "Unit 1: Exploring Computer systems", term: 1, week: 1}
+  - lesson_no: 5
+    lesson_no_end: 6
+    title: Definition, types and uses of computing systems
+    module: "Unit 1: Exploring Computer systems"
+    term: 1
+    week: 2
+    content_points:
+      - "Commercial and general data processing systems, e.g. banking systems, hospital administration, personnel records systems, stock control systems, order processing systems"
+  - lesson_no: 7
+    printed_as: "5 & 7"
+    title: Communication and Information Systems
+    module: "Unit 1: Exploring Computer systems"
+    term: 1
+    week: 2
+    content_points:
+      - "Internet, video conferencing, electronic mail, information retrieval systems, home based communication systems, office automation and library systems"
+  - {lesson_no: 8, title: "Practical: computer system", kind: practical, module: "Unit 1: Exploring Computer systems", term: 1, week: 2}
+  - lesson_no: 9
+    lesson_no_end: 10
+    title: Application and examples of some computer systems
+    module: "Unit 1: Exploring Computer systems"
+    term: 1
+    week: 3
+    content_points:
+      - "Automation, control systems, embedded systems, and robotics"
+      - "Monitoring patients in hospitals, chemical process control, traffic control, domestic equipment, automatic navigation systems and industrial robots"
+  - lesson_no: 11
+    title: Industrial, Technical and scientific application of Computing systems
+    module: "Unit 1: Exploring Computer systems"
+    term: 1
+    week: 3
+    content_points:
+      - "Weather forecasting, computer aided design and manufacture, image processing and industrial inspection systems, simulation and modelling"
+  - {lesson_no: 12, title: "Practical: Word processing", kind: practical, module: "Unit 1: Exploring Computer systems", term: 1, week: 3}
+
+  - lesson_no: 13
+    title: Computing applications in the arts and the media
+    module: "Unit 2: Computer Architecture (Hardware)"
+    term: 1
+    week: 4
+    content_points:
+      - "Applications in music, computer graphics and animation for television and film, production of newspapers"
+  - lesson_no: 14
+    lesson_no_end: 15
+    title: Computer organization (Basic Components of a Computer)
+    module: "Unit 2: Computer Architecture (Hardware)"
+    term: 1
+    week: 4
+    content_points:
+      - Classification and description of hardware components (input, processing, output, and storage components)
+  - {lesson_no: 16, title: "Practical: Presentation", kind: practical, module: "Unit 2: Computer Architecture (Hardware)", term: 1, week: 4}
+  - lesson_no: 17
+    title: Description of peripheral devices and data handling media device
+    module: "Unit 2: Computer Architecture (Hardware)"
+    term: 1
+    week: 4
+  - lesson_no: 18
+    title: Processor architecture
+    module: "Unit 2: Computer Architecture (Hardware)"
+    term: 1
+    week: 4
+    content_points:
+      - "Description of processor configuration; control unit; ALU; registers; bus type, role and size"
+  - lesson_no: 19
+    title: Classification of computers based on processor architecture
+    module: "Unit 2: Computer Architecture (Hardware)"
+    term: 1
+    week: 4
+    content_points:
+      - "RISC and CISC machines; SISD, SIMD, MIMD"
+  - {lesson_no: 20, title: "Practical: Presentation", kind: practical, module: "Unit 2: Computer Architecture (Hardware)", term: 1, week: 4}
+  - lesson_no: 21
+    title: Identify assorted computer types
+    module: "Unit 2: Computer Architecture (Hardware)"
+    term: 1
+    week: 5
+    content_points:
+      - "Mainframe, mini and microcomputers, and parallel and distributed computing"
+  - lesson_no: 22
+    lesson_no_end: 23
+    title: Primary and Secondary storage
+    module: "Unit 2: Computer Architecture (Hardware)"
+    term: 1
+    week: 5
+    content_points:
+      - Differentiate between storage devices and storage media
+      - "Functions and characteristics of storage devices and media: RAM, ROM, CD ROM, disks and tapes, memory card readers, USB ports"
+      - "The role of memory systems: RAM, DRAM, SRAM, ROM, PROM, EPROM, EEPROM, cache, virtual memory"
+      - Performance and characteristics of storage devices (storage hierarchy based on speed and size)
+      - "Units of storage: bits, bytes, kilobytes, MB, GB, terabytes, and conversion between them"
+  - {lesson_no: 24, title: "Practical: Presentation", kind: practical, module: "Unit 2: Computer Architecture (Hardware)", term: 1, week: 5}
+  - {title: "Integration activities and Evaluation 1", kind: evaluation, module: "Unit 2: Computer Architecture (Hardware)", term: 1, week: 6}
+  - lesson_no: 25
+    title: Machine Cycle
+    module: "Unit 2: Computer Architecture (Hardware)"
+    term: 1
+    week: 7
+    content_points:
+      - Description of fetch, decode, execute and store stages
+  - lesson_no: 26
+    lesson_no_end: 27
+    title: Data capture
+    module: "Unit 2: Computer Architecture (Hardware)"
+    term: 1
+    week: 7
+    content_points:
+      - "Classifying data capture devices: manual and automatic (MICR, OMR, OCR, barcode reader)"
+  - {lesson_no: 28, title: "Practical: Presentation", kind: practical, module: "Unit 2: Computer Architecture (Hardware)", term: 1, week: 7}
+
+  - lesson_no: 29
+    title: Data Representation
+    module: "Unit 3: Digital Arithmetic"
+    term: 1
+    week: 8
+    content_points:
+      - "Coding schemes (ASCII, EBCDIC, BCD, Unicode)"
+      - "Measuring units: bit, nibble, byte, word, word size"
+  - lesson_no: 30
+    lesson_no_end: 31
+    title: Number systems
+    module: "Unit 3: Digital Arithmetic"
+    term: 1
+    week: 8
+    content_points:
+      - Positional number system
+      - Base conversion, e.g. base 2 to 8, 10, 16 and vice versa
+  - {lesson_no: 32, title: "Practical: Presentation", kind: practical, module: "Unit 3: Digital Arithmetic", term: 1, week: 8}
+  - lesson_no: 33
+    lesson_no_end: 34
+    title: Binary arithmetic and Complement Representation
+    module: "Unit 3: Digital Arithmetic"
+    term: 1
+    week: 9
+    content_points:
+      - Addition, subtraction, multiplication, and division
+      - "Unsigned and signed numbers (one's complement, two's complement)"
+
+  - lesson_no: 35
+    title: Boolean Logic and Logic Gates
+    module: "Unit 4: Boolean Logic and Digital Electronics"
+    term: 1
+    week: 9
+    content_points:
+      - "Identify and sketch logic gate symbols: OR, AND, NOT, NAND, NOR, XOR"
+      - Derive the truth table for each logic gate
+  - {lesson_no: 36, title: "Practical: Presentation", kind: practical, module: "Unit 4: Boolean Logic and Digital Electronics", term: 1, week: 9}
+  - lesson_no: 37
+    title: Combining logic gates
+    module: "Unit 4: Boolean Logic and Digital Electronics"
+    term: 1
+    week: 10
+    content_points:
+      - Combine logic gates to form a logic circuit
+      - Understanding Boolean algebra and Boolean expression
+  - lesson_no: 38
+    lesson_no_end: 39
+    title: Truth table and De Morgan theorem
+    module: "Unit 4: Boolean Logic and Digital Electronics"
+    term: 1
+    week: 10
+    content_points:
+      - Derive truth tables from Boolean expressions (maximum of 3 inputs)
+      - State and explain De Morgan's theorem
+      - Simplify Boolean expressions using De Morgan theorem
+  - {lesson_no: 40, title: "Practical: Presentation", kind: practical, module: "Unit 4: Boolean Logic and Digital Electronics", term: 1, week: 10}
+
+  - lesson_no: 41
+    title: Definitions and Classification of software
+    module: "Unit 5: Computer Software"
+    term: 1
+    week: 11
+    content_points:
+      - Based on source (open versus proprietary)
+      - Based on licence (shareware versus freeware)
+  - lesson_no: 42
+    lesson_no_end: 43
+    title: "Categorization of software: application software and examples"
+    module: "Unit 5: Computer Software"
+    term: 1
+    week: 11
+    content_points:
+      - "Identify application packages and classify into custom made (bespoke), specialist software, general purpose or generic packages e.g. spreadsheet, database, information retrieval packages"
+  - {lesson_no: 44, title: "Practical: Presentation", kind: practical, module: "Unit 5: Computer Software", term: 1, week: 11}
+  - {title: "Integration activities and Evaluation 2", kind: evaluation, module: "Unit 5: Computer Software", term: 1, week: 12}
+  - lesson_no: 45
+    title: System software
+    module: "Unit 5: Computer Software"
+    term: 2
+    week: 13
+    content_points:
+      - "The need for system software and examples (operating system, utility, device drivers, language translators: compiler, interpreter, assembler)"
+  - lesson_no: 46
+    title: Operating systems (OS)
+    module: "Unit 5: Computer Software"
+    term: 2
+    week: 13
+    content_points:
+      - History and evolution of operating systems
+  - lesson_no: 47
+    title: Types of OS
+    module: "Unit 5: Computer Software"
+    term: 2
+    week: 13
+    content_points:
+      - "Describe types of OS: batch, online, multi-access, real time transaction processing, network OS, process control"
+      - Distinguish between multitasking, multiprogramming and multiprocessing operating systems
+  - {lesson_no: 48, title: "Practical: Presentation", kind: practical, module: "Unit 5: Computer Software", term: 2, week: 13}
+  - lesson_no: 49
+    lesson_no_end: 50
+    title: Functions of the operating system
+    module: "Unit 5: Computer Software"
+    term: 2
+    week: 14
+    content_points:
+      - "Device management (interrupt, polling, buffering, spooling, handshaking)"
+      - Memory management and file management
+      - Process management
+      - "Process scheduling strategies: pre-emptive and non-pre-emptive"
+      - "Scheduling algorithms: First Come First Served, Shortest Job First, Shortest Remaining Time, Round Robin"
+      - Processor sharing concepts (multitasking and multiprogramming)
+  - lesson_no: 51
+    title: Operating system user interfaces
+    module: "Unit 5: Computer Software"
+    term: 2
+    week: 14
+    content_points:
+      - "Describe the features: GUI, command driven interface, menu driven, natural language or voice recognition"
+      - Identify the strengths and weaknesses of each
+      - Choosing the best interface for a user
+  - {lesson_no: 52, title: "Practical: Presentation", kind: practical, module: "Unit 5: Computer Software", term: 2, week: 14}
+  - lesson_no: 53
+    title: Server Concepts
+    module: "Unit 5: Computer Software"
+    term: 2
+    week: 15
+    content_points:
+      - Properties of stand-alone and server OS
+      - Setting up OS to connect to wired and wireless network
+      - Setting up OS to avoid unauthorized access into the system
+  - lesson_no: 54
+    title: Utility Software
+    module: "Unit 5: Computer Software"
+    term: 2
+    week: 15
+    content_points:
+      - Types and role of utility software in system performance
+      - "e.g. disk defragmenter, virus checker, file compression, disk cleaner"
+  - lesson_no: 55
+    title: Graphic software
+    module: "Unit 5: Computer Software"
+    term: 2
+    week: 15
+    content_points:
+      - Uses of bitmap and vector graphics
+      - Identify the advantages and disadvantages of each type
+  - {lesson_no: 56, title: "Practical: Presentation", kind: practical, module: "Unit 5: Computer Software", term: 2, week: 15}
+
+  - lesson_no: 57
+    title: File and Data Security
+    module: "Unit 6: File Formats and file security"
+    term: 2
+    week: 16
+    content_points:
+      - "Backup, transaction logs, archive files, data integrity, access right management, physical protection, disaster planning, user id, passwords, encryption"
+  - lesson_no: 58
+    title: File compression
+    module: "Unit 6: File Formats and file security"
+    term: 2
+    week: 16
+    content_points:
+      - Compression methods and file systems
+      - Advantages of compressing a file
+  # Printed as "Lesson 99" on the sheet, between 58 and 60. Corrected to 59.
+  - lesson_no: 59
+    printed_as: "99"
+    title: File Format
+    module: "Unit 6: File Formats and file security"
+    term: 2
+    week: 16
+    content_points:
+      - Importance of file formats and popular file formats
+      - "Bitmap e.g. JPEG, TIFF, GIF"
+      - "Vector e.g. PNG, CGM, EPS, SVG"
+  - {lesson_no: 60, title: "Practical: Presentation", kind: practical, module: "Unit 6: File Formats and file security", term: 2, week: 16}
+  - lesson_no: 61
+    title: File Format (continued)
+    module: "Unit 6: File Formats and file security"
+    term: 2
+    week: 17
+    content_points:
+      - "Sound e.g. WAV, MP3, MP4"
+      - "Video e.g. AVI, MPEG; text e.g. PDF, DOC"
+      - "Common application file formats e.g. database (DBF, MDB), spreadsheet (XLS)"
+      - "Hypermedia e.g. HTML, SGML, XML"
+  - lesson_no: 62
+    lesson_no_end: 63
+    title: Ergonomics
+    module: "Unit 6: File Formats and file security"
+    term: 2
+    week: 17
+    content_points:
+      - Explain ergonomics
+      - Notion of good and comfortable working environment for computer users
+      - "Computer related health hazards (RSI, CTS, eye strain) and preventive measures"
+  - {lesson_no: 64, title: "Practical: Presentation", kind: practical, module: "Unit 6: File Formats and file security", term: 2, week: 17}
+  - {title: "Integration activities and Evaluation 3", kind: evaluation, module: "Unit 6: File Formats and file security", term: 2, week: 18}
+
+  - lesson_no: 65
+    title: Social and economic effects on people and organization
+    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
+    term: 2
+    week: 19
+    content_points:
+      - Changes to existing methods, products, services, working environment, employment
+  - lesson_no: 66
+    lesson_no_end: 67
+    title: System security, reliability and resilience
+    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
+    term: 2
+    week: 19
+    content_points:
+      - Explain system security, reliability, and resilience
+      - The importance of safe working practices, privacy and data integrity
+      - Identify the consequence of system failure
+  - {lesson_no: 68, title: "Practical: Presentation", kind: practical, module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers", term: 2, week: 19}
+  - lesson_no: 69
+    title: Computer crime and Protection
+    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
+    term: 2
+    week: 20
+    content_points:
+      - "Unauthorized access to confidential data, frauds, unauthorized copying of copyrighted materials, plagiarism, illegal storage and use of personal data"
+      - "Preventive measures: physical security, security codes, password, encryption, biometrics, monitoring access attempts"
+  - lesson_no: 70
+    title: Natural and software threats to computer systems
+    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
+    term: 2
+    week: 20
+    content_points:
+      - "Natural threats (fire, flood)"
+      - "Software threats: malware, virus, worm, trojan horse, logic bomb"
+      - Preventive measures
+  - lesson_no: 71
+    title: Professional, ethical, and moral obligations of users and managers
+    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
+    term: 2
+    week: 20
+    content_points:
+      - Describe the ethical and moral obligations of users and managers of computerized information systems
+  - {lesson_no: 72, title: "Practical: Spreadsheet", kind: practical, module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers", term: 2, week: 20}
+  - lesson_no: 73
+    title: Need for privacy and integrity of personal or sensitive data
+    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
+    term: 2
+    week: 21
+    content_points:
+      - Measures to prevent sharing of personal data on the internet
+      - Explain the need for standard of conduct
+  - lesson_no: 74
+    title: "Requirements of some professional codes of conduct: BCS, IEEE, ACM"
+    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
+    term: 2
+    week: 21
+  - lesson_no: 75
+    title: Legislation and Effects of global communication
+    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
+    term: 2
+    week: 21
+    content_points:
+      - Explain laws to prohibit hacking, copying of copyrighted material and storage of personal data
+  - {lesson_no: 76, title: "Practical: Spreadsheet", kind: practical, module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers", term: 2, week: 21}
+
+  - lesson_no: 77
+    lesson_no_end: 78
+    title: Data protection Act and Global communication Effect
+    module: "Unit 8: Information Systems (IS)"
+    term: 2
+    week: 22
+    content_points:
+      - Data protection act of 2004 (UK) and distribution of anti-social materials
+      - "Effects of global communication on citizenship, cultural issues, and digital divide"
+  - lesson_no: 79
+    title: Architectural requirements of an IS
+    module: "Unit 8: Information Systems (IS)"
+    term: 2
+    week: 22
+    content_points:
+      - Describe a system and an information system
+      - "Distinguish between natural and artificial systems, data and information, manual and computer-based information systems"
+      - "Outline the activities of an IS: input, processing, output, storage, and distribution"
+  - {lesson_no: 80, title: "Practical: Spreadsheet", kind: practical, module: "Unit 8: Information Systems (IS)", term: 2, week: 22}
+  - lesson_no: 81
+    lesson_no_end: 83
+    title: Role of IS in an Organization
+    module: "Unit 8: Information Systems (IS)"
+    term: 2
+    week: 23
+    content_points:
+      - Components of an IS
+      - Illustrate the hierarchical structure of an organisation and describe the IS used at each level
+      - "The need of an IS at operational, tactical, and strategic levels"
+      - "Key features of GIS, HIS, LIS, TPS, MIS, DSS, EIS and area of application of each"
+  - {lesson_no: 84, title: "Practical: Spreadsheet", kind: practical, module: "Unit 8: Information Systems (IS)", term: 2, week: 23}
+  - {title: "Integration activities and Evaluation 4", kind: evaluation, module: "Unit 8: Information Systems (IS)", term: 2, week: 24}
+  - lesson_no: 85
+    title: The role of MIS in planning
+    module: "Unit 8: Information Systems (IS)"
+    term: 3
+    week: 25
+    content_points:
+      - Decision making and organization of a company
+      - Factors affecting the success or failure of MIS
+  - lesson_no: 86
+    lesson_no_end: 87
+    title: Introduction to Artificial Intelligence (AI)
+    module: "Unit 8: Information Systems (IS)"
+    term: 3
+    week: 25
+    content_points:
+      - "Cognitive science application (expert systems, learning systems)"
+      - "Robotics application (visual perception, tactility)"
+      - "Natural interface application (natural languages, speech recognition)"
+  # The sheet numbers two consecutive rows as Lesson 87. Renumbered to 87b.
+  - lesson_no: 87
+    printed_as: "87 (duplicate)"
+    suffix: b
+    title: Real life application of Artificial Intelligence
+    module: "Unit 8: Information Systems (IS)"
+    term: 3
+    week: 25
+    content_points:
+      - "In education, health, banking, company, home"
+  - {lesson_no: 88, title: "Practical: Spreadsheet", kind: practical, module: "Unit 8: Information Systems (IS)", term: 3, week: 25}
+  - lesson_no: 89
+    title: Robotics Application
+    module: "Unit 8: Information Systems (IS)"
+    term: 3
+    week: 26
+    content_points:
+      - Uses in manufacturing, health, home
+      - Advantages and limitations of robots
+  - lesson_no: 90
+    title: Knowledge-based system (Expert system)
+    module: "Unit 8: Information Systems (IS)"
+    term: 3
+    week: 26
+    content_points:
+      - Components, application, and examples
+      - Advantages and disadvantages
+  - lesson_no: 91
+    title: Introduction to Simulation
+    module: "Unit 8: Information Systems (IS)"
+    term: 3
+    week: 26
+    content_points:
+      - Definition, application in real life systems or situations
+      - Advantages and limitations
+  - {lesson_no: 92, title: "Practical: Spreadsheet", kind: practical, module: "Unit 8: Information Systems (IS)", term: 3, week: 26}
+
+  - lesson_no: 93
+    title: Virtual reality (VR) and Augmented Reality (AR)
+    module: "Unit 9: System Development Life Cycle (SDLC)"
+    term: 3
+    week: 27
+    content_points:
+      - Description and role of VR and AR
+      - Compare AR and VR with examples of each
+  - lesson_no: 94
+    lesson_no_end: 95
+    title: Phases of SDLC
+    module: "Unit 9: System Development Life Cycle (SDLC)"
+    term: 3
+    week: 27
+    content_points:
+      - "Investigation: problem identification, data collection, feasibility study (economic, technical, operational, organisational, schedule)"
+      - "Analysis: detailed study of old system, functional requirement analysis, user and technical documentation"
+      - "Design: user interface design, data design, process design"
+      - "Development: developing software, integration of modules, unit, system and integration testing"
+  - {lesson_no: 96, title: "Practical: Spreadsheet", kind: practical, module: "Unit 9: System Development Life Cycle (SDLC)", term: 3, week: 27}
+  - lesson_no: 97
+    title: System Implementation and Maintenance
+    module: "Unit 9: System Development Life Cycle (SDLC)"
+    term: 3
+    week: 28
+    content_points:
+      - "Implementation strategies: direct (plunge), parallel, phased (piecemeal), and pilot"
+      - Advantages and disadvantages of each type
+      - "Maintenance: debugging, corrective, adaptive maintenance"
+  - lesson_no: 98
+    lesson_no_end: 99
+    title: SDLC Models
+    module: "Unit 9: System Development Life Cycle (SDLC)"
+    term: 3
+    week: 28
+    content_points:
+      - "Describe waterfall, V-shape, prototyping, spiral models"
+      - Waterfall versus V-shape model
+  - {lesson_no: 100, title: "Practical: Spreadsheet", kind: practical, module: "Unit 9: System Development Life Cycle (SDLC)", term: 3, week: 28}
+  - {title: "Integration activities", kind: integration_activity, module: "Unit 9: System Development Life Cycle (SDLC)", term: 3, week: 29}
+  - {title: "Integration activities and Evaluation 5", kind: evaluation, module: "Unit 9: System Development Life Cycle (SDLC)", term: 3, week: 30}
+
+  - lesson_no: 101
+    title: Project Management
+    module: "Unit 10: Project Management"
+    term: 3
+    week: 31
+    content_points:
+      - Define a project and project management
+      - "Explain project management concepts: task, predecessor, successor, slack task/time, lag, lead, milestone, critical path/task, early finish, late finish, early start, late start"
+  - lesson_no: 102
+    title: Project constraints and Role of project management team
+    module: "Unit 10: Project Management"
+    term: 3
+    week: 31
+    content_points:
+      - Scope, time, and cost
+      - Identify the roles and responsibilities of project management team members
+  - lesson_no: 103
+    title: Project management phases
+    module: "Unit 10: Project Management"
+    term: 3
+    week: 31
+    content_points:
+      - "Describe the activities of project initiation, planning, execution, control and monitoring, reporting stages"
+  - {lesson_no: 104, title: "Practical: Web Authoring", kind: practical, module: "Unit 10: Project Management", term: 3, week: 31}
+  - lesson_no: 105
+    lesson_no_end: 107
+    title: Project control and scheduling methods
+    module: "Unit 10: Project Management"
+    term: 3
+    week: 32
+    content_points:
+      - "PERT chart, critical path analysis; use the network diagram to determine project deadline, slack or float (free and total), critical path and tasks"
+      - Gantt chart
+      - Critical Path Method (CPM)
+      - "Differences between PERT and Gantt; advantages and disadvantages of PERT and CPM"
+  - {lesson_no: 108, title: "Practical: Web Authoring", kind: practical, module: "Unit 10: Project Management", term: 3, week: 32}
+
+  - lesson_no: 109
+    title: E-commerce
+    module: "Unit 11: Electronic Services"
+    term: 3
+    week: 33
+    content_points:
+      - Definition and types
+      - "E-commerce forms (B2C, B2B)"
+      - Medium of purchase, fund transfer
+      - Advantages and disadvantages
+  - lesson_no: 110
+    title: E-banking
+    module: "Unit 11: Electronic Services"
+    term: 3
+    week: 33
+    content_points:
+      - Describe e-banking activities
+      - "Types: usefulness of ATM, POS, and Internet banking transactions"
+      - Advantages and disadvantages of e-banking to banks and customers
+  - lesson_no: 111
+    title: E-Health
+    module: "Unit 11: Electronic Services"
+    term: 3
+    week: 33
+    content_points:
+      - Define e-health and its applications
+      - "Role, advantages and disadvantages of e-health technologies e.g. medical information system, telemedicine, electronic medical records system"
+  - {lesson_no: 112, title: "Practical: Web Authoring", kind: practical, module: "Unit 11: Electronic Services", term: 3, week: 33}
+  - lesson_no: 113
+    title: Computer Assisted Learning (CAL)
+    module: "Unit 11: Electronic Services"
+    term: 3
+    week: 34
+    content_points:
+      - Define CAL
+      - "Methods of course delivery e.g. servers, CD-ROM, didactic resources (e-books)"
+      - Advantages and limitations
+  - lesson_no: 114
+    lesson_no_end: 115
+    title: E-government
+    module: "Unit 11: Electronic Services"
+    term: 3
+    week: 34
+    content_points:
+      - Define e-government
+      - "Describe forms: e-governance, e-taxation, e-vote"
+      - Implication of e-government to the government and citizens
+  - {lesson_no: 116, title: "Practical: Web Authoring", kind: practical, module: "Unit 11: Electronic Services", term: 3, week: 34}
+  - {title: "Integration activities", kind: integration_activity, module: "Unit 11: Electronic Services", term: 3, week: 35}
+  - {title: "Integration activities and Evaluation 6", kind: evaluation, module: "Unit 11: Electronic Services", term: 3, week: 36}
+
+practical_sections:
+  - sequence: 1
+    title: "Section 1: Computer system"
+    workbook_ref: See PRACTICAL WORKBOOK
+    tasks:
+      - {term: 1, week: 1, description: Identify and describe hardware installed and their role}
+      - {term: 1, week: 1, description: Differentiating between the system and application software installed}
+      - {term: 1, week: 2, description: "Managing files using input devices (mouse, keyboard); creating, naming and renaming folders"}
+  - sequence: 2
+    title: "Working with Application software: Microsoft Word"
+    tasks:
+      - {term: 1, week: 3, description: Open MS Word and save the file in a specified location}
+      - {term: 1, week: 3, description: "Inputting text, pictures, shapes; format and edit text; find and replace text"}
+      - {term: 1, week: 3, description: "Working with page layout; add headers and footers; inserting and formatting tables and shapes; printing"}
+  - sequence: 3
+    title: "Section 2: Presentation Software"
+    workbook_ref: See practical workbook
+    tasks:
+      - {term: 1, week: 4, description: "Describe main features of presentation software; select a suitable template, scheme and layout; create and save a new presentation"}
+      - {term: 1, week: 4, description: "Opening an existing presentation; explain the features of tab commands (home, insert, design, transitions)"}
+      - {term: 1, week: 5, description: "Add and format text; create a new slide; change font format; apply bulleted or numbered lists; add images and shapes; use Format Painter"}
+      - {term: 1, week: 7, description: "Insert charts; format chart elements (series, axes, titles, data labels, legend, plot area)"}
+      - {term: 1, week: 9, description: "Apply text outline or text effect; change chart elements and layout; edit data series"}
+      - {term: 1, week: 10, description: "Use chart button to label data; improve appearance; hide and show series and categories"}
+      - {term: 1, week: 11, description: "Change layout of chart elements (add, remove, position labels, axis titles, legends, trend lines); apply chart styles"}
+      - {term: 2, week: 14, description: "Working with SmartArt: insert, add text, add shapes, change position, flip, format"}
+      - {term: 2, week: 15, description: "Working with tables: insert, add rows and columns, apply styles, merge and split cells, adjust size, format data"}
+      - {term: 2, week: 16, description: "Importing into PowerPoint: object linking and embedding (OLE); embed Word tables and Excel tables and charts; link Excel charts"}
+      - {term: 2, week: 17, description: "Delivering your presentation: create a custom show; apply animation to text and graphics; timing; running a slide show"}
+      - {term: 2, week: 19, description: "Shapes and picture enhancements: draw, resize, edit, reposition, merge, align, connect shapes; adjust picture appearance, border, style, cropping"}
+  - sequence: 4
+    title: "Section 3: Spreadsheet"
+    workbook_ref: Practical manual
+    tasks:
+      - {term: 2, week: 20, description: "Explain basic spreadsheet concepts (workbook, worksheet, sheet tabs, active sheet); introduction to MS Excel; features of the displayed screen; switching between worksheets"}
+      - {term: 2, week: 21, description: "Cell references: distinguish relative and absolute; add or remove rows and columns; format cell entries and cells including conditional formatting"}
+      - {term: 2, week: 22, description: "Data entry and editing: autofill, copy and paste, drag and drop, saving a workbook, editing and clearing cell contents, undo; modifying columns and rows"}
+      - {term: 2, week: 23, description: "Formatting text: alignment, merging cells, underline, bold, italic, font type, size and colour; number formatting including accounting, percentage and decimal places"}
+      - {term: 3, week: 25, description: "Spreadsheet functions for financial and statistical analysis: MAX, MIN, SUM, AVERAGE, COUNT, PRODUCT"}
+      - {term: 3, week: 26, description: "IF function, SUMIF, COUNTIF, SUMPRODUCT, nested IF"}
+      - {term: 3, week: 27, description: "RANK, ROUND, CONCATENATE, VLOOKUP and HLOOKUP"}
+      - {term: 3, week: 28, description: "Represent data on a chart; format the chart; adjust labels, legend, titles; change chart type; swap rows and columns; link Excel formulae between worksheets; add Excel charts to Word or PowerPoint"}
+  - sequence: 5
+    title: Web Authoring
+    tasks:
+      - {term: 3, week: 29, description: Web authoring}
+      - {term: 3, week: 31, description: Web authoring}
+      - {term: 3, week: 32, description: Web authoring}
+      - {term: 3, week: 33, description: Web authoring}
+      - {term: 3, week: 34, description: Web authoring}

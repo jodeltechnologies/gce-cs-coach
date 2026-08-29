@@ -1,0 +1,787 @@
+syllabus:
+  title: Annual Harmonised Progression Sheet for Computer Science Form 4
+  subject: Computer Science
+  level: GCE Ordinary Level
+  level_short: O/L
+  form_level: Form 4
+  issuing_authority: Inspectorate General of Education, Inspectorate of Pedagogy in charge of the Teaching of Computer Science
+  scope: national
+  version_label: Harmonised Progression (current)
+  effective_from: 2025
+  total_weeks: 36
+  weekly_periods_theory: 3
+  coefficient: 3
+  has_modules: true
+  uses_competencies: true
+  has_competency_statements: true
+  has_practical_stream: false
+
+modules:
+  - {sequence: 1, title: Problem solving and coding 2}
+  - {sequence: 2, title: Data manipulation 1}
+  - {sequence: 3, title: Hardware and software systems 2}
+  - {sequence: 4, title: "Ethics, society and legal issues 2"}
+
+competencies:
+  - sequence: 1
+    category: Using control structures
+    module: Problem solving and coding 2
+    statement: >-
+      Given an algorithmic problem that requires the use of control structures,
+      learners produce algorithms that use the appropriate control structure to
+      solve the problem.
+  - sequence: 2
+    category: Testing and debugging
+    module: Problem solving and coding 2
+    statement: >-
+      Given an algorithm, learners evaluate its semantic correctness using the
+      dry-run technique and propose a way of fixing errors if any.
+  - sequence: 3
+    category: Setting up a programming environment
+    module: Problem solving and coding 2
+    statement: >-
+      Given a problem, learners select the appropriate tools for programming and
+      install them.
+  - sequence: 4
+    category: Writing of source code
+    module: Problem solving and coding 2
+    statement: >-
+      Given an algorithm, learners transform it into a syntactically and
+      semantically correct program.
+  - sequence: 5
+    category: Operations on number systems
+    module: Data manipulation 1
+    statement: >-
+      Presented with a situation that involves number systems, learners apply
+      appropriate operations on number systems to solve the problem.
+  - sequence: 6
+    category: Analysing simple logic circuits
+    module: Data manipulation 1
+    statement: >-
+      Learners analyse a situation concerning logic circuits and determine the
+      correct outputs and truth tables of the different elements used in the
+      circuit.
+  - sequence: 7
+    category: Optimising computer performance
+    module: Hardware and software systems 2
+    statement: >-
+      Provided with a situation with issues related to optimising a computer,
+      learners propose methods of optimising the computer which are coherent
+      with the situation.
+  - sequence: 8
+    category: Choosing appropriate peripheral devices
+    module: Hardware and software systems 2
+    statement: >-
+      Learners select appropriate peripheral devices based on a situation or
+      context. Clear justification of the choice should be made.
+  - sequence: 9
+    category: Calculating storage space
+    module: Hardware and software systems 2
+    statement: >-
+      Given a problem with factors related to storage space and units, learners
+      determine the cause and solution to the problem showing clearly how they
+      achieved the proposed conclusions.
+  - sequence: 10
+    category: Carrying out basic computer maintenance
+    module: Hardware and software systems 2
+    statement: >-
+      When presented with a situation involving issues with a computer, learners
+      propose possible causes and possible methods to fix such issues.
+  - sequence: 11
+    category: Creating digital content
+    module: Hardware and software systems 2
+    statement: >-
+      Faced with a situation related to the creation and editing of digital
+      content, learners propose a variety of tools that can be used to solve the
+      problem and produce digital content using an appropriate tool.
+  - sequence: 12
+    category: Producing word processed documents
+    module: Hardware and software systems 2
+    statement: >-
+      Given a task that is related to using a word processor to produce or
+      reproduce content, learners use appropriate features of a word processor
+      to achieve the task.
+  - sequence: 13
+    category: Manipulating spreadsheets
+    module: Hardware and software systems 2
+    statement: >-
+      Given tasks that is related to spreadsheets and with appropriate guidance,
+      learners choose functions or spreadsheet features that are coherent with
+      the tasks and apply them correctly on spreadsheet software.
+  - sequence: 14
+    category: Understanding embedded system IoT and Cloud Computing
+    module: Hardware and software systems 2
+    statement: >-
+      Given a situation with factors related to IoT and embedded systems,
+      learners identify the correct type of sensors used in the situation and
+      their role.
+  - sequence: 15
+    category: Practising netiquette rules
+    module: Ethics, society and legal issues 2
+    statement: >-
+      Placed in a context that requires communicating with others, learners
+      determine and apply appropriate behavioural norms that respect others and
+      their cultural and generational diversities.
+  - sequence: 16
+    category: Appraising National and International Laws on Cybersecurity
+    module: Ethics, society and legal issues 2
+    statement: >-
+      Learners state national and international laws or acts that are related to
+      protecting and regulating activities in the cyberspace.
+  - sequence: 17
+    category: Evaluating the credibility and reliability of information
+    module: Ethics, society and legal issues 2
+    statement: >-
+      Given a problem with factors related to the reliability and credibility of
+      information, learners propose strategies of verifying the information. The
+      strategies proposed should be pertinent, coherent, and logical.
+  - sequence: 18
+    category: Avoiding computer related health issues
+    module: Ethics, society and legal issues 2
+    statement: >-
+      Given a problem or a situation related to avoiding computer related issues,
+      learners evaluate the workplace, practices and habits of users based on
+      standards and report on elements to reinforce and elements to adjust. The
+      recommendations should express appropriate practices and health issues that
+      can arise for not respecting these practices.
+
+lessons:
+  - {title: Diagnostic evaluation, kind: diagnostic_evaluation, term: 1, week: 1}
+
+  - lesson_no: 1
+    title: Sequence and selection control structure
+    competency: Using control structures
+    term: 1
+    week: 1
+    objectives:
+      - Explain how sequence and selection control structures work
+      - Illustrate the functioning of sequence and selection control structures with a flowchart
+      - Write simple algorithms that make use of a selection control structure
+  - lesson_no: 2
+    title: Multiple selection constructs
+    competency: Using control structures
+    term: 1
+    week: 1
+    objectives:
+      - Explain how the different types of multiple selection constructs work
+      - Illustrate the functioning of the different multiple selection constructs
+      - Write algorithms that make use of multiple selection control structures
+  - lesson_no: 3
+    title: Iterative constructs
+    competency: Using control structures
+    term: 1
+    week: 2
+    objectives:
+      - Identify situations where an iterative or loop control structure is needed
+      - Describe the 4 main parts of a loop
+      - Explain advantages and disadvantages of iterative control structures
+  - lesson_no: 4
+    title: Definite iterative constructs
+    competency: Using control structures
+    term: 1
+    week: 2
+    objectives:
+      - Choose correctly when to use a definite iteration
+      - Build definite iterations that are coherent with a given context
+      - Write simple algorithms that make use of definite iteration
+  - lesson_no: 5
+    title: Indefinite iterative constructs
+    competency: Using control structures
+    term: 1
+    week: 2
+    objectives:
+      - Differentiate between pretest and posttest indefinite iterations
+      - Illustrate the functioning of indefinite iterations using a flowchart
+      - Write simple algorithms that make use of indefinite iteration
+  - {lesson_no: 6, title: Integration activities, kind: integration_activity, competency: Using control structures, term: 1, week: 3}
+
+  - lesson_no: 7
+    title: Notions on testing and debugging
+    competency: Testing and debugging
+    term: 1
+    week: 3
+    objectives:
+      - Explain the concepts of testing, test case, test data and bug
+      - Differentiate between testing and debugging
+      - Differentiate between black box test and white box test
+  - lesson_no: 8
+    title: Dry running
+    competency: Testing and debugging
+    term: 1
+    week: 3
+    objectives:
+      - Explain the concepts of dry running and trace tables
+      - Perform a dry run test on an algorithm
+  - {lesson_no: 9, title: Integration activities, kind: integration_activity, competency: Testing and debugging, term: 1, week: 4}
+
+  - lesson_no: 10
+    title: Programming tools
+    competency: Setting up a programming environment
+    term: 1
+    week: 4
+    objectives:
+      - "State the role of the following programming tools: text editor, translator, and IDE"
+      - Differentiate between a compiler and an interpreter
+      - Explain the advantages and disadvantages of installing an IDE over separate programming tools and vice-versa
+  - lesson_no: 11
+    title: Installation of programming tools
+    competency: Setting up a programming environment
+    term: 1
+    week: 4
+    nature: [th, prac, dig]
+    objectives:
+      - Install an IDE and use it to run a program
+      - Test the functionalities of an installed programming tool
+  - {lesson_no: 12, title: Integration activities, kind: integration_activity, competency: Setting up a programming environment, term: 1, week: 5}
+
+  - {title: Evaluation, kind: evaluation, term: 1, week: 5}
+  - lesson_no: 13
+    title: Introduction to coding
+    competency: Writing of source code
+    term: 1
+    week: 5
+    objectives:
+      - Explain the concept of coding
+      - Explain strategies that can be used to ease coding
+      - Identify the structure of a program in a given programming language
+  - lesson_no: 14
+    title: Coding 1
+    competency: Writing of source code
+    term: 1
+    week: 6
+    nature: [th, prac, dig]
+    objectives:
+      - Write source code that makes use of input, output, mathematical and assignment operators
+  - {title: Remediation, kind: remediation, term: 1, week: 6}
+  - {title: Remediation, kind: remediation, term: 1, week: 6}
+  - lesson_no: 15
+    title: Coding 2
+    competency: Writing of source code
+    term: 1
+    week: 7
+    nature: [th, prac, dig]
+    objectives:
+      - Write source code that makes use of selection control structures
+  - lesson_no: 16
+    title: Coding 3
+    competency: Writing of source code
+    term: 1
+    week: 7
+    nature: [th, prac, dig]
+    objectives:
+      - Write source code that make use of multiple selection control structures
+  - lesson_no: 17
+    title: Coding 4
+    competency: Writing of source code
+    term: 1
+    week: 7
+    nature: [th, prac, dig]
+    objectives:
+      - Write source code that make use of definite iterative control structures
+  - lesson_no: 18
+    title: Coding 5
+    competency: Writing of source code
+    term: 1
+    week: 8
+    nature: [th, prac, dig]
+    objectives:
+      - Write source code that make use of indefinite iterative control structures
+  - {lesson_no: 19, title: Integration activities, kind: integration_activity, competency: Writing of source code, term: 1, week: 8}
+
+  - lesson_no: 20
+    title: Notions on number systems
+    competency: Operations on number systems
+    term: 1
+    week: 8
+    objectives:
+      - Outline symbols of base 2, 8, 10, and 16
+      - Identify symbols in a given base
+      - Recognise a number in a given number system
+  - lesson_no: 21
+    title: Conversion from any base to base 10
+    competency: Operations on number systems
+    term: 1
+    week: 9
+    objectives:
+      - Explain the principle of conversion from any base to base 10
+      - Convert from base 2, 8, and 16 to base 10
+  - lesson_no: 22
+    title: Conversion from base 10 to any base
+    competency: Operations on number systems
+    term: 1
+    week: 9
+    objectives:
+      - Explain the principle of conversion from base 10 to any base
+      - Convert from base 10 to base 2, 8, and 16
+  - lesson_no: 23
+    title: Conversion from base 2 to 8 and 16 and vice versa
+    competency: Operations on number systems
+    term: 1
+    week: 9
+    objectives:
+      - Explain the principle of conversion from base 2 directly to base 8, and 16
+      - Explain the principle of conversion from base 8 or 16 directly to base 2
+      - Convert from base 2 to 8, and 16 and from base 8, and 16 to base 2
+  - lesson_no: 24
+    title: Addition and subtraction in a number system
+    competency: Operations on number systems
+    term: 1
+    week: 10
+    objectives:
+      - Explain the principle of addition in any number system
+      - Explain the principle of subtraction in any number system
+      - Apply the principle of addition and subtraction to add and subtract in a base 2, 8, and 16
+  - {lesson_no: 25, title: Integration activities, kind: integration_activity, competency: Operations on number systems, term: 1, week: 10}
+
+  - lesson_no: 26
+    title: Basic logic gates
+    competency: Analysing simple logic circuits
+    term: 1
+    week: 10
+    objectives:
+      - Explain the concept of logic gates and truth tables
+      - Identify a given basic logic gate
+      - Explain the functioning of a given basic logic gate
+      - Produce the truth table of a given basic logic gate
+  - {title: Evaluation, kind: evaluation, term: 1, week: 11}
+  - lesson_no: 27
+    title: Derived gates
+    competency: Analysing simple logic circuits
+    term: 1
+    week: 11
+    objectives:
+      - Identify a given logic gate
+      - Explain the functioning of a given logic gate
+      - Produce the truth table of a given logic gate
+  - lesson_no: 28
+    title: Logic circuits
+    competency: Analysing simple logic circuits
+    term: 1
+    week: 11
+    objectives:
+      - Explain the concept of logic circuit
+      - Deduce the expression and truth table of a logic circuit of 2 variables
+      - Draw the logic circuit of a logic expression of 2 variables
+  - {lesson_no: 29, title: Integration activities, kind: integration_activity, competency: Analysing simple logic circuits, term: 1, week: 12}
+  - {title: Remediation, kind: remediation, term: 1, week: 12}
+  - {title: Remediation, kind: remediation, term: 1, week: 12}
+
+  - lesson_no: 30
+    title: Software methods for optimising the computer
+    competency: Optimising computer performance
+    term: 2
+    week: 13
+    objectives:
+      - Outline common software for optimising the performance of a computer
+      - "Explain the following concepts and how they affect the performance of a computer: malware, fragmentation, defragmentation"
+      - Explain how antivirus, disk defragmenter, disk cleaner, and operating system configurations can improve the performance of a computer
+  - lesson_no: 31
+    title: Hardware methods for optimising the computer
+    competency: Optimising computer performance
+    term: 2
+    week: 13
+    objectives:
+      - Explain how size of RAM and disk can improve computer performance
+      - Explain how SSDs improve computer performance compared to HDDs
+      - Explain hardware related methods for improving computer performance
+  - {lesson_no: 32, title: Integration activities, kind: integration_activity, competency: Optimising computer performance, term: 2, week: 13}
+
+  - lesson_no: 33
+    title: Input peripherals
+    competency: Choosing appropriate peripheral devices
+    term: 2
+    week: 14
+    objectives:
+      - State the purpose of a given input peripheral device
+      - Describe the characteristics of a given input peripheral device
+      - Choose appropriate input peripheral in a given context
+  - lesson_no: 34
+    title: Output peripherals
+    competency: Choosing appropriate peripheral devices
+    term: 2
+    week: 14
+    objectives:
+      - State the purpose of a given output peripheral device
+      - Describe the characteristics of a given output peripheral device
+      - Choose appropriate output peripheral in a given context
+  - {lesson_no: 35, title: Integration activities, kind: integration_activity, competency: Choosing appropriate peripheral devices, term: 2, week: 14}
+
+  - lesson_no: 36
+    title: Units of storage
+    competency: Calculating storage space
+    term: 2
+    week: 15
+    objectives:
+      - Explain the concepts of storage, and storage units
+      - State units of storage and the relationship between these units
+      - Explain the read and write operations on storage
+  - lesson_no: 37
+    title: Conversion between units of storage
+    competency: Calculating storage space
+    term: 2
+    week: 15
+    objectives:
+      - Explain how to convert from a given unit to another
+      - Convert between units of storage
+  - {lesson_no: 38, title: Integration activities, kind: integration_activity, competency: Calculating storage space, term: 2, week: 15}
+
+  - lesson_no: 39
+    title: Notions on computer maintenance
+    competency: Carrying out basic computer maintenance
+    term: 2
+    week: 16
+    objectives:
+      - Explain the concepts of maintenance, hardware maintenance, software maintenance, preventive maintenance, and corrective maintenance
+      - Classify maintenance problems into hardware and software
+      - Classify solutions into preventive and corrective maintenance
+  - lesson_no: 40
+    title: Hardware maintenance
+    competency: Carrying out basic computer maintenance
+    term: 2
+    week: 16
+    objectives:
+      - Match symptoms to a given hardware problem
+      - Determine appropriate and logical means of solving a given hardware problem
+      - Explain common preventive maintenance tips
+  - lesson_no: 41
+    title: Software maintenance
+    competency: Carrying out basic computer maintenance
+    term: 2
+    week: 16
+    objectives:
+      - Match symptoms to a given software problem
+      - Determine appropriate and logical means of solving a given software problem
+      - Explain common preventive maintenance tips
+  - {lesson_no: 42, title: Integration activities, kind: integration_activity, competency: Carrying out basic computer maintenance, term: 2, week: 17}
+  - {title: Evaluation, kind: evaluation, term: 2, week: 17}
+
+  - lesson_no: 43
+    title: Types of Digital content and File formats
+    competency: Creating digital content
+    term: 2
+    week: 17
+    objectives:
+      - Describe the different types of digital content
+      - Identify common types of digital content and their file formats
+      - Differentiate between multimedia and hypermedia
+  - lesson_no: 44
+    title: Tools for creating digital content
+    competency: Creating digital content
+    term: 2
+    week: 18
+    objectives:
+      - Identify appropriate tools for producing digital content of a given type
+      - State AI tools for producing digital content
+      - Outline methods for creating digital content
+  - {title: Remediation, kind: remediation, term: 2, week: 18}
+  - {title: Remediation, kind: remediation, term: 2, week: 18}
+  - lesson_no: 45
+    title: Creation of audio content
+    competency: Creating digital content
+    term: 2
+    week: 19
+    nature: [th, prac, dig]
+    objectives:
+      - Produce audio content using hardware tools
+      - Produce audio content using software tools
+  - lesson_no: 46
+    title: Creation of image content
+    competency: Creating digital content
+    term: 2
+    week: 19
+    nature: [th, prac, dig]
+    objectives:
+      - Produce image content using hardware tools
+      - Produce image content using software tools
+  - lesson_no: 47
+    title: Creation of multimedia content 1
+    competency: Creating digital content
+    term: 2
+    week: 19
+    nature: [th, prac, dig]
+    objectives:
+      - Produce multimedia content using hardware tools
+      - Produce multimedia content using software tools
+  - lesson_no: 48
+    title: Creation of multimedia content 2
+    competency: Creating digital content
+    term: 2
+    week: 20
+    nature: [th, prac, dig]
+    objectives:
+      - Combine text, audio, image using an appropriate tool to produce a video
+  - lesson_no: 49
+    title: Creation of hypermedia content 1
+    competency: Creating digital content
+    term: 2
+    week: 20
+    nature: [th, prac, dig]
+    objectives:
+      - Identify the necessary technologies to create hypermedia content
+      - Create hypermedia content with the help of html, CSS, JavaScript, etc
+  - lesson_no: 50
+    title: Creation of hypermedia content 2
+    competency: Creating digital content
+    term: 2
+    week: 20
+    nature: [th, prac, dig]
+    objectives:
+      - Create hypermedia content with the help of html, CSS, JavaScript, etc
+  - lesson_no: 51
+    title: Creation of hypermedia content 3
+    competency: Creating digital content
+    term: 2
+    week: 21
+    nature: [th, prac, dig]
+    objectives:
+      - Create hypermedia content with the help of html, CSS, JavaScript, etc
+  - {lesson_no: 52, title: Integration activities, kind: integration_activity, competency: Creating digital content, term: 2, week: 21}
+  - {lesson_no: 53, title: Integration activities, kind: integration_activity, competency: Creating digital content, term: 2, week: 21}
+
+  - lesson_no: 54
+    title: Features of a word processor
+    competency: Producing word processed documents
+    term: 2
+    week: 22
+    nature: [th, prac, dig]
+    objectives:
+      - Choose appropriate word processor features for a given task
+      - Perform basic formatting
+  - lesson_no: 55
+    title: Common operations on a page
+    competency: Producing word processed documents
+    term: 2
+    week: 22
+    nature: [th, prac, dig]
+    objectives:
+      - Explain what is meant by page layout
+      - Perform basic operations on a page
+  - lesson_no: 56
+    title: Operations on tables
+    competency: Producing word processed documents
+    term: 2
+    week: 22
+    nature: [th, prac, dig]
+    objectives:
+      - Create tables of different rows and columns using a word processor
+      - Perform operations on tables (add, delete, resize)
+  - {lesson_no: 57, title: Integration activities, kind: integration_activity, competency: Producing word processed documents, term: 2, week: 23}
+  - {lesson_no: 58, title: Integration activities, kind: integration_activity, competency: Producing word processed documents, term: 2, week: 23}
+
+  - {title: Evaluation, kind: evaluation, term: 2, week: 23}
+  - lesson_no: 59
+    title: Notions on cell referencing
+    competency: Manipulating spreadsheets
+    term: 2
+    week: 24
+    objectives:
+      - Explain the concepts of cells, formula, ranges, and cell reference
+      - Differentiate between the different types of cell referencing
+      - Identify when to use a given type of cell referencing
+  - {title: Remediation, kind: remediation, term: 2, week: 24}
+  - {title: Remediation, kind: remediation, term: 2, week: 24}
+
+  - lesson_no: 60
+    title: Operations using different types of cell referencing
+    competency: Manipulating spreadsheets
+    term: 3
+    week: 25
+    nature: [th, prac, dig]
+    objectives:
+      - Perform operations (sum, average, product, count) using different types of cell referencing
+  - lesson_no: 61
+    title: "Conditional functions: IF function 1"
+    competency: Manipulating spreadsheets
+    term: 3
+    week: 25
+    nature: [th, prac, dig]
+    objectives:
+      - Describe the IF function
+      - Identify when to use the IF function
+      - Solve variety of problems using the IF function
+  - lesson_no: 62
+    title: "Conditional functions: IF function 2"
+    competency: Manipulating spreadsheets
+    term: 3
+    week: 25
+    nature: [th, prac, dig]
+    objectives:
+      - Solve variety of problems using the IF function
+  - lesson_no: 63
+    title: "Conditional functions: SUMIF, PRODUCTIF"
+    competency: Manipulating spreadsheets
+    term: 3
+    week: 26
+    nature: [th, prac, dig]
+    objectives:
+      - Describe the SUMIF, and PRODUCTIF functions
+      - Identify when to use the SUMIF, and PRODUCTIF function
+      - Solve a problem that uses the SUMIF, and PRODUCTIF
+  - lesson_no: 64
+    title: "Conditional functions: COUNTIF, AVERAGEIF"
+    competency: Manipulating spreadsheets
+    term: 3
+    week: 26
+    nature: [th, prac, dig]
+    objectives:
+      - Describe the COUNTIF, AVERAGEIF functions
+      - Identify when to use the COUNTIF, AVERAGEIF function
+      - Solve a problem that uses the COUNTIF, AVERAGEIF
+  - lesson_no: 65
+    title: Represent data using charts
+    competency: Manipulating spreadsheets
+    term: 3
+    week: 26
+    nature: [th, prac, dig]
+    objectives:
+      - Identify the different types of charts
+      - Represent data using charts
+      - Perform simple formatting on charts
+  - {lesson_no: 66, title: Integration activities, kind: integration_activity, competency: Manipulating spreadsheets, term: 3, week: 27}
+  - {lesson_no: 67, title: Integration activities, kind: integration_activity, competency: Manipulating spreadsheets, term: 3, week: 27}
+
+  - lesson_no: 68
+    title: Types of sensors
+    competency: Understanding embedded system IoT and Cloud Computing
+    term: 3
+    week: 27
+    objectives:
+      - Explain the concept of sensors, and actuators
+      - State the different types of sensor and their roles
+      - Outline situations in life where a given type of sensor can be used
+  - lesson_no: 69
+    title: Embedded systems and IoT
+    competency: Understanding embedded system IoT and Cloud Computing
+    term: 3
+    week: 28
+    objectives:
+      - Differentiate between embedded systems, IoT, and cloud computing
+      - Describe scenarios where IoT and embedded systems are used in life
+  - lesson_no: 70
+    title: Cloud computing
+    competency: Understanding embedded system IoT and Cloud Computing
+    term: 3
+    week: 28
+    objectives:
+      - Explain the concept of cloud computing
+      - Outline the 3 main types of cloud services with examples
+      - Describe how embedded systems and IoT relate to cloud computing
+  - {lesson_no: 71, title: Integration activities, kind: integration_activity, competency: Understanding embedded system IoT and Cloud Computing, term: 3, week: 28}
+
+  - {title: Evaluation, kind: evaluation, term: 3, week: 29}
+  - lesson_no: 72
+    title: Notions on netiquette
+    competency: Practising netiquette rules
+    term: 3
+    week: 29
+    objectives:
+      - Explain the concepts of netiquette, and empathy
+      - State codes of conduct for posting and sharing content online
+      - Explain the importance of empathy, awareness in cultural and generational diversities when communicating online
+  - lesson_no: 73
+    title: Emojis
+    competency: Practising netiquette rules
+    term: 3
+    week: 29
+    objectives:
+      - Differentiate emojis from emoticon
+      - Give the meaning of common emojis
+      - Explain why it is important to know the meaning of an emoji before using it
+  - {title: Remediation, kind: remediation, term: 3, week: 30}
+  - {title: Remediation, kind: remediation, term: 3, week: 30}
+  - lesson_no: 74
+    title: Communicating responsibly online
+    competency: Practising netiquette rules
+    term: 3
+    week: 30
+    objectives:
+      - Choose communication modes and strategies adapted to an audience
+      - Identify hostile or derogatory messages or activities online that attack an individual or groups of individuals
+      - Propose behavioural rules when using digital technologies in a context
+  - {lesson_no: 75, title: Integration activities, kind: integration_activity, competency: Practising netiquette rules, term: 3, week: 31}
+
+  - lesson_no: 76
+    title: International laws or acts on digital technology
+    competency: Appraising National and International Laws on Cybersecurity
+    term: 3
+    week: 31
+    objectives:
+      - Explain the importance of laws and acts to regulate activities related to the creation and use of data and digital technologies
+      - Outline international laws and acts related to the use of digital technology
+      - State the purpose of a given international law or act
+  - lesson_no: 77
+    title: National laws or policies on digital technology
+    competency: Appraising National and International Laws on Cybersecurity
+    term: 3
+    week: 31
+    objectives:
+      - State national laws or policies aimed at regulating the use of digital technology in Cameroon and their respective goals
+      - Discuss some elements of law No 2010-12 of 21st December
+      - State penalties of some information and communication technology malpractice in Cameroon
+  - lesson_no: 78
+    title: National and international bodies regulating the use of ICT
+    competency: Appraising National and International Laws on Cybersecurity
+    term: 3
+    week: 32
+    objectives:
+      - Outline international bodies that regulate the use of ICT and their respective goals
+      - Outline national bodies in Cameroon that regulate the use of ICT and their respective goals
+  - {lesson_no: 79, title: Integration activities, kind: integration_activity, competency: Appraising National and International Laws on Cybersecurity, term: 3, week: 32}
+
+  - lesson_no: 80
+    title: Notions on misinformation and disinformation
+    competency: Evaluating the credibility and reliability of information
+    term: 3
+    week: 32
+    objectives:
+      - Differentiate between misinformation and disinformation
+      - State factors of information biases (data algorithms, censorship, editorial choices, personal limitations)
+      - Explain the concepts of misinformation, disinformation, deepfake, infodemic, clickbait
+  - lesson_no: 81
+    title: Analysis of online information
+    competency: Evaluating the credibility and reliability of information
+    term: 3
+    week: 33
+    objectives:
+      - Identify the author and source of a given information found online
+      - Identify sponsored content online
+      - Analyse information in order to detect its purpose or interest
+  - lesson_no: 82
+    title: Identifying the credibility of information
+    competency: Evaluating the credibility and reliability of information
+    term: 3
+    week: 33
+    objectives:
+      - Explain strategies for verifying the credibility and reliability of information
+      - Propose national and international sources of getting credible information
+  - {lesson_no: 83, title: Integration activities, kind: integration_activity, competency: Evaluating the credibility and reliability of information, term: 3, week: 33}
+
+  - lesson_no: 84
+    title: Computer related health hazards
+    competency: Avoiding computer related health issues
+    term: 3
+    week: 34
+    objectives:
+      - Describe different types of computer related health hazards
+      - Outline major causes of computer related health hazards
+  - lesson_no: 85
+    title: "Computer ergonomics: best practices in the design of items and workplace setup"
+    competency: Avoiding computer related health issues
+    term: 3
+    week: 34
+    objectives:
+      - Identify wrong equipment placement and design in a computing environment
+      - Explain how the design of equipment and workplace setup can help prevent computer related health injuries
+  - lesson_no: 86
+    title: "Computer ergonomics: workplace habits and exercises"
+    competency: Avoiding computer related health issues
+    term: 3
+    week: 34
+    objectives:
+      - Identify wrong user posture and habits in a computing environment
+      - Explain how the workplace habits and exercises can help prevent computer related health injuries
+  - {lesson_no: 87, title: Integration activities, kind: integration_activity, competency: Avoiding computer related health issues, term: 3, week: 35}
+  - {lesson_no: 88, title: Integration activities, kind: integration_activity, competency: Avoiding computer related health issues, term: 3, week: 35}
+  - {title: Evaluation, kind: evaluation, term: 3, week: 35}
+  - {title: Remediation, kind: remediation, term: 3, week: 36}
+  - {title: Remediation, kind: remediation, term: 3, week: 36}
