@@ -45,7 +45,7 @@ app/
   syllabus/[id]/    a whole year by term and week
   lesson/[id]/      a published lesson, set for reading
   login/            teacher sign in
-  admin/            lesson editor, term planner, exam frequency, links
+  admin/            lesson editor, term planner, students, question bank
   opengraph-image.png  the card that appears when the link is shared
   icon.png          browser tab icon
 lib/                database connections (browser and server)
@@ -126,9 +126,16 @@ Morgan's laws, Boolean simplification, and normalization to 3NF.
 
 ---
 
-## Next
+## What still has to be built
 
-The natural next piece is the **term planner**: a class against its progression
-sheet, showing what is taught, what is behind, what has no notes, and how many
-weeks remain before the next Evaluation. It needs nothing that is not already
-here.
+| | |
+|---|---|
+| Student sign-in | Codes are generated and stored; the accounts are not created yet |
+| Assessments | Assembling questions into a quiz or mock and setting it for a class |
+| Marking | MCQ and true/false mark themselves; everything else queues for you |
+| Mastery engine | `lesson_mastery` exists and is empty. Nothing computes it yet. |
+| Offline | The schema was built for it. No service worker or sync queue exists yet. |
+
+The offline gap is the largest remaining piece and the one that decides whether
+students in Limbe actually use this. It was left until last on purpose: a sync
+layer built before there was anything to sync would have been wasted work.

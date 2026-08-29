@@ -7,6 +7,8 @@ const LINKS = [
   { href: "/admin", label: "Overview", exact: true },
   { href: "/admin/lessons", label: "Lesson notes" },
   { href: "/admin/classes", label: "Classes" },
+  { href: "/admin/students", label: "Students" },
+  { href: "/admin/questions", label: "Questions" },
   { href: "/admin/exam-frequency", label: "Exam frequency" },
   { href: "/admin/links", label: "Cross-year links" },
 ];

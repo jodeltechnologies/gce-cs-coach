@@ -47,7 +47,8 @@ export default async function AdminHome() {
     );
   }
 
-  const [{ data: competencies }, { data: classes }, { data: contentLessons }] = await Promise.all([
+  const [{ data: competencies }, { data: classes }, { data: contentLessons },
+         { count: studentCount }, { count: questionCount }] = await Promise.all([
     supabase
       .from("competencies")
       .select("id, exam_frequency, continues_from_id, link_confirmed"),
@@ -59,6 +60,14 @@ export default async function AdminHome() {
       .from("lessons")
       .select("id, content, status")
       .eq("lesson_kind", "content"),
+    supabase
+      .from("students")
+      .select("id", { count: "exact", head: true })
+      .is("deleted_at", null),
+    supabase
+      .from("questions")
+      .select("id", { count: "exact", head: true })
+      .is("deleted_at", null),
   ]);
 
   const lessonsTotal = contentLessons?.length ?? 0;
@@ -135,6 +144,36 @@ export default async function AdminHome() {
         </div>
       </Link>
 
+      <Link className="card" href="/admin/students">
+        <h3>Students</h3>
+        <div className="meta">
+          The roll, enrolment into classes, and the short login codes you print
+          and hand out.
+        </div>
+        <div className="tags">
+          {studentCount > 0 ? (
+            <span className="tag">{studentCount} on the roll</span>
+          ) : (
+            <span className="tag gold">Nobody yet</span>
+          )}
+        </div>
+      </Link>
+
+      <Link className="card" href="/admin/questions">
+        <h3>Question bank</h3>
+        <div className="meta">
+          Past GCE papers, mocks and your own questions, each tagged to the
+          lessons it tests.
+        </div>
+        <div className="tags">
+          {questionCount > 0 ? (
+            <span className="tag">{questionCount} questions</span>
+          ) : (
+            <span className="tag gold">Empty</span>
+          )}
+        </div>
+      </Link>
+
       <Link className="card" href="/admin/links">
         <h3>Cross-year links</h3>
         <div className="meta">
@@ -154,9 +193,9 @@ export default async function AdminHome() {
 
       <h3 style={{ marginTop: 34 }}>Not built yet</h3>
       <p className="lede">
-        Students and enrolment, the question bank, marking, and the mastery
-        engine. Each needs the one before it: a mark needs a question, a
-        question needs a lesson, and mastery needs marks.
+        Student sign-in, quizzes, marking, and the mastery engine. Students
+        cannot log in yet — the codes are generated and stored, so nothing has
+        to be redone when that is switched on.
       </p>
 
       <form action={signOut} style={{ marginTop: 24 }}>

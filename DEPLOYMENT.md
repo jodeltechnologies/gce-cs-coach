@@ -62,6 +62,7 @@ into a new query, click **Run**.
 | 6 | `db/seed/03_lower_sixth_ict.sql` | Lower Sixth ICT — 103 rows, 136 content points |
 | 7 | `db/phase2.sql` | Repairs cross-year links; opens up classes and the planner |
 | 8 | `db/phase3.sql` | Lesson editing, file uploads, question bank |
+| 9 | `db/phase4.sql` | Indexes for the student roll and question bank |
 
 **Form 4 must load before Form 5.** Form 5's file links its categories of action
 back to Form 4's by name, so running them out of order leaves those links empty.
