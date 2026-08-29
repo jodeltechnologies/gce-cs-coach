@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "../../../../lib/supabase-server";
 import {
   saveLesson,
@@ -42,7 +43,7 @@ export default async function LessonEditor({ params }) {
       <>
         <h2>Lesson not found</h2>
         <p className="lede">
-          <a href="/admin/lessons">Back to lessons</a>
+          <Link href="/admin/lessons">Back to lessons</Link>
         </p>
       </>
     );
@@ -272,7 +273,13 @@ export default async function LessonEditor({ params }) {
       <Uploader lessonId={lesson.id} />
 
       <p className="lede" style={{ marginTop: 30 }}>
-        <a href="/admin/lessons">Back to lessons</a>
+        <Link href="/admin/lessons">Back to lessons</Link>
+        {lesson.status === "published" && (
+          <>
+            {" · "}
+            <Link href={`/lesson/${lesson.id}`}>View as a student sees it</Link>
+          </>
+        )}
       </p>
     </>
   );

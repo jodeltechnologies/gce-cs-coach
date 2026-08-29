@@ -43,13 +43,30 @@ tools/
 app/
   page.js           list of progression sheets
   syllabus/[id]/    a whole year by term and week
+  lesson/[id]/      a published lesson, set for reading
   login/            teacher sign in
-  admin/            exam frequency editor, cross-year link confirmation
+  admin/            lesson editor, term planner, exam frequency, links
+  opengraph-image.png  the card that appears when the link is shared
+  icon.png          browser tab icon
 lib/                database connections (browser and server)
 middleware.js       keeps /admin closed to strangers
 public/             both crests: MINESEC emblem and the school shield
 app/icon.png        browser tab icon
 ```
+
+## Typography
+
+Two faces, each with one job. **Literata** carries anything a student reads for
+more than a minute — it was drawn for Google Books, for long passages on a
+screen, which is exactly what a lesson note is. **Inter** handles the interface,
+where you scan rather than read.
+
+Both are downloaded at build time and served from your own domain, so a
+student's phone never makes a request to Google. One less thing to fail on a
+weak connection.
+
+The reading column is capped at 680px, which keeps lines near 70 characters —
+the width at which sustained reading stays comfortable.
 
 ## Colours
 

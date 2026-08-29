@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient, getUser } from "../../lib/supabase-server";
 import { signOut } from "./signout";
 
@@ -86,7 +87,7 @@ export default async function AdminHome() {
         {teacher.grade ? `, ${teacher.grade}` : ""}.
       </p>
 
-      <a className="card" href="/admin/exam-frequency">
+      <Link className="card" href="/admin/exam-frequency">
         <h3>Exam frequency</h3>
         <div className="meta">
           How often each category of action appears in the GCE. This is what
@@ -100,9 +101,9 @@ export default async function AdminHome() {
             <span className="tag plain">{total - withFreq} still empty</span>
           )}
         </div>
-      </a>
+      </Link>
 
-      <a className="card" href="/admin/classes">
+      <Link className="card" href="/admin/classes">
         <h3>Classes and term planner</h3>
         <div className="meta">
           Track a class against its progression sheet: what is taught, how far
@@ -117,9 +118,9 @@ export default async function AdminHome() {
             <span className="tag gold">No classes yet</span>
           )}
         </div>
-      </a>
+      </Link>
 
-      <a className="card" href="/admin/lessons">
+      <Link className="card" href="/admin/lessons">
         <h3>Lesson notes and files</h3>
         <div className="meta">
           Write notes, attach scanned handouts and past papers, and publish them
@@ -132,9 +133,9 @@ export default async function AdminHome() {
           <span className="tag plain">{withNotes} of {lessonsTotal} written</span>
           <span className="tag plain">{publishedLessons} published</span>
         </div>
-      </a>
+      </Link>
 
-      <a className="card" href="/admin/links">
+      <Link className="card" href="/admin/links">
         <h3>Cross-year links</h3>
         <div className="meta">
           Confirm which Form 5 categories continue a Form 4 category, so a
@@ -149,7 +150,7 @@ export default async function AdminHome() {
             <span className="tag">{linked.length} confirmed</span>
           )}
         </div>
-      </a>
+      </Link>
 
       <h3 style={{ marginTop: 34 }}>Not built yet</h3>
       <p className="lede">

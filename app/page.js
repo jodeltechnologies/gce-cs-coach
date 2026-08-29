@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getSupabase } from "../lib/supabase";
 
 export const metadata = { title: "Progression sheets" };
@@ -99,7 +100,7 @@ export default async function Home() {
       </p>
 
       {syllabi.map((s, i) => (
-        <a className="card" key={s.id} href={`/syllabus/${s.id}`}>
+        <Link className="card" key={s.id} href={`/syllabus/${s.id}`}>
           <h3>{s.form_level}</h3>
           <div className="meta">{s.title}</div>
           <div className="tags">
@@ -119,7 +120,7 @@ export default async function Home() {
               <span className="tag plain">Coefficient {s.coefficient}</span>
             )}
           </div>
-        </a>
+        </Link>
       ))}
     </>
   );

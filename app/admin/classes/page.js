@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient, getUser } from "../../../lib/supabase-server";
 import { createClass } from "./actions";
 
@@ -21,7 +22,7 @@ export default async function ClassesPage() {
       <div className="notice bad">
         <h3>Account not linked</h3>
         <p>
-          Go back to <a href="/admin">Admin</a> for the fix.
+          Go back to <Link href="/admin">Admin</Link> for the fix.
         </p>
       </div>
     );
@@ -68,7 +69,7 @@ export default async function ClassesPage() {
       </p>
 
       {(classes ?? []).map((c, i) => (
-        <a className="card" key={c.id} href={`/admin/classes/${c.id}`}>
+        <Link className="card" key={c.id} href={`/admin/classes/${c.id}`}>
           <h3>{c.name}</h3>
           <div className="meta">
             {c.form_level} · {c.academic_year}
@@ -79,7 +80,7 @@ export default async function ClassesPage() {
               {progress[i].taught} of {progress[i].total} lessons taught
             </span>
           </div>
-        </a>
+        </Link>
       ))}
 
       {(!classes || classes.length === 0) && (
@@ -140,7 +141,7 @@ export default async function ClassesPage() {
       </form>
 
       <p className="lede" style={{ marginTop: 26 }}>
-        <a href="/admin">Back to admin</a>
+        <Link href="/admin">Back to admin</Link>
       </p>
     </>
   );

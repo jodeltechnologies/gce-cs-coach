@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "../../../lib/supabase-server";
 import { saveExamFrequencies } from "../actions";
 
@@ -95,7 +96,7 @@ export default async function ExamFrequencyPage() {
       </form>
 
       <p className="lede" style={{ marginTop: 26 }}>
-        <a href="/admin">Back to admin</a>
+        <Link href="/admin">Back to admin</Link>
       </p>
     </>
   );

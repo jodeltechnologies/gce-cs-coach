@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "../../../lib/supabase-server";
 import { decideLink } from "../actions";
 
@@ -83,7 +84,7 @@ export default async function LinksPage() {
       )}
 
       <p className="lede" style={{ marginTop: 26 }}>
-        <a href="/admin">Back to admin</a>
+        <Link href="/admin">Back to admin</Link>
       </p>
     </>
   );

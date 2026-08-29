@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient, getUser } from "../../../../lib/supabase-server";
 import { saveScheme } from "../actions";
 
@@ -50,7 +51,7 @@ export default async function ClassPlanner({ params, searchParams }) {
       <div className="notice bad">
         <h3>Account not linked</h3>
         <p>
-          Go back to <a href="/admin">Admin</a> for the fix.
+          Go back to <Link href="/admin">Admin</Link> for the fix.
         </p>
       </div>
     );
@@ -67,7 +68,7 @@ export default async function ClassPlanner({ params, searchParams }) {
       <>
         <h2>Class not found</h2>
         <p className="lede">
-          <a href="/admin/classes">Back to classes</a>
+          <Link href="/admin/classes">Back to classes</Link>
         </p>
       </>
     );
@@ -183,14 +184,14 @@ export default async function ClassPlanner({ params, searchParams }) {
 
       <div style={{ display: "flex", gap: 8, margin: "22px 0 4px" }}>
         {[1, 2, 3].map((t) => (
-          <a
+          <Link
             key={t}
             href={`/admin/classes/${klass.id}?term=${t}`}
             className={t === term ? "tag" : "tag plain"}
             style={{ padding: "6px 14px", fontSize: "0.82rem" }}
           >
             {TERM_NAME[t]}
-          </a>
+          </Link>
         ))}
       </div>
 
@@ -318,7 +319,7 @@ export default async function ClassPlanner({ params, searchParams }) {
       </form>
 
       <p className="lede" style={{ marginTop: 26 }}>
-        <a href="/admin/classes">Back to classes</a>
+        <Link href="/admin/classes">Back to classes</Link>
       </p>
     </>
   );

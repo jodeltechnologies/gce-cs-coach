@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "../../../lib/supabase-server";
 
 export const metadata = { title: "Lesson notes" };
@@ -67,39 +68,39 @@ export default async function LessonsPage({ searchParams }) {
 
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
         {(syllabi ?? []).map((s) => (
-          <a
+          <Link
             key={s.id}
             href={`/admin/lessons?syllabus=${s.id}&filter=${filter}`}
             className={s.id === selected ? "tag" : "tag plain"}
             style={{ padding: "6px 14px", fontSize: "0.82rem" }}
           >
             {s.form_level}
-          </a>
+          </Link>
         ))}
       </div>
 
       <div className="tags" style={{ marginBottom: 20 }}>
-        <a
+        <Link
           href={`/admin/lessons?syllabus=${selected}&filter=gaps`}
           className={filter === "gaps" ? "tag alert" : "tag plain"}
           style={{ padding: "5px 12px" }}
         >
           {missing.length} with no notes
-        </a>
-        <a
+        </Link>
+        <Link
           href={`/admin/lessons?syllabus=${selected}&filter=written`}
           className={filter === "written" ? "tag" : "tag plain"}
           style={{ padding: "5px 12px" }}
         >
           {written.length} written
-        </a>
-        <a
+        </Link>
+        <Link
           href={`/admin/lessons?syllabus=${selected}&filter=all`}
           className={filter === "all" ? "tag gold" : "tag plain"}
           style={{ padding: "5px 12px" }}
         >
           all {all.length}
-        </a>
+        </Link>
         <span className="tag plain">{published.length} published to students</span>
       </div>
 
@@ -125,7 +126,7 @@ export default async function LessonsPage({ searchParams }) {
                   ? `${l.lesson_no_start}–${l.lesson_no_end}`
                   : String(l.lesson_no_start);
             return (
-              <a className="row" key={l.id} href={`/admin/lessons/${l.id}`} style={{ display: "block", color: "inherit" }}>
+              <Link className="row" key={l.id} href={`/admin/lessons/${l.id}`} style={{ display: "block", color: "inherit" }}>
                 <div className="name">
                   <span style={{ color: "var(--muted)", fontSize: "0.8rem", marginRight: 8 }}>
                     {num}
@@ -144,14 +145,14 @@ export default async function LessonsPage({ searchParams }) {
                     <span className="tag gold">Draft</span>
                   )}
                 </div>
-              </a>
+              </Link>
             );
           })}
         </section>
       ))}
 
       <p className="lede" style={{ marginTop: 26 }}>
-        <a href="/admin">Back to admin</a>
+        <Link href="/admin">Back to admin</Link>
       </p>
     </>
   );

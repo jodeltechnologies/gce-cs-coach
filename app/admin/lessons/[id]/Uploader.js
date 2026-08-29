@@ -5,37 +5,70 @@ import { createBrowserClient } from "@supabase/ssr";
 import { attachResource } from "../actions";
 
 const KIND_BY_EXT = {
-  pdf: "pdf",
-  png: "image",
-  jpg: "image",
-  jpeg: "image",
-  gif: "image",
-  webp: "image",
-  mp3: "audio",
-  m4a: "audio",
-  wav: "audio",
-  mp4: "video",
-  webm: "video",
+  pdf: "pdf", png: "image", jpg: "image", jpeg: "image", gif: "image",
+  webp: "image", mp3: "audio", m4a: "audio", wav: "audio",
+  mp4: "video", webm: "video",
 };
 
-function humanSize(bytes) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
-  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+function humanSize(b) {
+  if (b < 1024) return `${b} B`;
+  if (b < 1024 * 1024) return `${Math.round(b / 1024)} KB`;
+  return `${(b / 1024 / 1024).toFixed(1)} MB`;
 }
 
 /**
- * Uploads directly from the browser to Supabase Storage.
+ * Pull the text out of a PDF, in the browser.
  *
- * Deliberately not a server action: Vercel caps a request body at roughly
- * 4.5 MB, and a scanned chapter of notes goes past that easily. Going
- * straight to Supabase also means the file makes one network trip instead of
- * two, which matters on a connection that drops.
+ * pdfjs is loaded only when a PDF is actually chosen, so the extra weight
+ * never reaches anyone who is not uploading one.
+ *
+ * A caution worth understanding: this reads text that is genuinely stored in
+ * the file. A PDF made by photographing or scanning pages contains pictures
+ * of words, not words, and will come back empty. That is not a fault in the
+ * extraction — the text simply is not in the file. For those you still have
+ * the PDF as an attachment, and you type the notes yourself.
  */
+async function extractPdfText(file, onProgress) {
+  const pdfjs = await import("pdfjs-dist");
+  pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+    "pdfjs-dist/build/pdf.worker.min.mjs",
+    import.meta.url
+  ).toString();
+
+  const buf = await file.arrayBuffer();
+  const doc = await pdfjs.getDocument({ data: buf }).promise;
+  const pages = [];
+
+  for (let n = 1; n <= doc.numPages; n++) {
+    onProgress?.(`Reading page ${n} of ${doc.numPages}…`);
+    const page = await doc.getPage(n);
+    const content = await page.getTextContent();
+
+    // Rebuild lines by y position. Without this every word arrives as its own
+    // fragment and the result is one endless paragraph.
+    const lines = new Map();
+    for (const item of content.items) {
+      if (!item.str) continue;
+      const y = Math.round(item.transform[5]);
+      if (!lines.has(y)) lines.set(y, []);
+      lines.get(y).push(item.str);
+    }
+    const ordered = [...lines.entries()]
+      .sort((a, b) => b[0] - a[0])
+      .map(([, parts]) => parts.join(" ").replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+
+    pages.push(ordered.join("\n"));
+  }
+
+  return pages.join("\n\n");
+}
+
 export default function Uploader({ lessonId }) {
   const [status, setStatus] = useState(null);
   const [busy, setBusy] = useState(false);
   const [caption, setCaption] = useState("");
+  const [extracted, setExtracted] = useState(null);
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -45,6 +78,7 @@ export default function Uploader({ lessonId }) {
     if (!file) return;
 
     setBusy(true);
+    setExtracted(null);
     setStatus(`Uploading ${file.name} (${humanSize(file.size)})…`);
 
     try {
@@ -63,9 +97,9 @@ export default function Uploader({ lessonId }) {
         return;
       }
 
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from("resources").getPublicUrl(path);
+      const { data: { publicUrl } } = supabase.storage
+        .from("resources")
+        .getPublicUrl(path);
 
       const fd = new FormData();
       fd.set("lesson_id", lessonId);
@@ -77,6 +111,28 @@ export default function Uploader({ lessonId }) {
 
       setStatus(`Attached ${file.name}.`);
       setCaption("");
+
+      if (ext === "pdf") {
+        setStatus("Attached. Reading the text out of the PDF…");
+        try {
+          const text = await extractPdfText(file, setStatus);
+          if (text.trim().length < 40) {
+            setStatus(
+              "Attached. No text found inside this PDF — it is most likely a scan, which stores pictures of words rather than words. The file is still attached; type the notes yourself."
+            );
+          } else {
+            setExtracted(text);
+            setStatus(
+              `Attached, and pulled out about ${text.split(/\s+/).length} words. Check it below, then copy it into the notes.`
+            );
+          }
+        } catch (err) {
+          setStatus(
+            `Attached, but could not read the text: ${err?.message ?? "unknown error"}`
+          );
+        }
+      }
+
       e.target.value = "";
     } catch (err) {
       setStatus(`Upload failed: ${err?.message ?? "unknown error"}`);
@@ -107,12 +163,52 @@ export default function Uploader({ lessonId }) {
       />
 
       {status && (
-        <p style={{ fontSize: "0.84rem", color: "var(--muted)", marginTop: 8 }}>
+        <p style={{ fontSize: "0.86rem", color: "var(--muted)", marginTop: 10 }}>
           {status}
         </p>
       )}
 
-      <p style={{ fontSize: "0.78rem", color: "var(--muted)", marginTop: 8 }}>
+      {extracted && (
+        <div style={{ marginTop: 14 }}>
+          <p style={{ fontSize: "0.84rem", color: "var(--muted)" }}>
+            Extracted text. PDFs rarely convert perfectly — check the headings
+            and any tables before you publish it.
+          </p>
+          <textarea
+            readOnly
+            value={extracted}
+            style={{
+              width: "100%",
+              minHeight: 220,
+              padding: "10px 12px",
+              fontFamily: "var(--font-reading), Georgia, serif",
+              fontSize: "0.92rem",
+              lineHeight: 1.6,
+              color: "var(--ink)",
+              background: "var(--surface)",
+              border: "1px solid var(--line)",
+              borderRadius: 8,
+            }}
+          />
+          <button
+            type="button"
+            className="primary"
+            style={{ marginTop: 8 }}
+            onClick={() => {
+              const box = document.querySelector('textarea[name="content"]');
+              if (box) {
+                box.value = box.value ? box.value + "\n\n" + extracted : extracted;
+                box.focus();
+                setStatus("Copied into Notes for students. Now press Save lesson.");
+              }
+            }}
+          >
+            Copy into student notes
+          </button>
+        </div>
+      )}
+
+      <p style={{ fontSize: "0.78rem", color: "var(--muted)", marginTop: 10 }}>
         Files under 500 KB are cached on students&apos; phones automatically.
         Anything larger asks them first — data costs money.
       </p>

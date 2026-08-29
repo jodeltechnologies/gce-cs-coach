@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getSupabase } from "../../../lib/supabase";
 
 export const metadata = { title: "Progression sheet" };
@@ -46,7 +47,7 @@ export default async function SyllabusPage({ params }) {
       <>
         <h2>Not found</h2>
         <p className="lede">
-          No progression sheet with that address. <a href="/">Back to the list</a>.
+          No progression sheet with that address. <Link href="/">Back to the list</Link>.
         </p>
       </>
     );
@@ -56,7 +57,7 @@ export default async function SyllabusPage({ params }) {
     supabase
       .from("lessons")
       .select(
-        "id, lesson_no_start, lesson_no_end, title, term, week_from, lesson_kind, competency_id, is_practical, objectives(description, kind, sequence)"
+        "id, lesson_no_start, lesson_no_end, title, term, week_from, lesson_kind, competency_id, is_practical, status, objectives(description, kind, sequence)"
       )
       .eq("syllabus_id", id)
       .order("sequence"),
@@ -138,7 +139,11 @@ export default async function SyllabusPage({ params }) {
                         >
                           <span className="num">{lessonNumber(l)}</span>
                           <div className="title">
-                            {l.title}
+                            {l.status === "published" ? (
+                              <Link href={`/lesson/${l.id}`}>{l.title}</Link>
+                            ) : (
+                              l.title
+                            )}
                             {structural && (
                               <span
                                 className={`tag ${
