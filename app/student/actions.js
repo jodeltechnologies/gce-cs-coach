@@ -100,7 +100,8 @@ export async function signOut() {
  * the end to save would lose exactly the sessions worth studying: the ones a
  * student walked away from.
  */
-export async function startPractice() {
+/** The topics a student can pick from, with how they have done in each. */
+export async function practiceTopics() {
   const session = await getStudentSession();
   if (!session) return { error: "Signed out." };
   const supabase = await createClient();
@@ -112,16 +113,48 @@ export async function startPractice() {
   const profile = Array.isArray(prof) ? prof[0] : prof;
   if (!profile?.syllabus_id) return { error: "You are not in a class yet." };
 
+  const { data, error } = await supabase.rpc("student_practice_topics", {
+    p_syllabus: profile.syllabus_id,
+    p_student: session.id,
+  });
+  if (error) return { error: error.message };
+  return { topics: data ?? [] };
+}
+
+export async function startPractice({ lessonId = null, count = 10, mode = "mixed" } = {}) {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const { data: prof } = await supabase.rpc("student_profile", {
+    p_student: session.id,
+  });
+  const profile = Array.isArray(prof) ? prof[0] : prof;
+  if (!profile?.syllabus_id) return { error: "You are not in a class yet." };
+
+  // Clamp here as well as in SQL. A count arriving from a query string is
+  // whatever the address bar contained.
+  const n = Math.min(Math.max(Number(count) || 10, 1), 50);
+  const chosenMode = ["mixed", "weak", "lesson"].includes(mode) ? mode : "mixed";
+
   const { data: attemptId, error: aErr } = await supabase.rpc(
     "student_start_practice",
-    { p_student: session.id, p_syllabus: profile.syllabus_id }
+    {
+      p_student: session.id,
+      p_syllabus: profile.syllabus_id,
+      p_lesson: lessonId,
+      p_mode: chosenMode,
+    }
   );
   if (aErr) return { error: aErr.message };
 
   const { data, error } = await supabase.rpc("student_practice", {
     p_syllabus: profile.syllabus_id,
-    p_limit: 10,
+    p_limit: n,
     p_student: session.id,
+    p_lesson: lessonId,
+    p_mode: chosenMode,
   });
   if (error) return { error: error.message };
 

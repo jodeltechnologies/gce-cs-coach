@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { checkAnswer, finishPractice } from "../actions";
 
 /**
@@ -11,14 +11,35 @@ import { checkAnswer, finishPractice } from "../actions";
  * readable by anyone who knows where to look, and a practice test whose
  * answers are in the page source is not practice.
  */
-export default function Quiz({ attemptId, questions }) {
+export default function Quiz({ attemptId, questions, seconds = 0 }) {
   const [i, setI] = useState(0);
   const [chosen, setChosen] = useState("");
   const [result, setResult] = useState(null);
   const [score, setScore] = useState(0);
   const [busy, setBusy] = useState(false);
+  const [left, setLeft] = useState(seconds);
+  const submitRef = useRef(null);
 
   const q = questions[i];
+
+  // The timer marks the question when it runs out rather than skipping it, so
+  // running out of time is a wrong answer and not a gap in the record. With no
+  // option chosen it submits nothing and simply moves on.
+  useEffect(() => {
+    if (!seconds || !q || result) return;
+    setLeft(seconds);
+    const id = setInterval(() => {
+      setLeft((t) => {
+        if (t <= 1) {
+          clearInterval(id);
+          submitRef.current?.();
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+    return () => clearInterval(id);
+  }, [i, seconds, result, q]);
   const done = i >= questions.length;
 
   if (done) {
@@ -45,7 +66,12 @@ export default function Quiz({ attemptId, questions }) {
   }
 
   async function submit() {
-    if (!chosen || busy) return;
+    if (busy) return;
+    if (!chosen) {
+      // Out of time with nothing selected: record nothing, show the answer.
+      setResult({ correct: false, correctLabel: null, timedOut: true });
+      return;
+    }
     setBusy(true);
     const r = await checkAnswer(attemptId, q.question_id, chosen);
     setBusy(false);
@@ -67,12 +93,29 @@ export default function Quiz({ attemptId, questions }) {
     if (last) await finishPractice(attemptId);
   }
 
+  submitRef.current = submit;
+
   return (
     <div>
-      <p style={{ fontSize: "0.82rem", color: "var(--muted)" }}>
-        Question {i + 1} of {questions.length}
-        {q.lesson_title ? ` · ${q.lesson_title}` : ""}
-      </p>
+      <div style={{ display: "flex", justifyContent: "space-between",
+                    alignItems: "baseline", gap: 10 }}>
+        <p style={{ fontSize: "0.82rem", color: "var(--muted)" }}>
+          Question {i + 1} of {questions.length}
+          {q.lesson_title ? ` · ${q.lesson_title}` : ""}
+        </p>
+        {seconds > 0 && !result && (
+          <span
+            style={{
+              fontSize: "0.86rem",
+              fontVariantNumeric: "tabular-nums",
+              fontWeight: 600,
+              color: left <= 10 ? "var(--red)" : "var(--muted)",
+            }}
+          >
+            {left}s
+          </span>
+        )}
+      </div>
 
       <div
         style={{
@@ -142,7 +185,11 @@ export default function Quiz({ attemptId, questions }) {
       {result && !result.error && (
         <div style={{ marginTop: 14 }}>
           <p style={{ fontWeight: 600, marginBottom: 6 }}>
-            {result.correct ? "Correct." : `Not this time — the answer is ${result.correctLabel}.`}
+            {result.timedOut
+              ? "Time ran out on that one."
+              : result.correct
+              ? "Correct."
+              : `Not this time — the answer is ${result.correctLabel}.`}
           </p>
 
           {/* Why their own choice was wrong comes first. A student who picked

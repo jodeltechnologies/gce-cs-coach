@@ -150,7 +150,11 @@ student. That is what the tagging was for: a wrong answer names a lesson.
   the chapter that covers each one. Only topics with at least three answers
   behind them appear — calling a topic weak after one wrong answer is noise,
   and a revision list that changes every session teaches a student to ignore it.
-- **Practice is weighted** towards what a student has been getting wrong, and
+- **Students choose what to practise**: a topic, a mixed set, or "what I keep
+  getting wrong", with 5 to 30 questions and an optional 45, 60 or 90 second
+  timer per question. Each topic shows how many questions sit behind it and how
+  the student has done there so far.
+- **A mixed set is weighted** towards what a student has been getting wrong, and
   away from questions they have already answered correctly. Not exclusively:
   a set drawn only from weak topics never confirms that anything has been
   learned.

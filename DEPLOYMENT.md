@@ -71,6 +71,7 @@ into a new query, click **Run**.
 | 15 | `db/phase7.sql` | Per-option feedback and structured question parts |
 | 16 | `db/seed/07_authored_questions.sql` | 80 authored questions — **after phase7** |
 | 17 | `db/phase8.sql` | Recording practice, weak topics, mastery |
+| 18 | `db/phase9.sql` | Letting students choose topic, length and timer |
 
 **Form 4 must load before Form 5.** Form 5's file links its categories of action
 back to Form 4's by name, so running them out of order leaves those links empty.
