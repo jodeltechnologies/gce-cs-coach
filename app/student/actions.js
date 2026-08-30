@@ -271,3 +271,91 @@ export async function submitPart(attemptId, partId, response) {
     marks: row?.marks ?? null,
   };
 }
+
+// ---------------------------------------------------------------------------
+// Tests set by the teacher
+//
+// Different from practice in one way that shapes everything below: a test is
+// graded, so nothing tells the student whether an answer was right until they
+// submit. A student who learns question three was wrong before answering
+// question four is sitting a different test from one who does not.
+// ---------------------------------------------------------------------------
+
+export async function myAssessments() {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const { data, error } = await supabase.rpc("student_assessments", {
+    p_student: session.id,
+  });
+  if (error) return { error: error.message };
+  return { assessments: data ?? [] };
+}
+
+export async function openAssessment(assessmentId) {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const { data: attemptId, error } = await supabase.rpc(
+    "student_start_assessment",
+    { p_student: session.id, p_assessment: assessmentId }
+  );
+  if (error) return { error: error.message };
+  if (!attemptId) {
+    // The function returns null for every refusal rather than saying which,
+    // so this covers all of them honestly instead of guessing.
+    return {
+      error:
+        "You cannot open this test. It may be closed, not set for your class, " +
+        "or you may have already submitted it.",
+    };
+  }
+
+  const { data: questions, error: qErr } = await supabase.rpc(
+    "student_assessment_questions",
+    { p_student: session.id, p_attempt: attemptId }
+  );
+  if (qErr) return { error: qErr.message };
+  return { attemptId, questions: questions ?? [] };
+}
+
+/** Save one answer. Says nothing about whether it was right. */
+export async function saveTestAnswer(attemptId, questionId, label, response) {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const { data, error } = await supabase.rpc("student_assessment_answer", {
+    p_attempt: attemptId,
+    p_student: session.id,
+    p_question: questionId,
+    p_label: label ?? null,
+    p_response: response ?? null,
+  });
+  if (error) return { error: error.message };
+  return { saved: data === true };
+}
+
+export async function submitAssessment(attemptId) {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const { data, error } = await supabase.rpc("student_submit_assessment", {
+    p_attempt: attemptId,
+    p_student: session.id,
+  });
+  if (error) return { error: error.message };
+  const row = Array.isArray(data) ? data[0] : data;
+  return {
+    score: row?.score ?? 0,
+    outOf: row?.out_of ?? 0,
+    awaitingMarking: Number(row?.awaiting_marking ?? 0),
+  };
+}

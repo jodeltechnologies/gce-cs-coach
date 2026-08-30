@@ -134,7 +134,7 @@ Morgan's laws, Boolean simplification, and normalization to 3NF.
 | | |
 |---|---|
 | Student sign-in | Codes are generated and stored; the accounts are not created yet |
-| Assessments | Assembling questions into a quiz or mock and setting it for a class. Self-directed practice is recorded; a test a teacher sets is not built yet. |
+| Assessments | Set a test for a class at `/admin/assessments`: choose a topic, a length and a deadline, and the questions are fixed at that moment so everyone sits the same paper. Results, class average, and which questions caught them out. |
 | Marking | MCQ and true/false mark themselves; everything else queues for you |
 | Mastery engine | Computed from recorded answers by `refresh_lesson_mastery`. |
 | Offline | The schema was built for it. No service worker or sync queue exists yet. |

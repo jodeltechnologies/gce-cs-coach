@@ -76,6 +76,7 @@ into a new query, click **Run**.
 | 20 | `db/phase10.sql` | Structured (Paper 2) practice for students |
 | 21 | `db/seed/09_lesson_pages.sql` | 67 notes, one per lesson — the main reading |
 | 22 | `db/phase11.sql` | Lets you read and mark written student work |
+| 23 | `db/phase12.sql` | Tests you set for a class |
 
 `db/approve_safe_questions.sql` is not part of the sequence. It clears the
 straightforward half of the review queue from the SQL editor, and is there

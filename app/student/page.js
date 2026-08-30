@@ -17,12 +17,18 @@ export default async function StudentHome() {
   const { data } = await supabase.rpc("student_profile", { p_student: session.id });
   const profile = Array.isArray(data) ? data[0] : data;
 
-  const [{ data: weakData }, { data: progData }, { data: markedData }] =
-    await Promise.all([
+  const [{ data: weakData }, { data: progData }, { data: markedData },
+         { data: testData }] = await Promise.all([
       supabase.rpc("student_weak_topics", { p_student: session.id }),
       supabase.rpc("student_progress", { p_student: session.id }),
       supabase.rpc("student_marked_work", { p_student: session.id }),
+      supabase.rpc("student_assessments", { p_student: session.id }),
     ]);
+  // A test the teacher has set outranks anything the student might choose to
+  // do, so it goes above everything else on this page.
+  const openTests = (testData ?? []).filter(
+    (t) => t.is_open && t.attempt_status !== "submitted" && t.attempt_status !== "marked"
+  );
   const marked = markedData ?? [];
   const weak = (weakData ?? []).filter((w) => Number(w.percentage) < 70);
   const progress = Array.isArray(progData) ? progData[0] : progData;
@@ -44,6 +50,30 @@ export default async function StudentHome() {
           {progress.runs} practice {Number(progress.runs) === 1 ? "run" : "runs"},{" "}
           {progress.correct} right out of {answered}.
         </p>
+      )}
+
+      {openTests.length > 0 && (
+        <div className="notice" style={{ borderLeft: "3px solid var(--red)", marginTop: 18 }}>
+          <h3 style={{ marginTop: 0 }}>
+            {openTests.length === 1 ? "Your teacher has set a test" : "Tests set for you"}
+          </h3>
+          {openTests.map((t) => (
+            <div key={t.assessment_id} style={{ marginBottom: 10 }}>
+              <Link className="link" href={`/student/test/${t.assessment_id}`}
+                    style={{ fontWeight: 600 }}>
+                {t.title}
+              </Link>
+              <span style={{ color: "var(--muted)", fontSize: "0.86rem" }}>
+                {" "}— {t.question_count} questions
+                {t.total_marks ? `, ${t.total_marks} marks` : ""}
+                {t.closes_at
+                  ? `, closes ${new Date(t.closes_at).toLocaleDateString()}`
+                  : ""}
+                {t.attempt_status === "in_progress" ? " · you started this" : ""}
+              </span>
+            </div>
+          ))}
+        </div>
       )}
 
       {/* A mark from the teacher outranks everything the app worked out by
