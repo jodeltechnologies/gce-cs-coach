@@ -423,6 +423,19 @@ To generate one:
 openssl rand -base64 32
 ```
 
+### Getting a class onto the roll
+
+**Admin, Students, "Import a class list from Excel."** Takes an .xlsx or .csv
+file, or a column of names pasted straight out of Excel. Columns headed Name,
+Matricule, Sex, Date of birth, Guardian or Phone are picked up automatically,
+and a list with no headings at all is read as names.
+
+It reports every name: those added with their login code, and those skipped
+with the reason. Running it twice is safe — a student already on the roll is
+skipped rather than duplicated.
+
+The old binary `.xls` cannot be read. Save as `.xlsx` first.
+
 ### What a student can reach
 
 - **/student** — their name, class, and the two things below
@@ -442,7 +455,7 @@ source is not practice.
 
 ### If a student forgets their PIN
 
-The teacher clears it from the student's page, and the student sets a new one on
+The teacher clears it with "Reset their PIN" on the student's page, and the student sets a new one on
 their next sign-in. There is no email reset, because there is no email. Five
 wrong PINs pause that code for fifteen minutes, so a code found on a desk cannot
 be guessed at four digits.

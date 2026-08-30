@@ -5,6 +5,7 @@ import {
   regenerateCode,
   enrolStudent,
   setEnrolmentStatus,
+  resetStudentPin,
 } from "../actions";
 
 export const metadata = { title: "Student" };
@@ -87,12 +88,24 @@ export default async function StudentPage({ params }) {
           <div className="code-name">{student.full_name}</div>
           <div className="code-value">{student.login_code}</div>
         </div>
-        <form action={regenerateCode} style={{ marginTop: 12 }}>
-          <input type="hidden" name="student_id" value={student.id} />
-          <button className="link" type="submit">
-            Generate a new code
-          </button>
-        </form>
+        <div style={{ display: "flex", gap: 16, marginTop: 12 }}>
+          <form action={regenerateCode}>
+            <input type="hidden" name="student_id" value={student.id} />
+            <button className="link" type="submit">
+              Generate a new code
+            </button>
+          </form>
+          <form action={resetStudentPin}>
+            <input type="hidden" name="student_id" value={student.id} />
+            <button className="link" type="submit">
+              Reset their PIN
+            </button>
+          </form>
+        </div>
+        <p style={{ fontSize: "0.82rem", color: "var(--muted)", marginTop: 8 }}>
+          Resetting the PIN keeps the code. The student chooses a new PIN the
+          next time they sign in. Do it in person, so you can see who is asking.
+        </p>
       </div>
 
       <h3>Classes</h3>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient, getUser } from "../../../lib/supabase-server";
 import AddStudentForm from "./AddStudentForm";
+import ImportStudents from "./ImportStudents";
 
 export const metadata = { title: "Students" };
 export const dynamic = "force-dynamic";
@@ -161,6 +162,9 @@ export default async function StudentsPage({ searchParams }) {
       )}
 
       <h3 style={{ marginTop: 34 }}>Add a student</h3>
+      <div style={{ marginBottom: 18 }}>
+        <ImportStudents classes={classes} defaultClass={classFilter} />
+      </div>
       <AddStudentForm classes={classes} defaultClass={classFilter} />
     </>
   );
