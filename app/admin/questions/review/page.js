@@ -120,6 +120,22 @@ export default async function ReviewPage({ searchParams }) {
 
       {bulkCount > 0 && <BulkApprove syllabusId={selected} count={bulkCount} />}
 
+      {/* Hiding the button when it finds nothing looked like the feature did
+          not exist. It usually means the question rows were loaded before the
+          answer work, so say that instead of showing nothing. */}
+      {bulkCount === 0 && (remaining ?? 0) > 20 && (
+        <div className="notice" style={{ borderLeft: "3px solid var(--gold)", marginBottom: 18 }}>
+          <h3 style={{ marginTop: 0 }}>Nothing can be cleared in bulk</h3>
+          <p style={{ marginBottom: 0 }}>
+            With {remaining} waiting, some should normally be safe to accept at
+            once. If none are, these rows were loaded before the proposed
+            answers existed. Re-run <code>db/seed/04_past_questions.sql</code>{" "}
+            from the current release — it now updates existing rows rather than
+            skipping them — then reload this page.
+          </p>
+        </div>
+      )}
+
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
         {[["", "Everything"], ["no_answer_key", "No answer printed"],
           ["from_ocr", "Read by machine"], ["missing_options", "Options missing"],

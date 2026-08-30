@@ -72,7 +72,15 @@ into a new query, click **Run**.
 | 16 | `db/seed/07_authored_questions.sql` | 80 authored questions — **after phase7** |
 | 17 | `db/phase8.sql` | Recording practice, weak topics, mastery |
 | 18 | `db/phase9.sql` | Letting students choose topic, length and timer |
-| 19 | `db/seed/08_lesson_notes.sql` | 19 written lesson chapters — the main reading |
+| 19 | `db/seed/08_lesson_notes.sql` | 19 written lesson chapters |
+| 20 | `db/phase10.sql` | Structured (Paper 2) practice for students |
+| 21 | `db/seed/09_lesson_pages.sql` | 67 notes, one per lesson — the main reading |
+| 22 | `db/phase11.sql` | Lets you read and mark written student work |
+
+`db/approve_safe_questions.sql` is not part of the sequence. It clears the
+straightforward half of the review queue from the SQL editor, and is there
+because the button that does the same thing needs `answer_origin` set, which a
+database loaded from an early version of the question seed does not have.
 
 **Form 4 must load before Form 5.** Form 5's file links its categories of action
 back to Form 4's by name, so running them out of order leaves those links empty.

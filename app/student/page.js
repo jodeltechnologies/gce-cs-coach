@@ -17,10 +17,13 @@ export default async function StudentHome() {
   const { data } = await supabase.rpc("student_profile", { p_student: session.id });
   const profile = Array.isArray(data) ? data[0] : data;
 
-  const [{ data: weakData }, { data: progData }] = await Promise.all([
-    supabase.rpc("student_weak_topics", { p_student: session.id }),
-    supabase.rpc("student_progress", { p_student: session.id }),
-  ]);
+  const [{ data: weakData }, { data: progData }, { data: markedData }] =
+    await Promise.all([
+      supabase.rpc("student_weak_topics", { p_student: session.id }),
+      supabase.rpc("student_progress", { p_student: session.id }),
+      supabase.rpc("student_marked_work", { p_student: session.id }),
+    ]);
+  const marked = markedData ?? [];
   const weak = (weakData ?? []).filter((w) => Number(w.percentage) < 70);
   const progress = Array.isArray(progData) ? progData[0] : progData;
   const answered = Number(progress?.answered ?? 0);
@@ -41,6 +44,27 @@ export default async function StudentHome() {
           {progress.runs} practice {Number(progress.runs) === 1 ? "run" : "runs"},{" "}
           {progress.correct} right out of {answered}.
         </p>
+      )}
+
+      {/* A mark from the teacher outranks everything the app worked out by
+          itself, so it goes first. */}
+      {marked.length > 0 && (
+        <div className="notice" style={{ borderLeft: "3px solid var(--cyan)", marginTop: 18 }}>
+          <h3 style={{ marginTop: 0 }}>Your teacher marked your work</h3>
+          {marked.slice(0, 3).map((m) => (
+            <div key={m.answer_id} style={{ marginBottom: 10 }}>
+              <strong>
+                {m.marks_awarded} out of {m.total_marks}
+              </strong>{" "}
+              <span style={{ color: "var(--muted)", fontSize: "0.86rem" }}>
+                — {m.question_title}
+              </span>
+              {m.feedback && (
+                <p style={{ margin: "3px 0 0", fontSize: "0.88rem" }}>{m.feedback}</p>
+              )}
+            </div>
+          ))}
+        </div>
       )}
 
       {/* The point of the whole thing: not a score, but which chapter to open.

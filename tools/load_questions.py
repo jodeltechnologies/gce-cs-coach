@@ -380,10 +380,50 @@ def emit_sql(qrows, orows, form_level, notes):
     w(f"  WHERE form_level = {sql_str(form_level)} AND deleted_at IS NULL")
     w("  ORDER BY created_at LIMIT 1")
     w(") AS target")
-    # Re-running must not clobber lesson tags or review decisions already made.
-    w("ON CONFLICT (id) DO NOTHING;")
+    # Re-running has to be able to improve a row, not just skip it.
+    #
+    # DO NOTHING was wrong. A question loaded before the answer work existed
+    # kept its null answer_origin forever, however many times the corrected
+    # seed was run, and the bulk-approve button silently found nothing to
+    # offer. The text and the answer metadata are refreshed; anything the
+    # teacher decided is left alone.
+    w("ON CONFLICT (id) DO UPDATE SET")
+    w("  question_text = EXCLUDED.question_text,")
+    w("  answer_origin = EXCLUDED.answer_origin,")
+    w("  answer_confidence = EXCLUDED.answer_confidence,")
+    w("  import_flags = EXCLUDED.import_flags,")
+    w("  figure_name = EXCLUDED.figure_name,")
+    w("  source_year = EXCLUDED.source_year,")
+    w("  source_paper = EXCLUDED.source_paper,")
+    w("  -- A question the teacher has already checked stays checked. Their")
+    w("  -- decision outranks anything this file believes.")
+    w("  needs_review = questions.needs_review AND EXCLUDED.needs_review,")
+    w("  auto_markable = questions.auto_markable,")
+    w("  updated_at = now();")
     w("")
 
+    w("-- --------------------------------------------------------------------")
+    w("-- Rows from an earlier run that this file no longer produces")
+    w("--")
+    w("-- A question id is derived from the question's own text, so repairing a")
+    w("-- question gives it a new id and the damaged original is left behind as")
+    w("-- an orphan. It still says needs_review, so it sits in the queue forever")
+    w("-- asking to be checked, and it is a duplicate of a question that has")
+    w("-- already been fixed.")
+    w("--")
+    w("-- Soft deleted, not removed: if this file is ever generated from a worse")
+    w("-- extraction the rows are still there to look at.")
+    w("-- --------------------------------------------------------------------")
+    w("UPDATE questions SET deleted_at = now(), updated_at = now()")
+    w(f"WHERE import_batch = {sql_str(BATCH)}")
+    w("  AND deleted_at IS NULL")
+    w("  AND id NOT IN (")
+    ids = [r["id"] for r in qrows]
+    for i in range(0, len(ids), 6):
+        chunk = ", ".join(sql_str(x) for x in ids[i:i + 6])
+        w(f"    {chunk}" + ("," if i + 6 < len(ids) else ""))
+    w("  );")
+    w("")
     w("-- --------------------------------------------------------------------")
     w(f"-- {len(orows)} options")
     w("--")

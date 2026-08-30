@@ -169,12 +169,21 @@ practice, so it reflects who has been revising as much as who understands.
 
 ## The course notes
 
-There are two sets, and they do different jobs.
+Three sets, in the order a student meets them.
 
-**The written lesson notes** — 19 chapters covering the whole Form 5 syllabus,
-authored by the teacher for the earlier static platform. Headings, definition
-boxes, bullet lists; the kind of page a student can actually revise from. These
-are what Notes opens on.
+**One note per lesson** — 67 of them, one for every teachable lesson on the
+Form 5 progression sheet, sized for the hour it is taught in. Each opens with
+that lesson's own objectives, taken from the sheet rather than invented, so the
+notes and the scheme of work cannot drift apart. Written plainly: short
+sentences, the point then the example, and the exam's own wording flagged where
+the mark scheme is fussy about it.
+
+Notes per chapter came first and were a mistake. A chapter is three or four
+lessons of material, and a student handed a whole chapter the night before a
+test does not read it. These two older sets remain underneath:
+
+**The written chapters** — 19 chapters from the earlier static platform,
+covering the same ground at chapter length.
 
 **The booklet chapters** — the school's two PDF booklets, extracted. Long, and
 in the register of a scanned textbook, but they hold all 104 figures. They sit
