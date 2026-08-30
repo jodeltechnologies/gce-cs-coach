@@ -205,6 +205,27 @@ Question ids are derived from the question text, so re-running the seed after
 correcting the extract inserts nothing twice and does not disturb lesson tags or
 review decisions already made.
 
+## Tagging
+
+Untagged, a wrong answer is just a wrong answer. Tagged, it points at a lesson,
+which is the whole point of the bank.
+
+`db/seed/06_tags.sql` links **354 questions to 36 Form 5 lessons**, and each of
+the eight note chapters to the lessons it covers, marked `full`, `partial` or
+`background`.
+
+The map in `tools/topic_map.py` is written by hand, because the two vocabularies
+do not overlap. The lesson is called "Storage and processing devices"; the
+question says "which of these hardware components is generally used to hold data
+temporarily" and uses neither word. Matching lesson titles against question text
+produces confident nonsense. What works is naming, per lesson, the words a
+question on that lesson actually contains.
+
+56 questions are left untagged on purpose. Most are Form 4 material that drifted
+into the pamphlet — computer generations, Babbage, valves — and have no Form 5
+lesson to attach to. A few matched only one vague word, and a wrong tag is worse
+than none: it puts a misleading question behind a real revision topic.
+
 **Where the questions came from is only partly known.** The pamphlet interleaves
 loose question banks between real papers, and a header only reliably describes
 the dozen pages after it. Where attribution was not certain the year and paper

@@ -41,17 +41,44 @@ async function uniqueCode(supabase) {
   return `MBJ-${Date.now().toString(36).toUpperCase().slice(-6)}`;
 }
 
-export async function addStudent(formData) {
+/**
+ * Add a student, and say what happened.
+ *
+ * This used to return silently on every failure, which meant a teacher
+ * pressing the button saw the page reload unchanged and had no way to tell a
+ * permissions problem from a duplicate matricule from a typo. Silence is the
+ * worst possible error message: it looks like the app is broken when usually
+ * one specific thing is wrong and the database already said what it was.
+ */
+export async function addStudent(prevState, formData) {
   const supabase = await createClient();
-  if (!supabase) return;
-  if (!(await teacherOrNull(supabase))) return;
+  if (!supabase) {
+    return { error: "The app is not connected to a database yet." };
+  }
+
+  const user = await getUser();
+  if (!user) {
+    return { error: "You are signed out. Reload the page and sign in again." };
+  }
+  const teacher = await teacherOrNull(supabase);
+  if (!teacher) {
+    return {
+      error:
+        "Your sign-in is not linked to a teacher record, so the database is " +
+        "refusing the write. Run the INSERT INTO teachers step at the bottom " +
+        "of db/auth.sql with your email.",
+    };
+  }
 
   const full_name = String(formData.get("full_name") ?? "").trim();
-  if (!full_name) return;
+  if (!full_name) return { error: "A name is required." };
 
   const classId = formData.get("class_id");
   const sex = String(formData.get("sex") ?? "");
   const dob = String(formData.get("date_of_birth") ?? "").trim();
+  if (dob && !/^\d{4}-\d{2}-\d{2}$/.test(dob)) {
+    return { error: `Date of birth should look like 2008-03-14, not "${dob}".` };
+  }
 
   const { data: student, error } = await supabase
     .from("students")
@@ -65,24 +92,56 @@ export async function addStudent(formData) {
       student_phone: String(formData.get("student_phone") ?? "").trim() || null,
       login_code: await uniqueCode(supabase),
     })
-    .select("id")
+    .select("id, full_name, login_code")
     .single();
 
-  if (error || !student) return;
+  if (error) {
+    // Postgres already knows exactly what is wrong. Pass it through rather
+    // than replacing it with a friendlier sentence that says less.
+    if (error.code === "42501") {
+      return {
+        error:
+          "The database refused the insert (row level security). Check that " +
+          "db/phase2.sql has been run and that your teachers row has your " +
+          "auth_user_id set.",
+      };
+    }
+    if (error.code === "23505") {
+      return { error: "That matricule is already used by another student." };
+    }
+    return { error: `${error.message}${error.hint ? ` — ${error.hint}` : ""}` };
+  }
+  if (!student) {
+    return { error: "The student was not created and no reason was given." };
+  }
 
   // Enrol straight away when a class was chosen. Creating a student and then
   // forgetting to put them in a class is the obvious way to end up with a
   // register that is missing people.
   if (classId) {
-    await supabase.from("enrolments").insert({
+    const { error: enrolError } = await supabase.from("enrolments").insert({
       class_id: classId,
       student_id: student.id,
       status: "active",
     });
+    if (enrolError) {
+      // The student exists; only the class link failed. Say so precisely,
+      // because "it did not work" would send a teacher hunting for a student
+      // who is already there.
+      return {
+        error: `${student.full_name} was created but could not be added to ` +
+               `the class: ${enrolError.message}`,
+        code: student.login_code,
+      };
+    }
   }
 
   revalidatePath("/admin/students");
   revalidatePath("/admin");
+  return {
+    ok: `${student.full_name} added.`,
+    code: student.login_code,
+  };
 }
 
 export async function updateStudent(formData) {

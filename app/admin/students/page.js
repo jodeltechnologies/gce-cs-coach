@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createClient, getUser } from "../../../lib/supabase-server";
-import { addStudent } from "./actions";
+import AddStudentForm from "./AddStudentForm";
 
 export const metadata = { title: "Students" };
 export const dynamic = "force-dynamic";
@@ -161,64 +161,7 @@ export default async function StudentsPage({ searchParams }) {
       )}
 
       <h3 style={{ marginTop: 34 }}>Add a student</h3>
-      <form action={addStudent} style={{ maxWidth: 460 }}>
-        <label className="field">
-          <span>Full name</span>
-          <input type="text" name="full_name" required placeholder="Ngwa Divine Besong" />
-        </label>
-
-        <label className="field">
-          <span>Enrol into</span>
-          <select name="class_id" defaultValue={classFilter}>
-            <option value="">Not yet — add to the roll only</option>
-            {(classes ?? []).map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name} · {c.academic_year}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <div style={{ display: "flex", gap: 12 }}>
-          <label className="field" style={{ flex: 1 }}>
-            <span>Matricule</span>
-            <input type="text" name="matricule" placeholder="MBJ/2024/0187" />
-          </label>
-          <label className="field" style={{ width: 110 }}>
-            <span>Sex</span>
-            <select name="sex" defaultValue="">
-              <option value="">—</option>
-              <option value="F">F</option>
-              <option value="M">M</option>
-            </select>
-          </label>
-        </div>
-
-        <label className="field">
-          <span>Date of birth</span>
-          <input type="text" name="date_of_birth" placeholder="2008-03-14" />
-        </label>
-
-        <label className="field">
-          <span>Guardian name</span>
-          <input type="text" name="guardian_name" />
-        </label>
-
-        <div style={{ display: "flex", gap: 12 }}>
-          <label className="field" style={{ flex: 1 }}>
-            <span>Guardian phone</span>
-            <input type="text" name="guardian_phone" placeholder="6xx xx xx xx" />
-          </label>
-          <label className="field" style={{ flex: 1 }}>
-            <span>Student phone</span>
-            <input type="text" name="student_phone" />
-          </label>
-        </div>
-
-        <button className="primary" type="submit">
-          Add student
-        </button>
-      </form>
+      <AddStudentForm classes={classes} defaultClass={classFilter} />
     </>
   );
 }

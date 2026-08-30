@@ -66,6 +66,8 @@ into a new query, click **Run**.
 | 10 | `db/phase5.sql` | Provenance and review columns for imported questions |
 | 11 | `db/seed/04_past_questions.sql` | 522 past-paper questions — **must come after phase5** |
 | 12 | `db/seed/05_notes.sql` | The eight chapters of course notes |
+| 13 | `db/seed/06_tags.sql` | Links questions and note chapters to lessons |
+| 14 | `db/phase6.sql` | Student sign-in, and the functions students read through |
 
 **Form 4 must load before Form 5.** Form 5's file links its categories of action
 back to Form 4's by name, so running them out of order leaves those links empty.
@@ -392,3 +394,55 @@ three curriculum files validating with zero errors, generated SQL checked
 statement by statement. But the front end is untested, and I would rather say so
 than let you find out at the wrong moment. Likely candidates are a package
 version and a small syntax slip, both quick to fix.
+
+
+---
+
+## Letting students in
+
+Students do not use Supabase auth. Most have no email address, so sign up,
+confirm by email and reset by email have nothing to send anything to. They sign
+in at **/student/login** with the code printed on the register, and choose a PIN
+the first time.
+
+**Set one environment variable before this works.** In Vercel, add:
+
+```
+STUDENT_SESSION_SECRET = <a random string of at least 24 characters>
+```
+
+The session cookie is signed with it. Without a signature the cookie is just a
+student id in a text file, and any student could type another one and read
+their classmate's marks. The app refuses to start a session rather than sign
+with a default, because a predictable secret is the same as no secret and the
+failure would be silent.
+
+To generate one:
+
+```bash
+openssl rand -base64 32
+```
+
+### What a student can reach
+
+- **/student** — their name, class, and the two things below
+- **/student/notes** — every chapter with its diagrams
+- **/student/practice** — ten past questions at a time, marked one by one
+
+Practice only offers questions a teacher has already checked. An unreviewed
+question may have been misread by OCR or have no printed answer, and telling a
+student they are wrong on that basis is worse than not asking.
+
+### Why the answers are not in the page
+
+The question is sent to the browser without its correct option. Marking happens
+in the database after the student chooses. Anything sent to a browser can be
+read by the person holding it, and a practice test whose answers sit in the page
+source is not practice.
+
+### If a student forgets their PIN
+
+The teacher clears it from the student's page, and the student sets a new one on
+their next sign-in. There is no email reset, because there is no email. Five
+wrong PINs pause that code for fifteen minutes, so a code found on a desk cannot
+be guessed at four digits.
