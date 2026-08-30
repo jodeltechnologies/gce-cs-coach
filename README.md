@@ -141,6 +141,27 @@ Morgan's laws, Boolean simplification, and normalization to 3NF.
 
 ---
 
+## The course notes
+
+The school's two O-Level booklets are loaded as eight chapters, about 190,000
+characters, readable at `/admin/notes`.
+
+**The diagrams are kept.** The functional diagram of a computer, the instruction
+cycle, the memory hierarchy, every logic gate symbol, the flowchart symbol
+table, the PERT and Gantt charts — 104 figures in all, cropped straight out of
+the printed page and served from `public/notes/figures`. They are not redrawn
+and not described in words; a student sees what is in the booklet in front of
+them.
+
+Most of those are vector drawings rather than images, so extracting the
+embedded pictures would have found the photographs and missed the syllabus.
+`tools/notes/README.md` explains how they are found instead.
+
+Copy `public/notes/figures` along with the seed or every image in the notes is
+a broken link.
+
+---
+
 ## The question bank
 
 522 questions from the school's 334-page past-paper pamphlet are loaded and

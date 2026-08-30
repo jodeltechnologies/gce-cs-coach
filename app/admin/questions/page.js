@@ -32,9 +32,38 @@ export default async function QuestionsPage({ searchParams }) {
 
   const { data: questions } = await q;
   const all = questions ?? [];
-  const untagged = all.filter((x) => (x.question_lessons ?? []).length === 0);
-  const auto = all.filter((x) => x.auto_markable);
-  const unchecked = all.filter((x) => x.needs_review);
+
+  // The list above is capped, so counting it would describe the page rather
+  // than the bank. With 522 questions loaded, a cap of 200 reported "200
+  // questions, 199 unchecked" and looked like a failed import. Count in the
+  // database instead.
+  const tally = async (extra) => {
+    let c = supabase
+      .from("questions")
+      .select("id", { count: "exact", head: true })
+      .eq("syllabus_id", selected ?? "")
+      .is("deleted_at", null);
+    if (sourceFilter) c = c.eq("source", sourceFilter);
+    if (extra) c = extra(c);
+    const { count } = await c;
+    return count ?? 0;
+  };
+
+  const [total, autoCount, uncheckedCount] = await Promise.all([
+    tally(),
+    tally((c) => c.eq("auto_markable", true)),
+    tally((c) => c.eq("needs_review", true)),
+  ]);
+
+  // Untagged has no column to count on, so it is counted through the join
+  // table instead of by filtering the capped list.
+  const { data: taggedRows } = await supabase
+    .from("question_lessons")
+    .select("question_id, questions!inner(syllabus_id, deleted_at)")
+    .eq("questions.syllabus_id", selected ?? "")
+    .is("questions.deleted_at", null);
+  const taggedCount = new Set((taggedRows ?? []).map((r) => r.question_id)).size;
+  const untaggedCount = Math.max(total - taggedCount, 0);
 
   return (
     <>
@@ -56,17 +85,17 @@ export default async function QuestionsPage({ searchParams }) {
       </div>
 
       <div className="tags" style={{ marginBottom: 16 }}>
-        <span className="tag plain">{all.length} questions</span>
-        <span className="tag">{auto.length} mark themselves</span>
-        {untagged.length > 0 && (
-          <span className="tag alert">{untagged.length} not tagged to a lesson</span>
+        <span className="tag plain">{total} questions</span>
+        <span className="tag">{autoCount} mark themselves</span>
+        {untaggedCount > 0 && (
+          <span className="tag alert">{untaggedCount} not tagged to a lesson</span>
         )}
       </div>
 
-      {unchecked.length > 0 && (
+      {uncheckedCount > 0 && (
         <div className="notice" style={{ borderLeft: "3px solid var(--gold)", marginBottom: 18 }}>
           <h3 style={{ marginTop: 0 }}>
-            {unchecked.length} imported questions are waiting to be checked
+            {uncheckedCount} imported questions are waiting to be checked
           </h3>
           <p style={{ marginBottom: 8 }}>
             They came out of the past-paper pamphlet by machine, so some wording
@@ -133,6 +162,12 @@ export default async function QuestionsPage({ searchParams }) {
           </div>
         </Link>
       ))}
+      {total > all.length && (
+        <p style={{ fontSize: "0.82rem", color: "var(--muted)", marginTop: 20 }}>
+          Showing the {all.length} most recently added of {total}. Use the review
+          queue to work through the imported ones in pamphlet page order.
+        </p>
+      )}
     </>
   );
 }

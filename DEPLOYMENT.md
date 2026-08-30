@@ -65,6 +65,7 @@ into a new query, click **Run**.
 | 9 | `db/phase4.sql` | Indexes for the student roll and question bank |
 | 10 | `db/phase5.sql` | Provenance and review columns for imported questions |
 | 11 | `db/seed/04_past_questions.sql` | 522 past-paper questions — **must come after phase5** |
+| 12 | `db/seed/05_notes.sql` | The eight chapters of course notes |
 
 **Form 4 must load before Form 5.** Form 5's file links its categories of action
 back to Form 4's by name, so running them out of order leaves those links empty.
