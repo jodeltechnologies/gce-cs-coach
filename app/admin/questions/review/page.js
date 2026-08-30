@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "../../../../lib/supabase-server";
 import ReviewCard from "./ReviewCard";
+import BulkApprove from "./BulkApprove";
 
 export const metadata = { title: "Check imported questions" };
 export const dynamic = "force-dynamic";
@@ -39,7 +40,7 @@ export default async function ReviewPage({ searchParams }) {
   // source is open at the right place, rather than jumping between papers.
   let q = supabase
     .from("questions")
-    .select("id, question_text, question_type, marks, source, source_year, source_paper, source_number, import_page, import_flags, question_options(id, label, option_text, is_correct, sequence)")
+    .select("id, question_text, question_type, marks, source, source_year, source_paper, source_number, import_page, import_flags, answer_origin, answer_confidence, figure_name, question_options(id, label, option_text, is_correct, sequence)")
     .eq("syllabus_id", selected ?? "")
     .eq("needs_review", true)
     .is("deleted_at", null)
@@ -65,6 +66,23 @@ export default async function ReviewPage({ searchParams }) {
     .not("import_batch", "is", null)
     .is("deleted_at", null);
 
+  // How many could be cleared in one action, using the same rules the bulk
+  // action itself applies. Counted rather than estimated so the button never
+  // promises more than it does.
+  const { data: bulkRows } = await supabase
+    .from("questions")
+    .select("id, import_flags")
+    .eq("syllabus_id", selected ?? "")
+    .eq("needs_review", true)
+    .eq("answer_origin", "proposed")
+    .eq("answer_confidence", "high")
+    .eq("question_type", "mcq")
+    .is("deleted_at", null);
+  const risky = new Set(["from_ocr", "missing_options", "empty_option",
+                         "references_figure", "answer_key_not_among_options"]);
+  const bulkCount = (bulkRows ?? [])
+    .filter((r) => !(r.import_flags ?? []).some((f) => risky.has(f))).length;
+
   const total = (remaining ?? 0) + (done ?? 0);
   const pct = total > 0 ? Math.round(((done ?? 0) / total) * 100) : 0;
 
@@ -72,10 +90,10 @@ export default async function ReviewPage({ searchParams }) {
     <>
       <h2>Check imported questions</h2>
       <p className="lede">
-        These came out of the past-paper pamphlet by machine. A third of its
-        pages were scanned rather than typed, so some wording is wrong, some
-        answers were never printed, and some questions point at a diagram that
-        no scan captured. Until you confirm one, it will not mark a student.
+        These came out of the past-paper pamphlet by machine. Most already have
+        an answer marked: some were printed on the paper, the rest were worked
+        out from the syllabus during import and are shown pre-selected for you
+        to confirm or change. Until you confirm one, it will not mark a student.
       </p>
 
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
@@ -100,10 +118,13 @@ export default async function ReviewPage({ searchParams }) {
         </div>
       )}
 
+      {bulkCount > 0 && <BulkApprove syllabusId={selected} count={bulkCount} />}
+
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
         {[["", "Everything"], ["no_answer_key", "No answer printed"],
           ["from_ocr", "Read by machine"], ["missing_options", "Options missing"],
-          ["references_figure", "Needs a diagram"]].map(([v, label]) => (
+          ["references_figure", "Needs a diagram"],
+          ["answer_proposed_medium", "Worth a second look"]].map(([v, label]) => (
           <Link key={v || "all"}
             href={`/admin/questions/review?syllabus=${selected}${v ? `&flag=${v}` : ""}`}
             className={flag === v ? "tag gold" : "tag plain"}

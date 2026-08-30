@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { approveQuestion, rejectQuestion } from "../actions";
+import QuestionFigure from "../QuestionFigure";
 
 /**
  * One question, checked in place.
@@ -23,7 +24,13 @@ export default function ReviewCard({ question: q, notes }) {
   const [busy, setBusy] = useState(false);
 
   const isMcq = q.question_type === "mcq";
-  const flags = q.import_flags ?? [];
+  // Flags about the proposed answer are shown by the badge below, so listing
+  // them again as warnings would be noise.
+  const flags = (q.import_flags ?? []).filter(
+    (f) => !f.startsWith("answer_proposed_")
+  );
+  const proposed = q.answer_origin === "proposed";
+  const printed = q.answer_origin === "printed";
   // Confirming an MCQ without saying which option is right would create a
   // question that marks every student wrong.
   const canApprove = !isMcq || correct !== "";
@@ -39,6 +46,24 @@ export default function ReviewCard({ question: q, notes }) {
       >
         {q.question_text}
       </div>
+
+      <QuestionFigure name={q.figure_name} />
+
+      {isMcq && (proposed || printed) && (
+        <p
+          style={{
+            fontSize: "0.8rem",
+            color: "var(--muted)",
+            margin: "10px 0 0",
+          }}
+        >
+          {printed
+            ? "Answer taken from the key printed on the source page."
+            : q.answer_confidence === "high"
+            ? "No answer was printed. The one selected below was worked out from the syllabus — check it and confirm."
+            : "No answer was printed. The one selected below was worked out from the syllabus, but this question is ambiguous enough to be worth reading carefully."}
+        </p>
+      )}
 
       {isMcq && (
         <div style={{ marginTop: 10 }}>
@@ -92,6 +117,13 @@ export default function ReviewCard({ question: q, notes }) {
         <span className="tag plain">{q.marks} marks</span>
         {q.import_page && (
           <span className="tag plain">Pamphlet p.{q.import_page}</span>
+        )}
+        {proposed && (
+          <span className={q.answer_confidence === "high" ? "tag" : "tag alert"}>
+            {q.answer_confidence === "high"
+              ? "Answer proposed"
+              : "Answer proposed — check"}
+          </span>
         )}
         {q.source_year ? (
           <span className="tag gold">

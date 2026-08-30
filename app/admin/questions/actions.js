@@ -245,6 +245,72 @@ export async function rejectQuestion(formData) {
   revalidatePath("/admin/questions");
 }
 
+/**
+ * Accept every high-confidence proposed answer for one syllabus at once.
+ *
+ * These are the questions where the answer was worked out from the syllabus
+ * during import and nothing about the question was otherwise in doubt: the
+ * text is clean, four options were recovered, and the answer is ordinary
+ * course content. Confirming them one at a time is real work for no real
+ * decision, which is how review queues end up abandoned half-finished.
+ *
+ * Deliberately excluded: anything from a scan, anything missing options,
+ * anything referring to a figure, and every medium-confidence answer. Those
+ * stay in the queue where a teacher will actually look at them.
+ */
+export async function approveHighConfidence(formData) {
+  const supabase = await createClient();
+  if (!supabase) return;
+  const teacher = await teacherOrNull(supabase);
+  if (!teacher) return;
+
+  const syllabusId = formData.get("syllabus_id");
+  if (!syllabusId) return;
+
+  const { data: rows } = await supabase
+    .from("questions")
+    .select("id, import_flags")
+    .eq("syllabus_id", syllabusId)
+    .eq("needs_review", true)
+    .eq("answer_origin", "proposed")
+    .eq("answer_confidence", "high")
+    .eq("question_type", "mcq")
+    .is("deleted_at", null);
+
+  const risky = new Set([
+    "from_ocr",
+    "missing_options",
+    "empty_option",
+    "references_figure",
+    "answer_key_not_among_options",
+  ]);
+  const safe = (rows ?? [])
+    .filter((r) => !(r.import_flags ?? []).some((f) => risky.has(f)))
+    .map((r) => r.id);
+
+  if (safe.length === 0) return;
+
+  const now = new Date().toISOString();
+  // Chunked because a few hundred ids in one `in` filter makes for a URL long
+  // enough that PostgREST rejects it.
+  for (let i = 0; i < safe.length; i += 100) {
+    await supabase
+      .from("questions")
+      .update({
+        needs_review: false,
+        reviewed_at: now,
+        reviewed_by: teacher.id,
+        answer_origin: "teacher",
+        auto_markable: true,
+        updated_at: now,
+      })
+      .in("id", safe.slice(i, i + 100));
+  }
+
+  revalidatePath("/admin/questions/review");
+  revalidatePath("/admin/questions");
+}
+
 export async function deleteQuestion(formData) {
   const supabase = await createClient();
   if (!supabase) return;

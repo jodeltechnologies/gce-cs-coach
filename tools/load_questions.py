@@ -32,9 +32,16 @@ Usage
 
 import argparse
 import json
+import os
 import re
 import sys
 import uuid
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "questions"))
+try:
+    from proposed_answers import ANSWERS as PROPOSED, STEM_FIXES, FIGURES
+except ImportError:      # answers are optional; the bank loads without them
+    PROPOSED, STEM_FIXES, FIGURES = {}, {}, {}
 
 # Namespace for deterministic question IDs. Fixed forever: changing it would
 # make every previously loaded question look new and duplicate the bank.
@@ -45,7 +52,8 @@ BATCH = "gce-pamphlet-2026"
 # Flags that mean the extractor could be wrong about the question itself, as
 # opposed to merely noting where it came from.
 DOUBT = {"from_ocr", "no_answer_key", "missing_options", "empty_option",
-         "references_figure", "answer_inferred_from_duplicate", "long_stem"}
+         "references_figure", "answer_inferred_from_duplicate", "long_stem",
+         "answer_proposed_high", "answer_proposed_medium"}
 
 
 def sql_str(v):
@@ -133,7 +141,10 @@ def build_mcq_rows(questions):
     seen = set()
 
     for q in questions:
-        stem = tidy(q["stem"])
+        key = (q["page"], q.get("number"))
+        # A scanner error that is unambiguous is repaired here rather than left
+        # for a teacher to retype. Only the repairs listed by hand are applied.
+        stem = tidy(STEM_FIXES.get(key, q["stem"]))
         options = {k: tidy(v) for k, v in q["options"].items() if tidy(v)}
 
         # A multiple-choice question needs a stem and at least three options to
@@ -166,7 +177,29 @@ def build_mcq_rows(questions):
             answer = None
             flags.append("answer_key_not_among_options")
 
-        needs_review = bool(set(flags) & DOUBT) or not answer
+        origin = "printed" if answer else None
+        confidence = None
+
+        # No key was printed, but the question may be ordinary syllabus recall
+        # that was worked out during import. Such an answer is offered, never
+        # asserted: it is marked proposed, and it still needs review.
+        if not answer and key in PROPOSED:
+            letter, confidence = PROPOSED[key]
+            if letter in options:
+                answer = letter
+                origin = "proposed"
+                if "no_answer_key" in flags:
+                    flags.remove("no_answer_key")
+                flags.append(f"answer_proposed_{confidence}")
+
+        # A lost figure that has been redrawn is no longer a reason to hold the
+        # question back, so the flag goes when the figure is supplied.
+        figure = FIGURES.get(key)
+        if figure and "references_figure" in flags:
+            flags.remove("references_figure")
+            flags.append("figure_redrawn")
+
+        needs_review = bool(set(flags) & DOUBT) or not answer or origin == "proposed"
         source, year, paper_label = source_fields(q.get("paper"))
 
         rows.append({
@@ -186,6 +219,9 @@ def build_mcq_rows(questions):
             "import_batch": BATCH,
             "import_page": q["page"],
             "import_flags": flags,
+            "answer_origin": origin,
+            "answer_confidence": confidence,
+            "figure_name": figure,
         })
 
         for i, (label, text) in enumerate(sorted(options.items())):
@@ -244,6 +280,9 @@ def build_structured_rows(items):
             "import_batch": BATCH,
             "import_page": s["page"],
             "import_flags": flags,
+            "answer_origin": None,
+            "answer_confidence": None,
+            "figure_name": None,
         })
     return rows, skipped
 
@@ -251,7 +290,7 @@ def build_structured_rows(items):
 COLS = ["id", "syllabus_id", "question_text", "question_type", "marks",
         "difficulty", "source", "source_year", "source_paper", "source_number",
         "auto_markable", "needs_review", "import_batch", "import_page",
-        "import_flags"]
+        "import_flags", "answer_origin", "answer_confidence", "figure_name"]
 
 
 def emit_sql(qrows, orows, form_level, notes):
@@ -302,7 +341,8 @@ def emit_sql(qrows, orows, form_level, notes):
     w("  x.marks::numeric, x.difficulty::text, x.source::text,")
     w("  x.source_year::integer, x.source_paper::text, x.source_number::text,")
     w("  x.auto_markable::boolean, x.needs_review::boolean,")
-    w("  x.import_batch::text, x.import_page::integer, x.import_flags::text[]")
+    w("  x.import_batch::text, x.import_page::integer, x.import_flags::text[],")
+    w("  x.answer_origin::text, x.answer_confidence::text, x.figure_name::text")
     w("FROM (VALUES")
     vals = []
     for r in qrows:

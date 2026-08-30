@@ -152,11 +152,24 @@ at a truth table or logic circuit that no scan captured. Most exam booklets were
 printed without an answer key at all.
 
 Rather than hold the bank back until every page had been retyped, the doubt is
-recorded alongside each question. **128 arrived ready to use. 394 are marked
-`needs_review`,** and a database constraint stops any unreviewed question from
-marking a student automatically, whatever its type. `/admin/questions/review`
-works through them in pamphlet page order: read, pick the right option, confirm.
-One tap each.
+recorded alongside each question and as much of the gap as possible is filled in
+before a teacher ever sees it:
+
+- **349 of the 408 multiple-choice questions arrive with an answer.** 128 were
+  printed on the paper. The other 221 were worked out from the syllabus during
+  import and are marked `answer_origin = 'proposed'` — offered, not asserted.
+- **Six lost figures were redrawn.** Where a question depended on a picture the
+  scanner could not read, and that picture is standard syllabus content (a NAND
+  symbol, an XOR truth table), it is redrawn in `QuestionFigure.js` and attached
+  by name. Question-specific artwork is still lost and stays flagged.
+- **Obvious scanner damage was repaired** where the correct reading is not in
+  doubt: "Theterin multiprogramining" back to "The term multiprogramming".
+
+A database constraint stops any unreviewed question from marking a student,
+whatever its type. `/admin/questions/review` shows each one with its proposed
+answer pre-selected, and offers to accept the clean high-confidence ones in a
+single action, so the queue starts at roughly sixty questions that genuinely
+need a teacher rather than four hundred that mostly do not.
 
 Every imported row keeps the page it came from, so when a question looks wrong
 you know exactly where to look.

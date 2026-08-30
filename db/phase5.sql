@@ -29,7 +29,32 @@ ALTER TABLE questions
   ADD COLUMN IF NOT EXISTS reviewed_by   UUID REFERENCES teachers(id),
   ADD COLUMN IF NOT EXISTS import_batch  TEXT,
   ADD COLUMN IF NOT EXISTS import_page   INTEGER,
-  ADD COLUMN IF NOT EXISTS import_flags  TEXT[];
+  ADD COLUMN IF NOT EXISTS import_flags  TEXT[],
+  ADD COLUMN IF NOT EXISTS answer_origin TEXT,
+  ADD COLUMN IF NOT EXISTS answer_confidence TEXT;
+
+-- Where the answer key came from. This matters more than it looks: an answer
+-- read off the printed paper and an answer worked out from the syllabus are
+-- not the same kind of fact, and a teacher deciding how carefully to check
+-- one needs to know which it is.
+ALTER TABLE questions
+  DROP CONSTRAINT IF EXISTS questions_answer_origin_check;
+ALTER TABLE questions
+  ADD CONSTRAINT questions_answer_origin_check
+  CHECK (answer_origin IS NULL
+         OR answer_origin IN ('printed', 'proposed', 'teacher'));
+
+ALTER TABLE questions
+  DROP CONSTRAINT IF EXISTS questions_answer_confidence_check;
+ALTER TABLE questions
+  ADD CONSTRAINT questions_answer_confidence_check
+  CHECK (answer_confidence IS NULL
+         OR answer_confidence IN ('high', 'medium', 'low'));
+
+COMMENT ON COLUMN questions.answer_origin IS
+  'printed  = the key was on the source page. '
+  'proposed = worked out from the syllabus during import, never verified. '
+  'teacher  = a teacher chose or confirmed it.';
 
 COMMENT ON COLUMN questions.needs_review IS
   'Imported and not yet checked by a teacher against the source page.';
@@ -83,3 +108,25 @@ SELECT
   (SELECT count(*) FROM questions WHERE deleted_at IS NULL) AS questions,
   (SELECT count(*) FROM questions WHERE deleted_at IS NULL AND needs_review) AS awaiting_review,
   (SELECT count(*) FROM questions WHERE deleted_at IS NULL AND auto_markable) AS mark_themselves;
+
+
+-- ---------------------------------------------------------------------
+-- PART 5 — Figures that did not survive scanning
+--
+-- Some questions turn on a picture the scanner could not read. Where the
+-- picture is standard syllabus content — a NAND gate symbol, an XOR truth
+-- table — it can be redrawn once in the app and pointed at by name. Where it
+-- is specific to one paper, it is genuinely lost and the question stays
+-- flagged.
+--
+-- Names must match a key in app/admin/questions/QuestionFigure.js. An unknown
+-- name renders nothing rather than breaking the page.
+-- ---------------------------------------------------------------------
+
+ALTER TABLE questions
+  ADD COLUMN IF NOT EXISTS figure_name TEXT;
+
+COMMENT ON COLUMN questions.figure_name IS
+  'Named standard figure to render with this question, redrawn because the '
+  'scanned original was unreadable. Null for questions that need no figure '
+  'or whose figure was specific to the paper and is lost.';
