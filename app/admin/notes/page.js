@@ -10,7 +10,7 @@ export default async function NotesIndex() {
 
   const { data: sections } = await supabase
     .from("note_sections")
-    .select("id, chapter_number, title, page_from, page_to, body, note_sources(title, attribution)")
+    .select("id, chapter_number, title, page_from, page_to, body, body_format, note_sources(title, attribution, sequence)")
     .is("deleted_at", null)
     .order("sequence");
 

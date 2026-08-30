@@ -12,7 +12,7 @@ export default async function NotePage({ params }) {
 
   const { data: s } = await supabase
     .from("note_sections")
-    .select("id, chapter_number, title, body, page_from, page_to, note_sources(title, attribution)")
+    .select("id, chapter_number, title, body, body_format, page_from, page_to, note_sources(title, attribution)")
     .eq("id", id)
     .is("deleted_at", null)
     .maybeSingle();
@@ -31,7 +31,7 @@ export default async function NotePage({ params }) {
         {s.note_sources?.title} · pp. {s.page_from}–{s.page_to}
         {s.note_sources?.attribution ? ` · ${s.note_sources.attribution}` : ""}
       </p>
-      <NoteBody body={s.body} />
+      <NoteBody body={s.body} format={s.body_format} />
     </>
   );
 }

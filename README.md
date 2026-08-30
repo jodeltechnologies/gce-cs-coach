@@ -169,6 +169,21 @@ practice, so it reflects who has been revising as much as who understands.
 
 ## The course notes
 
+There are two sets, and they do different jobs.
+
+**The written lesson notes** — 19 chapters covering the whole Form 5 syllabus,
+authored by the teacher for the earlier static platform. Headings, definition
+boxes, bullet lists; the kind of page a student can actually revise from. These
+are what Notes opens on.
+
+**The booklet chapters** — the school's two PDF booklets, extracted. Long, and
+in the register of a scanned textbook, but they hold all 104 figures. They sit
+underneath as the reference copy.
+
+Loading the second without the first was a mistake worth naming: a wall of
+extracted prose is worse to read than the source it came from, and it was
+presented as the main reading for a while.
+
 The school's two O-Level booklets are loaded as eight chapters, about 190,000
 characters, readable at `/admin/notes`.
 

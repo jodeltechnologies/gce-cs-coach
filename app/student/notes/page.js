@@ -21,6 +21,16 @@ export default async function StudentNotes({ searchParams }) {
   const chapters = data ?? [];
   const open = chapters.find((c) => c.id === openId);
 
+  // Grouped by where they came from, in the order the function returned them:
+  // the written notes, then the booklet chapters that hold the figures.
+  const grouped = new Map();
+  for (const c of chapters) {
+    const key = c.source_title ?? "Notes";
+    if (!grouped.has(key)) grouped.set(key, []);
+    grouped.get(key).push(c);
+  }
+  const groups = [...grouped.entries()];
+
   return (
     <main style={{ maxWidth: 700, margin: "0 auto", padding: "28px 20px" }}>
       <p style={{ marginBottom: 10 }}>
@@ -32,18 +42,26 @@ export default async function StudentNotes({ searchParams }) {
       {!open && (
         <>
           <h2>Notes</h2>
-          {chapters.map((c) => (
-            <Link key={c.id} href={`/student/notes?c=${c.id}`} className="row"
-                  style={{ display: "block", textDecoration: "none" }}>
-              <div className="name">
-                {c.chapter_number ? `${c.chapter_number}. ` : ""}{c.title}
-              </div>
-              <div className="tags" style={{ marginTop: 6 }}>
-                <span className="tag plain">
-                  about {Math.max(Math.round((c.body?.length ?? 0) / 1100), 1)} min
-                </span>
-              </div>
-            </Link>
+          {groups.map(([source, list]) => (
+            <div key={source} style={{ marginBottom: 26 }}>
+              <h3 style={{ fontSize: "0.95rem", marginBottom: 10 }}>{source}</h3>
+              {list.map((c) => (
+                <Link key={c.id} href={`/student/notes?c=${c.id}`} className="row"
+                      style={{ display: "block", textDecoration: "none" }}>
+                  <div className="name">
+                    {c.chapter_number ? `${c.chapter_number}. ` : ""}{c.title}
+                  </div>
+                  <div className="tags" style={{ marginTop: 6 }}>
+                    <span className="tag plain">
+                      about {Math.max(Math.round((c.body?.length ?? 0) / 1100), 1)} min
+                    </span>
+                    {c.body?.includes("![") && (
+                      <span className="tag">with diagrams</span>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
           ))}
         </>
       )}
@@ -53,7 +71,7 @@ export default async function StudentNotes({ searchParams }) {
           <h2 style={{ marginBottom: 18 }}>
             {open.chapter_number ? `${open.chapter_number}. ` : ""}{open.title}
           </h2>
-          <NoteBody body={open.body} />
+          <NoteBody body={open.body} format={open.body_format} />
         </>
       )}
     </main>
