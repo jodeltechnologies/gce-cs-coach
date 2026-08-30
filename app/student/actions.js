@@ -210,3 +210,64 @@ export async function finishPractice(attemptId) {
   const row = Array.isArray(data) ? data[0] : data;
   return { score: row?.score ?? 0, outOf: row?.out_of ?? 0 };
 }
+
+/**
+ * A set of structured questions to work through.
+ *
+ * These are not marked. The student writes an answer, then sees the model
+ * answer and the marks, and judges their own against it — which is what
+ * happens when a script comes back. Pretending to score a paragraph would be
+ * worse than not scoring it.
+ */
+export async function startStructured({ lessonId = null, count = 2 } = {}) {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const { data: prof } = await supabase.rpc("student_profile", {
+    p_student: session.id,
+  });
+  const profile = Array.isArray(prof) ? prof[0] : prof;
+  if (!profile?.syllabus_id) return { error: "You are not in a class yet." };
+
+  const { data: attemptId, error: aErr } = await supabase.rpc(
+    "student_start_practice",
+    {
+      p_student: session.id,
+      p_syllabus: profile.syllabus_id,
+      p_lesson: lessonId,
+      p_mode: lessonId ? "lesson" : "mixed",
+    }
+  );
+  if (aErr) return { error: aErr.message };
+
+  const { data, error } = await supabase.rpc("student_structured", {
+    p_syllabus: profile.syllabus_id,
+    p_lesson: lessonId,
+    p_limit: Math.min(Math.max(Number(count) || 2, 1), 10),
+  });
+  if (error) return { error: error.message };
+  return { attemptId, questions: data ?? [] };
+}
+
+/** Save what was written, then hand back the model answer. */
+export async function submitPart(attemptId, partId, response) {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const { data, error } = await supabase.rpc("student_answer_part", {
+    p_attempt: attemptId,
+    p_student: session.id,
+    p_part: partId,
+    p_response: response ?? "",
+  });
+  if (error) return { error: error.message };
+  const row = Array.isArray(data) ? data[0] : data;
+  return {
+    modelAnswer: row?.model_answer ?? null,
+    marks: row?.marks ?? null,
+  };
+}

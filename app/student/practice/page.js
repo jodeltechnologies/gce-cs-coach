@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getStudentSession } from "../../../lib/student-session";
-import { startPractice, practiceTopics } from "../actions";
+import { startPractice, startStructured, practiceTopics } from "../actions";
 import Quiz from "./Quiz";
+import Structured from "./Structured";
 
 export const metadata = { title: "Practice" };
 export const dynamic = "force-dynamic";
@@ -51,11 +52,15 @@ export default async function Practice({ searchParams }) {
   // both, a topic button and a hidden field would each contribute a "mode" and
   // the value would arrive as an array.
   const lessonId = sp?.lesson || null;
-  const run = await startPractice({
-    lessonId,
-    count: sp?.n || 10,
-    mode: lessonId ? "lesson" : sp?.mode || "mixed",
-  });
+  const wantsStructured = sp?.kind === "structured";
+
+  const run = wantsStructured
+    ? await startStructured({ lessonId, count: sp?.n || 2 })
+    : await startPractice({
+        lessonId,
+        count: sp?.n || 10,
+        mode: lessonId ? "lesson" : sp?.mode || "mixed",
+      });
 
   return (
     <main style={{ maxWidth: 640, margin: "0 auto", padding: "28px 20px" }}>
@@ -71,18 +76,22 @@ export default async function Practice({ searchParams }) {
         <div className="notice">
           <h3>Nothing to ask you there yet</h3>
           <p style={{ marginBottom: 0 }}>
-            No checked questions match that choice. Try another topic.
+            No checked {wantsStructured ? "structured questions" : "questions"}{" "}
+            match that choice. Try another topic.
           </p>
         </div>
       )}
 
-      {!run.error && (run.questions ?? []).length > 0 && (
-        <Quiz
-          attemptId={run.attemptId}
-          questions={run.questions}
-          seconds={Number(sp?.t) || 0}
-        />
-      )}
+      {!run.error && (run.questions ?? []).length > 0 &&
+        (wantsStructured ? (
+          <Structured attemptId={run.attemptId} questions={run.questions} />
+        ) : (
+          <Quiz
+            attemptId={run.attemptId}
+            questions={run.questions}
+            seconds={Number(sp?.t) || 0}
+          />
+        ))}
     </main>
   );
 }
@@ -96,6 +105,7 @@ export default async function Practice({ searchParams }) {
  */
 function Chooser({ topics }) {
   const total = topics.reduce((n, t) => n + Number(t.available), 0);
+  const structuredTotal = topics.reduce((n, t) => n + Number(t.structured ?? 0), 0);
 
   return (
     <form action="/student/practice" method="get">
@@ -134,9 +144,19 @@ function Chooser({ topics }) {
                   style={{ background: "var(--gold)", color: "#1a1a1a" }}>
             What I keep getting wrong
           </button>
+          {structuredTotal > 0 && (
+            <button className="primary" type="submit" name="kind" value="structured"
+                    style={{ background: "transparent", color: "var(--ink, #2b2b2b)",
+                             border: "1px solid var(--rule, #e5e2dc)" }}>
+              Paper 2 questions
+            </button>
+          )}
         </div>
       <p style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: 0 }}>
-        {total} questions ready across {topics.length} topics.
+        {total} multiple choice
+        {structuredTotal > 0 ? ` and ${structuredTotal} Paper 2 questions` : ""}{" "}
+        ready across {topics.length} topics. Paper 2 answers are not scored —
+        you write them, then compare with the marker&apos;s points.
       </p>
 
       <h3 style={{ marginTop: 26 }}>Or pick a topic</h3>
@@ -160,7 +180,10 @@ function Chooser({ topics }) {
                 {t.lesson_title}
               </div>
               <div className="tags" style={{ marginTop: 6 }}>
-                <span className="tag plain">{t.available} questions</span>
+                <span className="tag plain">{t.available} MCQ</span>
+                {Number(t.structured ?? 0) > 0 && (
+                  <span className="tag plain">{t.structured} Paper 2</span>
+                )}
                 {pct !== null && (
                   <span className={pct < 50 ? "tag alert" : "tag"}>{pct}% so far</span>
                 )}

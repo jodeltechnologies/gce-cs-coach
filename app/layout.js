@@ -1,4 +1,4 @@
-import { Literata, Inter } from "next/font/google";
+import { Literata, Outfit } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
@@ -8,8 +8,10 @@ import "./globals.css";
 // was drawn for long passages on a screen rather than for headlines. That is
 // exactly what a lesson note is. It is what carries the notes a student reads.
 //
-// Inter handles the interface — buttons, tags, tables — where you scan rather
-// than read.
+// Outfit handles the interface — buttons, tags, headings — where you scan
+// rather than read. It is a geometric sans with a wide, confident cap height,
+// which is what gives the JODEL site its look: headlines that feel engineered
+// rather than typed.
 //
 // next/font downloads both at build time and serves them from your own domain.
 // No request ever goes to Google from a student's phone, which means one less
@@ -20,7 +22,7 @@ const reading = Literata({
   variable: "--font-reading",
 });
 
-const ui = Inter({
+const ui = Outfit({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-ui",
