@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { checkAnswer } from "../actions";
+import { checkAnswer, finishPractice } from "../actions";
 
 /**
  * Ten questions, marked one at a time.
@@ -11,7 +11,7 @@ import { checkAnswer } from "../actions";
  * readable by anyone who knows where to look, and a practice test whose
  * answers are in the page source is not practice.
  */
-export default function Quiz({ questions }) {
+export default function Quiz({ attemptId, questions }) {
   const [i, setI] = useState(0);
   const [chosen, setChosen] = useState("");
   const [result, setResult] = useState(null);
@@ -32,9 +32,14 @@ export default function Quiz({ questions }) {
             ? "All correct. Try another set."
             : "Go back over the ones you missed in the notes, then try again."}
         </p>
-        <button className="primary" onClick={() => window.location.reload()}>
-          Another ten
-        </button>
+        <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+          <button className="primary" onClick={() => window.location.reload()}>
+            Another ten
+          </button>
+          <a className="link" href="/student" style={{ fontSize: "0.88rem" }}>
+            See what to revise
+          </a>
+        </div>
       </div>
     );
   }
@@ -42,7 +47,7 @@ export default function Quiz({ questions }) {
   async function submit() {
     if (!chosen || busy) return;
     setBusy(true);
-    const r = await checkAnswer(q.question_id, chosen);
+    const r = await checkAnswer(attemptId, q.question_id, chosen);
     setBusy(false);
     if (r.error) {
       setResult({ error: r.error });
@@ -52,10 +57,14 @@ export default function Quiz({ questions }) {
     if (r.correct) setScore((s) => s + 1);
   }
 
-  function next() {
+  async function next() {
+    const last = i + 1 >= questions.length;
     setI((n) => n + 1);
     setChosen("");
     setResult(null);
+    // Closing the attempt is what turns ten answers into a score and refreshes
+    // the weak-topic list on the way out.
+    if (last) await finishPractice(attemptId);
   }
 
   return (

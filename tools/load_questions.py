@@ -39,9 +39,10 @@ import uuid
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "questions"))
 try:
-    from proposed_answers import ANSWERS as PROPOSED, STEM_FIXES, FIGURES
+    from proposed_answers import (ANSWERS as PROPOSED, STEM_FIXES,
+                                  FIGURES, REFINEMENTS)
 except ImportError:      # answers are optional; the bank loads without them
-    PROPOSED, STEM_FIXES, FIGURES = {}, {}, {}
+    PROPOSED, STEM_FIXES, FIGURES, REFINEMENTS = {}, {}, {}, {}
 
 # Namespace for deterministic question IDs. Fixed forever: changing it would
 # make every previously loaded question look new and duplicate the bank.
@@ -53,7 +54,7 @@ BATCH = "gce-pamphlet-2026"
 # opposed to merely noting where it came from.
 DOUBT = {"from_ocr", "no_answer_key", "missing_options", "empty_option",
          "references_figure", "answer_inferred_from_duplicate", "long_stem",
-         "answer_proposed_high", "answer_proposed_medium"}
+         "answer_proposed_high", "answer_proposed_medium", "repaired_by_hand"}
 
 
 def sql_str(v):
@@ -147,6 +148,15 @@ def build_mcq_rows(questions):
         stem = tidy(STEM_FIXES.get(key, q["stem"]))
         options = {k: tidy(v) for k, v in q["options"].items() if tidy(v)}
 
+        # A hand repair replaces the options outright. The scanner ran the
+        # four choices together into one, and the original is recoverable from
+        # inside the text it produced; see REFINEMENTS for why only those are
+        # touched.
+        fix = REFINEMENTS.get(key)
+        if fix:
+            stem = tidy(fix.get("stem", stem))
+            options = {k: tidy(v) for k, v in fix["options"].items()}
+
         # A multiple-choice question needs a stem and at least three options to
         # be worth a teacher's time to fix. Below that there is nothing to
         # correct, only something to retype from the PDF.
@@ -179,6 +189,16 @@ def build_mcq_rows(questions):
 
         origin = "printed" if answer else None
         confidence = None
+
+        if fix:
+            answer = fix["answer"]
+            confidence = fix.get("confidence", "medium")
+            origin = "proposed"
+            flags = [f for f in flags
+                     if f not in ("no_answer_key", "missing_options",
+                                  "empty_option", "from_ocr")]
+            flags.append("repaired_by_hand")
+            flags.append(f"answer_proposed_{confidence}")
 
         # No key was printed, but the question may be ordinary syllabus recall
         # that was worked out during import. Such an answer is offered, never

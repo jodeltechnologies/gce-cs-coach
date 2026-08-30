@@ -134,12 +134,34 @@ Morgan's laws, Boolean simplification, and normalization to 3NF.
 | | |
 |---|---|
 | Student sign-in | Codes are generated and stored; the accounts are not created yet |
-| Assessments | Assembling questions into a quiz or mock and setting it for a class |
+| Assessments | Assembling questions into a quiz or mock and setting it for a class. Self-directed practice is recorded; a test a teacher sets is not built yet. |
 | Marking | MCQ and true/false mark themselves; everything else queues for you |
-| Mastery engine | `lesson_mastery` exists and is empty. Nothing computes it yet. |
+| Mastery engine | Computed from recorded answers by `refresh_lesson_mastery`. |
 | Offline | The schema was built for it. No service worker or sync queue exists yet. |
 
 ---
+
+## What a student does is remembered
+
+Every practice answer is recorded against the question, the attempt and the
+student. That is what the tagging was for: a wrong answer names a lesson.
+
+- **`/student`** leads with which topics to go back over, and links straight to
+  the chapter that covers each one. Only topics with at least three answers
+  behind them appear — calling a topic weak after one wrong answer is noise,
+  and a revision list that changes every session teaches a student to ignore it.
+- **Practice is weighted** towards what a student has been getting wrong, and
+  away from questions they have already answered correctly. Not exclusively:
+  a set drawn only from weak topics never confirms that anything has been
+  learned.
+- **`/admin/progress`** is the same roll-up across a class, weakest first. A
+  topic appears once five answers have gone through it.
+
+`lesson_mastery` is a cache of the answers, refreshed when a run finishes
+rather than maintained by a trigger on every answer.
+
+Read the class view as a signal rather than a mark: it counts self-directed
+practice, so it reflects who has been revising as much as who understands.
 
 ## The course notes
 

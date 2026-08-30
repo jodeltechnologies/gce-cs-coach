@@ -25,6 +25,15 @@ from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from topic_map import TOPICS, NOTE_COVERAGE
+# Question ids are derived from the question's own text, so a repaired question
+# has a different id from the damaged one. Tagging must apply exactly the same
+# repairs, or every tag on a repaired question points at a row that no longer
+# exists and is silently dropped by the join.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "questions"))
+try:
+    from proposed_answers import STEM_FIXES, REFINEMENTS
+except ImportError:
+    STEM_FIXES, REFINEMENTS = {}, {}
 
 NS = uuid.UUID("6f4a1d3e-9b2c-4f18-a0d7-5c8e21b7a640")
 NOTE_NS = uuid.UUID("2b9f7c14-6e83-4a55-9d21-70f4c8b5e0a3")
@@ -102,9 +111,22 @@ def main():
     per_lesson = Counter()
     untagged = []
     for q in questions:
-        stem = re.sub(r"\s+", " ", q["stem"]).strip()
+        key = (q["page"], q.get("number"))
+        stem = re.sub(r"\s+", " ", STEM_FIXES.get(key, q["stem"])).strip()
         options = {k: v for k, v in q["options"].items() if v.strip()}
+        fix = REFINEMENTS.get(key)
+        if fix:
+            stem = re.sub(r"\s+", " ", fix.get("stem", stem)).strip()
+            options = dict(fix["options"])
         if len(stem) < 15 or len(options) < 3:
+            continue
+        # The same rejections the loader applies. A tag on a question the
+        # loader skipped is dropped silently by the join, which means the
+        # counts here would claim work that never reached the database.
+        if re.match(r"^\(?\s*(?:[a-e]|i{1,3}|iv|v)\s*\)", stem, re.I):
+            continue
+        if (re.search(r"\b(?:Table|Figure|Diagram)\s*[|1I]?\s*(?:is|shows|above|below)\b",
+                      stem, re.I) and len(stem) > 120):
             continue
         qid = question_id(stem, options)
         haystack = stem + " " + " ".join(options.values())

@@ -92,14 +92,58 @@ export async function signOut() {
   redirect("/student/login");
 }
 
-/** Mark one answer. The correct option is decided in the database. */
-export async function checkAnswer(questionId, label) {
+/**
+ * Start a practice run and get its questions.
+ *
+ * The attempt row is created before the first question is shown, so a run
+ * abandoned halfway still leaves a record of what was answered. Waiting until
+ * the end to save would lose exactly the sessions worth studying: the ones a
+ * student walked away from.
+ */
+export async function startPractice() {
   const session = await getStudentSession();
   if (!session) return { error: "Signed out." };
   const supabase = await createClient();
   if (!supabase) return { error: "Not connected." };
 
-  const { data, error } = await supabase.rpc("student_check", {
+  const { data: prof } = await supabase.rpc("student_profile", {
+    p_student: session.id,
+  });
+  const profile = Array.isArray(prof) ? prof[0] : prof;
+  if (!profile?.syllabus_id) return { error: "You are not in a class yet." };
+
+  const { data: attemptId, error: aErr } = await supabase.rpc(
+    "student_start_practice",
+    { p_student: session.id, p_syllabus: profile.syllabus_id }
+  );
+  if (aErr) return { error: aErr.message };
+
+  const { data, error } = await supabase.rpc("student_practice", {
+    p_syllabus: profile.syllabus_id,
+    p_limit: 10,
+    p_student: session.id,
+  });
+  if (error) return { error: error.message };
+
+  return { attemptId, questions: data ?? [] };
+}
+
+/**
+ * Mark one answer and record it in the same call.
+ *
+ * Not two calls. A student who sees the mark and closes the tab before the
+ * save would leave no trace of the question they got wrong, which is the part
+ * worth keeping.
+ */
+export async function checkAnswer(attemptId, questionId, label) {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const { data, error } = await supabase.rpc("student_answer", {
+    p_attempt: attemptId,
+    p_student: session.id,
     p_question: questionId,
     p_label: label,
   });
@@ -114,4 +158,22 @@ export async function checkAnswer(questionId, label) {
     // the notes for every option would turn the next attempt into a lookup.
     yourFeedback: row.your_feedback ?? null,
   };
+}
+
+export async function finishPractice(attemptId) {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const { data, error } = await supabase.rpc("student_finish_practice", {
+    p_attempt: attemptId,
+    p_student: session.id,
+  });
+  if (error) return { error: error.message };
+  // The mastery table is a cache of the answers, refreshed here rather than
+  // kept up to date by a trigger on every answer.
+  await supabase.rpc("refresh_lesson_mastery", { p_student: session.id });
+  const row = Array.isArray(data) ? data[0] : data;
+  return { score: row?.score ?? 0, outOf: row?.out_of ?? 0 };
 }

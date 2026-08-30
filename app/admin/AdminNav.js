@@ -8,6 +8,7 @@ const LINKS = [
   { href: "/admin/lessons", label: "Lesson notes" },
   { href: "/admin/classes", label: "Classes" },
   { href: "/admin/students", label: "Students" },
+  { href: "/admin/progress", label: "Class progress" },
   { href: "/admin/notes", label: "Course notes" },
   { href: "/admin/questions", label: "Questions" },
   { href: "/admin/questions/review", label: "Check imports" },

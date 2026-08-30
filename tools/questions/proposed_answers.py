@@ -306,3 +306,216 @@ FIGURES = {
     (192, 29): "gates_all",
     (86, 13):  "truth_nor",    # asks when NOR outputs high
 }
+
+
+# ---------------------------------------------------------------------------
+# Questions repaired by hand.
+#
+# A large share of the unanswerable questions are not damaged so much as
+# run together: the scanner read a four-option column as one option and
+# packed B, C and D inside A. "Sending a file from your computer to a server
+# is called" arrived with option A reading "downloading. 13reading. C writing.
+# D uploading." — every option is there, in the wrong place.
+#
+# Those are repaired below, because the original is recoverable from what the
+# scan itself contains. Where an option is genuinely gone, the question is left
+# alone: writing a plausible replacement would be inventing exam material and
+# passing it off as the paper.
+#
+# Each entry replaces the options wholesale, and may correct the stem.
+# ---------------------------------------------------------------------------
+
+REFINEMENTS = {
+    (63, 33): {
+        "stem": "In a system in which 1 means TRUE and 0 means FALSE, "
+                "what is the result of 1 + 1?",
+        "options": {"A": "2", "B": "10", "C": "1"},
+        "answer": "C", "confidence": "medium",
+    },
+    (64, 50): {
+        "stem": "How many bits are required to encode 32 different characters?",
+        "options": {"A": "32", "B": "8", "C": "5", "D": "4"},
+        "answer": "C", "confidence": "medium",
+    },
+    (75, 10): {
+        "stem": "Making illegal copies of copyrighted software is known as",
+        "options": {"A": "Scamming", "B": "Browsing", "C": "Sharing", "D": "Piracy"},
+        "answer": "D", "confidence": "high",
+    },
+    (87, 19): {
+        "stem": "Sending a file from your computer to a server is called",
+        "options": {"A": "downloading", "B": "reading", "C": "writing",
+                    "D": "uploading"},
+        "answer": "D", "confidence": "high",
+    },
+    (87, 22): {
+        "stem": "Which of the following is a program used for locating and "
+                "correcting programming errors?",
+        "options": {"A": "Compiler", "B": "Assembler", "C": "Debugger",
+                    "D": "Linker"},
+        "answer": "C", "confidence": "high",
+    },
+    (87, 30): {
+        "stem": "The number 56A3 has been written possibly in base:",
+        "options": {"A": "16", "B": "7", "C": "8", "D": "9"},
+        "answer": "A", "confidence": "high",
+    },
+    (94, 2): {
+        "stem": "Which of the following mathematical statements is TRUE?",
+        "options": {"A": "1KB = 8 Bytes", "B": "1MB = 1000 Bytes",
+                    "C": "1KB = 1024 Bytes", "D": "1MB = 1024 Bytes"},
+        "answer": "C", "confidence": "high",
+    },
+    (94, 5): {
+        "stem": "A communication channel that is bidirectional but carries "
+                "data in only one direction at a time is called a",
+        "options": {"A": "Simplex channel", "B": "Half-duplex channel",
+                    "C": "Serial transmission channel"},
+        "answer": "B", "confidence": "high",
+    },
+    (94, 8): {
+        "stem": "A field which uniquely identifies a record in a database "
+                "table is referred to as",
+        "options": {"A": "Secondary key", "B": "Foreign key",
+                    "C": "Primary key", "D": "Non key field"},
+        "answer": "C", "confidence": "high",
+    },
+    (94, 16): {
+        "stem": "The act of protecting data by converting it into an "
+                "unreadable format by means of an algorithm, so that only the "
+                "intended recipient can understand it, is called",
+        "options": {"A": "Compression", "B": "Decryption", "C": "Encryption",
+                    "D": "Encapsulation"},
+        "answer": "C", "confidence": "high",
+    },
+    (95, 21): {
+        "stem": "Attenuation that occurs during data transmission can be "
+                "corrected by using a network device called a",
+        "options": {"A": "Modem", "B": "Repeater", "C": "Computer hub",
+                    "D": "Computer switch"},
+        "answer": "B", "confidence": "high",
+    },
+    (95, 24): {
+        "stem": "In spreadsheet applications, the name given to a "
+                "pre-programmed formula is a",
+        "options": {"A": "Function", "B": "Operator", "C": "Graph"},
+        "answer": "A", "confidence": "high",
+    },
+    (95, 25): {
+        "stem": "Which of the following is in the descending order of the "
+                "data hierarchy?",
+        "options": {
+            "A": "Bit, byte, field, record, file and database",
+            "B": "Database, file, record, field, byte and bit",
+            "C": "Byte, bit, field, record, file and database"},
+        "answer": "B", "confidence": "high",
+    },
+    (95, 26): {
+        "stem": "In which stage of the SDLC is data gathered and scrutinized?",
+        "options": {"A": "Preliminary investigation", "B": "System analysis",
+                    "C": "System design", "D": "System testing"},
+        "answer": "B", "confidence": "high",
+    },
+    (95, 30): {
+        "stem": "Which of the following acronyms refers to the use of "
+                "computer systems to assist in industrial design?",
+        "options": {"A": "SMS", "B": "E-MAIL", "C": "CAD", "D": "CRT"},
+        "answer": "C", "confidence": "high",
+    },
+    (95, 32): {
+        "stem": "The ability of software to run on different platforms is "
+                "known as",
+        "options": {"A": "Flexibility", "B": "Portability",
+                    "C": "Maintainability", "D": "Security"},
+        "answer": "B", "confidence": "high",
+    },
+    (96, 37): {
+        "stem": "Which type of data communication mode exists in radio "
+                "broadcasting?",
+        "options": {"A": "Full duplex", "B": "Simplex", "C": "Half-simplex",
+                    "D": "Half-duplex"},
+        "answer": "B", "confidence": "medium",
+    },
+    (96, 38): {
+        "stem": "The speed of a computer processor is measured in",
+        "options": {"A": "Bits", "B": "Bytes", "C": "Hertz"},
+        "answer": "C", "confidence": "high",
+    },
+    (96, 44): {
+        "stem": "Dot matrix printers are examples of ______ printers.",
+        "options": {"A": "Laser", "B": "Inkjet", "C": "Impact", "D": "Drum"},
+        "answer": "C", "confidence": "high",
+    },
+    (160, 1): {
+        "stem": "A translation tool used to interpret code written in HTML is the",
+        "options": {"A": "Interpreter", "B": "Compiler", "C": "Browser",
+                    "D": "Assembler"},
+        "answer": "C", "confidence": "high",
+    },
+    (190, 1): {
+        "stem": "A translation tool used to interpret code written in HTML is the",
+        "options": {"A": "Interpreter", "B": "Compiler", "C": "Browser",
+                    "D": "Assembler"},
+        "answer": "C", "confidence": "high",
+    },
+    (160, 6): {
+        "stem": "A task that must be completed within the specified time "
+                "limit of a project is called a ______ task.",
+        "options": {"A": "Dangling", "B": "Floating", "C": "Critical",
+                    "D": "Dummy"},
+        "answer": "C", "confidence": "high",
+    },
+    (163, 45): {
+        "stem": "Which of the following is true about hardware devices and "
+                "device drivers?",
+        "options": {"A": "Both are hardware components",
+                    "B": "Both are software components",
+                    "C": "Drivers manage and control hardware devices"},
+        "answer": "C", "confidence": "high",
+    },
+    (163, 46): {
+        "stem": "One of the reasons for increasing the size of RAM is:",
+        "options": {"A": "Less virus gets into the computer",
+                    "B": "More instructions and data are made available to the CPU",
+                    "C": "Reduces the rate of computer breakdown"},
+        "answer": "B", "confidence": "high",
+    },
+    (190, 11): {
+        "stem": "A translated code written in a compiled language is called",
+        "options": {"A": "Source code", "B": "Object code",
+                    "C": "Embedded code", "D": "Executable code"},
+        "answer": "B", "confidence": "high",
+    },
+    (291, 20): {
+        "stem": "The terms FIFO and LIFO would most likely arise during a "
+                "discussion of:",
+        "options": {"A": "Storage media", "B": "Binary trees",
+                    "C": "Compiler design", "D": "Queues and stacks"},
+        "answer": "D", "confidence": "high",
+    },
+    (324, 8): {
+        "stem": "1000 picoseconds expressed in seconds is:",
+        "options": {"A": "10^-10", "B": "10^-12", "C": "10^-9", "D": "10^-6"},
+        "answer": "C", "confidence": "medium",
+    },
+}
+
+
+# Answers for questions whose options were already readable.
+EXTRA_ANSWERS = {
+    (275, 3):  ("A", "high"),      # analog beats digital on raw speed
+    (276, 9):  ("B", "high"),      # a programmer writes programs
+    (281, 4):  ("B", "high"),      # a terminal is a point of entry or exit
+    (282, 1):  ("A", "high"),      # memory temporary, storage permanent
+    (283, 7):  ("B", "high"),      # internal memory
+    (295, 8):  ("C", "high"),      # top-down: the top module first
+    (301, 7):  ("A", "high"),      # analysis, design, implementation, evaluation
+    (301, 8):  ("A", "high"),      # systems investigation comes first
+    (302, 9):  ("C", "high"),      # observation and interviews: analysis
+    (302, 10): ("C", "high"),      # parallel running
+    (302, 4):  ("A", "high"),      # star needs a hub or switch
+    (303, 10): ("C", "high"),      # protocols
+    (307, 20): ("B", "high"),      # Uniform Resource Locator
+    (324, 9):  ("C", "high"),      # table reads 1,0,0,1 -> XNOR
+}
+ANSWERS.update(EXTRA_ANSWERS)
