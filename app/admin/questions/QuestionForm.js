@@ -15,6 +15,19 @@ const TYPES = [
 
 const AUTO = new Set(["mcq", "true_false"]);
 
+// What the importer was unsure about, in words a teacher can act on.
+const IMPORT_FLAG_LABEL = {
+  from_ocr: "The page was a scan; the wording was read by machine and may be wrong.",
+  no_answer_key: "The paper was printed without answers.",
+  missing_options: "Fewer than four options were recovered.",
+  empty_option: "An option letter was found but its text was not.",
+  references_figure: "Refers to a diagram or table that was not captured.",
+  answer_key_not_among_options: "The printed answer letter matches none of the options.",
+  answer_inferred_from_duplicate: "The answer was taken from an identical question elsewhere.",
+  no_marking_guide: "No answer pointers were printed with it.",
+  long_stem: "The stem may have absorbed text from a neighbouring question.",
+};
+
 /**
  * One form for both adding and editing.
  *
@@ -46,6 +59,37 @@ export default function QuestionForm({
   return (
     <form action={action}>
       {question && <input type="hidden" name="question_id" value={question.id} />}
+
+      {question?.needs_review && (
+        <div
+          className="notice"
+          style={{ borderLeft: "3px solid var(--gold)", marginBottom: 20 }}
+        >
+          <h3 style={{ marginTop: 0 }}>Not checked yet</h3>
+          <p style={{ marginBottom: 8 }}>
+            This came out of the past-paper pamphlet by machine
+            {question.import_page ? `, from page ${question.import_page}` : ""}.
+            Compare it against that page before confirming.
+          </p>
+          {(question.import_flags ?? []).length > 0 && (
+            <ul style={{ margin: "0 0 10px", paddingLeft: 18, fontSize: "0.84rem" }}>
+              {question.import_flags.map((f) => (
+                <li key={f}>{IMPORT_FLAG_LABEL[f] ?? f}</li>
+              ))}
+            </ul>
+          )}
+          <label
+            style={{ display: "flex", gap: 8, alignItems: "center", fontSize: "0.88rem" }}
+          >
+            <input type="checkbox" name="mark_reviewed" style={{ width: "auto" }} />
+            I have checked this against the source page
+          </label>
+          <p style={{ fontSize: "0.8rem", color: "var(--muted)", margin: "6px 0 0" }}>
+            Until this is ticked the question stays out of automatic marking,
+            even if it is a multiple choice.
+          </p>
+        </div>
+      )}
 
       <label className="field">
         <span>Level</span>

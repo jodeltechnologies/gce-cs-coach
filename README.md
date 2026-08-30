@@ -36,16 +36,19 @@ db/
   schema.sql        27 tables
   rls.sql           security policies — run this, it is not optional
   auth.sql          teacher login and write access
-  seed/             the three curricula, ready to run
+  phase5.sql        provenance and review columns for imported questions
+  seed/             the three curricula and the past-question bank
 tools/
   curriculum/       the progression sheets as readable YAML
   load_curriculum.py  validates them and generates the SQL
+  load_questions.py   turns extracted past questions into the seed
 app/
   page.js           list of progression sheets
   syllabus/[id]/    a whole year by term and week
   lesson/[id]/      a published lesson, set for reading
   login/            teacher sign in
-  admin/            lesson editor, term planner, students, question bank
+  admin/            lesson editor, term planner, students, question bank,
+                    review queue for imported questions
   opengraph-image.png  the card that appears when the link is shared
   icon.png          browser tab icon
 lib/                database connections (browser and server)
@@ -135,6 +138,44 @@ Morgan's laws, Boolean simplification, and normalization to 3NF.
 | Marking | MCQ and true/false mark themselves; everything else queues for you |
 | Mastery engine | `lesson_mastery` exists and is empty. Nothing computes it yet. |
 | Offline | The schema was built for it. No service worker or sync queue exists yet. |
+
+---
+
+## The question bank
+
+522 questions from the school's 334-page past-paper pamphlet are loaded and
+tagged to Form 5. 408 multiple choice, 114 structured.
+
+They are not clean. A third of the pamphlet was photocopied rather than typed,
+so that text came out of OCR and carries character errors. Many questions point
+at a truth table or logic circuit that no scan captured. Most exam booklets were
+printed without an answer key at all.
+
+Rather than hold the bank back until every page had been retyped, the doubt is
+recorded alongside each question. **128 arrived ready to use. 394 are marked
+`needs_review`,** and a database constraint stops any unreviewed question from
+marking a student automatically, whatever its type. `/admin/questions/review`
+works through them in pamphlet page order: read, pick the right option, confirm.
+One tap each.
+
+Every imported row keeps the page it came from, so when a question looks wrong
+you know exactly where to look.
+
+```
+tools/load_questions.py   turns the extracted JSON into the seed
+db/phase5.sql             adds the provenance and review columns — run first
+db/seed/04_past_questions.sql   generated, do not edit by hand
+```
+
+Question ids are derived from the question text, so re-running the seed after
+correcting the extract inserts nothing twice and does not disturb lesson tags or
+review decisions already made.
+
+**Where the questions came from is only partly known.** The pamphlet interleaves
+loose question banks between real papers, and a header only reliably describes
+the dozen pages after it. Where attribution was not certain the year and paper
+are left empty rather than guessed — a question wrongly labelled *GCE 2010* is
+worse than one labelled nothing, because you would have no reason to doubt it.
 
 The offline gap is the largest remaining piece and the one that decides whether
 students in Limbe actually use this. It was left until last on purpose: a sync

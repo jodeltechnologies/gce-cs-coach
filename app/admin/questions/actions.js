@@ -133,15 +133,115 @@ export async function updateQuestion(formData) {
   const fields = readFields(formData);
   if (!fields.question_text) return;
 
+  // An imported question is still unreviewed unless the teacher says otherwise
+  // on this save. phase5.sql forbids auto_markable and needs_review together,
+  // so these two have to be decided as a pair or the update is rejected.
+  const { data: existing } = await supabase
+    .from("questions")
+    .select("needs_review")
+    .eq("id", id)
+    .maybeSingle();
+
+  const confirmed = String(formData.get("mark_reviewed") ?? "") === "on";
+  const stillNeedsReview = Boolean(existing?.needs_review) && !confirmed;
+
+  const teacher = await teacherOrNull(supabase);
+
   await supabase
     .from("questions")
-    .update({ ...fields, updated_at: new Date().toISOString() })
+    .update({
+      ...fields,
+      needs_review: stillNeedsReview,
+      auto_markable: fields.auto_markable && !stillNeedsReview,
+      ...(existing?.needs_review && confirmed
+        ? { reviewed_at: new Date().toISOString(), reviewed_by: teacher?.id ?? null }
+        : {}),
+      updated_at: new Date().toISOString(),
+    })
     .eq("id", id);
 
   await saveOptions(supabase, id, formData, fields.question_type);
   await saveLessonTags(supabase, id, formData);
 
   revalidatePath(`/admin/questions/${id}`);
+  revalidatePath("/admin/questions");
+}
+
+// ---------------------------------------------------------------------------
+// The review queue
+//
+// Imported questions arrive with needs_review set and auto_markable false.
+// These two actions are how that doubt is cleared, one question at a time.
+// ---------------------------------------------------------------------------
+
+export async function approveQuestion(formData) {
+  const supabase = await createClient();
+  if (!supabase) return;
+  const teacher = await teacherOrNull(supabase);
+  if (!teacher) return;
+
+  const id = formData.get("question_id");
+  if (!id) return;
+  const correct = String(formData.get("correct_label") ?? "").trim();
+
+  const { data: q } = await supabase
+    .from("questions")
+    .select("question_type")
+    .eq("id", id)
+    .maybeSingle();
+  if (!q) return;
+
+  if (q.question_type === "mcq") {
+    // Approving an MCQ with no correct option would produce a question that
+    // marks every student wrong, so refuse rather than write a bad row.
+    if (!correct) return;
+    await supabase
+      .from("question_options")
+      .update({ is_correct: false })
+      .eq("question_id", id);
+    const { error } = await supabase
+      .from("question_options")
+      .update({ is_correct: true })
+      .eq("question_id", id)
+      .eq("label", correct);
+    if (error) return;
+  }
+
+  await supabase
+    .from("questions")
+    .update({
+      needs_review: false,
+      reviewed_at: new Date().toISOString(),
+      reviewed_by: teacher.id,
+      // Order matters: phase5.sql forbids auto_markable while needs_review is
+      // true, so both have to move in the same update.
+      auto_markable: AUTO_MARKABLE.has(q.question_type),
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", id);
+
+  revalidatePath("/admin/questions/review");
+  revalidatePath("/admin/questions");
+}
+
+export async function rejectQuestion(formData) {
+  const supabase = await createClient();
+  if (!supabase) return;
+  if (!(await teacherOrNull(supabase))) return;
+
+  const id = formData.get("question_id");
+  if (!id) return;
+
+  // Soft delete, same as any other removal. A question too damaged to use is
+  // still evidence of what was on the page, and the import can be re-run
+  // without it coming back: the id is derived from the text, so the seed's
+  // ON CONFLICT DO NOTHING skips it.
+  await supabase
+    .from("questions")
+    .update({ deleted_at: new Date().toISOString() })
+    .eq("id", id);
+
+  revalidatePath("/admin/questions/review");
   revalidatePath("/admin/questions");
 }
 

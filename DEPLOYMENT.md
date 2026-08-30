@@ -63,13 +63,22 @@ into a new query, click **Run**.
 | 7 | `db/phase2.sql` | Repairs cross-year links; opens up classes and the planner |
 | 8 | `db/phase3.sql` | Lesson editing, file uploads, question bank |
 | 9 | `db/phase4.sql` | Indexes for the student roll and question bank |
+| 10 | `db/phase5.sql` | Provenance and review columns for imported questions |
+| 11 | `db/seed/04_past_questions.sql` | 522 past-paper questions — **must come after phase5** |
 
 **Form 4 must load before Form 5.** Form 5's file links its categories of action
 back to Form 4's by name, so running them out of order leaves those links empty.
 
-The three seed files are around 90 KB each. The web editor handles them but may
-pause for a few seconds. If it complains about size, use the command-line option
-below.
+The three curriculum seed files are around 90 KB each and the question seed is
+around 280 KB. The web editor handles them but may pause for a few seconds. If
+it complains about size, use the command-line option below.
+
+`04_past_questions.sql` refuses to run if phase5 has not been applied, rather
+than failing halfway through and leaving a half-loaded bank behind. When it
+finishes it prints how many questions arrived and how many are waiting to be
+checked; roughly 400 of the 522 will be, which is expected. Work through them at
+**/admin/questions/review**. Until a question is checked it will not mark a
+student, so nothing is at risk from loading them all at once.
 
 ### Why `db/rls.sql` is not optional
 

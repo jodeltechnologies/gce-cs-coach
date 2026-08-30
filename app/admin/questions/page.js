@@ -23,7 +23,7 @@ export default async function QuestionsPage({ searchParams }) {
 
   let q = supabase
     .from("questions")
-    .select("id, question_text, question_type, marks, difficulty, source, source_year, source_paper, source_number, auto_markable, question_lessons(lesson_id)")
+    .select("id, question_text, question_type, marks, difficulty, source, source_year, source_paper, source_number, auto_markable, needs_review, import_page, question_lessons(lesson_id)")
     .eq("syllabus_id", selected ?? "")
     .is("deleted_at", null)
     .order("created_at", { ascending: false })
@@ -34,6 +34,7 @@ export default async function QuestionsPage({ searchParams }) {
   const all = questions ?? [];
   const untagged = all.filter((x) => (x.question_lessons ?? []).length === 0);
   const auto = all.filter((x) => x.auto_markable);
+  const unchecked = all.filter((x) => x.needs_review);
 
   return (
     <>
@@ -61,6 +62,22 @@ export default async function QuestionsPage({ searchParams }) {
           <span className="tag alert">{untagged.length} not tagged to a lesson</span>
         )}
       </div>
+
+      {unchecked.length > 0 && (
+        <div className="notice" style={{ borderLeft: "3px solid var(--gold)", marginBottom: 18 }}>
+          <h3 style={{ marginTop: 0 }}>
+            {unchecked.length} imported questions are waiting to be checked
+          </h3>
+          <p style={{ marginBottom: 8 }}>
+            They came out of the past-paper pamphlet by machine, so some wording
+            is wrong and many answers were never printed. None of them will mark
+            a student until you confirm it.
+          </p>
+          <Link className="link" href={`/admin/questions/review?syllabus=${selected}`}>
+            Work through them
+          </Link>
+        </div>
+      )}
 
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 18 }}>
         {[["", "All sources"], ["gce_past", "Past GCE"], ["mock", "Mock"],
@@ -109,6 +126,7 @@ export default async function QuestionsPage({ searchParams }) {
                 {x.source_number ? ` Q${x.source_number}` : ""}
               </span>
             )}
+            {x.needs_review && <span className="tag alert">Not checked</span>}
             {(x.question_lessons ?? []).length === 0
               ? <span className="tag alert">Not tagged</span>
               : <span className="tag">{x.question_lessons.length} lessons</span>}

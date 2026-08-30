@@ -9,6 +9,7 @@ const LINKS = [
   { href: "/admin/classes", label: "Classes" },
   { href: "/admin/students", label: "Students" },
   { href: "/admin/questions", label: "Questions" },
+  { href: "/admin/questions/review", label: "Check imports" },
   { href: "/admin/exam-frequency", label: "Exam frequency" },
   { href: "/admin/links", label: "Cross-year links" },
 ];
@@ -22,10 +23,17 @@ const LINKS = [
  */
 export default function AdminNav() {
   const path = usePathname();
+  // /admin/questions/review sits underneath /admin/questions, so a plain
+  // startsWith would light up both. The longest matching href wins.
+  const best = LINKS.reduce((acc, l) => {
+    const hit = l.exact ? path === l.href : path.startsWith(l.href);
+    if (!hit) return acc;
+    return !acc || l.href.length > acc.length ? l.href : acc;
+  }, null);
   return (
     <nav className="subnav">
       {LINKS.map((l) => {
-        const active = l.exact ? path === l.href : path.startsWith(l.href);
+        const active = l.href === best;
         return (
           <Link
             key={l.href}
