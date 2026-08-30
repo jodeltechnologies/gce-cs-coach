@@ -68,6 +68,8 @@ into a new query, click **Run**.
 | 12 | `db/seed/05_notes.sql` | The eight chapters of course notes |
 | 13 | `db/seed/06_tags.sql` | Links questions and note chapters to lessons |
 | 14 | `db/phase6.sql` | Student sign-in, and the functions students read through |
+| 15 | `db/phase7.sql` | Per-option feedback and structured question parts |
+| 16 | `db/seed/07_authored_questions.sql` | 80 authored questions — **after phase7** |
 
 **Form 4 must load before Form 5.** Form 5's file links its categories of action
 back to Form 4's by name, so running them out of order leaves those links empty.
@@ -404,6 +406,10 @@ Students do not use Supabase auth. Most have no email address, so sign up,
 confirm by email and reset by email have nothing to send anything to. They sign
 in at **/student/login** with the code printed on the register, and choose a PIN
 the first time.
+
+`phase6.sql` ends by hashing a test PIN. If pgcrypto is not reachable it stops
+there with a message telling you to enable the extension, rather than letting
+the first student to try signing in meet an error about `gen_salt`.
 
 **Set one environment variable before this works.** In Vercel, add:
 

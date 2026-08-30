@@ -1,0 +1,1427 @@
+[
+ {
+  "id": 1,
+  "topic": "Computer Hardware",
+  "source": "HIHS Mock 2024",
+  "q": "Which bus carries the location (address) of data in RAM to the CPU?",
+  "opts": [
+   "A. Control Bus",
+   "B. Address Bus",
+   "C. Data Bus",
+   "D. Location Bus"
+  ],
+  "ans": 1,
+  "exp": "The Address Bus carries memory addresses — locations in RAM where data should be read from or written to. It is unidirectional (CPU to memory).",
+  "wrong": {
+   "A": "The Control Bus carries control signals (read/write commands), not addresses.",
+   "C": "The Data Bus carries the actual data between the CPU and memory.",
+   "D": "Location Bus is not a real computing term."
+  }
+ },
+ {
+  "id": 2,
+  "topic": "Computer Hardware",
+  "source": "SW Mock 2026",
+  "q": "Which component of the CPU executes decoded instructions during the machine cycle?",
+  "opts": [
+   "A. Control Unit",
+   "B. Fetch Unit",
+   "C. CPU",
+   "D. Arithmetic Logic Unit (ALU)"
+  ],
+  "ans": 3,
+  "exp": "The ALU performs all arithmetic (add, subtract) and logical (AND, OR, compare) operations — it executes decoded instructions.",
+  "wrong": {
+   "A": "The Control Unit manages the sequence of operations but does not execute arithmetic/logic.",
+   "B": "Fetch Unit is not a standard component name; fetching is done by the CU.",
+   "C": "The CPU contains both the CU and ALU — it is the whole processor."
+  }
+ },
+ {
+  "id": 3,
+  "topic": "Computer Hardware",
+  "source": "GCE Past",
+  "q": "Which type of memory loses its contents when the computer is switched off?",
+  "opts": [
+   "A. ROM",
+   "B. Cache",
+   "C. RAM",
+   "D. Hard disk"
+  ],
+  "ans": 2,
+  "exp": "RAM (Random Access Memory) is volatile — it loses all its contents when power is removed. This is why you must save your work before switching off.",
+  "wrong": {
+   "A": "ROM (Read-Only Memory) is non-volatile — it retains data without power.",
+   "B": "Cache is faster than RAM but is also volatile; however RAM is the standard answer for this question.",
+   "D": "Hard disk is secondary storage, non-volatile."
+  }
+ },
+ {
+  "id": 4,
+  "topic": "Computer Hardware",
+  "source": "HIHS Mock 2025",
+  "q": "What is the function of the Control Unit (CU) in the CPU?",
+  "opts": [
+   "A. Stores data permanently",
+   "B. Performs arithmetic calculations",
+   "C. Fetches, decodes and controls execution of instructions",
+   "D. Connects the CPU to the internet"
+  ],
+  "ans": 2,
+  "exp": "The Control Unit fetches instructions from memory, decodes them, and coordinates all CPU activities to ensure instructions are executed correctly.",
+  "wrong": {
+   "A": "Permanent storage is the role of secondary storage devices like hard drives.",
+   "B": "Arithmetic is performed by the ALU, not the CU.",
+   "D": "Internet connectivity is handled by network cards, not the CU."
+  }
+ },
+ {
+  "id": 5,
+  "topic": "Computer Hardware",
+  "source": "Littoral Mock 2025",
+  "q": "Which of the following is an example of an OUTPUT device?",
+  "opts": [
+   "A. Microphone",
+   "B. Keyboard",
+   "C. Scanner",
+   "D. Plotter"
+  ],
+  "ans": 3,
+  "exp": "A plotter is an output device that produces precise line drawings. It is used in CAD/engineering applications.",
+  "wrong": {
+   "A": "A microphone is an input device that captures sound.",
+   "B": "A keyboard is an input device.",
+   "C": "A scanner is an input device that converts physical documents to digital format."
+  }
+ },
+ {
+  "id": 6,
+  "topic": "Computer Hardware",
+  "source": "SW Mock 2026",
+  "q": "What does MICR stand for?",
+  "opts": [
+   "A. Magnetic Ink Character Reader",
+   "B. Manual Input Character Recognition",
+   "C. Magnetic Internet Character Reader",
+   "D. Multi-Input Capture Reader"
+  ],
+  "ans": 0,
+  "exp": "MICR stands for Magnetic Ink Character Recognition. It reads characters printed in special magnetic ink, commonly used on bank cheques.",
+  "wrong": {
+   "B": "This is not a real technology term.",
+   "C": "MICR has no connection to the internet.",
+   "D": "This is not a real technology term."
+  }
+ },
+ {
+  "id": 7,
+  "topic": "Computer Hardware",
+  "source": "GCE Past",
+  "q": "Which storage device is described as having the FASTEST access speed?",
+  "opts": [
+   "A. Hard Disk Drive (HDD)",
+   "B. Optical Disc",
+   "C. USB Flash Drive",
+   "D. Cache Memory"
+  ],
+  "ans": 3,
+  "exp": "Cache memory is the fastest storage device. It sits between the CPU and RAM to store frequently accessed instructions and data, reducing access time significantly.",
+  "wrong": {
+   "A": "HDDs are the slowest of the listed options due to mechanical read/write heads.",
+   "B": "Optical discs are even slower than HDDs for random access.",
+   "C": "Flash drives are faster than HDDs but much slower than cache."
+  }
+ },
+ {
+  "id": 8,
+  "topic": "Computer Hardware",
+  "source": "HIHS Mock 2024",
+  "q": "The machine cycle consists of Fetch, Decode, and:",
+  "opts": [
+   "A. Store",
+   "B. Execute",
+   "C. Load",
+   "D. Write"
+  ],
+  "ans": 1,
+  "exp": "The machine cycle (instruction cycle) consists of three stages: Fetch (get instruction from RAM), Decode (interpret instruction), and Execute (carry out the instruction).",
+  "wrong": {
+   "A": "Store is part of some extended cycles but not the standard third step.",
+   "C": "Load is not the third step of the standard machine cycle.",
+   "D": "Write operations may occur during execution but are not the cycle step itself."
+  }
+ },
+ {
+  "id": 9,
+  "topic": "Computer Hardware",
+  "source": "SW Mock 2026",
+  "q": "What type of data does the Data Bus carry?",
+  "opts": [
+   "A. Memory addresses",
+   "B. Control signals",
+   "C. Actual data between CPU and memory",
+   "D. Power signals"
+  ],
+  "ans": 2,
+  "exp": "The Data Bus carries the actual data (instructions or values) between the CPU, memory, and other components. It is bidirectional.",
+  "wrong": {
+   "A": "Memory addresses are carried by the Address Bus.",
+   "B": "Control signals are carried by the Control Bus.",
+   "D": "Power is supplied by the power supply unit, not a bus."
+  }
+ },
+ {
+  "id": 10,
+  "topic": "Computer Hardware",
+  "source": "GCE Past",
+  "q": "Which of the following best describes ROM?",
+  "opts": [
+   "A. Volatile memory used to run programs",
+   "B. Non-volatile memory containing permanent instructions",
+   "C. Secondary storage for user files",
+   "D. Input device for reading data"
+  ],
+  "ans": 1,
+  "exp": "ROM (Read-Only Memory) is non-volatile memory that permanently stores the BIOS/firmware. It cannot be modified by the user and retains data without power.",
+  "wrong": {
+   "A": "Volatile memory used to run programs describes RAM.",
+   "C": "Secondary storage is provided by hard drives, SSDs, etc.",
+   "D": "ROM is not an input device."
+  }
+ },
+ {
+  "id": 11,
+  "topic": "Computer Hardware",
+  "source": "HIHS Mock 2025",
+  "q": "An OMR device is BEST used for:",
+  "opts": [
+   "A. Reading bar codes on products",
+   "B. Capturing marks on multiple-choice answer sheets",
+   "C. Scanning fingerprints",
+   "D. Reading magnetic strips on bank cards"
+  ],
+  "ans": 1,
+  "exp": "OMR (Optical Mark Recognition) reads marks made on specifically designed forms. It is commonly used for multiple-choice exam answer sheets and survey forms.",
+  "wrong": {
+   "A": "Barcode reading is done by a barcode scanner, not OMR.",
+   "C": "Fingerprint scanning uses biometric sensors.",
+   "D": "Magnetic strip reading uses a magnetic card reader."
+  }
+ },
+ {
+  "id": 12,
+  "topic": "Computer Hardware",
+  "source": "SW Mock 2026",
+  "q": "Which unit of memory is the LARGEST?",
+  "opts": [
+   "A. Kilobyte (KB)",
+   "B. Megabyte (MB)",
+   "C. Gigabyte (GB)",
+   "D. Terabyte (TB)"
+  ],
+  "ans": 3,
+  "exp": "The order from smallest to largest is: Bit → Byte → KB → MB → GB → TB → PB. A Terabyte (TB) = 1024 GB, making it the largest in this list.",
+  "wrong": {
+   "A": "Kilobyte = 1024 Bytes — the smallest in this list.",
+   "B": "Megabyte = 1024 KB.",
+   "C": "Gigabyte = 1024 MB — large but not the largest here."
+  }
+ },
+ {
+  "id": 20,
+  "topic": "Information Systems",
+  "source": "HIHS Mock 2025",
+  "q": "Which type of information system is used at the OPERATIONAL level of management?",
+  "opts": [
+   "A. Executive Information System (EIS)",
+   "B. Decision Support System (DSS)",
+   "C. Transaction Processing System (TPS)",
+   "D. Management Information System (MIS)"
+  ],
+  "ans": 2,
+  "exp": "The TPS (Transaction Processing System) is used at the operational level. It handles day-to-day transactions like payroll, order processing, and stock control.",
+  "wrong": {
+   "A": "EIS is used at the strategic (top) management level.",
+   "B": "DSS is used at senior management level for semi-structured decisions.",
+   "D": "MIS is used at the middle management level."
+  }
+ },
+ {
+  "id": 21,
+  "topic": "Information Systems",
+  "source": "SW Mock 2026",
+  "q": "An information system that helps executives analyse long-term trends is a(n):",
+  "opts": [
+   "A. TPS",
+   "B. MIS",
+   "C. DSS",
+   "D. EIS"
+  ],
+  "ans": 3,
+  "exp": "EIS (Executive Information System) is at the top of the management pyramid. It helps senior executives analyse trends and plan long-term strategies using both internal and external data.",
+  "wrong": {
+   "A": "TPS handles routine day-to-day transactions.",
+   "B": "MIS supports middle management with structured reporting.",
+   "C": "DSS supports semi-structured decisions with modelling and analysis."
+  }
+ },
+ {
+  "id": 22,
+  "topic": "Information Systems",
+  "source": "GCE Past",
+  "q": "Which of the following BEST describes \"data\"?",
+  "opts": [
+   "A. Processed facts with meaning",
+   "B. Raw facts and figures",
+   "C. Instructions for the computer",
+   "D. A collection of programs"
+  ],
+  "ans": 1,
+  "exp": "Data refers to raw, unprocessed facts and figures (e.g., numbers, characters) that have no meaning on their own until they are processed into information.",
+  "wrong": {
+   "A": "Processed facts with meaning describes information, not data.",
+   "C": "Instructions for a computer describes software/programs.",
+   "D": "A collection of programs describes software, not data."
+  }
+ },
+ {
+  "id": 23,
+  "topic": "Information Systems",
+  "source": "HIHS Mock 2024",
+  "q": "A school uses a system to track student attendance every morning. This is BEST described as a:",
+  "opts": [
+   "A. Decision Support System",
+   "B. Transaction Processing System",
+   "C. Executive Information System",
+   "D. Expert System"
+  ],
+  "ans": 1,
+  "exp": "Attendance tracking is a routine, repetitive operation — this is a Transaction Processing System. TPS records daily operational data like attendance, sales, and payments.",
+  "wrong": {
+   "A": "DSS is for semi-structured decision support, not routine data recording.",
+   "C": "EIS is for top-level strategic analysis.",
+   "D": "Expert systems simulate expert knowledge for specialised decisions."
+  }
+ },
+ {
+  "id": 24,
+  "topic": "Information Systems",
+  "source": "Littoral Mock 2025",
+  "q": "The downward flow of information in an organisation typically contains:",
+  "opts": [
+   "A. Daily transaction data",
+   "B. Strategies, goals and directives",
+   "C. External market data",
+   "D. Employee complaints"
+  ],
+  "ans": 1,
+  "exp": "In an organisation, downward information flow carries strategies, goals, directives, and policies from top management down to lower levels.",
+  "wrong": {
+   "A": "Daily transaction data flows upward from operational to management levels.",
+   "C": "External market data comes from outside the organisation.",
+   "D": "Employee complaints flow upward."
+  }
+ },
+ {
+  "id": 30,
+  "topic": "SDLC & Project Management",
+  "source": "HIHS Mock 2025",
+  "q": "Which SDLC phase involves gathering requirements from users and analysing the current system?",
+  "opts": [
+   "A. Planning",
+   "B. Analysis",
+   "C. Design",
+   "D. Testing"
+  ],
+  "ans": 1,
+  "exp": "The Analysis phase involves investigating how the current system works, gathering user requirements through interviews/questionnaires, and producing a requirements specification.",
+  "wrong": {
+   "A": "Planning determines feasibility and scope of the project.",
+   "C": "Design creates the technical solution based on requirements.",
+   "D": "Testing verifies the built system meets requirements."
+  }
+ },
+ {
+  "id": 31,
+  "topic": "SDLC & Project Management",
+  "source": "GCE Past",
+  "q": "In which changeover method do both old and new systems run simultaneously?",
+  "opts": [
+   "A. Plunge/Direct",
+   "B. Pilot",
+   "C. Phased",
+   "D. Parallel"
+  ],
+  "ans": 3,
+  "exp": "Parallel changeover runs both old and new systems at the same time. It is the safest method as the old system acts as backup, but it is the most expensive due to duplicate resources.",
+  "wrong": {
+   "A": "Plunge (direct) switchover is immediate — the old system is switched off straight away. It is risky.",
+   "B": "Pilot tests the new system with a small group first.",
+   "C": "Phased introduces the new system in parts/modules gradually."
+  }
+ },
+ {
+  "id": 32,
+  "topic": "SDLC & Project Management",
+  "source": "SW Mock 2026",
+  "q": "A Gantt chart is BEST described as:",
+  "opts": [
+   "A. A network diagram showing task dependencies",
+   "B. A pie chart showing resource allocation",
+   "C. A horizontal bar chart showing project schedule",
+   "D. A flowchart showing system logic"
+  ],
+  "ans": 2,
+  "exp": "A Gantt chart is a horizontal bar chart showing tasks against time. Each bar shows the start date, duration, and end date of a task. It is widely used for project scheduling.",
+  "wrong": {
+   "A": "A network diagram showing dependencies describes a PERT chart.",
+   "B": "Pie charts show proportions, not schedules.",
+   "D": "Flowcharts show logic/process flow, not project schedules."
+  }
+ },
+ {
+  "id": 33,
+  "topic": "SDLC & Project Management",
+  "source": "HIHS Mock 2024",
+  "q": "The CRITICAL PATH in a project network is:",
+  "opts": [
+   "A. The shortest path through the network",
+   "B. The path with the most resources",
+   "C. The longest path that determines the minimum project duration",
+   "D. The path with zero activities"
+  ],
+  "ans": 2,
+  "exp": "The critical path is the longest sequence of dependent tasks in the project. It determines the minimum time needed to complete the project. Tasks on this path have zero float (slack).",
+  "wrong": {
+   "A": "The shortest path would not determine the minimum project duration.",
+   "B": "The critical path is about time, not resources.",
+   "D": "A path with zero activities cannot be the critical path."
+  }
+ },
+ {
+  "id": 34,
+  "topic": "SDLC & Project Management",
+  "source": "GCE Past",
+  "q": "Which waterfall SDLC phase produces the actual executable code?",
+  "opts": [
+   "A. Analysis",
+   "B. Design",
+   "C. Development",
+   "D. Planning"
+  ],
+  "ans": 2,
+  "exp": "The Development phase is where programmers actually write the code, create databases, and build the system based on design specifications.",
+  "wrong": {
+   "A": "Analysis gathers requirements and models the current/desired system.",
+   "B": "Design creates specifications — not the actual code.",
+   "D": "Planning assesses feasibility and defines project scope."
+  }
+ },
+ {
+  "id": 40,
+  "topic": "Algorithms & Programming",
+  "source": "SW Mock 2026",
+  "q": "An error that results in incorrect outcomes during execution is:",
+  "opts": [
+   "A. Logic error",
+   "B. Compilation error",
+   "C. Syntax error",
+   "D. Runtime error"
+  ],
+  "ans": 0,
+  "exp": "A logic error means the program runs without crashing but produces wrong results because the programmer's algorithm or reasoning is flawed.",
+  "wrong": {
+   "B": "A compilation error prevents the program from compiling at all.",
+   "C": "A syntax error is a type of compilation error caused by violating language grammar rules.",
+   "D": "A runtime error causes the program to crash during execution."
+  }
+ },
+ {
+  "id": 41,
+  "topic": "Algorithms & Programming",
+  "source": "HIHS Mock 2025",
+  "q": "Which symbol is used to represent a DECISION in a flowchart?",
+  "opts": [
+   "A. Rectangle",
+   "B. Oval/Rounded rectangle",
+   "C. Diamond (Rhombus)",
+   "D. Parallelogram"
+  ],
+  "ans": 2,
+  "exp": "A diamond (rhombus) represents a decision point in a flowchart. It contains a yes/no question and has two output paths (True/False or Yes/No).",
+  "wrong": {
+   "A": "A rectangle represents a process (action/calculation).",
+   "B": "An oval or rounded rectangle represents the Start or End terminal.",
+   "D": "A parallelogram represents input or output operations."
+  }
+ },
+ {
+  "id": 42,
+  "topic": "Algorithms & Programming",
+  "source": "GCE Past",
+  "q": "What does a COMPILER do?",
+  "opts": [
+   "A. Translates assembly language to machine code",
+   "B. Executes one line at a time",
+   "C. Translates the entire source code to object code at once",
+   "D. Checks for logic errors only"
+  ],
+  "ans": 2,
+  "exp": "A compiler translates the entire high-level source code into machine code (object code) all at once. The resulting executable file can be run independently.",
+  "wrong": {
+   "A": "Translating assembly language to machine code is the job of an assembler.",
+   "B": "Executing one line at a time describes an interpreter.",
+   "D": "Compilers check syntax errors, not just logic errors."
+  }
+ },
+ {
+  "id": 43,
+  "topic": "Algorithms & Programming",
+  "source": "SW Mock 2026",
+  "q": "Which control structure executes instructions based on whether a condition is TRUE or FALSE?",
+  "opts": [
+   "A. Sequence",
+   "B. Selection",
+   "C. Iteration",
+   "D. Function"
+  ],
+  "ans": 1,
+  "exp": "Selection (conditional) structures like IF...THEN...ELSE allow different instructions to be executed depending on whether a condition evaluates to TRUE or FALSE.",
+  "wrong": {
+   "A": "Sequence executes instructions one after another in order, with no conditions.",
+   "C": "Iteration (loops) repeats instructions, but choice is still needed for looping conditions.",
+   "D": "Functions/procedures are reusable blocks of code."
+  }
+ },
+ {
+  "id": 44,
+  "topic": "Algorithms & Programming",
+  "source": "HIHS Mock 2024",
+  "q": "In pseudocode, which keyword is used to receive input from a user?",
+  "opts": [
+   "A. PRINT",
+   "B. OUTPUT",
+   "C. INPUT",
+   "D. READ"
+  ],
+  "ans": 2,
+  "exp": "INPUT is the standard pseudocode keyword used to receive data from the user. For example: INPUT name. READ is used for reading from files.",
+  "wrong": {
+   "A": "PRINT/OUTPUT sends data TO the user (output), not from them.",
+   "B": "OUTPUT displays results to the user.",
+   "D": "READ is used to read data from a file, not direct user input."
+  }
+ },
+ {
+  "id": 45,
+  "topic": "Algorithms & Programming",
+  "source": "GCE Past",
+  "q": "A WHILE loop in pseudocode checks its condition:",
+  "opts": [
+   "A. At the end of each iteration",
+   "B. Before each iteration starts",
+   "C. Only once at the beginning",
+   "D. After two iterations"
+  ],
+  "ans": 1,
+  "exp": "A WHILE loop is a pre-condition loop — it checks the condition BEFORE each iteration. If the condition is false initially, the loop body never executes.",
+  "wrong": {
+   "A": "Checking at the end describes a REPEAT...UNTIL (post-condition) loop.",
+   "C": "The condition is checked before EACH iteration, not just the first.",
+   "D": "Checking after two iterations is not how any standard loop works."
+  }
+ },
+ {
+  "id": 46,
+  "topic": "Algorithms & Programming",
+  "source": "SW Mock 2026",
+  "q": "What is the output of the pseudocode: SET x = 3; FOR i = 1 TO 3; SET x = x + i; NEXT i; PRINT x",
+  "opts": [
+   "A. 3",
+   "B. 6",
+   "C. 9",
+   "D. 12"
+  ],
+  "ans": 2,
+  "exp": "Step by step: x starts at 3. i=1: x=3+1=4. i=2: x=4+2=6. i=3: x=6+3=9. So x=9 is printed.",
+  "wrong": {
+   "A": "3 is the initial value before the loop runs.",
+   "B": "6 would be the result after 2 iterations only.",
+   "D": "12 would require x to be larger; this overestimates."
+  }
+ },
+ {
+  "id": 47,
+  "topic": "Algorithms & Programming",
+  "source": "HIHS Mock 2025",
+  "q": "Which programming language type is CLOSEST to human language?",
+  "opts": [
+   "A. Machine language",
+   "B. Assembly language",
+   "C. High-level language",
+   "D. Binary language"
+  ],
+  "ans": 2,
+  "exp": "High-level languages (e.g., Python, Java, C) use English-like commands and are closest to human language. They are portable and must be compiled or interpreted to run.",
+  "wrong": {
+   "A": "Machine language uses binary (0s and 1s) — furthest from human language.",
+   "B": "Assembly language uses mnemonics but is still low-level and hardware-specific.",
+   "D": "Binary language is another name for machine language."
+  }
+ },
+ {
+  "id": 48,
+  "topic": "Algorithms & Programming",
+  "source": "GCE Past",
+  "q": "Which data type would BEST store a student's exam score out of 100?",
+  "opts": [
+   "A. Boolean",
+   "B. String",
+   "C. Integer",
+   "D. Character"
+  ],
+  "ans": 2,
+  "exp": "An integer data type stores whole numbers, making it perfect for an exam score (e.g., 75, 88). Scores are whole numbers, not decimals or text.",
+  "wrong": {
+   "A": "Boolean only stores True or False.",
+   "B": "String stores text — not appropriate for numeric calculations.",
+   "D": "Character stores only a single character."
+  }
+ },
+ {
+  "id": 49,
+  "topic": "Algorithms & Programming",
+  "source": "SW Mock 2026",
+  "q": "An ARRAY is BEST described as:",
+  "opts": [
+   "A. A single variable storing one value",
+   "B. A collection of variables of the same type accessed by index",
+   "C. A program that sorts data",
+   "D. A type of loop in programming"
+  ],
+  "ans": 1,
+  "exp": "An array is a collection of elements of the SAME data type stored in contiguous memory, accessed by an index number (starting from 0 or 1 depending on language).",
+  "wrong": {
+   "A": "A single variable storing one value is just a variable, not an array.",
+   "C": "An array stores data; sorting is an algorithm applied to arrays.",
+   "D": "Loops and arrays are different programming concepts."
+  }
+ },
+ {
+  "id": 50,
+  "topic": "Algorithms & Programming",
+  "source": "HIHS Mock 2024",
+  "q": "Which sort algorithm works by repeatedly comparing and swapping adjacent elements?",
+  "opts": [
+   "A. Selection Sort",
+   "B. Insertion Sort",
+   "C. Bubble Sort",
+   "D. Quick Sort"
+  ],
+  "ans": 2,
+  "exp": "Bubble Sort works by repeatedly comparing adjacent pairs of elements and swapping them if they are in the wrong order. This \"bubbles\" the largest values to the end.",
+  "wrong": {
+   "A": "Selection Sort finds the minimum element and places it at the start each pass.",
+   "B": "Insertion Sort builds a sorted array one element at a time by inserting each into the correct position.",
+   "D": "Quick Sort uses a pivot element and partitioning — much more complex."
+  }
+ },
+ {
+  "id": 60,
+  "topic": "Databases",
+  "source": "HIHS Mock 2025",
+  "q": "A field that UNIQUELY identifies each record in a table is called a:",
+  "opts": [
+   "A. Foreign Key",
+   "B. Secondary Key",
+   "C. Primary Key",
+   "D. Record Key"
+  ],
+  "ans": 2,
+  "exp": "A Primary Key uniquely identifies each record in a database table. No two records can have the same primary key value, and it cannot be null (empty).",
+  "wrong": {
+   "A": "A Foreign Key links a record in one table to the primary key of another table.",
+   "B": "Secondary key is not a standard database term for this purpose.",
+   "D": "Record Key is not a standard database term."
+  }
+ },
+ {
+  "id": 61,
+  "topic": "Databases",
+  "source": "GCE Past",
+  "q": "Which database model organises data into tables with rows and columns?",
+  "opts": [
+   "A. Hierarchical model",
+   "B. Network model",
+   "C. Relational model",
+   "D. Object-oriented model"
+  ],
+  "ans": 2,
+  "exp": "The Relational Database model organises data into tables (relations) with rows (records) and columns (fields/attributes). Tables are linked using keys.",
+  "wrong": {
+   "A": "The hierarchical model organises data like a tree (parent-child).",
+   "B": "The network model allows many-to-many relationships between records.",
+   "D": "Object-oriented databases store data as objects with properties and methods."
+  }
+ },
+ {
+  "id": 62,
+  "topic": "Databases",
+  "source": "SW Mock 2026",
+  "q": "In a database, a FOREIGN KEY is used to:",
+  "opts": [
+   "A. Uniquely identify a record",
+   "B. Link one table to another table",
+   "C. Sort records alphabetically",
+   "D. Validate input data"
+  ],
+  "ans": 1,
+  "exp": "A Foreign Key is a field in one table that references (points to) the Primary Key of another table, establishing a relationship (link) between the two tables.",
+  "wrong": {
+   "A": "Unique identification of a record is the role of a Primary Key.",
+   "C": "Sorting is done using ORDER BY queries, not foreign keys.",
+   "D": "Input validation is done using validation rules, not keys."
+  }
+ },
+ {
+  "id": 63,
+  "topic": "Databases",
+  "source": "HIHS Mock 2024",
+  "q": "Which validation check ensures a numeric field value is between 1 and 100?",
+  "opts": [
+   "A. Type check",
+   "B. Presence check",
+   "C. Length check",
+   "D. Range check"
+  ],
+  "ans": 3,
+  "exp": "A Range Check verifies that a value falls within a specified range (e.g., 1 to 100). It rejects values outside this range.",
+  "wrong": {
+   "A": "A Type check verifies the data is the correct type (e.g., number vs text).",
+   "B": "A Presence check ensures the field is not empty.",
+   "C": "A Length check verifies the number of characters in a field."
+  }
+ },
+ {
+  "id": 64,
+  "topic": "Databases",
+  "source": "GCE Past",
+  "q": "What is NORMALISATION in database design?",
+  "opts": [
+   "A. Making all data the same type",
+   "B. Organising data to reduce redundancy and improve integrity",
+   "C. Encrypting the database",
+   "D. Backing up the database regularly"
+  ],
+  "ans": 1,
+  "exp": "Normalisation is the process of structuring a database to minimise data redundancy (duplication) and prevent anomalies, thereby improving data integrity and consistency.",
+  "wrong": {
+   "A": "Making all data the same type is a data type constraint, not normalisation.",
+   "C": "Encryption is a security measure, not normalisation.",
+   "D": "Backups are a recovery strategy, not normalisation."
+  }
+ },
+ {
+  "id": 70,
+  "topic": "Networks & Internet",
+  "source": "SW Mock 2026",
+  "q": "Which network topology connects ALL devices to a CENTRAL hub or switch?",
+  "opts": [
+   "A. Bus topology",
+   "B. Ring topology",
+   "C. Star topology",
+   "D. Mesh topology"
+  ],
+  "ans": 2,
+  "exp": "In a Star topology, all devices (nodes) are connected to a central hub or switch. It is the most common network topology due to ease of management and fault isolation.",
+  "wrong": {
+   "A": "In a Bus topology, all devices share a single backbone cable.",
+   "B": "In a Ring topology, devices are connected in a circular chain.",
+   "D": "In a Mesh topology, every device connects to every other device."
+  }
+ },
+ {
+  "id": 71,
+  "topic": "Networks & Internet",
+  "source": "HIHS Mock 2025",
+  "q": "A LAN (Local Area Network) typically covers:",
+  "opts": [
+   "A. A single country",
+   "B. Multiple continents",
+   "C. A building or campus",
+   "D. Worldwide"
+  ],
+  "ans": 2,
+  "exp": "A LAN (Local Area Network) covers a small geographic area such as an office, building, or school campus. It is owned and managed by a single organisation.",
+  "wrong": {
+   "A": "A country-wide network would be a WAN.",
+   "B": "Multiple continents describes the Internet (a global WAN).",
+   "D": "A worldwide network is the Internet."
+  }
+ },
+ {
+  "id": 72,
+  "topic": "Networks & Internet",
+  "source": "GCE Past",
+  "q": "Which device DIRECTS data packets between different networks?",
+  "opts": [
+   "A. Hub",
+   "B. Switch",
+   "C. Repeater",
+   "D. Router"
+  ],
+  "ans": 3,
+  "exp": "A Router connects different networks and directs (routes) data packets between them using IP addresses. It determines the best path for data to travel.",
+  "wrong": {
+   "A": "A Hub broadcasts data to ALL connected devices — it has no routing intelligence.",
+   "B": "A Switch delivers data to specific devices within the same network but does not route between networks.",
+   "C": "A Repeater boosts signal strength over long distances but does not route."
+  }
+ },
+ {
+  "id": 73,
+  "topic": "Networks & Internet",
+  "source": "SW Mock 2026",
+  "q": "Which protocol is used to SEND email messages?",
+  "opts": [
+   "A. HTTP",
+   "B. FTP",
+   "C. SMTP",
+   "D. DNS"
+  ],
+  "ans": 2,
+  "exp": "SMTP (Simple Mail Transfer Protocol) is the protocol used for SENDING email messages from a client to a server, or between email servers.",
+  "wrong": {
+   "A": "HTTP (HyperText Transfer Protocol) is used for web browsing.",
+   "B": "FTP (File Transfer Protocol) is used for transferring files.",
+   "D": "DNS (Domain Name System) translates domain names to IP addresses."
+  }
+ },
+ {
+  "id": 74,
+  "topic": "Networks & Internet",
+  "source": "HIHS Mock 2024",
+  "q": "What does \"HTTP\" in a web address stand for?",
+  "opts": [
+   "A. HyperText Transfer Protocol",
+   "B. High Transfer Technology Protocol",
+   "C. Hyperlink Text Transfer Program",
+   "D. Home Transfer Technology Protocol"
+  ],
+  "ans": 0,
+  "exp": "HTTP stands for HyperText Transfer Protocol. It is the foundation protocol for data communication on the World Wide Web, defining how messages are formatted and transmitted.",
+  "wrong": {
+   "B": "This is not the correct expansion.",
+   "C": "This is not the correct expansion.",
+   "D": "This is not the correct expansion."
+  }
+ },
+ {
+  "id": 75,
+  "topic": "Networks & Internet",
+  "source": "GCE Past",
+  "q": "Communication that allows data to travel in BOTH directions but NOT simultaneously is:",
+  "opts": [
+   "A. Simplex",
+   "B. Half duplex",
+   "C. Full duplex",
+   "D. Multiplex"
+  ],
+  "ans": 1,
+  "exp": "Half duplex allows bidirectional communication but only one direction at a time. A walkie-talkie is a classic example — only one person can speak at a time.",
+  "wrong": {
+   "A": "Simplex allows communication in ONE direction only (e.g., TV broadcast).",
+   "C": "Full duplex allows communication in both directions simultaneously (e.g., telephone).",
+   "D": "Multiplex refers to combining multiple signals on one channel."
+  }
+ },
+ {
+  "id": 76,
+  "topic": "Networks & Internet",
+  "source": "Littoral Mock 2025",
+  "q": "Which of the following is a WIRELESS transmission medium?",
+  "opts": [
+   "A. Fibre optic cable",
+   "B. Coaxial cable",
+   "C. Bluetooth",
+   "D. Ethernet cable"
+  ],
+  "ans": 2,
+  "exp": "Bluetooth is a wireless transmission medium using radio waves for short-range communication (typically up to 10 metres) between devices.",
+  "wrong": {
+   "A": "Fibre optic uses light through glass/plastic cables — it is wired.",
+   "B": "Coaxial cable is a wired medium.",
+   "D": "Ethernet cable (twisted pair) is a wired medium."
+  }
+ },
+ {
+  "id": 77,
+  "topic": "Networks & Internet",
+  "source": "SW Mock 2026",
+  "q": "What is the purpose of DNS (Domain Name System)?",
+  "opts": [
+   "A. Encrypts web traffic",
+   "B. Assigns IP addresses to devices",
+   "C. Translates domain names to IP addresses",
+   "D. Manages email routing"
+  ],
+  "ans": 2,
+  "exp": "DNS (Domain Name System) acts like the internet's phone book — it translates human-readable domain names (e.g., www.google.com) into IP addresses that computers use.",
+  "wrong": {
+   "A": "Encryption of web traffic is handled by SSL/TLS (HTTPS).",
+   "B": "Assigning IP addresses is done by DHCP.",
+   "D": "Email routing is managed by mail servers using SMTP/MX records."
+  }
+ },
+ {
+  "id": 80,
+  "topic": "Number Systems",
+  "source": "GCE Past",
+  "q": "What is 1011 in binary converted to decimal?",
+  "opts": [
+   "A. 9",
+   "B. 10",
+   "C. 11",
+   "D. 12"
+  ],
+  "ans": 2,
+  "exp": "1011₂ = (1×8)+(0×4)+(1×2)+(1×1) = 8+0+2+1 = 11₁₀. Always multiply each bit by its place value (power of 2) and add.",
+  "wrong": {
+   "A": "9 = 1001₂.",
+   "B": "10 = 1010₂.",
+   "D": "12 = 1100₂."
+  }
+ },
+ {
+  "id": 81,
+  "topic": "Number Systems",
+  "source": "SW Mock 2026",
+  "q": "What is the decimal number 25 in binary?",
+  "opts": [
+   "A. 10111",
+   "B. 11001",
+   "C. 11010",
+   "D. 10011"
+  ],
+  "ans": 1,
+  "exp": "25÷2=12r1, 12÷2=6r0, 6÷2=3r0, 3÷2=1r1, 1÷2=0r1. Reading remainders bottom to top: 11001₂.",
+  "wrong": {
+   "A": "10111 = 23 in decimal.",
+   "C": "11010 = 26 in decimal.",
+   "D": "10011 = 19 in decimal."
+  }
+ },
+ {
+  "id": 82,
+  "topic": "Number Systems",
+  "source": "HIHS Mock 2025",
+  "q": "What is the hexadecimal value of decimal 255?",
+  "opts": [
+   "A. EF",
+   "B. FE",
+   "C. FF",
+   "D. EE"
+  ],
+  "ans": 2,
+  "exp": "255 ÷ 16 = 15 remainder 15. Both digits are 15 = F in hex. So 255₁₀ = FF₁₆. This is also the maximum value for one byte.",
+  "wrong": {
+   "A": "EF = (14×16)+15 = 224+15 = 239.",
+   "B": "FE = (15×16)+14 = 240+14 = 254.",
+   "D": "EE = (14×16)+14 = 224+14 = 238."
+  }
+ },
+ {
+  "id": 83,
+  "topic": "Number Systems",
+  "source": "GCE Past",
+  "q": "In the binary system, what is the place value of the LEFTMOST bit in an 8-bit number?",
+  "opts": [
+   "A. 16",
+   "B. 64",
+   "C. 128",
+   "D. 256"
+  ],
+  "ans": 2,
+  "exp": "In an 8-bit number, bit positions from right are 2⁰,2¹,2²,...,2⁷. The leftmost (most significant) bit has value 2⁷=128.",
+  "wrong": {
+   "A": "16 = 2⁴, which is the 5th bit from the right.",
+   "B": "64 = 2⁶, which is the 7th bit from the right.",
+   "D": "256 = 2⁸, which would require a 9-bit number."
+  }
+ },
+ {
+  "id": 84,
+  "topic": "Number Systems",
+  "source": "SW Mock 2026",
+  "q": "What is binary 1010 + binary 0110?",
+  "opts": [
+   "A. 1100",
+   "B. 10000",
+   "C. 10100",
+   "D. 11000"
+  ],
+  "ans": 1,
+  "exp": "1010 + 0110: 0+0=0, 1+1=10(write 0 carry 1), 0+1+1(carry)=10(write 0 carry 1), 1+0+1(carry)=10. Result: 10000₂ = 16₁₀. Check: 10+6=16 ✓",
+  "wrong": {
+   "A": "1100 = 12 in decimal, but 10+6=16.",
+   "C": "10100 = 20, which is too large.",
+   "D": "11000 = 24, which is too large."
+  }
+ },
+ {
+  "id": 85,
+  "topic": "Number Systems",
+  "source": "GCE Past",
+  "q": "The hexadecimal digit \"B\" equals which decimal value?",
+  "opts": [
+   "A. 10",
+   "B. 11",
+   "C. 12",
+   "D. 13"
+  ],
+  "ans": 1,
+  "exp": "Hexadecimal uses A=10, B=11, C=12, D=13, E=14, F=15. So B₁₆ = 11₁₀.",
+  "wrong": {
+   "A": "10 in decimal is represented by A in hexadecimal.",
+   "C": "12 in decimal is represented by C in hexadecimal.",
+   "D": "13 in decimal is represented by D in hexadecimal."
+  }
+ },
+ {
+  "id": 90,
+  "topic": "Logic Gates",
+  "source": "HIHS Mock 2025",
+  "q": "An AND gate with inputs A=1 and B=0 gives an output of:",
+  "opts": [
+   "A. 0",
+   "B. 1",
+   "C. 2",
+   "D. Undefined"
+  ],
+  "ans": 0,
+  "exp": "AND gate rule: output is 1 ONLY IF all inputs are 1. Since B=0, the output is 0. Truth table: 1 AND 0 = 0.",
+  "wrong": {
+   "B": "Output 1 requires both A AND B to be 1.",
+   "C": "Logic gates only produce binary outputs (0 or 1).",
+   "D": "The output is always defined in a logic gate."
+  }
+ },
+ {
+  "id": 91,
+  "topic": "Logic Gates",
+  "source": "SW Mock 2026",
+  "q": "Which logic gate gives output 1 ONLY when all inputs are 0?",
+  "opts": [
+   "A. AND",
+   "B. OR",
+   "C. NOR",
+   "D. NAND"
+  ],
+  "ans": 2,
+  "exp": "A NOR gate outputs 1 only when ALL inputs are 0. It is the inverse of OR. If any input is 1, the output is 0.",
+  "wrong": {
+   "A": "AND gate outputs 1 only when ALL inputs are 1.",
+   "B": "OR gate outputs 1 when ANY input is 1.",
+   "D": "NAND gate outputs 0 only when all inputs are 1 — it outputs 1 in all other cases."
+  }
+ },
+ {
+  "id": 92,
+  "topic": "Logic Gates",
+  "source": "GCE Past",
+  "q": "What is the output of a NOT gate when input A = 1?",
+  "opts": [
+   "A. 0",
+   "B. 1",
+   "C. 2",
+   "D. A"
+  ],
+  "ans": 0,
+  "exp": "A NOT gate inverts (flips) its input. NOT 1 = 0. NOT 0 = 1. It is also called an inverter.",
+  "wrong": {
+   "B": "The NOT gate inverts the input; 1 becomes 0.",
+   "C": "Logic gates only output binary values (0 or 1).",
+   "D": "The output is the inverse of the input, not the input itself."
+  }
+ },
+ {
+  "id": 93,
+  "topic": "Logic Gates",
+  "source": "HIHS Mock 2025",
+  "q": "De Morgan's first law states that NOT(A AND B) is equivalent to:",
+  "opts": [
+   "A. (NOT A) AND (NOT B)",
+   "B. (NOT A) OR (NOT B)",
+   "C. A OR B",
+   "D. NOT A AND B"
+  ],
+  "ans": 1,
+  "exp": "De Morgan's First Law: NOT(A AND B) = (NOT A) OR (NOT B). This means a NAND gate is equivalent to an OR gate with inverted inputs.",
+  "wrong": {
+   "A": "(NOT A) AND (NOT B) is equivalent to NOT(A OR B) — that is De Morgan's second law.",
+   "C": "A OR B is not the correct simplification.",
+   "D": "NOT A AND B is not a valid application of De Morgan's law."
+  }
+ },
+ {
+  "id": 94,
+  "topic": "Logic Gates",
+  "source": "SW Mock 2026",
+  "q": "An XOR gate outputs 1 when:",
+  "opts": [
+   "A. Both inputs are 0",
+   "B. Both inputs are 1",
+   "C. Both inputs are the same",
+   "D. The inputs are different"
+  ],
+  "ans": 3,
+  "exp": "XOR (Exclusive OR) gate outputs 1 ONLY when the inputs are DIFFERENT (0 and 1, or 1 and 0). When both inputs are the same (both 0 or both 1), the output is 0.",
+  "wrong": {
+   "A": "XOR with both inputs 0 gives output 0.",
+   "B": "XOR with both inputs 1 gives output 0.",
+   "C": "When inputs are the same, XOR outputs 0 (that is XNOR behaviour)."
+  }
+ },
+ {
+  "id": 100,
+  "topic": "Ethics & Legislation",
+  "source": "GCE Past",
+  "q": "Which Act protects individuals' personal data held by organisations?",
+  "opts": [
+   "A. Computer Misuse Act",
+   "B. Data Protection Act",
+   "C. Copyright Act",
+   "D. Health and Safety Act"
+  ],
+  "ans": 1,
+  "exp": "The Data Protection Act controls how personal data is collected, stored, and used. It gives individuals rights to see their own data and requires organisations to keep it accurate and secure.",
+  "wrong": {
+   "A": "The Computer Misuse Act makes unauthorised access to computer systems illegal.",
+   "C": "The Copyright Act protects intellectual property and creative works.",
+   "D": "The Health and Safety Act protects workers from physical harm in the workplace."
+  }
+ },
+ {
+  "id": 101,
+  "topic": "Ethics & Legislation",
+  "source": "HIHS Mock 2025",
+  "q": "Using someone else's computer password without their permission is an offence under the:",
+  "opts": [
+   "A. Data Protection Act",
+   "B. Copyright Act",
+   "C. Computer Misuse Act",
+   "D. Freedom of Information Act"
+  ],
+  "ans": 2,
+  "exp": "The Computer Misuse Act makes it illegal to access computer material without authorisation. Using someone's password without permission is unauthorised access under this law.",
+  "wrong": {
+   "A": "The Data Protection Act covers personal data, not unauthorised computer access.",
+   "B": "The Copyright Act protects creative works and software from piracy.",
+   "D": "The Freedom of Information Act gives rights to access government-held information."
+  }
+ },
+ {
+  "id": 102,
+  "topic": "Ethics & Legislation",
+  "source": "SW Mock 2026",
+  "q": "Which of the following is a SOCIAL benefit of computers?",
+  "opts": [
+   "A. Increased unemployment",
+   "B. Invasion of privacy",
+   "C. Improved global communication",
+   "D. Increased e-waste"
+  ],
+  "ans": 2,
+  "exp": "Improved global communication is a social benefit — computers and the internet allow instant communication worldwide through email, social media, and video calls.",
+  "wrong": {
+   "A": "Unemployment due to automation is a negative impact.",
+   "B": "Invasion of privacy is a negative impact.",
+   "D": "E-waste is an environmental negative impact."
+  }
+ },
+ {
+  "id": 103,
+  "topic": "Ethics & Legislation",
+  "source": "GCE Past",
+  "q": "Copying and distributing software without a licence is called:",
+  "opts": [
+   "A. Hacking",
+   "B. Software piracy",
+   "C. Phishing",
+   "D. Cyberbullying"
+  ],
+  "ans": 1,
+  "exp": "Software piracy is the unauthorised copying, distribution, or use of software without proper licensing. It violates the Copyright, Design and Patent Act.",
+  "wrong": {
+   "A": "Hacking is unauthorised access to computer systems.",
+   "C": "Phishing is using fake communications to steal personal information.",
+   "D": "Cyberbullying is online harassment or intimidation."
+  }
+ },
+ {
+  "id": 104,
+  "topic": "Ethics & Legislation",
+  "source": "SW Mock 2026",
+  "q": "What is ERGONOMICS?",
+  "opts": [
+   "A. The study of computer viruses",
+   "B. The science of designing equipment to fit the people who use it",
+   "C. A programming technique",
+   "D. A type of computer network"
+  ],
+  "ans": 1,
+  "exp": "Ergonomics is the science of designing and arranging equipment, environments, and systems to fit the people who use them, improving comfort, efficiency, and safety.",
+  "wrong": {
+   "A": "The study of computer viruses is part of cybersecurity.",
+   "C": "Ergonomics is not a programming technique.",
+   "D": "Ergonomics has nothing to do with network types."
+  }
+ },
+ {
+  "id": 110,
+  "topic": "Computer Hardware",
+  "source": "HIHS Mock 2025",
+  "q": "Which type of printer sprays tiny drops of ink onto paper?",
+  "opts": [
+   "A. Laser printer",
+   "B. Dot matrix printer",
+   "C. Inkjet printer",
+   "D. Thermal printer"
+  ],
+  "ans": 2,
+  "exp": "An inkjet printer works by spraying tiny droplets of liquid ink through microscopic nozzles onto the paper. It produces good quality colour prints.",
+  "wrong": {
+   "A": "A laser printer uses a laser beam to attract toner (powder) to the paper, then fuses it with heat.",
+   "B": "A dot matrix printer uses pins to strike an ink ribbon — it produces lower quality output.",
+   "D": "A thermal printer uses heat to produce images on special heat-sensitive paper."
+  }
+ },
+ {
+  "id": 111,
+  "topic": "Computer Hardware",
+  "source": "GCE Past",
+  "q": "What is the purpose of an ACTUATOR in a control system?",
+  "opts": [
+   "A. To measure temperature",
+   "B. To store data",
+   "C. To convert electrical signals into physical action",
+   "D. To display results on screen"
+  ],
+  "ans": 2,
+  "exp": "An actuator receives an electrical signal from the processor and converts it into a physical action (e.g., turning on a motor, opening a valve, switching a heater).",
+  "wrong": {
+   "A": "Measuring temperature is done by a temperature sensor.",
+   "B": "Storing data is done by memory/storage devices.",
+   "D": "Displaying results is done by monitors or display devices."
+  }
+ },
+ {
+  "id": 112,
+  "topic": "Computer Hardware",
+  "source": "SW Mock 2026",
+  "q": "What does SSD stand for?",
+  "opts": [
+   "A. Super Speed Drive",
+   "B. Solid State Drive",
+   "C. System Storage Device",
+   "D. Secondary Spin Drive"
+  ],
+  "ans": 1,
+  "exp": "SSD stands for Solid State Drive. Unlike HDDs, SSDs have no moving parts — they use flash memory chips. They are faster, more durable, and quieter but more expensive per GB.",
+  "wrong": {
+   "A": "Super Speed Drive is not a real term.",
+   "C": "System Storage Device is not a real term.",
+   "D": "Secondary Spin Drive is not a real term."
+  }
+ },
+ {
+  "id": 120,
+  "topic": "Information Systems",
+  "source": "GCE Past",
+  "q": "A flight simulator used to train pilots is an example of:",
+  "opts": [
+   "A. A monitoring system",
+   "B. A simulation system",
+   "C. A Transaction Processing System",
+   "D. An Expert System"
+  ],
+  "ans": 1,
+  "exp": "A flight simulator is a simulation system — it imitates the real system (an aircraft) to train pilots in a safe, controlled environment without the risk and cost of real flights.",
+  "wrong": {
+   "A": "A monitoring system only observes and records data; it does not simulate.",
+   "C": "TPS handles routine business transactions.",
+   "D": "Expert systems simulate human expert knowledge for specialised decisions."
+  }
+ },
+ {
+  "id": 121,
+  "topic": "Information Systems",
+  "source": "HIHS Mock 2024",
+  "q": "Which Excel tool allows you to specify a TARGET result and find the needed input?",
+  "opts": [
+   "A. Data Table",
+   "B. Scenario Manager",
+   "C. Goal Seek",
+   "D. PivotTable"
+  ],
+  "ans": 2,
+  "exp": "Goal Seek (in Excel's What-If Analysis) lets you specify a desired result and automatically calculates the input value needed to produce that result.",
+  "wrong": {
+   "A": "Data Tables show a range of results for one or two variable inputs.",
+   "B": "Scenario Manager allows you to save and compare different sets of input values.",
+   "D": "PivotTable summarises and analyses large datasets."
+  }
+ },
+ {
+  "id": 130,
+  "topic": "Databases",
+  "source": "SW Mock 2026",
+  "q": "What does DBMS stand for?",
+  "opts": [
+   "A. Database Management System",
+   "B. Data Backup and Migration Software",
+   "C. Distributed Base Memory System",
+   "D. Data Batch Management Service"
+  ],
+  "ans": 0,
+  "exp": "DBMS stands for Database Management System — software that manages and organises databases. Examples include MySQL, Microsoft Access, Oracle, and PostgreSQL.",
+  "wrong": {
+   "B": "This is not a real term.",
+   "C": "This is not the correct expansion.",
+   "D": "This is not the correct expansion."
+  }
+ },
+ {
+  "id": 131,
+  "topic": "Databases",
+  "source": "GCE Past",
+  "q": "In 1NF (First Normal Form), a table must:",
+  "opts": [
+   "A. Have no foreign keys",
+   "B. Have no partial dependencies",
+   "C. Have no repeating groups and all attributes must be atomic",
+   "D. Have exactly one primary key per row"
+  ],
+  "ans": 2,
+  "exp": "First Normal Form (1NF) requires that all attributes are atomic (single, indivisible values) and there are no repeating groups or arrays within a single record.",
+  "wrong": {
+   "A": "Foreign keys are allowed in 1NF.",
+   "B": "No partial dependencies is a requirement of 2NF, not 1NF.",
+   "D": "Every table should have a primary key, but 1NF is specifically about atomic values and no repeating groups."
+  }
+ },
+ {
+  "id": 140,
+  "topic": "Ethics & Legislation",
+  "source": "HIHS Mock 2025",
+  "q": "The DIGITAL DIVIDE refers to:",
+  "opts": [
+   "A. The speed difference between hard drives and SSDs",
+   "B. The gap between people who have access to technology and those who do not",
+   "C. The division between hardware and software",
+   "D. The difference between the internet and intranet"
+  ],
+  "ans": 1,
+  "exp": "The Digital Divide is the inequality in access to digital technology between different groups — e.g., rich vs poor countries, urban vs rural areas. It creates educational and economic disadvantages.",
+  "wrong": {
+   "A": "Speed differences between drives are a hardware performance concept.",
+   "C": "The hardware/software distinction is a basic computing concept, not the digital divide.",
+   "D": "Internet vs intranet is a networking concept."
+  }
+ },
+ {
+  "id": 141,
+  "topic": "Ethics & Legislation",
+  "source": "GCE Past",
+  "q": "Which RSI (Repetitive Strain Injury) prevention measure is MOST recommended?",
+  "opts": [
+   "A. Use a faster computer",
+   "B. Sit closer to the screen",
+   "C. Take regular breaks and use wrist rests",
+   "D. Type faster to finish sooner"
+  ],
+  "ans": 2,
+  "exp": "RSI is caused by repetitive movements. Prevention includes taking regular breaks (at least every hour), using wrist rests, and maintaining correct posture. These reduce strain on joints.",
+  "wrong": {
+   "A": "A faster computer does not reduce strain on the typist's wrists.",
+   "B": "Sitting closer to the screen increases eye strain, not reduces RSI.",
+   "D": "Typing faster increases repetitive stress and worsens RSI."
+  }
+ },
+ {
+  "id": 150,
+  "topic": "Algorithms & Programming",
+  "source": "SW Mock 2026",
+  "q": "Object-Oriented Programming organises code into:",
+  "opts": [
+   "A. Functions only",
+   "B. Binary trees",
+   "C. Objects with properties and methods",
+   "D. Sequential procedures"
+  ],
+  "ans": 2,
+  "exp": "OOP organises code into objects — self-contained units that combine data (properties/attributes) and behaviour (methods/functions). Key concepts: encapsulation, inheritance, polymorphism.",
+  "wrong": {
+   "A": "Functions only describes procedural programming.",
+   "B": "Binary trees are a data structure, not a programming paradigm.",
+   "D": "Sequential procedures describes procedural/imperative programming."
+  }
+ },
+ {
+  "id": 151,
+  "topic": "Algorithms & Programming",
+  "source": "GCE Past",
+  "q": "What is the MAIN advantage of using an INTERPRETER over a COMPILER?",
+  "opts": [
+   "A. Produces faster executing programs",
+   "B. Easier to debug as errors are shown line by line",
+   "C. Creates an executable file",
+   "D. Works without any source code"
+  ],
+  "ans": 1,
+  "exp": "An interpreter translates and executes code one line at a time. When an error is found, it stops immediately and reports the error at that line — making debugging easier during development.",
+  "wrong": {
+   "A": "Interpreted programs run slower because translation happens during execution.",
+   "C": "Creating an executable file is an advantage of a compiler, not an interpreter.",
+   "D": "Both compilers and interpreters require source code."
+  }
+ },
+ {
+  "id": 152,
+  "topic": "Algorithms & Programming",
+  "source": "HIHS Mock 2025",
+  "q": "A STACK data structure follows which principle?",
+  "opts": [
+   "A. FIFO – First In First Out",
+   "B. LIFO – Last In First Out",
+   "C. FILO – First In Last Out",
+   "D. LILO – Last In Last Out"
+  ],
+  "ans": 1,
+  "exp": "A Stack uses LIFO (Last In, First Out) — the last item added (pushed) is the first item removed (popped). Think of a stack of plates: you add and remove from the top.",
+  "wrong": {
+   "A": "FIFO is the principle of a Queue, not a Stack.",
+   "C": "FILO means the same as LIFO — last item in is first out. But LIFO is the correct standard term.",
+   "D": "LILO is not a standard data structure term."
+  }
+ },
+ {
+  "id": 153,
+  "topic": "Algorithms & Programming",
+  "source": "SW Mock 2026",
+  "q": "Which type of error occurs when the program breaks syntax rules?",
+  "opts": [
+   "A. Logic error",
+   "B. Runtime error",
+   "C. Semantic error",
+   "D. Syntax error"
+  ],
+  "ans": 3,
+  "exp": "A syntax error occurs when code violates the grammar rules of the programming language (e.g., missing bracket, misspelled keyword). The compiler/interpreter catches these before running.",
+  "wrong": {
+   "A": "Logic errors occur when the code runs but produces incorrect results.",
+   "B": "Runtime errors occur during execution (e.g., dividing by zero).",
+   "C": "Semantic errors are a type of logic error — the code is grammatically correct but means something different from intended."
+  }
+ }
+]

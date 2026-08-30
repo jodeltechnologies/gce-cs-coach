@@ -135,6 +135,24 @@ export default function Quiz({ questions }) {
           <p style={{ fontWeight: 600, marginBottom: 6 }}>
             {result.correct ? "Correct." : `Not this time — the answer is ${result.correctLabel}.`}
           </p>
+
+          {/* Why their own choice was wrong comes first. A student who picked
+              the Control Bus needs that specific correction more than they
+              need the general explanation. */}
+          {!result.correct && result.yourFeedback && (
+            <p
+              style={{
+                fontSize: "0.9rem",
+                margin: "0 0 8px",
+                padding: "9px 12px",
+                borderLeft: "3px solid var(--gold, #c9a227)",
+                background: "rgba(0,0,0,0.02)",
+              }}
+            >
+              {result.yourFeedback}
+            </p>
+          )}
+
           {result.explanation && (
             <p style={{ fontSize: "0.9rem", color: "var(--muted)", marginTop: 0 }}>
               {result.explanation}

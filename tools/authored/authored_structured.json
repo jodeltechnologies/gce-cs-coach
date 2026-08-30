@@ -1,0 +1,335 @@
+[
+ {
+  "num": 1,
+  "marks": 30,
+  "topic": "Information Systems & SDLC",
+  "source": "HIHS Mock 2025 – Paper 2",
+  "year": "2025",
+  "context": "<strong>RAINCO</strong> is a wholesale business specialising in two categories of umbrellas: <em>Standard</em> and <em>Premium</em>. Orders are placed by phone, with doorstep delivery. A minimum order of 25 umbrellas is required. RAINCO plans to expand by introducing online sales and adding two new categories: <em>Sport</em> and <em>Travel</em>. They want to implement a new computerised information system to manage this expansion.",
+  "parts": [
+   {
+    "label": "(a)",
+    "marks": 4,
+    "q": "State FOUR components of an Information System that RAINCO would need for their new computerised system.",
+    "modelAnswer": [
+     "Hardware – computers, servers, smartphones for order taking.",
+     "Software – order management application, database software.",
+     "Data – product details, customer information, orders.",
+     "People – staff trained to use the system (e.g., sales staff, IT support).",
+     "Networks – internet connection for online orders, internal LAN.",
+     "Procedures – rules and processes for using the system correctly."
+    ],
+    "hint": "Name any 4 of the 7 IS components. Give a brief example for each for full marks."
+   },
+   {
+    "label": "(b)",
+    "marks": 6,
+    "q": "Identify THREE types of Information Systems RAINCO could use and explain how each would benefit their business.",
+    "modelAnswer": [
+     "TPS (Transaction Processing System) – to record and process online/phone orders automatically in real time.",
+     "MIS (Management Information System) – to produce sales reports and inventory summaries for middle management to track performance.",
+     "DSS (Decision Support System) – to analyse sales trends and help senior managers decide on pricing, stock levels, and product expansion strategies."
+    ],
+    "hint": "Name TPS, MIS, DSS or EIS. For each: state what it does AND how it helps RAINCO specifically."
+   },
+   {
+    "label": "(c)",
+    "marks": 6,
+    "q": "Explain the Analysis phase and the Design phase of the SDLC for RAINCO's new system.",
+    "modelAnswer": [
+     "Analysis Phase: Investigate how the current phone-order system works; identify its weaknesses (e.g., slow, error-prone); gather requirements from RAINCO staff using interviews and questionnaires; produce a requirements specification document showing what the new system must do.",
+     "Design Phase: Create the technical solution – design the database structure (tables for customers, products, orders), design the user interface (website/app screens), specify hardware and software requirements; create detailed specifications for programmers to follow."
+    ],
+    "hint": "For each phase: state what activities are carried out AND give specific examples related to RAINCO."
+   },
+   {
+    "label": "(d)",
+    "marks": 4,
+    "q": "RAINCO chooses PARALLEL changeover for their system implementation. Explain why this is the SAFEST method, and state ONE disadvantage.",
+    "modelAnswer": [
+     "Parallel changeover runs both the old (phone-based) and new (computerised) systems simultaneously for a period.",
+     "It is the safest because if the new system fails or produces errors, the old system is still running as a backup — no orders will be lost.",
+     "Disadvantage: It is the most expensive method — RAINCO must pay for and manage both systems at the same time, requiring extra staff and resources."
+    ],
+    "hint": "Explain HOW parallel works (both systems run together), WHY it is safe (old system as backup), and ONE cost/resource disadvantage."
+   },
+   {
+    "label": "(e)",
+    "marks": 10,
+    "q": "RAINCO plans to store customer and order data in a database. Design a database schema with at least TWO tables, showing field names, data types, and identify primary and foreign keys. Justify your design choices.",
+    "modelAnswer": [
+     "Table 1: CUSTOMER(CustomerID [PK, Integer], CustomerName [Text], Phone [Text], Address [Text], Email [Text]).",
+     "Table 2: PRODUCT(ProductID [PK, Integer], ProductName [Text], Category [Text], PricePerUnit [Real]).",
+     "Table 3: ORDER(OrderID [PK, Integer], CustomerID [FK→CUSTOMER, Integer], OrderDate [Date], TotalAmount [Real]).",
+     "Table 4: ORDER_ITEM(OrderItemID [PK], OrderID [FK→ORDER], ProductID [FK→PRODUCT], Quantity [Integer]).",
+     "Justification: Splitting into multiple tables reduces data redundancy (customer details stored once, not repeated with every order). Foreign keys create relationships. Primary keys ensure unique identification of each record."
+    ],
+    "hint": "Draw the tables clearly. Label PK and FK. Explain WHY you structured it this way (normalisation/reduce redundancy)."
+   }
+  ]
+ },
+ {
+  "num": 2,
+  "marks": 25,
+  "topic": "Algorithms, Programming & Data Types",
+  "source": "HIHS Mock 2025 – Paper 2",
+  "year": "2025",
+  "context": "A programmer is writing a program to process the scores of 10 students and determine the grade for each. Scores are out of 100.",
+  "parts": [
+   {
+    "label": "(a)",
+    "marks": 4,
+    "q": "State the meaning of the following programming terms: (i) Variable  (ii) Algorithm  (iii) Loop  (iv) Syntax error",
+    "modelAnswer": [
+     "(i) Variable: A named memory location that stores a value which can change during program execution. E.g., score = 75.",
+     "(ii) Algorithm: A step-by-step set of instructions for solving a problem or completing a task, with a finite number of steps.",
+     "(iii) Loop: A control structure that repeats a block of instructions a set number of times or while a condition is true. E.g., FOR, WHILE loops.",
+     "(iv) Syntax error: An error where the code violates the grammar rules of the programming language. Caught by the compiler/interpreter before execution."
+    ],
+    "hint": "One sentence definition for each. Try to give a brief example to demonstrate understanding."
+   },
+   {
+    "label": "(b)",
+    "marks": 6,
+    "q": "Write a pseudocode algorithm that: reads 10 student scores, calculates the average, and prints a \"Pass\" or \"Fail\" message for each student (pass mark = 50).",
+    "modelAnswer": [
+     "SET total = 0",
+     "FOR i = 1 TO 10",
+     "  INPUT score",
+     "  SET total = total + score",
+     "  IF score >= 50 THEN",
+     "    PRINT \"Pass\"",
+     "  ELSE",
+     "    PRINT \"Fail\"",
+     "  ENDIF",
+     "NEXT i",
+     "SET average = total / 10",
+     "PRINT \"Class average is: \" + average"
+    ],
+    "hint": "Use: SET, FOR...TO...NEXT, INPUT, IF...THEN...ELSE...ENDIF, PRINT. Show loop, accumulator for total, and conditional for grade."
+   },
+   {
+    "label": "(c)",
+    "marks": 5,
+    "q": "Draw a flowchart for the decision part of the above algorithm: reading ONE score and printing Pass or Fail.",
+    "modelAnswer": [
+     "START → INPUT score → DECISION: score >= 50? → YES: PRINT \"Pass\" → END",
+     "→ NO: PRINT \"Fail\" → END",
+     "Shapes used: Oval (START/END), Parallelogram (INPUT/PRINT), Diamond (DECISION), Rectangles for processes, Arrows for flow."
+    ],
+    "hint": "Use correct flowchart symbols: oval=start/end, parallelogram=input/output, diamond=decision, rectangle=process."
+   },
+   {
+    "label": "(d)",
+    "marks": 4,
+    "q": "The programmer encounters THREE types of errors. Describe each type and give an example related to this score program.",
+    "modelAnswer": [
+     "Syntax Error: Violates language grammar rules. Example: Writing PRNT score instead of PRINT score — the keyword is misspelled.",
+     "Logic Error: Program runs but produces wrong output. Example: Using average = total * 10 instead of total / 10 — wrong formula.",
+     "Runtime Error: Error occurs during execution. Example: If score is entered as a text value \"seventy\" and the program tries to add it to total numerically — type mismatch causes a crash."
+    ],
+    "hint": "For each error: (1) define it, (2) explain when it occurs, (3) give a specific example from THIS score program."
+   },
+   {
+    "label": "(e)",
+    "marks": 6,
+    "q": "Explain the difference between a COMPILER and an INTERPRETER. State ONE advantage of each.",
+    "modelAnswer": [
+     "Compiler: Translates the ENTIRE source code into machine code (object code) all at once. Produces a standalone executable file that can be run without the compiler. Advantage: Compiled programs run FASTER because translation is done before execution.",
+     "Interpreter: Translates and executes the source code ONE LINE AT A TIME. No separate executable is produced. Advantage: Easier to DEBUG — when an error occurs, execution stops at that line and the error is reported immediately, making it simpler to find and fix."
+    ],
+    "hint": "State how each translates (all-at-once vs line-by-line), what they produce (or don't), and a specific advantage of EACH."
+   }
+  ]
+ },
+ {
+  "num": 3,
+  "marks": 25,
+  "topic": "Networks, Security & Communication",
+  "source": "SW Mock 2026 – Paper 2",
+  "year": "2026",
+  "context": "A school decides to set up a computer network connecting 30 computers in 3 classrooms. The school also wants to give students internet access and protect the network from external threats.",
+  "parts": [
+   {
+    "label": "(a)",
+    "marks": 6,
+    "q": "Describe THREE different network topologies. For each, state ONE advantage and ONE disadvantage.",
+    "modelAnswer": [
+     "Star Topology: All devices connect to a central hub/switch. Advantage: Easy to manage and add new devices; if one cable fails, only that device is affected. Disadvantage: If the central hub/switch fails, the entire network goes down.",
+     "Bus Topology: All devices share a single backbone cable. Advantage: Simple and cheap to set up. Disadvantage: If the backbone cable fails, the entire network fails; performance degrades with more users.",
+     "Ring Topology: Each device connects to two others in a circle. Advantage: Equal access for all devices; no collisions. Disadvantage: If one device or connection fails, the whole network can be disrupted."
+    ],
+    "hint": "For EACH topology: draw or describe its structure, name ONE advantage, name ONE disadvantage. 2 marks per topology."
+   },
+   {
+    "label": "(b)",
+    "marks": 4,
+    "q": "The school uses a STAR topology. What hardware device is placed at the centre? Explain how it is different from a HUB.",
+    "modelAnswer": [
+     "The device at the centre of a star topology is a SWITCH (or hub).",
+     "A Switch is INTELLIGENT — it reads the MAC address of each data packet and sends it ONLY to the intended destination device. This makes the network more efficient and reduces unnecessary traffic.",
+     "A Hub is NOT intelligent — it BROADCASTS every data packet to ALL connected devices, regardless of the intended recipient. All devices receive all data, causing inefficiency and potential security issues."
+    ],
+    "hint": "Name the device (switch). Explain switch = sends to specific device only. Hub = broadcasts to all. This distinction is key."
+   },
+   {
+    "label": "(c)",
+    "marks": 5,
+    "q": "Define WAN and LAN. Explain which type of network the school has and how the school connects to the internet.",
+    "modelAnswer": [
+     "LAN (Local Area Network): A network covering a small geographic area (one building/campus). Owned and managed by one organisation. High speed.",
+     "WAN (Wide Area Network): A network covering a large geographic area (country/world). Uses public infrastructure. The Internet is the largest WAN.",
+     "The school has a LAN — it covers one campus and is owned by the school.",
+     "To connect to the internet, the school uses a ROUTER connected to an ISP (Internet Service Provider) via a MODEM. The router connects the school LAN to the internet (a WAN)."
+    ],
+    "hint": "Define both. State which one the school has (LAN) and explain the role of router + ISP to connect to internet."
+   },
+   {
+    "label": "(d)",
+    "marks": 6,
+    "q": "Describe FOUR security threats to the school network and suggest a countermeasure for EACH threat.",
+    "modelAnswer": [
+     "1. Hacking/Unauthorised Access — Countermeasure: Use strong passwords and user authentication; install a Firewall to block unauthorised connections.",
+     "2. Malware/Virus — Countermeasure: Install and regularly update antivirus software; educate users not to open suspicious attachments.",
+     "3. Phishing — Countermeasure: Train staff and students to identify suspicious emails; use email spam filters.",
+     "4. Data Interception (Man-in-the-Middle) — Countermeasure: Use HTTPS/SSL encryption for all internet communication so intercepted data cannot be read.",
+     "5. Denial of Service (DoS) Attack — Countermeasure: Use a firewall to detect and block flood traffic; monitor network for unusual spikes."
+    ],
+    "hint": "For each threat: name it, briefly explain it, then state a specific countermeasure. 1.5 marks per threat-countermeasure pair."
+   },
+   {
+    "label": "(e)",
+    "marks": 4,
+    "q": "Explain the difference between DATA VERIFICATION and DATA VALIDATION. Give one example of each in the context of a student registration form.",
+    "modelAnswer": [
+     "Data Verification: Checking that data has been transferred correctly and matches the original source. Example: When a student types their email address twice, the system checks both entries match — double-entry verification.",
+     "Data Validation: Computer-automated checking that data is sensible, complete, and in the correct format. Example: The registration form uses a RANGE CHECK to ensure the student's age is between 10 and 25 — values outside this range are rejected."
+    ],
+    "hint": "Verification = checking correct transfer (human error). Validation = computer checks data is reasonable (format/range/type). Give specific examples on the registration form context."
+   }
+  ]
+ },
+ {
+  "num": 4,
+  "marks": 20,
+  "topic": "Logic Gates & Number Systems",
+  "source": "GCE & Mock Combined",
+  "year": "2024–2026",
+  "context": "This question covers digital electronics and number systems — key components of the Computer Science syllabus.",
+  "parts": [
+   {
+    "label": "(a)",
+    "marks": 4,
+    "q": "Draw the truth table for a NAND gate with inputs A and B. State what Boolean expression it represents.",
+    "modelAnswer": [
+     "Truth Table: A=0,B=0→1 | A=0,B=1→1 | A=1,B=0→1 | A=1,B=1→0",
+     "Boolean Expression: Output = NOT(A AND B) = A NAND B",
+     "The NAND gate only outputs 0 when ALL inputs are 1. In all other combinations, it outputs 1.",
+     "NAND is called a \"universal gate\" because any other gate can be built from NAND gates alone."
+    ],
+    "hint": "4 rows in truth table (00,01,10,11). Output is 0 only for row 11. Expression: NOT(A AND B)."
+   },
+   {
+    "label": "(b)",
+    "marks": 4,
+    "q": "Apply De Morgan's Laws to simplify: (i) NOT(A AND B)  (ii) NOT(A OR B)",
+    "modelAnswer": [
+     "(i) NOT(A AND B) = (NOT A) OR (NOT B)   [De Morgan's First Law]",
+     "This means: NOT(A.B) = Ā + B̄",
+     "(ii) NOT(A OR B) = (NOT A) AND (NOT B)   [De Morgan's Second Law]",
+     "This means: NOT(A+B) = Ā.B̄",
+     "Practical use: A NOR gate = AND gate with inverted inputs. A NAND gate = OR gate with inverted inputs."
+    ],
+    "hint": "First law: NOT AND → OR with NOT inputs. Second law: NOT OR → AND with NOT inputs. These are exact opposites."
+   },
+   {
+    "label": "(c)",
+    "marks": 6,
+    "q": "Convert the following: (i) 45 decimal to binary  (ii) Binary 110101 to decimal  (iii) Decimal 200 to hexadecimal  (iv) Hexadecimal 3F to decimal",
+    "modelAnswer": [
+     "(i) 45 to binary: 45÷2=22r1, 22÷2=11r0, 11÷2=5r1, 5÷2=2r1, 2÷2=1r0, 1÷2=0r1 → Reading bottom to top: 101101₂",
+     "(ii) 110101 to decimal: (1×32)+(1×16)+(0×8)+(1×4)+(0×2)+(1×1) = 32+16+0+4+0+1 = 53₁₀",
+     "(iii) 200 to hex: 200÷16=12r8. 12=C in hex. So 200₁₀ = C8₁₆",
+     "(iv) 3F to decimal: 3×16 + F(15) = 48+15 = 63₁₀"
+    ],
+    "hint": "(i) Divide repeatedly by 2, read remainders bottom-up. (ii) Multiply each bit × power of 2. (iii) Divide by 16, use A-F for 10-15. (iv) Multiply by 16."
+   },
+   {
+    "label": "(d)",
+    "marks": 6,
+    "q": "A home security system uses logic gates. The alarm should sound (Output=1) when: it is NIGHT (N=1) AND either the DOOR is open (D=1) OR the WINDOW is open (W=1). Write the Boolean expression and construct the truth table for all combinations where the alarm sounds.",
+    "modelAnswer": [
+     "Boolean Expression: Alarm = N AND (D OR W)",
+     "Truth Table (showing all combinations):",
+     "N=0: Alarm=0 regardless of D and W (night must be true)",
+     "N=1, D=0, W=0: (0 OR 0)=0 → Alarm=0",
+     "N=1, D=1, W=0: (1 OR 0)=1 → Alarm=1",
+     "N=1, D=0, W=1: (0 OR 1)=1 → Alarm=1",
+     "N=1, D=1, W=1: (1 OR 1)=1 → Alarm=1",
+     "Circuit: D and W feed into an OR gate. The OR gate output and N feed into an AND gate. AND gate output = Alarm."
+    ],
+    "hint": "Expression: N AND (D OR W). For truth table, do all 8 combinations (3 inputs). Circuit needs one OR gate and one AND gate."
+   }
+  ]
+ },
+ {
+  "num": 5,
+  "marks": 20,
+  "topic": "Computer Ethics, Legislation & Social Impact",
+  "source": "GCE Past Questions",
+  "year": "2019–2024",
+  "context": "This question examines your understanding of ethical, legal, and social issues arising from the use of computers and information technology.",
+  "parts": [
+   {
+    "label": "(a)",
+    "marks": 4,
+    "q": "State the purpose of EACH of the following Acts: (i) The Data Protection Act  (ii) The Computer Misuse Act",
+    "modelAnswer": [
+     "(i) The Data Protection Act: Protects individuals' personal data held by organisations. It requires organisations to collect data fairly and for a specified purpose, keep it accurate and secure, and not keep it longer than necessary. Individuals have the right to see their own personal data.",
+     "(ii) The Computer Misuse Act: Makes it a criminal offence to (a) access computer material without authorisation, (b) access computer systems with intent to commit further crimes, and (c) intentionally modify computer contents without authorisation (e.g., spreading viruses, deleting files)."
+    ],
+    "hint": "For each Act: state WHAT it does (protects) and WHO it protects or what it criminalises. Give specific examples."
+   },
+   {
+    "label": "(b)",
+    "marks": 6,
+    "q": "Discuss THREE negative impacts of computers on employment and society.",
+    "modelAnswer": [
+     "1. Unemployment through automation: Machines and software have replaced many manual and clerical jobs (e.g., factory robots replacing workers, ATMs replacing bank tellers, checkout self-service machines). This causes structural unemployment, especially for low-skilled workers.",
+     "2. Privacy invasion: Large amounts of personal data are collected by governments, corporations, and social media platforms without individuals fully understanding how their data is used. This can lead to targeted advertising, surveillance, or data breaches.",
+     "3. Cybercrime: Computers have created new forms of crime — identity theft, online fraud, phishing, ransomware attacks — costing businesses and individuals billions of francs annually. Individuals may lose their savings or have their identities stolen."
+    ],
+    "hint": "Each point needs: name the impact, explain HOW computers cause it, give a real-world example. 2 marks per point."
+   },
+   {
+    "label": "(c)",
+    "marks": 4,
+    "q": "Describe how computers have POSITIVELY impacted healthcare.",
+    "modelAnswer": [
+     "1. Medical records and patient management: Electronic Health Records (EHR) allow doctors instant access to a patient's complete history, improving diagnosis speed and accuracy.",
+     "2. Diagnostic imaging: Technologies like CT scans, MRI, and X-ray imaging use computers to process and display detailed images of the body, enabling detection of diseases that were previously undetectable.",
+     "3. Robotic surgery: Computer-controlled robots assist surgeons with greater precision, reducing patient trauma and recovery time.",
+     "4. Telemedicine: Patients in remote areas (like rural Cameroon) can receive consultations via video call without travelling long distances."
+    ],
+    "hint": "Give 4 specific examples of computer use in healthcare with a brief explanation of each benefit."
+   },
+   {
+    "label": "(d)",
+    "marks": 6,
+    "q": "What is the DIGITAL DIVIDE? Discuss THREE factors that contribute to it and suggest how it can be reduced.",
+    "modelAnswer": [
+     "Definition: The digital divide is the inequality in access to digital technology (computers, internet, smartphones) between different groups — wealthy vs poor, urban vs rural, developed vs developing countries.",
+     "Factors contributing to it:",
+     "1. Income/Poverty: Computer equipment and internet connections are expensive. People living in poverty cannot afford devices or data plans.",
+     "2. Infrastructure: Rural areas in Cameroon often lack reliable electricity or internet infrastructure (fibre optic cables, phone masts), making digital access impossible.",
+     "3. Education/Digital Literacy: Lack of IT education means many adults and children do not know how to use computers effectively, even when access is available.",
+     "Ways to reduce it:",
+     "- Government investment in rural internet infrastructure (e.g., national broadband programs).",
+     "- Subsidised computers and data plans for low-income families.",
+     "- Digital literacy programs in schools and communities."
+    ],
+    "hint": "Define it (unequal access). Three factors (cost, infrastructure, education). Three solutions (government programs, subsidies, education)."
+   }
+  ]
+ }
+]

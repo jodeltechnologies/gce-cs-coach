@@ -205,6 +205,28 @@ Question ids are derived from the question text, so re-running the seed after
 correcting the extract inserts nothing twice and does not disturb lesson tags or
 review decisions already made.
 
+## The authored questions
+
+The static platform that preceded this app carried 75 multiple-choice questions
+and 5 structured ones, written rather than scanned. They are in
+`db/seed/07_authored_questions.sql`, and they are worth more than their number
+suggests.
+
+**They arrive marking.** Verified answers, an explanation on every question, and
+a lesson tag. Nothing to review. Where the 522 pamphlet questions needed a
+teacher before they could score anybody, these were correct the day they were
+written.
+
+**Every wrong option has its own feedback.** Not "the answer is B" but "the
+Control Bus carries control signals, not addresses." A student who picks the
+Control Bus holds a specific wrong idea, and the sentence written against that
+option is the one that corrects it. 225 of them. `question_options.feedback`
+exists for this, and the practice screen shows a student the note for the option
+they actually chose — and only that one, so the next attempt is not a lookup.
+
+The 5 structured questions come with their scenario, their parts, the marks per
+part, and a model answer for each. Those live in `question_parts`.
+
 ## Tagging
 
 Untagged, a wrong answer is just a wrong answer. Tagged, it points at a lesson,

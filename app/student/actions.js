@@ -110,5 +110,8 @@ export async function checkAnswer(questionId, label) {
     correct: row.correct,
     correctLabel: row.correct_label,
     explanation: row.explanation ?? null,
+    // Why the option they actually chose was wrong. Only theirs: handing over
+    // the notes for every option would turn the next attempt into a lookup.
+    yourFeedback: row.your_feedback ?? null,
   };
 }
