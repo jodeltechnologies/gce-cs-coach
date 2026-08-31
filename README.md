@@ -169,7 +169,12 @@ practice, so it reflects who has been revising as much as who understands.
 
 ## The course notes
 
-Three sets, in the order a student meets them.
+**All of it is Form 5 material.** Notes belong to a year, and a student sees
+only their own; a Lower Sixth student currently sees an empty Notes page, which
+is correct and not yet useful. Form 4 and Lower Sixth notes are the largest
+piece of work still outstanding.
+
+Three sets, in the order a Form 5 student meets them.
 
 **One note per lesson** — 67 of them, one for every teachable lesson on the
 Form 5 progression sheet, sized for the hour it is taught in. Each opens with

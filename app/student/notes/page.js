@@ -17,7 +17,9 @@ export default async function StudentNotes({ searchParams }) {
   const sp = await searchParams;
   const openId = sp?.c ?? "";
 
-  const { data } = await supabase.rpc("student_notes");
+  const { data } = await supabase.rpc("student_notes", {
+    p_student: session.id,
+  });
   const chapters = data ?? [];
   const open = chapters.find((c) => c.id === openId);
 
@@ -39,7 +41,18 @@ export default async function StudentNotes({ searchParams }) {
         </Link>
       </p>
 
-      {!open && (
+      {!open && chapters.length === 0 && (
+        <div className="notice">
+          <h3>No notes for your class yet</h3>
+          <p style={{ marginBottom: 0 }}>
+            Notes are written per year. If you have just been added to a class,
+            ask your teacher — otherwise your year&apos;s notes are still being
+            prepared.
+          </p>
+        </div>
+      )}
+
+      {!open && chapters.length > 0 && (
         <>
           <h2>Notes</h2>
           {groups.map(([source, list]) => (

@@ -1,54 +1,44 @@
 # What to upload
 
-Only the files that changed. Copy them over your repository, keeping the folder
-structure. Nothing else is affected.
+Only the files that changed. Copy over your repository, keeping the structure.
 
 ## 1. SQL first
-
-Two pages call database functions that do not exist yet, so pushing the code
-before the SQL gives an error page on those screens.
 
 Check what you have already run:
 
 ```sql
 SELECT
-  to_regprocedure('public.student_structured(uuid,uuid,int)')      IS NOT NULL AS phase10,
-  to_regprocedure('public.marking_queue(uuid,boolean)')            IS NOT NULL AS phase11,
-  to_regprocedure('public.student_assessments(uuid)')              IS NOT NULL AS phase12;
+  to_regprocedure('public.student_structured(uuid,uuid,int)') IS NOT NULL AS phase10,
+  to_regprocedure('public.marking_queue(uuid,boolean)')       IS NOT NULL AS phase11,
+  to_regprocedure('public.student_assessments(uuid)')         IS NOT NULL AS phase12,
+  to_regprocedure('public.student_notes(uuid)')               IS NOT NULL AS phase13;
 ```
 
 Run whichever comes back false, in order:
 
 | File | What it adds |
 |---|---|
-| `db/phase10.sql` | Paper 2 practice for students |
-| `db/phase11.sql` | Lets you read and mark what students write |
+| `db/phase10.sql` | Paper 2 practice |
+| `db/phase11.sql` | Reading and marking written work |
 | `db/phase12.sql` | Tests you set for a class |
+| `db/phase13.sql` | Notes belong to one year |
+
+`phase13` is the fix for Lower Sixth showing Form 5 notes. It prints two tables
+at the end: the first should show Form 5 only, and the second should show notes
+attached to Form 5 lessons only. A count against Form 4 or Lower Sixth means
+something is still crossing years — say so.
 
 ## 2. Upload
 
-```
-app/     pages and components
-lib/     helper modules
-public/  the note figures — 104 of them, easy to miss
-db/      the SQL, for the record
-tools/   the generators, for the record
-```
+`app/`, `lib/`, `public/`, `db/`, `tools/`, and the two markdown files.
 
-If `public/notes/figures/` does not arrive, every diagram in the booklet notes
-becomes a broken image. It will not error; it will just look wrong.
+`public/notes/figures/` is 104 images. Miss it and every diagram in the booklet
+notes silently becomes a broken image.
 
-## 3. Then try it end to end
+## 3. Check
 
-1. `/admin/assessments` — set a test. Pick a class, a topic, ten questions, a
-   closing date.
-2. Sign in as a student. The test appears at the top of their page, above
-   everything else.
-3. Answer a few questions, close the tab, sign in again, and reopen it. Your
-   answers should still be there.
-4. Submit. Then look at `/admin/assessments` for the result and for which
-   questions caught the class out.
+Sign in as a Lower Sixth student. Notes should be **empty**, with a line saying
+their year's notes are not ready. That is the correct answer — the wrong notes
+were worse than none, because a student would have revised from them.
 
-Step 3 is the one worth doing. Resuming a half-finished test is where this
-would hurt most if it were broken, and a dropped connection mid-test is not a
-rare event.
+A Form 5 student should see all three sets as before.

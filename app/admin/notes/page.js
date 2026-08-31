@@ -10,7 +10,7 @@ export default async function NotesIndex() {
 
   const { data: sections } = await supabase
     .from("note_sections")
-    .select("id, chapter_number, title, page_from, page_to, body, body_format, note_sources(title, attribution, sequence)")
+    .select("id, chapter_number, title, page_from, page_to, body, body_format, note_sources(title, attribution, sequence, syllabi(form_level))")
     .is("deleted_at", null)
     .order("sequence");
 
@@ -27,7 +27,8 @@ export default async function NotesIndex() {
       <h2>Course notes</h2>
       <p className="lede">
         Your course notes, chapter by chapter, with every diagram kept as it
-        appears in the booklets the class already uses.
+        appears in the booklets the class already uses. Each set belongs to one
+        year, and students only see their own.
       </p>
 
       {items.length === 0 && (
@@ -39,7 +40,14 @@ export default async function NotesIndex() {
 
       {[...bySource.entries()].map(([source, list]) => (
         <div key={source} style={{ marginBottom: 26 }}>
-          <h3 style={{ fontSize: "1rem", marginBottom: 4 }}>{source}</h3>
+          <h3 style={{ fontSize: "1rem", marginBottom: 4 }}>
+            {source}
+            {list[0]?.note_sources?.syllabi?.form_level && (
+              <span className="tag plain" style={{ marginLeft: 8, fontWeight: 400 }}>
+                {list[0].note_sources.syllabi.form_level}
+              </span>
+            )}
+          </h3>
           <p style={{ fontSize: "0.82rem", color: "var(--muted)", marginTop: 0 }}>
             {list[0]?.note_sources?.attribution}
           </p>
