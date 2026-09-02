@@ -575,6 +575,45 @@ body { font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif; }
 }
 
 /* ---------------------------------------------------------------------
+   Drawn figures inside a lesson note.
+
+   The Lower Sixth notes carry their diagrams as inline SVG rather than as
+   cropped images of the booklet page. A crop is grey, fixed in size and
+   unreadable on a phone; an SVG scales to the column and takes its colours
+   from the page, so the same drawing works in both themes.
+
+   Which is why nothing here sets a colour on the svg itself. The drawings
+   stroke and fill with currentColor and with the site's custom properties,
+   and inherit the note's text colour from this rule.
+   --------------------------------------------------------------------- */
+
+.note-html figure.fig {
+  margin: 22px 0;
+  padding: 14px 12px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  /* A wide diagram scrolls inside its own box rather than pushing the
+     whole page sideways on a narrow screen. */
+  overflow-x: auto;
+}
+.note-html figure.fig svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 320px;
+  margin: 0 auto;
+}
+.note-html figure.fig figcaption {
+  margin-top: 10px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------------
    The objectives block that opens every lesson note.
 
    A student should know what the hour is for before reading it, and these
