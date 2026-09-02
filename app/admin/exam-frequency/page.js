@@ -26,6 +26,7 @@ export default async function ExamFrequencyPage() {
   const { data: competencies } = await supabase
     .from("competencies")
     .select("id, syllabus_id, sequence, category_of_action, competency_statement, exam_frequency")
+    .is("deleted_at", null)
     .order("sequence");
 
   const bySyllabus = new Map();

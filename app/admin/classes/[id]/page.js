@@ -14,6 +14,7 @@ const KIND_LABEL = {
   evaluation: "Evaluation",
   remediation: "Remediation",
   practical: "Practical",
+  revision: "Revision",
 };
 
 const STATUSES = [
@@ -81,6 +82,7 @@ export default async function ClassPlanner({ params, searchParams }) {
         .select(
           "id, sequence, lesson_no_start, lesson_no_end, title, term, week_from, lesson_kind, competency_id"
         )
+        .is("deleted_at", null)
         .eq("syllabus_id", klass.syllabus_id)
         .order("sequence"),
       supabase
@@ -90,6 +92,7 @@ export default async function ClassPlanner({ params, searchParams }) {
       supabase
         .from("competencies")
         .select("id, category_of_action, exam_frequency")
+        .is("deleted_at", null)
         .eq("syllabus_id", klass.syllabus_id),
     ]);
 

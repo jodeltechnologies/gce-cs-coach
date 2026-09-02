@@ -1,684 +1,1863 @@
+# National Harmonised Lower Sixth Progression Sheet for Information & Communication Technology
+# Transcribed from the Ministry PDF by tools/extract_progression.py.
+# Regenerate rather than hand-edit: python3 tools/build_progression.py
+
 syllabus:
-  title: Progression Sheet for Information and Communication Technologies for Lower Sixth
-  subject: ICT
+  title: National Harmonised Lower Sixth Progression Sheet for Information & Communication Technology
+  subject: Information and Communication Technology
   level: GCE Advanced Level
   level_short: A/L
   form_level: Lower Sixth
-  issuing_authority: Regional Delegation for the South West, Inspectorate of Pedagogy in charge of the Teaching of Computer Science
-  scope: regional
-  region: South West
-  version_label: South West Progression (current)
-  effective_from: 2025
+  issuing_authority: >-
+    Inspectorate General of Education, Inspectorate of Pedagogy in charge of the Teaching of Computer
+    Science
+  scope: national
+  region: null
+  version_label: National Harmonised Progression 2026/2027
+  effective_from: 2026
   total_weeks: 36
-  weekly_periods_theory: 6
-  weekly_periods_practical: 2
-  coefficient: 5
-  module_label: Teaching Unit
+  weekly_periods_theory: 8
+  weekly_periods_practical: null
+  coefficient: null
+  module_label: Module
   has_modules: true
-  uses_competencies: false          # <- no Category of action column
+  uses_competencies: true
   has_competency_statements: false
-  has_practical_stream: true        # <- separate 2-hour column
-
+  has_practical_stream: false
 modules:
-  - {sequence: 1,  title: "Unit 1: Exploring Computer systems"}
-  - {sequence: 2,  title: "Unit 2: Computer Architecture (Hardware)"}
-  - {sequence: 3,  title: "Unit 3: Digital Arithmetic"}
-  - {sequence: 4,  title: "Unit 4: Boolean Logic and Digital Electronics"}
-  - {sequence: 5,  title: "Unit 5: Computer Software"}
-  - {sequence: 6,  title: "Unit 6: File Formats and file security"}
-  - {sequence: 7,  title: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"}
-  - {sequence: 8,  title: "Unit 8: Information Systems (IS)"}
-  - {sequence: 9,  title: "Unit 9: System Development Life Cycle (SDLC)"}
-  - {sequence: 10, title: "Unit 10: Project Management"}
-  - {sequence: 11, title: "Unit 11: Electronic Services"}
-
+- title: Computing Systems and Components
+  sequence: 1
+- title: Impacting society with digital technologies
+  sequence: 2
+- title: Practical Problem solving in the digital world
+  sequence: 3
+- title: Building ICT systems
+  sequence: 4
+competencies:
+- sequence: 1
+  category: History and Evolution of Computing
+  statement: null
+  module: Computing Systems and Components
+- sequence: 2
+  category: Exploring AI Concepts
+  statement: null
+  module: Impacting society with digital technologies
+- sequence: 3
+  category: Description of computing trends and categorization of computers
+  statement: null
+  module: Computing Systems and Components
+- sequence: 4
+  category: Hardware and Categorisation of Hardware components
+  statement: null
+  module: Computing Systems and Components
+- sequence: 5
+  category: Computer Software
+  statement: null
+  module: Computing Systems and Components
+- sequence: 6
+  category: Operating Systems
+  statement: null
+  module: Computing Systems and Components
+- sequence: 7
+  category: Hardware and Software Maintenance
+  statement: null
+  module: Computing Systems and Components
+- sequence: 8
+  category: Assistive technologies and computer ergonomics
+  statement: null
+  module: Computing Systems and Components
+- sequence: 9
+  category: Using a word processor
+  statement: null
+  module: Computing Systems and Components
+- sequence: 10
+  category: Using electronic spreadsheets
+  statement: null
+  module: Practical Problem solving in the digital world
+- sequence: 11
+  category: Digital Citizenship and Ethics
+  statement: null
+  module: Practical Problem solving in the digital world
+- sequence: 12
+  category: Cybersecurity
+  statement: null
+  module: Practical Problem solving in the digital world
+- sequence: 13
+  category: Description of Systems
+  statement: null
+  module: Practical Problem solving in the digital world
+- sequence: 14
+  category: Information Systems and Data processing
+  statement: null
+  module: Practical Problem solving in the digital world
+- sequence: 15
+  category: Artificial Intelligence and emerging technologies
+  statement: null
+  module: Practical Problem solving in the digital world
+- sequence: 16
+  category: SDLC and SDLC models
+  statement: null
+  module: Building ICT systems
+- sequence: 17
+  category: Modelling Data in an Information System
+  statement: null
+  module: Building ICT systems
+- sequence: 18
+  category: Software Testing
+  statement: null
+  module: Building ICT systems
+- sequence: 19
+  category: Representing numbers
+  statement: null
+  module: Building ICT systems
+- sequence: 20
+  category: Building Logic Circuits
+  statement: null
+  module: Building ICT systems
+- sequence: 21
+  category: Developing Software — Data Types and Structures
+  statement: null
+  module: Building ICT systems
+- sequence: 22
+  category: Designing Software
+  statement: null
+  module: Building ICT systems
+- sequence: 23
+  category: Writing and Testing Algorithms
+  statement: null
+  module: Building ICT systems
+- sequence: 24
+  category: Programming Paradigms and Software Reuse
+  statement: null
+  module: Building ICT systems
+- sequence: 25
+  category: Implementing algorithms
+  statement: null
+  module: Building ICT systems
+- sequence: 26
+  category: Writing functions and testing a developed program
+  statement: null
+  module: Building ICT systems
 lessons:
-  - {lesson_no: 1, title: "Diagnostic Evaluations, Remediation and Presentation of annual program", kind: diagnostic_evaluation, module: "Unit 1: Exploring Computer systems", term: 1, week: 1}
-  - lesson_no: 2
-    lesson_no_end: 3
-    title: History and Evolution of computers
-    module: "Unit 1: Exploring Computer systems"
-    term: 1
-    week: 1
-    content_points:
-      - Generations of Computers
-  - {lesson_no: 4, title: "Practical: Identify software and Hardware", kind: practical, module: "Unit 1: Exploring Computer systems", term: 1, week: 1}
-  - lesson_no: 5
-    lesson_no_end: 6
-    title: Definition, types and uses of computing systems
-    module: "Unit 1: Exploring Computer systems"
-    term: 1
-    week: 2
-    content_points:
-      - "Commercial and general data processing systems, e.g. banking systems, hospital administration, personnel records systems, stock control systems, order processing systems"
-  - lesson_no: 7
-    printed_as: "5 & 7"
-    title: Communication and Information Systems
-    module: "Unit 1: Exploring Computer systems"
-    term: 1
-    week: 2
-    content_points:
-      - "Internet, video conferencing, electronic mail, information retrieval systems, home based communication systems, office automation and library systems"
-  - {lesson_no: 8, title: "Practical: computer system", kind: practical, module: "Unit 1: Exploring Computer systems", term: 1, week: 2}
-  - lesson_no: 9
-    lesson_no_end: 10
-    title: Application and examples of some computer systems
-    module: "Unit 1: Exploring Computer systems"
-    term: 1
-    week: 3
-    content_points:
-      - "Automation, control systems, embedded systems, and robotics"
-      - "Monitoring patients in hospitals, chemical process control, traffic control, domestic equipment, automatic navigation systems and industrial robots"
-  - lesson_no: 11
-    title: Industrial, Technical and scientific application of Computing systems
-    module: "Unit 1: Exploring Computer systems"
-    term: 1
-    week: 3
-    content_points:
-      - "Weather forecasting, computer aided design and manufacture, image processing and industrial inspection systems, simulation and modelling"
-  - {lesson_no: 12, title: "Practical: Word processing", kind: practical, module: "Unit 1: Exploring Computer systems", term: 1, week: 3}
-
-  - lesson_no: 13
-    title: Computing applications in the arts and the media
-    module: "Unit 2: Computer Architecture (Hardware)"
-    term: 1
-    week: 4
-    content_points:
-      - "Applications in music, computer graphics and animation for television and film, production of newspapers"
-  - lesson_no: 14
-    lesson_no_end: 15
-    title: Computer organization (Basic Components of a Computer)
-    module: "Unit 2: Computer Architecture (Hardware)"
-    term: 1
-    week: 4
-    content_points:
-      - Classification and description of hardware components (input, processing, output, and storage components)
-  - {lesson_no: 16, title: "Practical: Presentation", kind: practical, module: "Unit 2: Computer Architecture (Hardware)", term: 1, week: 4}
-  - lesson_no: 17
-    title: Description of peripheral devices and data handling media device
-    module: "Unit 2: Computer Architecture (Hardware)"
-    term: 1
-    week: 4
-  - lesson_no: 18
-    title: Processor architecture
-    module: "Unit 2: Computer Architecture (Hardware)"
-    term: 1
-    week: 4
-    content_points:
-      - "Description of processor configuration; control unit; ALU; registers; bus type, role and size"
-  - lesson_no: 19
-    title: Classification of computers based on processor architecture
-    module: "Unit 2: Computer Architecture (Hardware)"
-    term: 1
-    week: 4
-    content_points:
-      - "RISC and CISC machines; SISD, SIMD, MIMD"
-  - {lesson_no: 20, title: "Practical: Presentation", kind: practical, module: "Unit 2: Computer Architecture (Hardware)", term: 1, week: 4}
-  - lesson_no: 21
-    title: Identify assorted computer types
-    module: "Unit 2: Computer Architecture (Hardware)"
-    term: 1
-    week: 5
-    content_points:
-      - "Mainframe, mini and microcomputers, and parallel and distributed computing"
-  - lesson_no: 22
-    lesson_no_end: 23
-    title: Primary and Secondary storage
-    module: "Unit 2: Computer Architecture (Hardware)"
-    term: 1
-    week: 5
-    content_points:
-      - Differentiate between storage devices and storage media
-      - "Functions and characteristics of storage devices and media: RAM, ROM, CD ROM, disks and tapes, memory card readers, USB ports"
-      - "The role of memory systems: RAM, DRAM, SRAM, ROM, PROM, EPROM, EEPROM, cache, virtual memory"
-      - Performance and characteristics of storage devices (storage hierarchy based on speed and size)
-      - "Units of storage: bits, bytes, kilobytes, MB, GB, terabytes, and conversion between them"
-  - {lesson_no: 24, title: "Practical: Presentation", kind: practical, module: "Unit 2: Computer Architecture (Hardware)", term: 1, week: 5}
-  - {title: "Integration activities and Evaluation 1", kind: evaluation, module: "Unit 2: Computer Architecture (Hardware)", term: 1, week: 6}
-  - lesson_no: 25
-    title: Machine Cycle
-    module: "Unit 2: Computer Architecture (Hardware)"
-    term: 1
-    week: 7
-    content_points:
-      - Description of fetch, decode, execute and store stages
-  - lesson_no: 26
-    lesson_no_end: 27
-    title: Data capture
-    module: "Unit 2: Computer Architecture (Hardware)"
-    term: 1
-    week: 7
-    content_points:
-      - "Classifying data capture devices: manual and automatic (MICR, OMR, OCR, barcode reader)"
-  - {lesson_no: 28, title: "Practical: Presentation", kind: practical, module: "Unit 2: Computer Architecture (Hardware)", term: 1, week: 7}
-
-  - lesson_no: 29
-    title: Data Representation
-    module: "Unit 3: Digital Arithmetic"
-    term: 1
-    week: 8
-    content_points:
-      - "Coding schemes (ASCII, EBCDIC, BCD, Unicode)"
-      - "Measuring units: bit, nibble, byte, word, word size"
-  - lesson_no: 30
-    lesson_no_end: 31
-    title: Number systems
-    module: "Unit 3: Digital Arithmetic"
-    term: 1
-    week: 8
-    content_points:
-      - Positional number system
-      - Base conversion, e.g. base 2 to 8, 10, 16 and vice versa
-  - {lesson_no: 32, title: "Practical: Presentation", kind: practical, module: "Unit 3: Digital Arithmetic", term: 1, week: 8}
-  - lesson_no: 33
-    lesson_no_end: 34
-    title: Binary arithmetic and Complement Representation
-    module: "Unit 3: Digital Arithmetic"
-    term: 1
-    week: 9
-    content_points:
-      - Addition, subtraction, multiplication, and division
-      - "Unsigned and signed numbers (one's complement, two's complement)"
-
-  - lesson_no: 35
-    title: Boolean Logic and Logic Gates
-    module: "Unit 4: Boolean Logic and Digital Electronics"
-    term: 1
-    week: 9
-    content_points:
-      - "Identify and sketch logic gate symbols: OR, AND, NOT, NAND, NOR, XOR"
-      - Derive the truth table for each logic gate
-  - {lesson_no: 36, title: "Practical: Presentation", kind: practical, module: "Unit 4: Boolean Logic and Digital Electronics", term: 1, week: 9}
-  - lesson_no: 37
-    title: Combining logic gates
-    module: "Unit 4: Boolean Logic and Digital Electronics"
-    term: 1
-    week: 10
-    content_points:
-      - Combine logic gates to form a logic circuit
-      - Understanding Boolean algebra and Boolean expression
-  - lesson_no: 38
-    lesson_no_end: 39
-    title: Truth table and De Morgan theorem
-    module: "Unit 4: Boolean Logic and Digital Electronics"
-    term: 1
-    week: 10
-    content_points:
-      - Derive truth tables from Boolean expressions (maximum of 3 inputs)
-      - State and explain De Morgan's theorem
-      - Simplify Boolean expressions using De Morgan theorem
-  - {lesson_no: 40, title: "Practical: Presentation", kind: practical, module: "Unit 4: Boolean Logic and Digital Electronics", term: 1, week: 10}
-
-  - lesson_no: 41
-    title: Definitions and Classification of software
-    module: "Unit 5: Computer Software"
-    term: 1
-    week: 11
-    content_points:
-      - Based on source (open versus proprietary)
-      - Based on licence (shareware versus freeware)
-  - lesson_no: 42
-    lesson_no_end: 43
-    title: "Categorization of software: application software and examples"
-    module: "Unit 5: Computer Software"
-    term: 1
-    week: 11
-    content_points:
-      - "Identify application packages and classify into custom made (bespoke), specialist software, general purpose or generic packages e.g. spreadsheet, database, information retrieval packages"
-  - {lesson_no: 44, title: "Practical: Presentation", kind: practical, module: "Unit 5: Computer Software", term: 1, week: 11}
-  - {title: "Integration activities and Evaluation 2", kind: evaluation, module: "Unit 5: Computer Software", term: 1, week: 12}
-  - lesson_no: 45
-    title: System software
-    module: "Unit 5: Computer Software"
-    term: 2
-    week: 13
-    content_points:
-      - "The need for system software and examples (operating system, utility, device drivers, language translators: compiler, interpreter, assembler)"
-  - lesson_no: 46
-    title: Operating systems (OS)
-    module: "Unit 5: Computer Software"
-    term: 2
-    week: 13
-    content_points:
-      - History and evolution of operating systems
-  - lesson_no: 47
-    title: Types of OS
-    module: "Unit 5: Computer Software"
-    term: 2
-    week: 13
-    content_points:
-      - "Describe types of OS: batch, online, multi-access, real time transaction processing, network OS, process control"
-      - Distinguish between multitasking, multiprogramming and multiprocessing operating systems
-  - {lesson_no: 48, title: "Practical: Presentation", kind: practical, module: "Unit 5: Computer Software", term: 2, week: 13}
-  - lesson_no: 49
-    lesson_no_end: 50
-    title: Functions of the operating system
-    module: "Unit 5: Computer Software"
-    term: 2
-    week: 14
-    content_points:
-      - "Device management (interrupt, polling, buffering, spooling, handshaking)"
-      - Memory management and file management
-      - Process management
-      - "Process scheduling strategies: pre-emptive and non-pre-emptive"
-      - "Scheduling algorithms: First Come First Served, Shortest Job First, Shortest Remaining Time, Round Robin"
-      - Processor sharing concepts (multitasking and multiprogramming)
-  - lesson_no: 51
-    title: Operating system user interfaces
-    module: "Unit 5: Computer Software"
-    term: 2
-    week: 14
-    content_points:
-      - "Describe the features: GUI, command driven interface, menu driven, natural language or voice recognition"
-      - Identify the strengths and weaknesses of each
-      - Choosing the best interface for a user
-  - {lesson_no: 52, title: "Practical: Presentation", kind: practical, module: "Unit 5: Computer Software", term: 2, week: 14}
-  - lesson_no: 53
-    title: Server Concepts
-    module: "Unit 5: Computer Software"
-    term: 2
-    week: 15
-    content_points:
-      - Properties of stand-alone and server OS
-      - Setting up OS to connect to wired and wireless network
-      - Setting up OS to avoid unauthorized access into the system
-  - lesson_no: 54
-    title: Utility Software
-    module: "Unit 5: Computer Software"
-    term: 2
-    week: 15
-    content_points:
-      - Types and role of utility software in system performance
-      - "e.g. disk defragmenter, virus checker, file compression, disk cleaner"
-  - lesson_no: 55
-    title: Graphic software
-    module: "Unit 5: Computer Software"
-    term: 2
-    week: 15
-    content_points:
-      - Uses of bitmap and vector graphics
-      - Identify the advantages and disadvantages of each type
-  - {lesson_no: 56, title: "Practical: Presentation", kind: practical, module: "Unit 5: Computer Software", term: 2, week: 15}
-
-  - lesson_no: 57
-    title: File and Data Security
-    module: "Unit 6: File Formats and file security"
-    term: 2
-    week: 16
-    content_points:
-      - "Backup, transaction logs, archive files, data integrity, access right management, physical protection, disaster planning, user id, passwords, encryption"
-  - lesson_no: 58
-    title: File compression
-    module: "Unit 6: File Formats and file security"
-    term: 2
-    week: 16
-    content_points:
-      - Compression methods and file systems
-      - Advantages of compressing a file
-  # Printed as "Lesson 99" on the sheet, between 58 and 60. Corrected to 59.
-  - lesson_no: 59
-    printed_as: "99"
-    title: File Format
-    module: "Unit 6: File Formats and file security"
-    term: 2
-    week: 16
-    content_points:
-      - Importance of file formats and popular file formats
-      - "Bitmap e.g. JPEG, TIFF, GIF"
-      - "Vector e.g. PNG, CGM, EPS, SVG"
-  - {lesson_no: 60, title: "Practical: Presentation", kind: practical, module: "Unit 6: File Formats and file security", term: 2, week: 16}
-  - lesson_no: 61
-    title: File Format (continued)
-    module: "Unit 6: File Formats and file security"
-    term: 2
-    week: 17
-    content_points:
-      - "Sound e.g. WAV, MP3, MP4"
-      - "Video e.g. AVI, MPEG; text e.g. PDF, DOC"
-      - "Common application file formats e.g. database (DBF, MDB), spreadsheet (XLS)"
-      - "Hypermedia e.g. HTML, SGML, XML"
-  - lesson_no: 62
-    lesson_no_end: 63
-    title: Ergonomics
-    module: "Unit 6: File Formats and file security"
-    term: 2
-    week: 17
-    content_points:
-      - Explain ergonomics
-      - Notion of good and comfortable working environment for computer users
-      - "Computer related health hazards (RSI, CTS, eye strain) and preventive measures"
-  - {lesson_no: 64, title: "Practical: Presentation", kind: practical, module: "Unit 6: File Formats and file security", term: 2, week: 17}
-  - {title: "Integration activities and Evaluation 3", kind: evaluation, module: "Unit 6: File Formats and file security", term: 2, week: 18}
-
-  - lesson_no: 65
-    title: Social and economic effects on people and organization
-    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
-    term: 2
-    week: 19
-    content_points:
-      - Changes to existing methods, products, services, working environment, employment
-  - lesson_no: 66
-    lesson_no_end: 67
-    title: System security, reliability and resilience
-    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
-    term: 2
-    week: 19
-    content_points:
-      - Explain system security, reliability, and resilience
-      - The importance of safe working practices, privacy and data integrity
-      - Identify the consequence of system failure
-  - {lesson_no: 68, title: "Practical: Presentation", kind: practical, module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers", term: 2, week: 19}
-  - lesson_no: 69
-    title: Computer crime and Protection
-    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
-    term: 2
-    week: 20
-    content_points:
-      - "Unauthorized access to confidential data, frauds, unauthorized copying of copyrighted materials, plagiarism, illegal storage and use of personal data"
-      - "Preventive measures: physical security, security codes, password, encryption, biometrics, monitoring access attempts"
-  - lesson_no: 70
-    title: Natural and software threats to computer systems
-    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
-    term: 2
-    week: 20
-    content_points:
-      - "Natural threats (fire, flood)"
-      - "Software threats: malware, virus, worm, trojan horse, logic bomb"
-      - Preventive measures
-  - lesson_no: 71
-    title: Professional, ethical, and moral obligations of users and managers
-    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
-    term: 2
-    week: 20
-    content_points:
-      - Describe the ethical and moral obligations of users and managers of computerized information systems
-  - {lesson_no: 72, title: "Practical: Spreadsheet", kind: practical, module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers", term: 2, week: 20}
-  - lesson_no: 73
-    title: Need for privacy and integrity of personal or sensitive data
-    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
-    term: 2
-    week: 21
-    content_points:
-      - Measures to prevent sharing of personal data on the internet
-      - Explain the need for standard of conduct
-  - lesson_no: 74
-    title: "Requirements of some professional codes of conduct: BCS, IEEE, ACM"
-    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
-    term: 2
-    week: 21
-  - lesson_no: 75
-    title: Legislation and Effects of global communication
-    module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers"
-    term: 2
-    week: 21
-    content_points:
-      - Explain laws to prohibit hacking, copying of copyrighted material and storage of personal data
-  - {lesson_no: 76, title: "Practical: Spreadsheet", kind: practical, module: "Unit 7: The Social, Legal, ethical, and Economic Implication of the use of Computers", term: 2, week: 21}
-
-  - lesson_no: 77
-    lesson_no_end: 78
-    title: Data protection Act and Global communication Effect
-    module: "Unit 8: Information Systems (IS)"
-    term: 2
-    week: 22
-    content_points:
-      - Data protection act of 2004 (UK) and distribution of anti-social materials
-      - "Effects of global communication on citizenship, cultural issues, and digital divide"
-  - lesson_no: 79
-    title: Architectural requirements of an IS
-    module: "Unit 8: Information Systems (IS)"
-    term: 2
-    week: 22
-    content_points:
-      - Describe a system and an information system
-      - "Distinguish between natural and artificial systems, data and information, manual and computer-based information systems"
-      - "Outline the activities of an IS: input, processing, output, storage, and distribution"
-  - {lesson_no: 80, title: "Practical: Spreadsheet", kind: practical, module: "Unit 8: Information Systems (IS)", term: 2, week: 22}
-  - lesson_no: 81
-    lesson_no_end: 83
-    title: Role of IS in an Organization
-    module: "Unit 8: Information Systems (IS)"
-    term: 2
-    week: 23
-    content_points:
-      - Components of an IS
-      - Illustrate the hierarchical structure of an organisation and describe the IS used at each level
-      - "The need of an IS at operational, tactical, and strategic levels"
-      - "Key features of GIS, HIS, LIS, TPS, MIS, DSS, EIS and area of application of each"
-  - {lesson_no: 84, title: "Practical: Spreadsheet", kind: practical, module: "Unit 8: Information Systems (IS)", term: 2, week: 23}
-  - {title: "Integration activities and Evaluation 4", kind: evaluation, module: "Unit 8: Information Systems (IS)", term: 2, week: 24}
-  - lesson_no: 85
-    title: The role of MIS in planning
-    module: "Unit 8: Information Systems (IS)"
-    term: 3
-    week: 25
-    content_points:
-      - Decision making and organization of a company
-      - Factors affecting the success or failure of MIS
-  - lesson_no: 86
-    lesson_no_end: 87
-    title: Introduction to Artificial Intelligence (AI)
-    module: "Unit 8: Information Systems (IS)"
-    term: 3
-    week: 25
-    content_points:
-      - "Cognitive science application (expert systems, learning systems)"
-      - "Robotics application (visual perception, tactility)"
-      - "Natural interface application (natural languages, speech recognition)"
-  # The sheet numbers two consecutive rows as Lesson 87. Renumbered to 87b.
-  - lesson_no: 87
-    printed_as: "87 (duplicate)"
-    suffix: b
-    title: Real life application of Artificial Intelligence
-    module: "Unit 8: Information Systems (IS)"
-    term: 3
-    week: 25
-    content_points:
-      - "In education, health, banking, company, home"
-  - {lesson_no: 88, title: "Practical: Spreadsheet", kind: practical, module: "Unit 8: Information Systems (IS)", term: 3, week: 25}
-  - lesson_no: 89
-    title: Robotics Application
-    module: "Unit 8: Information Systems (IS)"
-    term: 3
-    week: 26
-    content_points:
-      - Uses in manufacturing, health, home
-      - Advantages and limitations of robots
-  - lesson_no: 90
-    title: Knowledge-based system (Expert system)
-    module: "Unit 8: Information Systems (IS)"
-    term: 3
-    week: 26
-    content_points:
-      - Components, application, and examples
-      - Advantages and disadvantages
-  - lesson_no: 91
-    title: Introduction to Simulation
-    module: "Unit 8: Information Systems (IS)"
-    term: 3
-    week: 26
-    content_points:
-      - Definition, application in real life systems or situations
-      - Advantages and limitations
-  - {lesson_no: 92, title: "Practical: Spreadsheet", kind: practical, module: "Unit 8: Information Systems (IS)", term: 3, week: 26}
-
-  - lesson_no: 93
-    title: Virtual reality (VR) and Augmented Reality (AR)
-    module: "Unit 9: System Development Life Cycle (SDLC)"
-    term: 3
-    week: 27
-    content_points:
-      - Description and role of VR and AR
-      - Compare AR and VR with examples of each
-  - lesson_no: 94
-    lesson_no_end: 95
-    title: Phases of SDLC
-    module: "Unit 9: System Development Life Cycle (SDLC)"
-    term: 3
-    week: 27
-    content_points:
-      - "Investigation: problem identification, data collection, feasibility study (economic, technical, operational, organisational, schedule)"
-      - "Analysis: detailed study of old system, functional requirement analysis, user and technical documentation"
-      - "Design: user interface design, data design, process design"
-      - "Development: developing software, integration of modules, unit, system and integration testing"
-  - {lesson_no: 96, title: "Practical: Spreadsheet", kind: practical, module: "Unit 9: System Development Life Cycle (SDLC)", term: 3, week: 27}
-  - lesson_no: 97
-    title: System Implementation and Maintenance
-    module: "Unit 9: System Development Life Cycle (SDLC)"
-    term: 3
-    week: 28
-    content_points:
-      - "Implementation strategies: direct (plunge), parallel, phased (piecemeal), and pilot"
-      - Advantages and disadvantages of each type
-      - "Maintenance: debugging, corrective, adaptive maintenance"
-  - lesson_no: 98
-    lesson_no_end: 99
-    title: SDLC Models
-    module: "Unit 9: System Development Life Cycle (SDLC)"
-    term: 3
-    week: 28
-    content_points:
-      - "Describe waterfall, V-shape, prototyping, spiral models"
-      - Waterfall versus V-shape model
-  - {lesson_no: 100, title: "Practical: Spreadsheet", kind: practical, module: "Unit 9: System Development Life Cycle (SDLC)", term: 3, week: 28}
-  - {title: "Integration activities", kind: integration_activity, module: "Unit 9: System Development Life Cycle (SDLC)", term: 3, week: 29}
-  - {title: "Integration activities and Evaluation 5", kind: evaluation, module: "Unit 9: System Development Life Cycle (SDLC)", term: 3, week: 30}
-
-  - lesson_no: 101
-    title: Project Management
-    module: "Unit 10: Project Management"
-    term: 3
-    week: 31
-    content_points:
-      - Define a project and project management
-      - "Explain project management concepts: task, predecessor, successor, slack task/time, lag, lead, milestone, critical path/task, early finish, late finish, early start, late start"
-  - lesson_no: 102
-    title: Project constraints and Role of project management team
-    module: "Unit 10: Project Management"
-    term: 3
-    week: 31
-    content_points:
-      - Scope, time, and cost
-      - Identify the roles and responsibilities of project management team members
-  - lesson_no: 103
-    title: Project management phases
-    module: "Unit 10: Project Management"
-    term: 3
-    week: 31
-    content_points:
-      - "Describe the activities of project initiation, planning, execution, control and monitoring, reporting stages"
-  - {lesson_no: 104, title: "Practical: Web Authoring", kind: practical, module: "Unit 10: Project Management", term: 3, week: 31}
-  - lesson_no: 105
-    lesson_no_end: 107
-    title: Project control and scheduling methods
-    module: "Unit 10: Project Management"
-    term: 3
-    week: 32
-    content_points:
-      - "PERT chart, critical path analysis; use the network diagram to determine project deadline, slack or float (free and total), critical path and tasks"
-      - Gantt chart
-      - Critical Path Method (CPM)
-      - "Differences between PERT and Gantt; advantages and disadvantages of PERT and CPM"
-  - {lesson_no: 108, title: "Practical: Web Authoring", kind: practical, module: "Unit 10: Project Management", term: 3, week: 32}
-
-  - lesson_no: 109
-    title: E-commerce
-    module: "Unit 11: Electronic Services"
-    term: 3
-    week: 33
-    content_points:
-      - Definition and types
-      - "E-commerce forms (B2C, B2B)"
-      - Medium of purchase, fund transfer
-      - Advantages and disadvantages
-  - lesson_no: 110
-    title: E-banking
-    module: "Unit 11: Electronic Services"
-    term: 3
-    week: 33
-    content_points:
-      - Describe e-banking activities
-      - "Types: usefulness of ATM, POS, and Internet banking transactions"
-      - Advantages and disadvantages of e-banking to banks and customers
-  - lesson_no: 111
-    title: E-Health
-    module: "Unit 11: Electronic Services"
-    term: 3
-    week: 33
-    content_points:
-      - Define e-health and its applications
-      - "Role, advantages and disadvantages of e-health technologies e.g. medical information system, telemedicine, electronic medical records system"
-  - {lesson_no: 112, title: "Practical: Web Authoring", kind: practical, module: "Unit 11: Electronic Services", term: 3, week: 33}
-  - lesson_no: 113
-    title: Computer Assisted Learning (CAL)
-    module: "Unit 11: Electronic Services"
-    term: 3
-    week: 34
-    content_points:
-      - Define CAL
-      - "Methods of course delivery e.g. servers, CD-ROM, didactic resources (e-books)"
-      - Advantages and limitations
-  - lesson_no: 114
-    lesson_no_end: 115
-    title: E-government
-    module: "Unit 11: Electronic Services"
-    term: 3
-    week: 34
-    content_points:
-      - Define e-government
-      - "Describe forms: e-governance, e-taxation, e-vote"
-      - Implication of e-government to the government and citizens
-  - {lesson_no: 116, title: "Practical: Web Authoring", kind: practical, module: "Unit 11: Electronic Services", term: 3, week: 34}
-  - {title: "Integration activities", kind: integration_activity, module: "Unit 11: Electronic Services", term: 3, week: 35}
-  - {title: "Integration activities and Evaluation 6", kind: evaluation, module: "Unit 11: Electronic Services", term: 3, week: 36}
-
-practical_sections:
-  - sequence: 1
-    title: "Section 1: Computer system"
-    workbook_ref: See PRACTICAL WORKBOOK
-    tasks:
-      - {term: 1, week: 1, description: Identify and describe hardware installed and their role}
-      - {term: 1, week: 1, description: Differentiating between the system and application software installed}
-      - {term: 1, week: 2, description: "Managing files using input devices (mouse, keyboard); creating, naming and renaming folders"}
-  - sequence: 2
-    title: "Working with Application software: Microsoft Word"
-    tasks:
-      - {term: 1, week: 3, description: Open MS Word and save the file in a specified location}
-      - {term: 1, week: 3, description: "Inputting text, pictures, shapes; format and edit text; find and replace text"}
-      - {term: 1, week: 3, description: "Working with page layout; add headers and footers; inserting and formatting tables and shapes; printing"}
-  - sequence: 3
-    title: "Section 2: Presentation Software"
-    workbook_ref: See practical workbook
-    tasks:
-      - {term: 1, week: 4, description: "Describe main features of presentation software; select a suitable template, scheme and layout; create and save a new presentation"}
-      - {term: 1, week: 4, description: "Opening an existing presentation; explain the features of tab commands (home, insert, design, transitions)"}
-      - {term: 1, week: 5, description: "Add and format text; create a new slide; change font format; apply bulleted or numbered lists; add images and shapes; use Format Painter"}
-      - {term: 1, week: 7, description: "Insert charts; format chart elements (series, axes, titles, data labels, legend, plot area)"}
-      - {term: 1, week: 9, description: "Apply text outline or text effect; change chart elements and layout; edit data series"}
-      - {term: 1, week: 10, description: "Use chart button to label data; improve appearance; hide and show series and categories"}
-      - {term: 1, week: 11, description: "Change layout of chart elements (add, remove, position labels, axis titles, legends, trend lines); apply chart styles"}
-      - {term: 2, week: 14, description: "Working with SmartArt: insert, add text, add shapes, change position, flip, format"}
-      - {term: 2, week: 15, description: "Working with tables: insert, add rows and columns, apply styles, merge and split cells, adjust size, format data"}
-      - {term: 2, week: 16, description: "Importing into PowerPoint: object linking and embedding (OLE); embed Word tables and Excel tables and charts; link Excel charts"}
-      - {term: 2, week: 17, description: "Delivering your presentation: create a custom show; apply animation to text and graphics; timing; running a slide show"}
-      - {term: 2, week: 19, description: "Shapes and picture enhancements: draw, resize, edit, reposition, merge, align, connect shapes; adjust picture appearance, border, style, cropping"}
-  - sequence: 4
-    title: "Section 3: Spreadsheet"
-    workbook_ref: Practical manual
-    tasks:
-      - {term: 2, week: 20, description: "Explain basic spreadsheet concepts (workbook, worksheet, sheet tabs, active sheet); introduction to MS Excel; features of the displayed screen; switching between worksheets"}
-      - {term: 2, week: 21, description: "Cell references: distinguish relative and absolute; add or remove rows and columns; format cell entries and cells including conditional formatting"}
-      - {term: 2, week: 22, description: "Data entry and editing: autofill, copy and paste, drag and drop, saving a workbook, editing and clearing cell contents, undo; modifying columns and rows"}
-      - {term: 2, week: 23, description: "Formatting text: alignment, merging cells, underline, bold, italic, font type, size and colour; number formatting including accounting, percentage and decimal places"}
-      - {term: 3, week: 25, description: "Spreadsheet functions for financial and statistical analysis: MAX, MIN, SUM, AVERAGE, COUNT, PRODUCT"}
-      - {term: 3, week: 26, description: "IF function, SUMIF, COUNTIF, SUMPRODUCT, nested IF"}
-      - {term: 3, week: 27, description: "RANK, ROUND, CONCATENATE, VLOOKUP and HLOOKUP"}
-      - {term: 3, week: 28, description: "Represent data on a chart; format the chart; adjust labels, legend, titles; change chart type; swap rows and columns; link Excel formulae between worksheets; add Excel charts to Word or PowerPoint"}
-  - sequence: 5
-    title: Web Authoring
-    tasks:
-      - {term: 3, week: 29, description: Web authoring}
-      - {term: 3, week: 31, description: Web authoring}
-      - {term: 3, week: 32, description: Web authoring}
-      - {term: 3, week: 33, description: Web authoring}
-      - {term: 3, week: 34, description: Web authoring}
+- title: Diagnostic evaluation
+  kind: diagnostic_evaluation
+  term: 1
+  week: 1
+  module: Computing Systems and Components
+  competency: History and Evolution of Computing
+  nature:
+  - th
+- title: History and Evolution of Computing
+  kind: content
+  term: 1
+  week: 1
+  lesson_no: 1
+  module: Computing Systems and Components
+  competency: History and Evolution of Computing
+  nature:
+  - th
+  objectives:
+  - Identify the generations of computers and the main technology used in each period.
+  - Compare characteristics such as size, processing capability and price across generations.
+  - Differentiate between the Von Neumann and Harvard architecture.
+  - Explain the stored program concept.
+- title: Introduction to Artificial Intelligence (AI)
+  kind: content
+  term: 1
+  week: 1
+  lesson_no: 2
+  module: Impacting society with digital technologies
+  competency: Exploring AI Concepts
+  nature:
+  - th
+  objectives:
+  - Define AI and explain its history and evolution.
+  - Identify and describe the main types of AI.
+  - Explain common applications of AI.
+- title: AI Ethics and Responsible Use
+  kind: content
+  term: 1
+  week: 1
+  lesson_no: 3
+  module: Impacting society with digital technologies
+  competency: Exploring AI Concepts
+  nature:
+  - th
+  objectives:
+  - Explain ethical issues associated with AI.
+  - Examine the potential risks and benefits of AI.
+  - Discuss principles for the responsible use of AI.
+- title: AI Techniques and Intelligent Systems
+  kind: content
+  term: 1
+  week: 1
+  lesson_no: 4
+  module: Impacting society with digital technologies
+  competency: Exploring AI Concepts
+  nature:
+  - th
+  objectives:
+  - Describe common AI techniques and their applications.
+  - Explain the characteristics of intelligent systems.
+  - Compare AI techniques and intelligent systems based on their applications.
+- title: Machine Learning
+  kind: content
+  term: 1
+  week: 2
+  lesson_no: 5
+  module: Impacting society with digital technologies
+  competency: Exploring AI Concepts
+  nature:
+  - th
+  objectives:
+  - Define Machine Learning.
+  - Explain the basic principles of Machine Learning.
+  - Distinguish between supervised, unsupervised and reinforcement learning.
+- title: Developing AI Systems
+  kind: content
+  term: 1
+  week: 2
+  lesson_no: 6
+  module: Impacting society with digital technologies
+  competency: Exploring AI Concepts
+  nature:
+  - th
+  objectives:
+  - Explain the stages involved in developing an AI system.
+  - Identify programming languages and tools used in AI development.
+  - Explain why Python is widely used in AI development.
+- title: Types of Computers
+  kind: content
+  term: 1
+  week: 2
+  lesson_no: 7
+  module: Computing Systems and Components
+  competency: Description of computing trends and categorization of computers
+  nature:
+  - th
+  objectives:
+  - Identify types of computers (supercomputer, mainframe, minicomputer, microcomputer).
+  - Describe each type of computer with respect to size, power, cost and purpose.
+  - Choose an appropriate computer type suited to a given situation.
+- title: Basic Components of a Computer
+  kind: content
+  term: 1
+  week: 2
+  lesson_no: 8
+  module: Computing Systems and Components
+  competency: Description of computing trends and categorization of computers
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of hardware, input, output, storage and processing device.
+  - State the purpose of common devices in each category (input, output, storage, and processing).
+  - Choose an appropriate device for a given situation.
+- title: Input devices
+  kind: content
+  term: 1
+  week: 3
+  lesson_no: 9
+  module: Computing Systems and Components
+  competency: Description of computing trends and categorization of computers
+  nature:
+  - th
+  objectives:
+  - Explain the concept of automatic data capture.
+  - >-
+    Describe the following automatic data capture devices (MICR, OCR, OMR, barcode reader, QR code reader,
+    card readers, RFID readers, Biometric readers).
+  - >-
+    Explain how AI-based image recognition extends automatic data capture beyond QR/barcode reading.
+- title: Output devices
+  kind: content
+  term: 1
+  week: 3
+  lesson_no: 10
+  module: Computing Systems and Components
+  competency: Hardware and Categorisation of Hardware components
+  nature:
+  - th
+  objectives:
+  - >-
+    Differentiate between the different types of printers (dot matrix printer, laser printer, inkjet printer).
+  - Describe the following output devices (projector, graph plotter, 3D printers, actuators).
+  - Justify choice of an output device in a given situation.
+- title: Secondary Storage media and devices
+  kind: content
+  term: 1
+  week: 3
+  lesson_no: 11
+  module: Computing Systems and Components
+  competency: Hardware and Categorisation of Hardware components
+  nature:
+  - th
+  objectives:
+  - Differentiate between secondary storage and primary storage.
+  - >-
+    Describe the different types of secondary storage media and devices (Magnetic storage, Optical storage,
+    and Solid-state drives).
+  - Justify choice of a storage media and device in a given situation.
+- title: Primary Storage devices
+  kind: content
+  term: 1
+  week: 3
+  lesson_no: 12
+  module: Computing Systems and Components
+  competency: Hardware and Categorisation of Hardware components
+  nature:
+  - th
+  objectives:
+  - Describe types of primary storage (RAM, ROM, cache, registers).
+  - Compare memory types based on access speed, cost and storage capacity.
+  - >-
+    Explain why large-scale AI/machine-learning training requires significant secondary storage capacity
+    for its datasets.
+- title: Processing device and the machine instruction cycle
+  kind: content
+  term: 1
+  week: 4
+  lesson_no: 13
+  module: Computing Systems and Components
+  competency: Hardware and Categorisation of Hardware components
+  nature:
+  - th
+  objectives:
+  - Differentiate between CPU and GPU.
+  - Describe the different stages of the machine instruction cycle.
+  - >-
+    Explain why AI/machine-learning workloads rely heavily on parallel GPU processing rather than the
+    CPU alone.
+- title: Processor architectures, parallel & distributed computing
+  kind: content
+  term: 1
+  week: 4
+  lesson_no: 14
+  module: Computing Systems and Components
+  competency: Hardware and Categorisation of Hardware components
+  nature:
+  - th
+  objectives:
+  - Explain processor architectures (CISC and RISC).
+  - Describe Flynn's architectures (SIMD, SISD, MISD, MIMD).
+  - Differentiate between parallel and distributed computing.
+- title: Conversion between units of storage and units of processing
+  kind: content
+  term: 1
+  week: 4
+  lesson_no: 15
+  module: Computing Systems and Components
+  competency: Hardware and Categorisation of Hardware components
+  nature:
+  - th
+  objectives:
+  - Identify units of storage and units of processing.
+  - >-
+    State the relationships between storage units (bits, bytes, terabytes,...) and processing units (Hertz,
+    Kilohertz, Gigahertz).
+  - Convert from one unit of storage to another.
+- title: Definitions and classification of software
+  kind: content
+  term: 1
+  week: 4
+  lesson_no: 16
+  module: Computing Systems and Components
+  competency: Computer Software
+  nature:
+  - th
+  objectives:
+  - Explain the concept of software.
+  - Explain the difference between system software and application software.
+  - Establish with examples the difference between open source and proprietary software.
+- title: Application software
+  kind: content
+  term: 1
+  week: 5
+  lesson_no: 17
+  module: Computing Systems and Components
+  competency: Computer Software
+  nature:
+  - th
+  objectives:
+  - Differentiate between general purpose, specific purpose and tailor-made software.
+  - >-
+    Describe common types of application software (word processor, browser, spreadsheet, desktop publishing,,
+    graphic, Presentation, artificial intelligence, etc).
+  - Choose appropriate application software for a given task or situation.
+- title: Evaluation No 1
+  kind: evaluation
+  term: 1
+  week: 5
+  module: Computing Systems and Components
+  competency: Computer Software
+  nature:
+  - th
+- title: Remediation No 1
+  kind: remediation
+  term: 1
+  week: 5
+  module: Computing Systems and Components
+  competency: Computer Software
+  nature:
+  - th
+  objectives:
+  - Review and correct the common errors identified in Evaluation No 1.
+  - >-
+    Reinforce weak areas in computing history, AI concepts and hardware categorisation through guided
+    practice.
+  - >-
+    Support learners who under-performed before moving into computer software and operating systems.
+- title: System software and examples
+  kind: content
+  term: 1
+  week: 5
+  lesson_no: 18
+  module: Computing Systems and Components
+  competency: Computer Software
+  nature:
+  - th
+  objectives:
+  - >-
+    Describe the different types of system software (operating system, device drivers, utility software).
+  - >-
+    Describe common types of utility software (antivirus, disk cleaner, defragmenter, File management,
+    File compression, etc).
+  - >-
+    Identify examples of AI-powered utility software, such as intelligent antivirus and predictive disk
+    optimisation.
+- title: Notions of the Operating System
+  kind: content
+  term: 1
+  week: 6
+  lesson_no: 19
+  module: Computing Systems and Components
+  competency: Operating Systems
+  nature:
+  - th
+  objectives:
+  - Outline major landmarks in the history and evolution of operating systems.
+  - >-
+    Describe types of operating systems (single user, batch, online, multi-user, NOS, multitasking, real-time).
+  - State functions of an operating system.
+- title: Functions of an operating system 1
+  kind: content
+  term: 1
+  week: 6
+  lesson_no: 20
+  module: Computing Systems and Components
+  competency: Operating Systems
+  nature:
+  - th
+  objectives:
+  - Distinguish between pre-emptive and non-pre-emptive scheduling.
+  - Describe scheduling algorithms (FCFS, SJF, SRT, round robin).
+  - >-
+    Explain briefly how AI techniques are used in modern operating systems for predictive process scheduling.
+- title: Functions of the operating system 2
+  kind: content
+  term: 1
+  week: 6
+  lesson_no: 21
+  module: Computing Systems and Components
+  competency: Operating Systems
+  nature:
+  - th
+  objectives:
+  - Explain how the operating system manages memory, files, Devices (Input & output).
+  - >-
+    Explain the following concepts as used in operating systems: deallocation, virtual memory, buffering,
+    spooling, metadata.
+- title: Installing an operating system and user interfaces
+  kind: content
+  term: 1
+  week: 6
+  lesson_no: 22
+  module: Computing Systems and Components
+  competency: Operating Systems
+  nature:
+  - th
+  objectives:
+  - Install an operating system (Windows or Linux).
+  - Identify OS interfaces (GUI, CLI) and their strengths and weaknesses.
+  - Select appropriate interface for a given context.
+- title: Using the GUI of an operating system
+  kind: content
+  term: 1
+  week: 7
+  lesson_no: 23
+  module: Computing Systems and Components
+  competency: Operating Systems
+  nature:
+  - th
+  objectives:
+  - 'Explain the following concepts: file, folder, file format.'
+  - >-
+    Perform operations (creation, renaming, deleting, copying, cutting, compressing, …) on files and folders
+    using the GUI of an operating system.
+  - Set up an OS to avoid unauthorised access using a GUI.
+- title: Using the CLI of an operating system
+  kind: content
+  term: 1
+  week: 7
+  lesson_no: 24
+  module: Computing Systems and Components
+  competency: Operating Systems
+  nature:
+  - th
+  objectives:
+  - Launch and identify command line environments (MS-DOS or Linux).
+  - Perform operations on files and folders using the CLI.
+  - Write and execute a command-line script to automate a task.
+- title: Hardware faults identification and correction
+  kind: content
+  term: 1
+  week: 7
+  lesson_no: 25
+  module: Computing Systems and Components
+  competency: Hardware and Software Maintenance
+  nature:
+  - th
+  objectives:
+  - >-
+    Explain the following concepts computer maintenance, preventive maintenance, corrective maintenance.
+  - Describe common hardware faults in a computer system and techniques to curb them.
+- title: Software faults identification and correction
+  kind: content
+  term: 1
+  week: 7
+  lesson_no: 26
+  module: Computing Systems and Components
+  competency: Hardware and Software Maintenance
+  nature:
+  - th
+  objectives:
+  - Differentiate between hardware and software maintenance.
+  - Describe common software faults and how to curb them.
+- title: Assistive technology
+  kind: content
+  term: 1
+  week: 8
+  lesson_no: 27
+  module: Computing Systems and Components
+  competency: Assistive technologies and computer ergonomics
+  nature:
+  - th
+  objectives:
+  - Explain the concept of assistive technology.
+  - >-
+    Describe assistive technologies (Braille keyboard, audio devices, automatic speech recognition).
+  - >-
+    Explain how AI-based speech recognition and predictive text have improved assistive technology for
+    learners with disabilities.
+- title: Computer ergonomics
+  kind: content
+  term: 1
+  week: 8
+  lesson_no: 28
+  module: Computing Systems and Components
+  competency: Assistive technologies and computer ergonomics
+  nature:
+  - th
+  objectives:
+  - Explain the concept of computer ergonomics.
+  - >-
+    Explain computer-related health hazards and their causes. (musculoskeletal disorders, eye strain).
+  - >-
+    Describe correct posture, habits, and equipment positioning to avoid computer related health hazards.
+- title: Editing and Formatting text
+  kind: content
+  term: 1
+  week: 8
+  lesson_no: 29
+  module: Computing Systems and Components
+  competency: Using a word processor
+  nature:
+  - th
+  objectives:
+  - Perform text formatting with a word processor.
+  - Perform text editing with a word processor.
+  - >-
+    Identify how AI-based writing assistants support grammar, style and content suggestions during text
+    editing.
+- title: Editing and formatting images and tables
+  kind: content
+  term: 1
+  week: 8
+  lesson_no: 30
+  module: Computing Systems and Components
+  competency: Using a word processor
+  nature:
+  - th
+  objectives:
+  - Perform editing and formatting of images and graphics.
+  - Perform editing and formatting of tables.
+- title: Using Text boxes and adjusting Page layout
+  kind: content
+  term: 1
+  week: 9
+  lesson_no: 31
+  module: Computing Systems and Components
+  competency: Using a word processor
+  nature:
+  - th
+  objectives:
+  - Perform editing and formatting of text boxes.
+  - Modify features of a page (margins, orientation, size, columns, …).
+  - Add comments to sections of a document.
+- title: Integration Activity No 1
+  kind: integration_activity
+  term: 1
+  week: 9
+  module: Practical Problem solving in the digital world
+  nature:
+  - th
+  objectives:
+  - >-
+    Given a computer system to be made operational for a stated user, including one requiring assistive
+    technology, select and justify appropriate system and application software.
+  - >-
+    Install/configure the operating system and required software, applying correct ergonomic setup and
+    safe working practices.
+  - Demonstrate at least one accessibility feature suited to the stated user's needs.
+- title: Introduction to spreadsheets
+  kind: content
+  term: 1
+  week: 9
+  lesson_no: 32
+  module: Practical Problem solving in the digital world
+  competency: Using electronic spreadsheets
+  nature:
+  - th
+  objectives:
+  - >-
+    Describe the following spreadsheet components: row, column, row number, column number, cell, cell
+    address, range, formula, sheet.
+  - Select a row, column, cell, range, and non-contiguous cells on an electronic spreadsheet.
+  - Perform basic editing and formatting using a spreadsheet.
+- title: Performing calculations using spreadsheets
+  kind: content
+  term: 1
+  week: 9
+  lesson_no: 33
+  module: Practical Problem solving in the digital world
+  competency: Using electronic spreadsheets
+  nature:
+  - th
+  objectives:
+  - Perform basic arithmetic operations using an electronic spreadsheet (without using functions).
+  - Perform calculations using the SUM, AVERAGE, COUNT, PRODUCT, IF function, COUNTIF.
+  - >-
+    Explain how AI-powered spreadsheet functions can automatically detect data trends and generate forecasts.
+- title: Types of cells referencing and calculations
+  kind: content
+  term: 1
+  week: 10
+  lesson_no: 34
+  module: Practical Problem solving in the digital world
+  competency: Using electronic spreadsheets
+  nature:
+  - th
+  objectives:
+  - Differentiate between the different types of cells referencing.
+  - >-
+    Solve data problems using appropriate spreadsheet functions (SUM, AVERAGE, COUNT, PRODUCT, IF function,
+    COUNTIF, RANK) and cell reference.
+- title: Evaluation No 2
+  kind: evaluation
+  term: 1
+  week: 10
+  module: Practical Problem solving in the digital world
+  competency: Using electronic spreadsheets
+  nature:
+  - th
+- title: Remediation No 2
+  kind: remediation
+  term: 1
+  week: 10
+  module: Practical Problem solving in the digital world
+  competency: Using electronic spreadsheets
+  nature:
+  - th
+  objectives:
+  - Review and correct the common errors identified in Evaluation No 2.
+  - >-
+    Reinforce weak areas in software, operating systems and productivity tools (word processor, spreadsheet)
+    through guided practice.
+  - Support learners who under-performed before continuing with the next block.
+- title: Positive and Negative Uses of Computer Systems
+  kind: content
+  term: 1
+  week: 10
+  lesson_no: 35
+  module: Practical Problem solving in the digital world
+  competency: Digital Citizenship and Ethics
+  nature:
+  - th
+  objectives:
+  - State positive and negative uses of computer systems.
+  - Explain the social and economic effects of computer systems.
+  - Explain how ICT can be responsibly used to influence communication and culture.
+- title: Computer Ethics, Legislation and Cameroon Law
+  kind: content
+  term: 1
+  week: 11
+  lesson_no: 36
+  module: Practical Problem solving in the digital world
+  competency: Digital Citizenship and Ethics
+  nature:
+  - th
+  objectives:
+  - Explain the code of ethics and moral obligation of computer users.
+  - Explain unethical acts with focus on those punishable by Cameroon law.
+  - Discuss ethical concerns raised by AI-generated content, deepfakes and algorithmic bias.
+- title: Data Protection, Copyright and the Digital Divide
+  kind: content
+  term: 1
+  week: 11
+  lesson_no: 37
+  module: Practical Problem solving in the digital world
+  competency: Digital Citizenship and Ethics
+  nature:
+  - th
+  objectives:
+  - Demonstrate knowledge of current data protection and copyright acts.
+  - Determine the effects of global communication on citizenship, culture and digital divide.
+  - Suggest practical ways of reducing the digital divide in the community.
+- title: Protecting Computer Systems from Illegal Access
+  kind: content
+  term: 1
+  week: 11
+  lesson_no: 38
+  module: Practical Problem solving in the digital world
+  competency: Cybersecurity
+  nature:
+  - th
+  objectives:
+  - Explain the security, reliability and resilience of computer systems.
+  - >-
+    Describe measures used to protect systems from illegal access (passwords, security codes, encryption,
+    biometrics, physical security).
+  - Explain the necessity of data handling and backup.
+- title: System Recovery and Safe Working Practices
+  kind: content
+  term: 1
+  week: 11
+  lesson_no: 39
+  module: Practical Problem solving in the digital world
+  competency: Cybersecurity
+  nature:
+  - th
+  objectives:
+  - State the importance of recovery in the event of system failure.
+  - Explain the importance of privacy and safe working practices.
+  - Illustrate with examples how safe working practices protect a computer system.
+- title: Computer Crimes and Combat Measures
+  kind: content
+  term: 1
+  week: 12
+  lesson_no: 40
+  module: Practical Problem solving in the digital world
+  competency: Cybersecurity
+  nature:
+  - th
+  objectives:
+  - >-
+    Describe data handling and computer-related crime (copyright infringement, plagiarism, computer-assisted
+    crime).
+  - Classify computer crimes into computer-related and computer- assisted crimes.
+  - Associate types of computer crimes to specific measures used to combat them.
+- title: Malware — Types and Characteristics
+  kind: content
+  term: 1
+  week: 12
+  lesson_no: 41
+  module: Practical Problem solving in the digital world
+  competency: Cybersecurity
+  nature:
+  - th
+  objectives:
+  - Describe different types of malware (virus, worm, Trojan horse, rootkit, backdoor, spyware).
+  - Compare the different types of malware based on how they spread and their effects.
+  - >-
+    Explain how AI is used both to detect malware through behavioural analysis and to create more sophisticated,
+    AI- generated attacks.
+- title: Protecting a Computer System from Malware
+  kind: content
+  term: 1
+  week: 12
+  lesson_no: 42
+  module: Practical Problem solving in the digital world
+  competency: Cybersecurity
+  nature:
+  - th
+  objectives:
+  - >-
+    Explain good practices (opening trusted attachments, scanning email, downloading from trusted websites)
+    to protect against malware.
+  - Scan a computer system using an antivirus.
+  - Set up protection against unauthorised access using a firewall.
+- title: Integration Activity No 2
+  kind: integration_activity
+  term: 1
+  week: 12
+  module: Practical Problem solving in the digital world
+  nature:
+  - th
+  objectives:
+  - >-
+    Produce a properly formatted document and an accompanying spreadsheet performing at least one calculation,
+    both relevant to a stated real-life task.
+  - >-
+    Identify the ethical, legal and data-protection obligations that apply to handling the data used in
+    the task.
+  - >-
+    Apply at least two practical measures to protect the data/system used from unauthorised access or
+    malware.
+- title: Types of Systems
+  kind: content
+  term: 2
+  week: 13
+  lesson_no: 43
+  module: Practical Problem solving in the digital world
+  competency: Description of Systems
+  nature:
+  - th
+  objectives:
+  - Describe a system and distinguish between natural and artificial systems.
+  - Differentiate between manual and automatic systems (e.g. email, e-learning).
+  - Categorise systems in the learner's environment (manual, automatic).
+- title: Modelling a System with a Data Flow Diagram
+  kind: content
+  term: 2
+  week: 13
+  lesson_no: 44
+  module: Practical Problem solving in the digital world
+  competency: Description of Systems
+  nature:
+  - th
+  objectives:
+  - Propose limitations on an identified manual system.
+  - Produce a data flow diagram for a given system.
+  - >-
+    Identify an AI-driven system as an example of an automatic system that can be modelled with a data
+    flow diagram.
+- title: Introduction to Information Systems
+  kind: content
+  term: 2
+  week: 13
+  lesson_no: 45
+  module: Practical Problem solving in the digital world
+  competency: Information Systems and Data processing
+  nature:
+  - th
+  objectives:
+  - Define an information system.
+  - >-
+    state the components of an information system and their role (people, procedure, technology, data).
+  - Describe the hierarchical structure of an organisation.
+  - Identify factors affecting the success or failure of an information system.
+  - Establish the necessity for information systems in a library, hospital, company or school.
+- title: Types of Information Systems
+  kind: content
+  term: 2
+  week: 13
+  lesson_no: 46
+  module: Practical Problem solving in the digital world
+  competency: Information Systems and Data processing
+  nature:
+  - th
+  objectives:
+  - Describe types of information systems (MIS, DSS, EIS, TPS, GIS, HIS, LIS).
+  - Compare TPS, MIS, DSS and EIS based on purpose, users and inputs.
+  - Select a suitable information system for a given context.
+  - >-
+    Explain how AI techniques enhance Decision Support Systems (DSS) and Executive Information Systems
+    (EIS).
+- title: General and Commercial Data Processing
+  kind: content
+  term: 2
+  week: 14
+  lesson_no: 47
+  module: Practical Problem solving in the digital world
+  competency: Information Systems and Data processing
+  nature:
+  - th
+  objectives:
+  - >-
+    State examples of general and commercial data processing systems (stock control, order processing,
+    …).
+  - Explain how general and commercial data processing works.
+  - Differentiate between real time processing and batch processing.
+  - >-
+    Explain how Machine Learning extends traditional data processing by detecting patterns and making
+    predictions from data.
+- title: Computer Systems in Industry and Science
+  kind: content
+  term: 2
+  week: 14
+  lesson_no: 48
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - >-
+    Describe the application of computer systems in sciences and industries (weather forecasting, CAD,
+    CAM, image processing, simulation).
+  - Explain how industrial, technical and scientific systems work.
+  - >-
+    Evaluate the level of automation and technological tools used in a manufacturing or scientific organisation.
+- title: Robots and Their Application in Daily Life
+  kind: content
+  term: 2
+  week: 14
+  lesson_no: 49
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - Describe a robot.
+  - Explain how robots are used in manufacturing, health and the home.
+  - Illustrate with examples situations that may need the use of robots.
+- title: Monitoring systems, Control systems, and Monitoring & Control systems
+  kind: content
+  term: 2
+  week: 14
+  lesson_no: 50
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - Differentiate between monitoring system and control system.
+  - Explain how a monitoring system works and give examples of such a system in real-life.
+  - Explain how a control system works and give examples of such a system in real-life.
+  - Explain how a monitoring & control system work and give examples of such a system in real-life.
+  - >-
+    Describe how monitoring, control, and monitoring & control systems are used in different areas of
+    life.
+- title: Simulation and Modelling
+  kind: content
+  term: 2
+  week: 15
+  lesson_no: 51
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - Differentiate between simulation and modelling.
+  - Explain the concept of simulation using games, videos and head- mounted displays as examples.
+  - Establish advantages and limitations of simulation.
+  - Describe how simulations are used in different domains of life.
+  - Design a simulation of a situation in the learner's environment using technology.
+- title: Embedded systems and IoT
+  kind: content
+  term: 2
+  week: 15
+  lesson_no: 52
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - Differentiate between an embedded system and an IoT system.
+  - Explain how an embedded system works and give examples of embedded systems.
+  - Explain how an IoT system works and give examples of IoT systems.
+  - Describe how embedded systems are used in different areas of life.
+  - Describe how IoT systems are used in different areas of life.
+- title: Virtual Reality and Augmented Reality
+  kind: content
+  term: 2
+  week: 15
+  lesson_no: 53
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of Virtual Reality (VR) and Augmented Reality (AR).
+  - Explain how Virtual Reality (VR) works and describe its role in different areas of life.
+  - Explain how Augmented Reality (AR) works and describe its role in different areas of life.
+  - Differentiate between AR and VR systems.
+- title: Evaluation No 3
+  kind: evaluation
+  term: 2
+  week: 15
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+- title: Remediation No 3
+  kind: remediation
+  term: 2
+  week: 16
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - Review and correct the common errors identified in Evaluation No 3.
+  - >-
+    Reinforce weak areas in digital citizenship, cybersecurity and information systems through guided
+    practice.
+  - Support learners who under-performed before continuing into Second Term.
+- title: Multimedia Systems and Authoring
+  kind: content
+  term: 2
+  week: 16
+  lesson_no: 54
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - Explain the concept of multimedia, multimedia authoring tool.
+  - Differentiate between multimedia and non-multimedia content.
+  - Explain how multimedia systems work and give examples of multimedia authoring tools.
+  - >-
+    State the features of multimedia authoring tools and use one to produce a short multimedia content.
+- title: Multimodal Systems
+  kind: content
+  term: 2
+  week: 16
+  lesson_no: 55
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - Differentiate between a unimodal and a multimodal system.
+  - Explain how multimodal systems work.
+  - State real-world examples of multimodal systems.
+  - Describe how multimodal systems are used in different areas of life.
+- title: AI technologies
+  kind: content
+  term: 2
+  week: 16
+  lesson_no: 56
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - Differentiate between machine learning, neural networks, and deep learning.
+  - Describe application areas of machine learning, neural network and deep learning.
+  - >-
+    Analyse real-world problems across diverse domains (healthcare, agriculture, finance, …) and determine
+    whether they require traditional machine learning, neural networks, or deep Learning solutions.
+  - Train a simple visual machine learning model using an interactive no-code environment.
+- title: Generative AI
+  kind: content
+  term: 2
+  week: 17
+  lesson_no: 57
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of generative AI and large language models.
+  - Explain how generative AI works and give examples of generative AIs.
+  - Explain the concepts of hallucinations, bias, and outline common sources of bias.
+  - Evaluate the impact of Generative AI applications on working and living standards.
+  - Discuss ethical ways of using generative AI.
+- title: Using generative AI for day-to-day activities
+  kind: content
+  term: 2
+  week: 17
+  lesson_no: 58
+  module: Practical Problem solving in the digital world
+  competency: Artificial Intelligence and emerging technologies
+  nature:
+  - th
+  objectives:
+  - >-
+    Formulate structured prompts to execute real-world workplace or day to day tasks using Generative
+    AI.
+  - Refine prompts and write effective follow-up prompts.
+- title: Integration Activity No 3
+  kind: integration_activity
+  term: 2
+  week: 17
+  module: Practical Problem solving in the digital world
+  nature:
+  - th
+  objectives:
+  - >-
+    Given a described organisation or process, model it as a system (data flow diagram) and identify the
+    type of information system best suited to it.
+  - >-
+    Propose how automation, robotics or AI could improve the process, referencing suitable examples from
+    the categories studied.
+  - Justify the proposed system and technology choices against the organisation's stated needs.
+- title: Introduction to the System Development Life Cycle (SDLC)
+  kind: content
+  term: 2
+  week: 17
+  lesson_no: 59
+  module: Building ICT systems
+  competency: SDLC and SDLC models
+  nature:
+  - th
+  objectives:
+  - Define the System Development Life Cycle (SDLC).
+  - Describe each stage in the SDLC.
+  - Identify activities involved at each stage of the SDLC.
+- title: SDLC Models
+  kind: content
+  term: 2
+  week: 18
+  lesson_no: 60
+  module: Building ICT systems
+  competency: SDLC and SDLC models
+  nature:
+  - th
+  objectives:
+  - Describe the waterfall, prototyping, Agile, Boehm's spiral model.
+  - Compare SDLC models (waterfall, prototyping, Agile, Boehm's spiral).
+- title: The prototyping model
+  kind: content
+  term: 2
+  week: 18
+  lesson_no: 61
+  module: Building ICT systems
+  competency: SDLC and SDLC models
+  nature:
+  - th
+  objectives:
+  - Explain the steps involved in prototyping.
+  - Explain reasons for using prototyping in system development.
+  - Compare the types of prototyping based on cost, time and reusability.
+  - Choose the appropriate type of prototyping for a given context.
+  - Explain how AI-assisted prototyping tools can accelerate the creation of a system prototype.
+- title: Changeover Strategies
+  kind: content
+  term: 2
+  week: 18
+  lesson_no: 62
+  module: Building ICT systems
+  competency: SDLC and SDLC models
+  nature:
+  - th
+  objectives:
+  - Identify the stage of the SDLC where changeover is applied.
+  - Explain the different changeover strategies (direct, parallel, pilot and phased).
+  - Explain advantages and disadvantages of each change over strategy.
+  - Propose a suitable changeover strategy for a given context.
+- title: Data Modelling Concepts
+  kind: content
+  term: 2
+  week: 18
+  lesson_no: 63
+  module: Building ICT systems
+  competency: Modelling Data in an Information System
+  nature:
+  - th
+  objectives:
+  - Distinguish between flat file and relational databases.
+  - >-
+    Explain the different types of database model (ER model, relational model, object-oriented model).
+  - Describe the different levels of data modelling (conceptual, logical and physical).
+  - >-
+    Outline steps involved in relational data modelling (designing tables, determining primary keys, modelling
+    relationships, normalise models, model queries).
+  - Justify the choice of a database model for a given real-life situation.
+- title: Entity Relationship Model Concepts and representation systems
+  kind: content
+  term: 2
+  week: 19
+  lesson_no: 64
+  module: Building ICT systems
+  competency: Modelling Data in an Information System
+  nature:
+  - th
+  objectives:
+  - >-
+    Explain the notions of entity type (table), entity (record) attribute, primary key, relationship,
+    cardinality, foreign key.
+  - Describe the different types of relationship (one to one, one to many and many to many).
+  - Outline common ER modelling notation systems (Chen, Crow’s foot).
+  - Identify the symbols in a given ER modelling notation system (Chen, Crow’s foot).
+- title: Designing an ER diagram and normalisation
+  kind: content
+  term: 2
+  week: 19
+  lesson_no: 65
+  module: Building ICT systems
+  competency: Modelling Data in an Information System
+  nature:
+  - th
+  objectives:
+  - >-
+    Identify attributes, entity types, primary keys, relationships when given a scenario related to database
+    modelling.
+  - >-
+    Produce simple ER diagrams (maximum 3 entities) for a given real-life scenario using Chen or Crow’s
+    foot notations.
+  - Describe the main types of normal forms (1NF, 2NF, and 3NF).
+- title: Normalisation and converting ER model to relational model.
+  kind: content
+  term: 2
+  week: 19
+  lesson_no: 66
+  module: Building ICT systems
+  competency: Modelling Data in an Information System
+  nature:
+  - th
+  objectives:
+  - Transform entities into 1NF, 2NF and 3NF.
+  - Verify the respect of normal forms by an ER model.
+  - Outline rules for moving from an ER model to a relational model.
+  - Transform an ER model into a relational model.
+- title: Implementing a relational model
+  kind: content
+  term: 2
+  week: 19
+  lesson_no: 67
+  module: Building ICT systems
+  competency: Modelling Data in an Information System
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of DBMS and RDBMS.
+  - State examples of Relational Database Management Systems (Access, Open base, MySQL).
+  - >-
+    Represent a relational model using a relational database management system (Access, Open base, MySQL).
+- title: Using an RDBMS for sorting, filtering and queries
+  kind: content
+  term: 2
+  week: 20
+  lesson_no: 68
+  module: Building ICT systems
+  competency: Modelling Data in an Information System
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of sorting, filtering and queries as used in databases.
+  - Perform sorting and filtering using an RDBMS.
+  - Write an execute queries using an RDBMS.
+- title: Integration Activity No 4
+  kind: integration_activity
+  term: 2
+  week: 20
+  module: Building ICT systems
+  nature:
+  - th
+  objectives:
+  - >-
+    Given a stated information system project (the one modelled in Integration Activity No 4, or a new
+    case), produce a simple prototype or simulation, including a multimedia/VR-AR element where relevant.
+  - >-
+    Model the system's data using an Entity Relationship diagram and explain the relationships identified.
+  - Explain how the prototype and data model would guide full system development.
+- title: Types of software testing
+  kind: content
+  term: 2
+  week: 20
+  lesson_no: 69
+  module: Building ICT systems
+  competency: Software Testing
+  nature:
+  - th
+  objectives:
+  - Explain the concept of software testing.
+  - Explain reasons for testing an information system.
+  - Differentiate between black-box and white box testing.
+  - >-
+    Describe types of testing by explaining how they work, their purpose, and who conducts the test (system
+    testing, volume testing, module testing, integration testing, acceptance testing).
+  - Select a suitable testing method for a given context.
+- title: Module testing
+  kind: content
+  term: 2
+  week: 20
+  lesson_no: 70
+  module: Building ICT systems
+  competency: Software Testing
+  nature:
+  - th
+  objectives:
+  - >-
+    Explain the concepts of test case, test data, bug, actual results, expected results, and test report
+    as used in software testing.
+  - Outline the procedure for module testing.
+  - Carry out the procedure for module testing.
+  - Identify how AI-powered testing tools can automatically generate test cases and flag anomalies.
+- title: Evaluation No 4
+  kind: evaluation
+  term: 2
+  week: 21
+  module: Building ICT systems
+  competency: Software Testing
+  nature:
+  - th
+- title: Remediation No 4
+  kind: remediation
+  term: 2
+  week: 21
+  module: Building ICT systems
+  competency: Software Testing
+  nature:
+  - th
+  objectives:
+  - Review and correct the common errors identified in Evaluation No 4.
+  - >-
+    Reinforce weak areas in emerging technologies, systems design and database modelling through guided
+    practice.
+  - Support learners who under-performed before continuing with the next block.
+- title: Introduction to data representation and number systems
+  kind: content
+  term: 2
+  week: 21
+  lesson_no: 71
+  module: Building ICT systems
+  competency: Software Testing
+  nature:
+  - th
+  objectives:
+  - Explain the concept of data representation and number system.
+  - Explain how data is represented in the computer.
+  - Differentiate between bit, nibble, byte, and word.
+  - Identify number systems (binary, octal, decimal, hexadecimal).
+  - Convert from base 10 to base 2, 8 and 16.
+  - Explain how positive numbers are represented in the computer.
+- title: Conversion between number systems and representing negative numbers
+  kind: content
+  term: 2
+  week: 21
+  lesson_no: 72
+  module: Building ICT systems
+  competency: Representing numbers
+  nature:
+  - th
+  objectives:
+  - Convert from base 2, 8, and 16 to base 10.
+  - Outline ways of representing negative numbers.
+  - Describe sign magnitude, One’s complement, and two’s complement representation.
+  - Compute one's complement and two's complement of a binary number.
+- title: Subtraction and representing negative numbers
+  kind: content
+  term: 2
+  week: 22
+  lesson_no: 73
+  module: Building ICT systems
+  competency: Representing numbers
+  nature:
+  - th
+  objectives:
+  - Perform addition in base 2, 8, and 16.
+  - Carry out subtraction in base 2, 8 and 16.
+- title: Logic gates
+  kind: content
+  term: 2
+  week: 22
+  lesson_no: 74
+  module: Building ICT systems
+  competency: Building Logic Circuits
+  nature:
+  - th
+  objectives:
+  - Identify different logic gates (OR, AND, NOT, NAND, NOR, XOR, XNOR).
+  - Sketch logic gate symbols.
+  - Draw truth tables for given logic gates and expressions (up to 3 input variables).
+- title: Logic circuits
+  kind: content
+  term: 2
+  week: 22
+  lesson_no: 75
+  module: Building ICT systems
+  competency: Building Logic Circuits
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of logic circuit and Boolean expressions.
+  - Derive a logic circuit from a Boolean expression.
+  - Derive a Boolean expression from a logic circuit.
+  - Produce a truth table from a Boolean expression or logic circuit.
+- title: Boolean expressions from truth table and De Morgan’s laws
+  kind: content
+  term: 2
+  week: 22
+  lesson_no: 76
+  module: Building ICT systems
+  competency: Building Logic Circuits
+  nature:
+  - th
+  objectives:
+  - State the ways of getting a Boolean expression from a truth table.
+  - Derive Boolean expressions from truth tables.
+  - State the De Morgan’s laws.
+  - Establish the correctness of the De Morgan’s laws.
+- title: Simplification of Boolean expressions
+  kind: content
+  term: 2
+  week: 23
+  lesson_no: 77
+  module: Building ICT systems
+  competency: Building Logic Circuits
+  nature:
+  - th
+  objectives:
+  - Explain the purpose and advantages of simplifying Boolean expressions.
+  - State laws used in simplifying Boolean expressions.
+  - Simplify a Boolean expression using appropriate laws.
+  - Identify when to use De Morgan’s laws in Boolean simplification.
+- title: Data Types and Data structures
+  kind: content
+  term: 2
+  week: 23
+  lesson_no: 78
+  module: Building ICT systems
+  competency: Developing Software — Data Types and Structures
+  nature:
+  - th
+  objectives:
+  - Identify standard data types (integer, real, Boolean, character, string).
+  - Choose a suitable data type for a simple problem.
+  - Explain what a data structure is and why it is useful.
+  - Describe arrays, records, stack, and queue.
+  - Choose appropriate data structure in a given situation.
+- title: Operations on data structures
+  kind: content
+  term: 2
+  week: 23
+  lesson_no: 79
+  module: Building ICT systems
+  competency: Developing Software — Data Types and Structures
+  nature:
+  - th
+  objectives:
+  - Explain how elements are accessed in arrays, records, stack, and queue.
+  - Carry out common operations on arrays, records, stack, and queue.
+  - Combine arrays and records to construct new data types.
+- title: Integration Activity No 5
+  kind: integration_activity
+  term: 2
+  week: 23
+  module: Building ICT systems
+  nature:
+  - th
+  objectives:
+  - >-
+    Turn the Entity Relationship model from Integration Activity No 5 (or a new stated case) into a normalised
+    relational database, and test it for correctness.
+  - >-
+    Solve a stated problem using binary arithmetic/number-base conversion, and represent its logic using
+    a logic circuit or Boolean expression.
+  - Explain how correct logic and thorough testing underpin a reliable database/system.
+- title: Approaches to Software Design
+  kind: content
+  term: 2
+  week: 24
+  lesson_no: 80
+  module: Building ICT systems
+  competency: Designing Software
+  nature:
+  - th
+  objectives:
+  - >-
+    Describe the following software design techniques top-down design, stepwise refinement, incremental
+    construction, divide- and-conquer, bottom-up design and modular design.
+  - Select a suitable design method for a given problem.
+- title: Applying software design techniques
+  kind: content
+  term: 2
+  week: 24
+  lesson_no: 81
+  module: Building ICT systems
+  competency: Designing Software
+  nature:
+  - th
+  objectives:
+  - Break down a problem into smaller units using a software design technique.
+  - Adapt an existing solution to a new problem.
+- title: Representing Software Design
+  kind: content
+  term: 2
+  week: 24
+  lesson_no: 82
+  module: Building ICT systems
+  competency: Designing Software
+  nature:
+  - th
+  objectives:
+  - Explain the uses of unit and structure diagrams (class, sequence, composite).
+  - Describe the Unified Modelling Language (UML) model.
+  - Sketch a structure diagram for a given software design scenario.
+- title: Introduction to Algorithms
+  kind: content
+  term: 2
+  week: 24
+  lesson_no: 83
+  module: Building ICT systems
+  competency: Designing Software
+  nature:
+  - th
+  objectives:
+  - Explain what an algorithm is.
+  - Explain the characteristics of an algorithm.
+  - Outline the different ways of representing an algorithm.
+  - State advantages and disadvantages of pseudocode and flowcharts.
+- title: Algorithmic instructions
+  kind: content
+  term: 3
+  week: 25
+  lesson_no: 84
+  module: Building ICT systems
+  competency: Writing and Testing Algorithms
+  nature:
+  - th
+  objectives:
+  - Describe declarative, input, output, and assignment instructions.
+  - Describe the different types of control structures.
+- title: Representing Algorithms — Flowcharts
+  kind: content
+  term: 3
+  week: 25
+  lesson_no: 85
+  module: Building ICT systems
+  competency: Writing and Testing Algorithms
+  nature:
+  - th
+  objectives:
+  - Represent algorithms using flowcharts.
+  - Use standard flowchart symbols correctly.
+  - Draw a flowchart for a simple real-life problem.
+- title: Representing Algorithms — Pseudocode
+  kind: content
+  term: 3
+  week: 25
+  lesson_no: 86
+  module: Building ICT systems
+  competency: Writing and Testing Algorithms
+  nature:
+  - th
+  objectives:
+  - Represent algorithms using pseudocode.
+  - Write pseudocode for a simple real-life problems.
+  - >-
+    Distinguish a rule-based algorithm from a machine-learning algorithm that learns its own rules from
+    data.
+- title: Control Structures — Sequence and Selection
+  kind: content
+  term: 3
+  week: 25
+  lesson_no: 87
+  module: Building ICT systems
+  competency: Writing and Testing Algorithms
+  nature:
+  - th
+  objectives:
+  - Write algorithms using sequence constructs.
+  - Write algorithms using selection constructs.
+- title: Control Structures — Loops
+  kind: content
+  term: 3
+  week: 26
+  lesson_no: 88
+  module: Building ICT systems
+  competency: Writing and Testing Algorithms
+  nature:
+  - th
+  objectives:
+  - Describe the different types of loops.
+  - Write algorithms that make use of the loop control structure.
+  - Differentiate between loops and recursion.
+- title: Sorting and Searching
+  kind: content
+  term: 3
+  week: 26
+  lesson_no: 89
+  module: Building ICT systems
+  competency: Writing and Testing Algorithms
+  nature:
+  - th
+  objectives:
+  - Explain searching techniques (binary and sequential searches).
+  - Explain sorting techniques (bubble, merge and insertion sorts).
+- title: Establishing Correctness of Algorithms
+  kind: content
+  term: 3
+  week: 26
+  lesson_no: 90
+  module: Building ICT systems
+  competency: Writing and Testing Algorithms
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of dry running and trace tables.
+  - Establish the correctness of an algorithm using dry running.
+  - Draw a trace table for an algorithm.
+- title: Evaluating Algorithm Performance
+  kind: content
+  term: 3
+  week: 26
+  lesson_no: 91
+  module: Building ICT systems
+  competency: Writing and Testing Algorithms
+  nature:
+  - th
+  objectives:
+  - Explain the concept of complexity of an algorithm.
+  - Examine the performance of an algorithm using time efficiency.
+  - Compare two algorithms solving the same problem based on time efficiency.
+  - >-
+    Explain how accuracy, precision and recall are used to evaluate the performance of an AI/machine-learning
+    algorithm.
+- title: Evaluation No 5
+  kind: evaluation
+  term: 3
+  week: 27
+  module: Building ICT systems
+  competency: Writing and Testing Algorithms
+  nature:
+  - th
+- title: Remediation No 5
+  kind: remediation
+  term: 3
+  week: 27
+  module: Building ICT systems
+  competency: Writing and Testing Algorithms
+  nature:
+  - th
+  objectives:
+  - Review and correct the common errors identified in Evaluation No 5.
+  - >-
+    Reinforce weak areas in binary arithmetic, logic circuits and algorithm writing through guided practice.
+  - >-
+    Support learners who under-performed before moving into the final programming block of Third Term.
+- title: Programming Paradigms
+  kind: content
+  term: 3
+  week: 27
+  lesson_no: 92
+  module: Building ICT systems
+  competency: Programming Paradigms and Software Reuse
+  nature:
+  - th
+  objectives:
+  - >-
+    Distinguish between types of programming paradigms (imperative/procedural, declarative, functional,
+    logic and object- oriented).
+  - Explain the relative advantages and disadvantages of each paradigm.
+  - Explain the properties of object-oriented programming (encapsulation, polymorphism).
+- title: Software Reuse
+  kind: content
+  term: 3
+  week: 27
+  lesson_no: 93
+  module: Building ICT systems
+  competency: Programming Paradigms and Software Reuse
+  nature:
+  - th
+  objectives:
+  - Explain software reuse and the importance of library units, repositories and software packages.
+  - Explain the types of software reuse (internal and external).
+  - >-
+    Explain the criteria for selecting software for reuse (reduce development cost, time, labour, maintenance
+    effort, etc).
+  - Identify popular AI/machine-learning libraries and frameworks as an example of software reuse.
+- title: Internally versus Externally Developed Software
+  kind: content
+  term: 3
+  week: 28
+  lesson_no: 94
+  module: Building ICT systems
+  competency: Programming Paradigms and Software Reuse
+  nature:
+  - th
+  objectives:
+  - Distinguish between internally and externally developed software.
+  - Determine the importance of software reuse when outsourcing.
+  - >-
+    Explain the advantages and disadvantages of internally developed software and externally developed
+    software.
+  - Choose between developing software internally or externally for a given context.
+- title: Integration Activity No 6
+  kind: integration_activity
+  term: 3
+  week: 28
+  module: Building ICT systems
+  nature:
+  - th
+  objectives:
+  - >-
+    Given a stated problem, design a solution using appropriate data structures and represent it as an
+    algorithm (flowchart or pseudocode).
+  - Trace and test the algorithm against sample data, evaluating its correctness and efficiency.
+  - Refine the algorithm/design based on the evaluation.
+- title: Language Translators and IDE
+  kind: content
+  term: 3
+  week: 28
+  lesson_no: 95
+  module: Building ICT systems
+  competency: Implementing algorithms
+  nature:
+  - th
+  objectives:
+  - Differentiate between language translators (compiler, interpreter, assembler).
+  - Explain advantages and disadvantages of a given language translator.
+  - Explain lexical analysis, code generation, parsing and preprocessing.
+  - Explain the concept of IDE and give examples.
+  - Outline core features of an IDE.
+- title: introduction to coding
+  kind: content
+  term: 3
+  week: 28
+  lesson_no: 96
+  module: Building ICT systems
+  competency: Implementing algorithms
+  nature:
+  - th
+  objectives:
+  - Explain the concept of program, coding, and programming language.
+  - Install an IDE.
+  - Explain strategies that can help learners easily adapt and use a programming language.
+  - Explain the meaning of syntax and semantics as used in programming.
+- title: Writing code 1 (C or Python)
+  kind: content
+  term: 3
+  week: 29
+  lesson_no: 97
+  module: Building ICT systems
+  competency: Implementing algorithms
+  nature:
+  - th
+  objectives:
+  - Identify the structure of a python or C program.
+  - Write input, output, and assignment instructions in C and python.
+  - Write and debug simple programs in C or Python.
+- title: Writing code 2
+  kind: content
+  term: 3
+  week: 29
+  lesson_no: 98
+  module: Building ICT systems
+  competency: Implementing algorithms
+  nature:
+  - th
+  objectives:
+  - Write and debug programs in C or Python that make use of selection control structures.
+- title: writing code 3
+  kind: content
+  term: 3
+  week: 29
+  lesson_no: 99
+  module: Building ICT systems
+  competency: Implementing algorithms
+  nature:
+  - th
+  objectives:
+  - Write and debug programs in C or Python that make use of loop control structures.
+- title: writing code 4
+  kind: content
+  term: 3
+  week: 29
+  lesson_no: 100
+  module: Building ICT systems
+  competency: Implementing algorithms
+  nature:
+  - th
+  objectives:
+  - Write and debug programs in C or Python that make use of arrays.
+- title: writing code 5
+  kind: content
+  term: 3
+  week: 30
+  lesson_no: 101
+  module: Building ICT systems
+  competency: Implementing algorithms
+  nature:
+  - th
+  objectives:
+  - Write and debug programs in C or Python that make use of arrays and records.
+- title: Functions and procedures 1
+  kind: content
+  term: 3
+  week: 30
+  lesson_no: 102
+  module: Building ICT systems
+  competency: Writing functions and testing a developed program
+  nature:
+  - th
+  objectives:
+  - >-
+    Explain the importance of functions and procedures when writing programs (clarity, efficiency, reuse,
+    maintainability).
+  - Explain the difference between functions and procedures.
+  - Identify core components of a function (name, parameters, output).
+  - Write functions in C or Python that solve specific problems.
+  - Perform function or procedure calls in C or Python.
+  - Explain stack mechanism for function call and parameter passing.
+- title: Functions and procedures 2
+  kind: content
+  term: 3
+  week: 30
+  lesson_no: 103
+  module: Building ICT systems
+  competency: Writing functions and testing a developed program
+  nature:
+  - th
+  objectives:
+  - Write functions in C or Python that solve specific problems and debugged them.
+  - Perform function or procedure calls in C or Python.
+  - Dry run a function call showing stack mechanisms.
+- title: Testing a program 1
+  kind: content
+  term: 3
+  week: 30
+  lesson_no: 104
+  module: Building ICT systems
+  competency: Writing functions and testing a developed program
+  nature:
+  - th
+  objectives:
+  - >-
+    Explain the steps involved in software testing (code review, static code analysis, unit testing, system
+    testing).
+  - Explain debugging and compare debugging techniques (brute force, induction, backtracking).
+  - Test a program using appropriate methods and tools.
+- title: Testing a program 2
+  kind: content
+  term: 3
+  week: 31
+  lesson_no: 105
+  module: Building ICT systems
+  competency: Writing functions and testing a developed program
+  nature:
+  - th
+  objectives:
+  - Test and debug a program using appropriate methods and tools.
+  - Test a developed program using boundary, correct and erroneous data.
+  - Produce a test report.
+- title: Evaluation No 6
+  kind: evaluation
+  term: 3
+  week: 31
+  module: Building ICT systems
+  competency: Writing functions and testing a developed program
+  nature:
+  - th
+- title: Remediation No 6
+  kind: remediation
+  term: 3
+  week: 31
+  module: Building ICT systems
+  competency: Writing functions and testing a developed program
+  nature:
+  - th
+  objectives:
+  - Review and correct the common errors identified in Evaluation No 6.
+  - >-
+    Reinforce weak areas covered across the final programming and testing block through guided revision.
+  - Support learners in final preparation for end-of-year requirements. VISION PROGRAM.
+- title: Revision
+  kind: revision
+  term: 3
+  week: 32
+  week_to: 36
+  module: Building ICT systems
+  nature:
+  - th

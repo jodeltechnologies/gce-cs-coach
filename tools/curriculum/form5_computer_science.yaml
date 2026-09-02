@@ -1,713 +1,1383 @@
+# National Harmonised Progression Sheet for Computer Science Form 5
+# Transcribed from the Ministry PDF by tools/extract_progression.py.
+# Regenerate rather than hand-edit: python3 tools/build_progression.py
+
 syllabus:
-  title: Annual Harmonised Progression Sheet for Form 5
+  title: National Harmonised Progression Sheet for Computer Science Form 5
   subject: Computer Science
   level: GCE Ordinary Level
   level_short: O/L
   form_level: Form 5
-  issuing_authority: Inspectorate General of Education, Inspectorate of Pedagogy in charge of the Teaching of Computer Science
+  issuing_authority: >-
+    Inspectorate General of Education, Inspectorate of Pedagogy in charge of the Teaching of Computer
+    Science
   scope: national
-  version_label: Harmonised Progression (current)
-  effective_from: 2025
+  region: null
+  version_label: National Harmonised Progression 2026/2027
+  effective_from: 2026
   total_weeks: 36
-  # Header leaves SUBJECT and WEEKLY WORKLOAD blank for the teacher to fill.
-  weekly_periods_theory: null
+  weekly_periods_theory: 3
+  weekly_periods_practical: null
   coefficient: null
-  has_modules: false                # <- no Module column on the Form 5 sheet
+  module_label: Module
+  has_modules: true
   uses_competencies: true
-  has_competency_statements: false  # <- category named, statement not given
+  has_competency_statements: true
   has_practical_stream: false
-
-# Every category ends with exactly one Integration activity. 23 of each.
+modules:
+- title: Network Systems 2
+  sequence: 1
+- title: Hardware and Software Systems 3
+  sequence: 2
+- title: Problem Solving and Coding 3
+  sequence: 3
+- title: Data Manipulation
+  sequence: 4
+- title: System Security
+  sequence: 5
+- title: Data Manipulation 2
+  sequence: 6
+- title: Ethics, Society and Legal Issues 3
+  sequence: 7
 competencies:
-  - {sequence: 1,  category: Describing data structure}
-  - {sequence: 2,  category: Describing programming paradigms}
-  - {sequence: 3,  category: Writing algorithms}
-  - {sequence: 4,  category: Converting an algorithm into a program}
-  - {sequence: 5,  category: Describing peripheral devices}
-  - {sequence: 6,  category: Describing internal components of the computer}
-  - {sequence: 7,  category: Getting application software}
-  - {sequence: 8,  category: Describing ways of acquiring and distributing software}
-  - {sequence: 9,  category: Creating digital content using software}
-  - {sequence: 10, category: Proposing assistive technology for social inclusion}
-  - {sequence: 11, category: Setting up LANS and classifying hardware for networks}
-  - {sequence: 12, category: Exploring concepts related to data communication}
-  - {sequence: 13, category: Working on the internet}
-  - {sequence: 14, category: Social networks}
-  - {sequence: 15, category: "Securing data, computers, and networks"}
-  - {sequence: 16, category: Evaluating the impacts of digital identities and digital footprints}
-  - {sequence: 17, category: Examine licenses and copyright practices}
-  - {sequence: 18, category: Representing data in the computer}
-  - {sequence: 19, category: Analyzing simple logic circuits and expressions}
-  - {sequence: 20, category: Evaluating an information system}
-  - {sequence: 21, category: Designing and implementing simple databases}
-  - {sequence: 22, category: Developing a system}
-  - {sequence: 23, category: Managing projects}
-
-# Proposed continuity with Form 4. Names drift and spelling flips between
-# British and American forms, so these are PROPOSALS the teacher confirms.
-continues_from:
-  - {category: Writing algorithms,                        form4: Using control structures}
-  - {category: Converting an algorithm into a program,    form4: Writing of source code}
-  - {category: Describing peripheral devices,             form4: Choosing appropriate peripheral devices}
-  - {category: Representing data in the computer,         form4: Operations on number systems}
-  - {category: Analyzing simple logic circuits and expressions, form4: Analysing simple logic circuits}
-  - {category: Creating digital content using software,   form4: Creating digital content}
-
+- sequence: 1
+  category: Social networks
+  statement: >-
+    Given the need to share experiences and knowledge, learners communicate using platforms that permit
+    interaction in real-time.
+  module: Network Systems 2
+- sequence: 2
+  category: Exploring Application Areas of Computers
+  statement: >-
+    Provided with a situation related to the use of AI, learners write appropriate prompts to get an output
+    or response.
+  module: Hardware and Software Systems 3
+- sequence: 3
+  category: Evaluating an information system
+  statement: >-
+    Given the description of an information system learners evaluate its effectiveness, efficiency, security,
+    ease of use and reliability justifying their answer in each case.
+  module: Problem Solving and Coding 3
+- sequence: 4
+  category: Developing a system
+  statement: >-
+    In a situation of developing a system for a school, business, party management, etc., learners select
+    and design appropriate ways of organising data, describe the processing of data, and select appropriate
+    hardware and software for the given task.
+  module: Problem Solving and Coding 3
+- sequence: 5
+  category: Designing and implementing simple databases
+  statement: >-
+    Provided with a problem in an organisation related to databases, learners build simple database systems
+    for the organisations. The implementation should meet the needs of the organisation.
+  module: Problem Solving and Coding 3
+- sequence: 6
+  category: Managing projects
+  statement: In a situation where a number of activities (tasks) are given
+  module: Problem Solving and Coding 3
+- sequence: 7
+  category: Describing data structure
+  statement: >-
+    After analysing a problem such that the variables in a problem are known, learners choose the appropriate
+    data type for each variable and determine the best data structure to use to guarantee efficient processing.
+  module: Problem Solving and Coding 3
+- sequence: 8
+  category: Writing algorithms
+  statement: >-
+    Presented with a problem, learners express the solution by writing down instructions that will lead
+    to solving the problem efficiently.
+  module: Problem Solving and Coding 3
+- sequence: 9
+  category: Converting an algorithm into a program
+  statement: >-
+    In a situation where the algorithm for a problem is available, learners develop corresponding instructions
+    in a programming language; using the appropriate IDE.
+  module: Problem Solving and Coding 3
+- sequence: 10
+  category: Representing data in the computer
+  statement: >-
+    In a situation where data is stored in the computer, learners identify and use coding schemes to represent
+    data
+  module: Data Manipulation
+- sequence: 11
+  category: Describing peripheral devices
+  statement: >-
+    In a situation where a computer is to be equipped for various purposes, learners identify appropriate
+    input and output peripheral devices for high productivity.
+  module: Hardware and Software Systems 3
+- sequence: 12
+  category: Creating digital content using a software
+  statement: >-
+    Given tasks to accomplish, learners use appropriate features of a software to correctly accomplish
+    the task.
+  module: Hardware and Software Systems 3
+- sequence: 13
+  category: Proposing assistive technology for social inclusion
+  statement: >-
+    Given a situation with factors related to the aging and users with disabilities, learners select appropriate
+    technologies for a given disability while clearly justifying their choices.
+  module: Hardware and Software Systems 3
+- sequence: 14
+  category: Exploring the concepts related to data communication
+  statement: >-
+    Given a situation with factors related to data communication systems, learners explain correctly,
+    concisely, and precisely the mechanisms used in the situation.
+  module: Network Systems 2
+- sequence: 15
+  category: Setting up LANs
+  statement: >-
+    Given a situation that requires setting up a simple network, learners prescribe the appropriate tools
+    and configuration to meet the needs of the situation.
+  module: Network Systems 2
+- sequence: 16
+  category: Securing data, computers, and networks
+  statement: >-
+    Given a computing environment where computers, data and networks are exposed to security threats,
+    learners identify potential risks and implement appropriate measures to protect data, computers and
+    networks, justifying the security measures selected.
+  module: System Security
+- sequence: 17
+  category: Evaluating the impacts of digital identities and digital footprints
+  statement: >-
+    Given a situation outlining the online practices of a user, learners evaluate their management of
+    digital footprints, expose the risk they are facing and recommend tips for managing footprints and
+    reputation.
+  module: System Security
+- sequence: 18
+  category: Analysing simple logic circuits and logic expressions
+  statement: >-
+    Presented with a logic circuit or expression, learners isolate the different components and correctly
+    express the possible output
+  module: Data Manipulation 2
+- sequence: 19
+  category: Describing internal components of the computer
+  statement: >-
+    Provided with a situation with factors related to devices that are not peripherals, learners select
+    devices or features of these devices that are coherent to the situation and justify their choice.
+  module: Hardware and Software Systems 3
+- sequence: 20
+  category: Working on the Internet
+  statement: >-
+    Given a situation related to the use of the internet and its services, learners select appropriate
+    service clearly justifying their choice
+  module: Network Systems 2
+- sequence: 21
+  category: Getting application software
+  statement: >-
+    Provided with tasks to produce or edit digital content, learners choose the most appropriate software
+    for each task clearly justifying their choice.
+  module: Hardware and Software Systems 3
+- sequence: 22
+  category: Describing ways of acquiring and distributing software
+  statement: Describe ways of acquiring or distributing software
+  module: Hardware and Software Systems 3
+- sequence: 23
+  category: Examine licenses and copyright practices
+  statement: >-
+    Placed in a situation with issues related to intellectual property, learners propose ways of identifying
+    free and copyrighted data or digital content, ways of protecting digital content and ways of using
+    content protected by a given license. Proposals should be coherent with the situation and clearly
+    justified.
+  module: Ethics, Society and Legal Issues 3
 lessons:
-  - {lesson_no: 0, title: Diagnostic evaluation, kind: diagnostic_evaluation, term: 1, week: 1}
-
-  - lesson_no: 1
-    title: Simple data types
-    competency: Describing data structure
-    term: 1
-    week: 1
-    objectives:
-      - Explain the concept of data type
-      - Describe simple data types
-      - Choose appropriate simple data type for a given situation
-  - lesson_no: 2
-    title: Data structures
-    competency: Describing data structure
-    term: 1
-    week: 1
-    objectives:
-      - Differentiate between data type and data structure
-      - Describe the different data structures
-      - Select appropriate data structure for a given situation
-  - {lesson_no: 3, title: Integration activities, kind: integration_activity, competency: Describing data structure, term: 1, week: 1}
-
-  - lesson_no: 4
-    title: Notions on programming paradigms
-    competency: Describing programming paradigms
-    term: 1
-    week: 2
-    objectives:
-      - Explain the concept of programming paradigms
-      - Describe different types of programming paradigms
-      - Give examples of languages that make use of a given programming paradigm
-  - {lesson_no: 5, title: Integration activities, kind: integration_activity, competency: Describing programming paradigms, term: 1, week: 2}
-
-  - lesson_no: 6
-    title: Algorithms to solve common problems 1
-    competency: Writing algorithms
-    term: 1
-    week: 3
-    objectives:
-      - Differentiate between pseudocode and flowchart
-      - Produce pseudocode and flowchart to solve common problems such as swapping, identification of maximum or minimum
-  - lesson_no: 7
-    title: Algorithms to solve common problems 2
-    competency: Writing algorithms
-    term: 1
-    week: 3
-    objectives:
-      - Differentiate between searching and sorting problems
-      - Explain the principles of linear search and bubble sort
-      - Produce pseudocode and flowchart to solve common problems such as totaling, counting
-  - lesson_no: 8
-    title: Notions on subroutines
-    competency: Writing algorithms
-    term: 1
-    week: 3
-    objectives:
-      - Explain the concepts of subroutines, local variables, global variables, formal parameters, actual parameters
-      - Identify common parts of a subroutine
-      - Differentiate between procedures and functions
-  - lesson_no: 9
-    title: Algorithms as subroutines
-    competency: Writing algorithms
-    term: 1
-    week: 4
-    objectives:
-      - Produce procedures or functions to solve problems such as totaling, counting, max, min, swap, search, and sort
-  - lesson_no: 10
-    title: Algorithm correctness and efficiency
-    competency: Writing algorithms
-    term: 1
-    week: 4
-    objectives:
-      - Explain how dry running can be used to test the correctness of an algorithm
-      - Describe simple ways of measuring the efficiency of an algorithm
-      - Establish the correctness and efficiency of a given set of algorithms
-  - {lesson_no: 11, title: Integration activities, kind: integration_activity, competency: Writing algorithms, term: 1, week: 4}
-
-  - {title: Evaluation, kind: evaluation, term: 1, week: 5}
-  - lesson_no: 12
-    title: Coding 1
-    competency: Converting an algorithm into a program
-    term: 1
-    week: 5
-    objectives:
-      - State best practices when writing code
-      - Produce source code for the totaling, counting algorithms
-  - lesson_no: 13
-    title: Coding 2
-    competency: Converting an algorithm into a program
-    term: 1
-    week: 5
-    objectives:
-      - Produce source code for maximum, minimum and swapping algorithms using subroutines
-  - lesson_no: 14
-    title: Coding 3
-    competency: Converting an algorithm into a program
-    term: 1
-    week: 6
-    objectives:
-      - Produce source code for linear search algorithm and bubble sort algorithms using subroutines
-  - {title: Remediation, kind: remediation, term: 1, week: 6}
-  - {title: Remediation, kind: remediation, term: 1, week: 6}
-  - lesson_no: 15
-    title: Coding 4
-    competency: Converting an algorithm into a program
-    term: 1
-    week: 6
-    objectives:
-      - Make use of some built-in routines in a programming language to solve problems
-  - {lesson_no: 16, title: Integration activities, kind: integration_activity, competency: Converting an algorithm into a program, term: 1, week: 6}
-
-  - lesson_no: 17
-    title: Input and output peripherals
-    competency: Describing peripheral devices
-    term: 1
-    week: 7
-    objectives:
-      - Describe RFID readers, QR code readers, OMR readers, OCR readers, and contactless card readers
-      - Describe plotters, 3D printer, and actuators
-      - Choose appropriate input, and output peripheral in a given context
-  - {lesson_no: 18, title: Integration activities, kind: integration_activity, competency: Describing peripheral devices, term: 1, week: 7}
-
-  - lesson_no: 19
-    title: Storage and processing devices
-    competency: Describing internal components of the computer
-    term: 1
-    week: 7
-    objectives:
-      - Describe processing and storage devices
-      - Describe the machine instruction cycle
-  - lesson_no: 20
-    title: Other internal components
-    competency: Describing internal components of the computer
-    term: 1
-    week: 8
-    objectives:
-      - State the main ports on the motherboard
-      - Describe the different types of bus
-      - State the role of the CMOS and battery
-  - {lesson_no: 21, title: Integration activities, kind: integration_activity, competency: Describing internal components of the computer, term: 1, week: 8}
-
-  - lesson_no: 22
-    title: Types of application software
-    competency: Getting application software
-    term: 1
-    week: 9
-    objectives:
-      - Describe common application software for productivity, personal interest, graphics and media, and communication and collaboration
-      - Choose application software for a given situation
-  - {lesson_no: 23, title: Integration activities, kind: integration_activity, competency: Getting application software, term: 1, week: 9}
-
-  - lesson_no: 24
-    title: Methods to obtain software
-    competency: Describing ways of acquiring and distributing software
-    term: 1
-    week: 10
-    objectives:
-      - Describe the different methods of obtaining software
-      - Choose appropriate method to obtain software
-  - {lesson_no: 25, title: Integration activities, kind: integration_activity, competency: Describing ways of acquiring and distributing software, term: 1, week: 10}
-
-  - {title: Evaluation, kind: evaluation, term: 1, week: 11}
-  - lesson_no: 26
-    title: Using a word processor 1
-    competency: Creating digital content using software
-    term: 1
-    week: 11
-    nature: [th, prac, dig]
-    objectives:
-      - Produce a formatted word processed document that makes use of text, tables, graphics, and text boxes
-  - lesson_no: 27
-    title: Using a word processor 2
-    competency: Creating digital content using software
-    term: 1
-    week: 11
-    nature: [th, prac, dig]
-    objectives:
-      - Reproduce a document of at most two pages with the help of a word processor
-  - lesson_no: 28
-    title: Solve problems with spreadsheets 1
-    competency: Creating digital content using software
-    term: 1
-    week: 12
-    nature: [th, prac, dig]
-    objectives:
-      - Reproduce the data and formatting applied to a spreadsheet
-      - Determine appropriate formulas to meet the different goals in a problem
-  - {title: Remediation, kind: remediation, term: 1, week: 12}
-  - {title: Remediation, kind: remediation, term: 1, week: 12}
-
-  - lesson_no: 29
-    title: Solve problems with spreadsheets 2
-    competency: Creating digital content using software
-    term: 2
-    week: 13
-    nature: [th, prac, dig]
-    objectives:
-      - Determine appropriate formulas to meet the different goals in a problem
-      - Represent specific spreadsheet data as a given chart
-      - Make use of features of spreadsheets such as sort, and filter
-  - lesson_no: 30
-    title: Create presentations 1
-    competency: Creating digital content using software
-    term: 2
-    week: 13
-    nature: [th, prac, dig]
-    objectives:
-      - Create simple presentations of at most 5 slides when given a model of the presentation
-      - Modify a presentation by adding and formatting objects such as images, sound, and videos
-  - lesson_no: 31
-    title: Create presentations 2
-    competency: Creating digital content using software
-    term: 2
-    week: 13
-    nature: [th, prac, dig]
-    objectives:
-      - Create animations using a presentation software that meet a given situation
-  - lesson_no: 32
-    title: Create publications
-    competency: Creating digital content using software
-    term: 2
-    week: 14
-    nature: [th, prac, dig]
-    objectives:
-      - Produce a given publication when given the model of the publication
-  - {lesson_no: 33, title: Integration activities, kind: integration_activity, competency: Creating digital content using software, term: 2, week: 14}
-
-  - lesson_no: 34
-    title: Assistive technology and disabilities
-    competency: Proposing assistive technology for social inclusion
-    term: 2
-    week: 14
-    objectives:
-      - Explain the concepts of disability, and assistive technology
-      - Describe common assistive technologies for a given disability
-      - Outline features common to operating systems aimed at helping the disabled
-  - lesson_no: 35
-    title: Assistive technologies for the elderly
-    competency: Proposing assistive technology for social inclusion
-    term: 2
-    week: 15
-    objectives:
-      - Explain the importance of assistive technologies for the elderly
-      - Describe technologies that can be used to assist the elderly
-  - {lesson_no: 36, title: Integration activities, kind: integration_activity, competency: Proposing assistive technology for social inclusion, term: 2, week: 15}
-
-  - lesson_no: 37
-    title: Network hardware
-    competency: Setting up LANS and classifying hardware for networks
-    term: 2
-    week: 15
-    objectives:
-      - Explain the role of NIC, modem, router, multiplexer, bridge, repeater in a network
-      - Identify hardware needed for internet connectivity in a house, school or organizational network
-  - lesson_no: 38
-    title: Network IP configuration
-    competency: Setting up LANS and classifying hardware for networks
-    term: 2
-    week: 16
-    objectives:
-      - State the purpose of MAC address and IP address
-      - Differentiate between IPv4 and IPv6 addresses
-      - Compare static ip addresses to dynamic ip addresses
-      - Explain the purpose of configuring ip addresses on a LAN
-  - {lesson_no: 39, title: Integration activities, kind: integration_activity, competency: Setting up LANS and classifying hardware for networks, term: 2, week: 16}
-
-  - lesson_no: 40
-    title: Notions on packets
-    competency: Exploring concepts related to data communication
-    term: 2
-    week: 16
-    objectives:
-      - Explain the concepts packet header, payload, trailer, packet switching
-      - Describe the structure of a packet
-      - Describe the USB interface and explain mechanisms it uses to transmit data
-  - {title: Evaluation, kind: evaluation, term: 2, week: 17}
-  - lesson_no: 41
-    title: Error detection and packet security
-    competency: Exploring concepts related to data communication
-    term: 2
-    week: 17
-    objectives:
-      - Explain the need to check for errors after data transmission and how these errors occur
-      - Explain the need for and purpose of encryption when transmitting data
-      - Describe error detection methods and how data is encrypted
-  - {lesson_no: 42, title: Integration activities, kind: integration_activity, competency: Exploring concepts related to data communication, term: 2, week: 17}
-
-  - {title: Remediation, kind: remediation, term: 2, week: 18}
-  - {title: Remediation, kind: remediation, term: 2, week: 18}
-  - lesson_no: 43
-    title: Notions on the internet
-    competency: Working on the internet
-    term: 2
-    week: 18
-    objectives:
-      - Explain the concepts of internet, intranet, extranet, protocol
-      - Outline advantages and disadvantages of the internet
-      - Explain the role of ISP and browsers in accessing the internet
-      - Describe the importance of URL and its nomenclature
-  - lesson_no: 44
-    title: Notions on digital currency
-    competency: Working on the internet
-    term: 2
-    week: 19
-    objectives:
-      - Outline common internet services
-      - Explain the concept of digital currencies and how they are used
-      - State examples of digital currencies
-      - Explain the process of block chain and how it is used to track digital currency transactions
-  - lesson_no: 45
-    title: Web authoring services
-    competency: Working on the internet
-    term: 2
-    week: 19
-    nature: [th, prac, dig]
-    objectives:
-      - Outline examples of web authoring tools
-      - State the role of HTML
-      - Build a simple web page using HTML and CSS
-  - {lesson_no: 46, title: Integration activities, kind: integration_activity, competency: Working on the internet, term: 2, week: 19}
-
-  - lesson_no: 47
-    title: Notions on social networks
-    competency: Social networks
-    term: 2
-    week: 20
-    objectives:
-      - State the reasons for social networks
-      - State the characteristics of social networks
-      - State advantages and disadvantages of online social networks
-      - Explain the impacts of online social networks
-  - lesson_no: 48
-    title: Using online social networks
-    competency: Social networks
-    term: 2
-    week: 20
-    objectives:
-      - Differentiate between social network and social media
-      - Differentiate between different online social networks
-      - Make use of an online social network to share resources and communicate
-  - {lesson_no: 49, title: Integration activities, kind: integration_activity, competency: Social networks, term: 2, week: 20}
-
-  # Printed as "Lesson 501" on the sheet. Corrected to 50 by the loader.
-  - lesson_no: 50
-    printed_as: "501"
-    title: Notions on security
-    competency: Securing data, computers, and networks
-    term: 2
-    week: 21
-    objectives:
-      - Differentiate between computer security, data security, and network security
-      - Differentiate between vulnerability, threat, and attack. Identify three security objectives
-      - Identify common vulnerabilities linked to data, computers, or networks in a given context
-  - lesson_no: 51
-    title: Threats and attacks on computer systems
-    competency: Securing data, computers, and networks
-    term: 2
-    week: 21
-    objectives:
-      - Identify common threats on data, computers, and networks
-      - Describe common attacks on data, computers, and networks
-      - Describe the different types of malware
-  - lesson_no: 52
-    title: Data, computer, and network security measures
-    competency: Securing data, computers, and networks
-    term: 2
-    week: 21
-    objectives:
-      - Explain measures to secure data
-      - Explain measures to secure a computer
-      - Explain measures to secure a network
-      - Outline common data recovery strategies
-  - {lesson_no: 53, title: Integration activities, kind: integration_activity, competency: "Securing data, computers, and networks", term: 2, week: 22}
-
-  - lesson_no: 54
-    title: Notions on digital identities and digital footprints
-    competency: Evaluating the impacts of digital identities and digital footprints
-    term: 2
-    week: 22
-    objectives:
-      - "Explain the following concepts: digital identity, password, username, identity theft, digital footprint, passive and active digital footprint"
-      - Explain characteristics of a good password
-      - Explain ways that a user creates passive and active digital footprints
-  - lesson_no: 55
-    title: Digital identities and footprints management
-    competency: Evaluating the impacts of digital identities and digital footprints
-    term: 2
-    week: 22
-    objectives:
-      - Outline best practices to manage multiple digital identities
-      - State positive and negative effects of digital footprints
-      - Explain ways of protecting digital footprints
-  - {lesson_no: 56, title: Integration activities, kind: integration_activity, competency: Evaluating the impacts of digital identities and digital footprints, term: 2, week: 22}
-
-  - {title: Evaluation, kind: evaluation, term: 2, week: 23}
-  - lesson_no: 57
-    title: Protecting Intellectual property
-    competency: Examine licenses and copyright practices
-    term: 2
-    week: 23
-    objectives:
-      - Explain the concepts of intellectual property, trademark, patent, copyright, license
-      - Identify the freedoms provided by a given type of license
-      - State possible national and international consequences of non-respect of intellectual property
-      - Identify exceptions and legal limitations of using and sharing copyrighted content
-  - lesson_no: 58
-    title: Assigning and respecting digital licenses
-    competency: Examine licenses and copyright practices
-    term: 2
-    week: 23
-    objectives:
-      - Match each type of creative common license to a given permission
-      - Explain ways of identifying free and copyrighted digital content
-      - State platforms where free digital content can be found
-      - State ways of sharing and using digital content legally
-  - {lesson_no: 59, title: Integration activities, kind: integration_activity, competency: Examine licenses and copyright practices, term: 2, week: 24}
-  - {title: Remediation, kind: remediation, term: 2, week: 24}
-  - {title: Remediation, kind: remediation, term: 2, week: 24}
-
-  - lesson_no: 60
-    title: Notions on data encoding
-    competency: Representing data in the computer
-    term: 3
-    week: 25
-    objectives:
-      - Explain how data is represented in the computer
-      - Distinguish between data numbers, characters, images and sound
-      - Outline techniques used to encode numbers, characters, images, and sound
-  - lesson_no: 61
-    title: Character and positive integers encoding
-    competency: Representing data in the computer
-    term: 3
-    week: 25
-    objectives:
-      - Apply a given character encoding scheme to represent a set of characters
-      - Determine the base 2 representation of a positive integer
-  - lesson_no: 62
-    title: Addition and subtraction in base 2, 8 and 16
-    competency: Representing data in the computer
-    term: 3
-    week: 26
-    objectives:
-      - Identify symbols of base 2, 8 and 16
-      - Perform addition in any number system
-      - Perform subtraction in any number system
-  - {lesson_no: 63, title: Integration activities, kind: integration_activity, competency: Representing data in the computer, term: 3, week: 26}
-
-  - lesson_no: 64
-    title: Logic gates
-    competency: Analyzing simple logic circuits and expressions
-    term: 3
-    week: 26
-    objectives:
-      - Identify various logic gates
-      - Describe the different types of logic gates
-      - Draw the truth table for a logic gate
-  - lesson_no: 65
-    title: Logic circuits and expressions
-    competency: Analyzing simple logic circuits and expressions
-    term: 3
-    week: 27
-    objectives:
-      - Identify logic gates in a circuit or an expression
-      - Produce the truth table or a logic circuit or expression
-      - Produce a logic circuit when given a logic expression
-  - lesson_no: 66
-    title: De Morgan's law and Boolean simplification
-    competency: Analyzing simple logic circuits and expressions
-    term: 3
-    week: 27
-    objectives:
-      - State the De Morgan's laws
-      - Identify situations where De Morgan's law can be used
-      - State common laws of Boolean simplification
-  - {lesson_no: 67, title: Integration activities, kind: integration_activity, competency: Analyzing simple logic circuits and expressions, term: 3, week: 27}
-
-  - lesson_no: 68
-    title: Notions on organizations and information
-    competency: Evaluating an information system
-    term: 3
-    week: 28
-    objectives:
-      - Explain the concepts of information and organization
-      - Explain the characteristics of good information
-      - Explain the flow of information within an organization
-  - lesson_no: 69
-    title: Information systems
-    competency: Evaluating an information system
-    term: 3
-    week: 29
-    objectives:
-      - Define an information system
-      - Differentiate manual and automated information systems
-      - Describe the elements of an information system
-  - lesson_no: 70
-    title: Types of information system
-    competency: Evaluating an information system
-    term: 3
-    week: 29
-    objectives:
-      - Describe common types of information system
-      - Differentiate between batch processing and real-time processing
-      - Explain how choosing an appropriate process can help ensure the efficiency of an information system
-  - {title: Evaluation, kind: evaluation, term: 3, week: 29}
-  - lesson_no: 71
-    title: Data capture methods
-    competency: Evaluating an information system
-    term: 3
-    week: 30
-    objectives:
-      - Explain the concept of data capture
-      - Describe common manual and automated data capture methods
-      - Explain how automated data capture helps improve effectiveness, and reliability of an information system
-  - {title: Remediation, kind: remediation, term: 3, week: 30}
-  - {title: Remediation, kind: remediation, term: 3, week: 30}
-  - lesson_no: 72
-    title: Data verification and validation
-    competency: Evaluating an information system
-    term: 3
-    week: 31
-    objectives:
-      - Differentiate between data verification and data validation
-      - Describe data verification and data validation methods
-      - Explain how data validation and data verification ensure the effectiveness, and reliability of an information system
-  - lesson_no: 73
-    title: Data integrity
-    competency: Evaluating an information system
-    term: 3
-    week: 31
-    objectives:
-      - Explain the concept of data integrity
-      - Explain why ensuring data integrity is important in an information system
-      - Explain ways of ensuring data integrity in an information system
-  - {lesson_no: 74, title: Integration activities, kind: integration_activity, competency: Evaluating an information system, term: 3, week: 31}
-
-  - lesson_no: 75
-    title: Introduction to databases
-    competency: Designing and implementing simple databases
-    term: 3
-    week: 32
-    objectives:
-      - Describe common types of database
-      - Outline advantages and disadvantages of flat file systems
-      - State common features of a DBMS
-  - lesson_no: 76
-    title: Relational database design
-    competency: Designing and implementing simple databases
-    term: 3
-    week: 32
-    objectives:
-      - Explain the concepts of attribute, record, table, primary key, foreign key, relationship
-      - Identify attributes, tables, primary key, and relationships in a given situation
-  - lesson_no: 77
-    title: Normalization and Relational models
-    competency: Designing and implementing simple databases
-    term: 3
-    week: 32
-    objectives:
-      - Explain the purpose of normalization
-      - State the properties of a database in 1NF, 2NF, and 3NF
-      - Identify attributes, tables, primary key, foreign key, and relationships in a given situation
-  - lesson_no: 78
-    title: Use an RDBMS to create tables
-    competency: Designing and implementing simple databases
-    term: 3
-    week: 33
-    nature: [th, prac, dig]
-    objectives:
-      - Outline examples of an RDBMS
-      - Identify common features of a given GUI RDBMS
-      - Make use of a GUI RDBMS to create tables
-  - lesson_no: 79
-    title: Use an RDBMS to create relationships
-    competency: Designing and implementing simple databases
-    term: 3
-    week: 33
-    nature: [th, prac, dig]
-    objectives:
-      - Make use of a GUI RDBMS to create relationships
-      - Enter data in a table found in a GUI RDBMS
-      - Perform simple operations such as sorting and filtering data with the aid of a GUI RDBMS
-  - lesson_no: 80
-    title: Use an RDBMS to create queries and reports
-    competency: Designing and implementing simple databases
-    term: 3
-    week: 33
-    nature: [th, prac, dig]
-    objectives:
-      - Explain the concepts of database queries and reports
-      - Make use of a GUI RDBMS to create queries that is coherent to a situation
-      - Make use of a GUI RDBMS to create reports
-  - {lesson_no: 81, title: Integration activities, kind: integration_activity, competency: Designing and implementing simple databases, term: 3, week: 33}
-
-  - lesson_no: 82
-    title: "Stages of SDLC: investigation, analysis, design"
-    competency: Developing a system
-    term: 3
-    week: 34
-    objectives:
-      - Describe the investigation, analysis and design stages of the SDLC
-      - Outline the functions of a system to be developed
-      - Explain the concept of prototyping
-      - Explain the need for appropriate choice of hardware and software for a system
-  - lesson_no: 83
-    title: "Stages of SDLC: development, testing, implementation, maintenance"
-    competency: Developing a system
-    term: 3
-    week: 34
-    objectives:
-      - Describe the development, testing, implementation, and maintenance stages of the SDLC
-      - Explain the need for documentation in system development
-  - lesson_no: 84
-    title: Implementation strategies
-    competency: Developing a system
-    term: 3
-    week: 34
-    objectives:
-      - Describe the different implementation strategies
-      - Outline the advantages and disadvantages of a given implementation strategy
-  - {lesson_no: 85, title: Integration activities, kind: integration_activity, competency: Developing a system, term: 3, week: 34}
-
-  - lesson_no: 86
-    title: Introduction to project management
-    competency: Managing projects
-    term: 3
-    week: 35
-    objectives:
-      - Explain the concept of project
-      - Explain the need for project management
-      - Describe the phases of the project life cycle
-  - lesson_no: 87
-    title: Project management tools
-    competency: Managing projects
-    term: 3
-    week: 35
-    objectives:
-      - Describe tools used to plan, monitor and control a project
-      - Produce the Gantt chart for a project
-  - lesson_no: 88
-    title: Project management concepts and metrics 1
-    competency: Managing projects
-    term: 3
-    week: 35
-    objectives:
-      - Explain the concept of task, milestone, critical path, slack time, duration of project, critical tasks
-      - Determine the critical path, slack time, and duration of a project from a Gantt chart
-  - lesson_no: 89
-    title: Project management concepts and metrics 2
-    competency: Managing projects
-    term: 3
-    week: 36
-    objectives:
-      - Explain the concepts of early start, early finish, late start, and late finish
-      - Determine the early start, early finish, late start, and late finish in a given situation
-  - {lesson_no: 90, title: Integration activities, kind: integration_activity, competency: Managing projects, term: 3, week: 36}
-  - {title: Evaluation, kind: evaluation, term: 3, week: 36}
-  - {title: Remediation, kind: remediation, term: 3, week: 36}
+- title: Diagnostic evaluation
+  kind: diagnostic_evaluation
+  term: 1
+  week: 1
+  module: Network Systems 2
+  competency: Social networks
+  nature:
+  - th
+- title: Notions on social networks
+  kind: content
+  term: 1
+  week: 1
+  lesson_no: 1
+  module: Network Systems 2
+  competency: Social networks
+  nature:
+  - th
+  objectives:
+  - State the reasons for social networks.
+  - State the characteristics of social networks.
+  - State advantages and disadvantages of online social networks.
+  - Explain the impacts of online social networks.
+- title: Using online social networks
+  kind: content
+  term: 1
+  week: 1
+  lesson_no: 2
+  module: Network Systems 2
+  competency: Social networks
+  nature:
+  - th
+  objectives:
+  - Differentiate between social network and social media.
+  - Differentiate between different online social networks.
+  - Make use of an online social network to share resources and communicate.
+- title: Integration activities
+  kind: integration_activity
+  term: 1
+  week: 1
+  lesson_no: 3
+  module: Network Systems 2
+  competency: Social networks
+  nature:
+  - th
+- title: Introduction to Artificial Intelligence
+  kind: content
+  term: 1
+  week: 2
+  lesson_no: 4
+  module: Hardware and Software Systems 3
+  competency: Exploring Application Areas of Computers
+  nature:
+  - th
+  objectives:
+  - Define AI.
+  - Explain the history and evolution of AI.
+  - Identify and categorise the different types of AI in real world.
+- title: Applications and Ethics of Artificial Intelligence
+  kind: content
+  term: 1
+  week: 2
+  lesson_no: 5
+  module: Hardware and Software Systems 3
+  competency: Exploring Application Areas of Computers
+  nature:
+  - th
+  objectives:
+  - Identify common applications of AI.
+  - Explain the uses of AI in different fields.
+  - State the ethical issues related to AI.
+- title: The use of appropriate Prompts to generate AI responses
+  kind: content
+  term: 1
+  week: 2
+  lesson_no: 6
+  module: Hardware and Software Systems 3
+  competency: Exploring Application Areas of Computers
+  nature:
+  - th
+  objectives:
+  - Examine prompt results.
+  - Discuss prompt results.
+  - Write appropriate prompts to solve problems within a given context.
+- title: Integration activities
+  kind: integration_activity
+  term: 1
+  week: 3
+  lesson_no: 7
+  module: Hardware and Software Systems 3
+  competency: Exploring Application Areas of Computers
+  nature:
+  - th
+- title: Notions on organizations and information
+  kind: content
+  term: 1
+  week: 3
+  lesson_no: 8
+  module: Problem Solving and Coding 3
+  competency: Evaluating an information system
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of information and organization.
+  - Explain the characteristics of good information.
+  - Explain the flow of information within an organization.
+- title: Information systems
+  kind: content
+  term: 1
+  week: 3
+  lesson_no: 9
+  module: Problem Solving and Coding 3
+  competency: Evaluating an information system
+  nature:
+  - th
+  objectives:
+  - Define an information system.
+  - Differentiate manual and automated information systems.
+  - Describe the elements of an information system.
+- title: Types of information system
+  kind: content
+  term: 1
+  week: 4
+  lesson_no: 10
+  module: Problem Solving and Coding 3
+  competency: Evaluating an information system
+  nature:
+  - th
+  objectives:
+  - Describe common types of information system.
+  - Differentiate between batch processing and real- time processing.
+  - >-
+    Explain how choosing an appropriate process can help ensure the efficiency of an information system.
+- title: Data capture methods
+  kind: content
+  term: 1
+  week: 4
+  lesson_no: 11
+  module: Problem Solving and Coding 3
+  competency: Evaluating an information system
+  nature:
+  - th
+  objectives:
+  - Explain the concept of data capture.
+  - Describe common manual and automated data capture methods.
+  - >-
+    Explain how automated data capture helps improve effectiveness, and reliability of an information
+    system.
+- title: Data verification and validation
+  kind: content
+  term: 1
+  week: 4
+  lesson_no: 12
+  module: Problem Solving and Coding 3
+  competency: Evaluating an information system
+  nature:
+  - th
+  objectives:
+  - Differentiate between data verification and data validation.
+  - Describe data verification and data validation methods.
+  - >-
+    Explain how data validation and data verification ensure the effectiveness, and reliability of an
+    information system.
+- title: Data integrity
+  kind: content
+  term: 1
+  week: 5
+  lesson_no: 13
+  module: Problem Solving and Coding 3
+  competency: Evaluating an information system
+  nature:
+  - th
+  objectives:
+  - Explain the concept of data integrity.
+  - Explain why ensuring data integrity is important in an information system.
+  - Explain ways of ensuring data integrity in an information system.
+- title: Integration activities
+  kind: integration_activity
+  term: 1
+  week: 5
+  lesson_no: 14
+  module: Problem Solving and Coding 3
+  competency: Evaluating an information system
+  nature:
+  - th
+- title: Evaluation
+  kind: evaluation
+  term: 1
+  week: 5
+  module: Problem Solving and Coding 3
+  competency: Evaluating an information system
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 1
+  week: 6
+  module: Problem Solving and Coding 3
+  competency: Evaluating an information system
+  nature:
+  - th
+- title: 'Stages of SDLC: investigation, analysis, design'
+  kind: content
+  term: 1
+  week: 6
+  lesson_no: 15
+  module: Problem Solving and Coding 3
+  competency: Developing a system
+  nature:
+  - th
+  objectives:
+  - Describe the investigation, analysis and design stages of the SDLC.
+  - Outline the functions of a system to be developed.
+  - Explain the concept of prototyping.
+  - Explain the need for appropriate choice of hardware and software for a system.
+- title: 'Stages of SDLC: development, testing, implementation, maintenance'
+  kind: content
+  term: 1
+  week: 6
+  lesson_no: 16
+  module: Problem Solving and Coding 3
+  competency: Developing a system
+  nature:
+  - th
+  objectives:
+  - Describe the development, testing, implementation, and maintenance stages of the SDLC.
+  - Explain the need for documentation in system development.
+- title: Implementation strategies
+  kind: content
+  term: 1
+  week: 7
+  lesson_no: 17
+  module: Problem Solving and Coding 3
+  competency: Developing a system
+  nature:
+  - th
+  objectives:
+  - Describe the different implementation strategies.
+  - Outline the advantages and disadvantages of a given implementation strategy.
+- title: Integration activities
+  kind: integration_activity
+  term: 1
+  week: 7
+  lesson_no: 18
+  module: Problem Solving and Coding 3
+  competency: Developing a system
+  nature:
+  - th
+- title: Introduction to databases
+  kind: content
+  term: 1
+  week: 7
+  lesson_no: 19
+  module: Problem Solving and Coding 3
+  competency: Designing and implementing simple databases
+  nature:
+  - th
+  objectives:
+  - Describe common types of database.
+  - Outline advantages and disadvantages of flat file systems. State common features of a DBMS.
+- title: Relational database design
+  kind: content
+  term: 1
+  week: 8
+  lesson_no: 20
+  module: Problem Solving and Coding 3
+  competency: Designing and implementing simple databases
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of attribute, record, table, primary key, foreign key, relationship.
+  - Identify attributes, tables, primary key, and relationships in a given situation.
+- title: Normalization and Relational models
+  kind: content
+  term: 1
+  week: 8
+  lesson_no: 21
+  module: Problem Solving and Coding 3
+  competency: Designing and implementing simple databases
+  nature:
+  - th
+  objectives:
+  - Explain the purpose of normalization.
+  - State the properties of a database in 1NF, 2NF, and 3NF.
+  - Identify attributes, tables, primary key, foreign key, and relationships in a given situation.
+- title: Use an RDBMS to create tables
+  kind: content
+  term: 1
+  week: 8
+  lesson_no: 22
+  module: Problem Solving and Coding 3
+  competency: Designing and implementing simple databases
+  nature:
+  - th
+  objectives:
+  - Outline examples of an RDBMS.
+  - Identify common features of a given GUI RDBMS.
+  - Make use of a GUI RDBMS to create tables.
+- title: Use an RDBMS to create relationships
+  kind: content
+  term: 1
+  week: 9
+  lesson_no: 23
+  module: Problem Solving and Coding 3
+  competency: Designing and implementing simple databases
+  nature:
+  - th
+  objectives:
+  - Make use of a GUI RDBMS to create relationships.
+  - Enter data in a table found in a GUI RDBMS.
+  - Perform simple operations such as sorting and filtering data with the aid of a GUI RDBMS.
+- title: Use an RDBMS to create queries and reports
+  kind: content
+  term: 1
+  week: 9
+  lesson_no: 24
+  module: Problem Solving and Coding 3
+  competency: Designing and implementing simple databases
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of database queries and reports.
+  - Make use of a GUI RDBMS to create queries that is coherent to a situation.
+  - Make use of a GUI RDBMS to create reports.
+- title: Integration activities
+  kind: integration_activity
+  term: 1
+  week: 9
+  lesson_no: 25
+  module: Problem Solving and Coding 3
+  competency: Designing and implementing simple databases
+  nature:
+  - th
+- title: Introduction to project management
+  kind: content
+  term: 1
+  week: 10
+  lesson_no: 26
+  module: Problem Solving and Coding 3
+  competency: Managing projects
+  nature:
+  - th
+  objectives:
+  - Explain the concept of project.
+  - Explain the need for project management.
+  - Describe the phases of the project life cycle.
+- title: Project management tools
+  kind: content
+  term: 1
+  week: 10
+  lesson_no: 27
+  module: Problem Solving and Coding 3
+  competency: Managing projects
+  nature:
+  - th
+  objectives:
+  - >-
+    Describe tools used to plan, monitor and control a project. Produce the Gantt chart for a project.
+- title: Project management concepts and metrics 1
+  kind: content
+  term: 1
+  week: 10
+  lesson_no: 28
+  module: Problem Solving and Coding 3
+  competency: Managing projects
+  nature:
+  - th
+  objectives:
+  - >-
+    Explain the concept of task, milestone, critical path, slack time, duration of project, critical tasks.
+  - Determine the critical path, slack time, and duration of a project from a Gantt chart.
+- title: Project management concepts and metrics 2
+  kind: content
+  term: 1
+  week: 11
+  lesson_no: 29
+  module: Problem Solving and Coding 3
+  competency: Managing projects
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of early start, early finish, late start, and late finish.
+  - Determine the early start, early finish, late start, and late finish in a given situation.
+- title: Integration activities
+  kind: integration_activity
+  term: 1
+  week: 11
+  lesson_no: 30
+  module: Problem Solving and Coding 3
+  competency: Managing projects
+  nature:
+  - th
+- title: Evaluation
+  kind: evaluation
+  term: 1
+  week: 11
+  module: Problem Solving and Coding 3
+  competency: Managing projects
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 1
+  week: 12
+  module: Problem Solving and Coding 3
+  competency: Managing projects
+  nature:
+  - th
+- title: Simple data types
+  kind: content
+  term: 1
+  week: 12
+  lesson_no: 31
+  module: Problem Solving and Coding 3
+  competency: Describing data structure
+  nature:
+  - th
+  objectives:
+  - Explain the concept of data type.
+  - Describe simple data types.
+  - Choose appropriate simple data type for a given situation.
+- title: Data structures
+  kind: content
+  term: 1
+  week: 12
+  lesson_no: 32
+  module: Problem Solving and Coding 3
+  competency: Describing data structure
+  nature:
+  - th
+  objectives:
+  - Differentiate between data type and data structure.
+  - >-
+    Describe the different data structures. Select appropriate data structure for a given situation.
+- title: Integration activities
+  kind: integration_activity
+  term: 2
+  week: 13
+  lesson_no: 33
+  module: Problem Solving and Coding 3
+  competency: Describing data structure
+  nature:
+  - th
+- title: Algorithms to solve common problems 1
+  kind: content
+  term: 2
+  week: 13
+  lesson_no: 34
+  module: Problem Solving and Coding 3
+  competency: Writing algorithms
+  nature:
+  - th
+  objectives:
+  - Differentiate between pseudocode and flowchart.
+  - >-
+    Produce pseudocode and flowchart to solve common. problems such as swapping, identification of maximum
+    or minimum.
+- title: Algorithms to solve common problems 2
+  kind: content
+  term: 2
+  week: 13
+  lesson_no: 35
+  module: Problem Solving and Coding 3
+  competency: Writing algorithms
+  nature:
+  - th
+  objectives:
+  - Differentiate between searching and sorting problems.
+  - >-
+    Explain the principles of linear search and bubble sort. Produce pseudocode and flowchart to solve
+    common problems such as totalling, counting, …
+- title: Notions on subroutines
+  kind: content
+  term: 2
+  week: 14
+  lesson_no: 36
+  module: Problem Solving and Coding 3
+  competency: Writing algorithms
+  nature:
+  - th
+  objectives:
+  - >-
+    Explain the concepts of subroutines, local variables, global variables, formal parameters, actual
+    parameters.
+  - Identify common parts of a subroutine.
+  - Differentiate between procedures and functions.
+- title: Algorithms as subroutines
+  kind: content
+  term: 2
+  week: 14
+  lesson_no: 37
+  module: Problem Solving and Coding 3
+  competency: Writing algorithms
+  nature:
+  - th
+  objectives:
+  - Produce procedures or functions to solve problems such as totalling, counting, max, min, swap.
+- title: Algorithm correctness and efficiency
+  kind: content
+  term: 2
+  week: 14
+  lesson_no: 38
+  module: Problem Solving and Coding 3
+  competency: Writing algorithms
+  nature:
+  - th
+  objectives:
+  - Explain how dry running can be used to test the correctness of an algorithm.
+  - Describe simple ways of measuring the efficiency of an algorithm.
+  - Establish the correctness and efficiency of a given set of algorithms.
+- title: Integration activities
+  kind: integration_activity
+  term: 2
+  week: 15
+  lesson_no: 39
+  module: Problem Solving and Coding 3
+  competency: Writing algorithms
+  nature:
+  - th
+- title: Coding 1 (Python)
+  kind: content
+  term: 2
+  week: 15
+  lesson_no: 40
+  module: Problem Solving and Coding 3
+  competency: Converting an algorithm into a program
+  nature:
+  - th
+  objectives:
+  - State best practices when writing code.
+  - Produce source code for the totalling, counting algorithms.
+- title: Coding 2 (Python)
+  kind: content
+  term: 2
+  week: 15
+  lesson_no: 41
+  module: Problem Solving and Coding 3
+  competency: Converting an algorithm into a program
+  nature:
+  - th
+  objectives:
+  - Produce source code for maximum, minimum and swapping algorithms using subroutines.
+- title: Coding 3 (Python)
+  kind: content
+  term: 2
+  week: 16
+  lesson_no: 42
+  module: Problem Solving and Coding 3
+  competency: Converting an algorithm into a program
+  nature:
+  - th
+  objectives:
+  - Produce source code for linear search algorithm and bubble sort algorithms.
+- title: Integration activities
+  kind: integration_activity
+  term: 2
+  week: 16
+  lesson_no: 43
+  module: Problem Solving and Coding 3
+  competency: Converting an algorithm into a program
+  nature:
+  - th
+- title: Notions on data encoding
+  kind: content
+  term: 2
+  week: 16
+  lesson_no: 44
+  module: Data Manipulation
+  competency: Representing data in the computer
+  nature:
+  - th
+  objectives:
+  - Explain how data is represented in the computer.
+  - Distinguish between data numbers, characters, images and sound.
+  - Outline techniques used to encode numbers, characters, images, and sound.
+- title: Character and positive integers encoding
+  kind: content
+  term: 2
+  week: 17
+  lesson_no: 45
+  module: Data Manipulation
+  competency: Representing data in the computer
+  nature:
+  - th
+  objectives:
+  - >-
+    Apply a given character encoding scheme to represent a set of characters Determine the base 2 representation
+    of a positive integer.
+- title: Addition and subtraction in base 2, 8 and 16
+  kind: content
+  term: 2
+  week: 17
+  lesson_no: 46
+  module: Data Manipulation
+  competency: Representing data in the computer
+  nature:
+  - th
+  objectives:
+  - Identify symbols of base 2, 8 and 16.
+  - Perform addition in any number system.
+  - Perform subtraction in any number system.
+- title: Integration activities
+  kind: integration_activity
+  term: 2
+  week: 17
+  lesson_no: 47
+  module: Data Manipulation
+  competency: Representing data in the computer
+  nature:
+  - th
+- title: Evaluation
+  kind: evaluation
+  term: 2
+  week: 18
+  module: Data Manipulation
+  competency: Representing data in the computer
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 2
+  week: 18
+  module: Data Manipulation
+  competency: Representing data in the computer
+  nature:
+  - th
+- title: Input and output peripherals
+  kind: content
+  term: 2
+  week: 18
+  lesson_no: 48
+  module: Hardware and Software Systems 3
+  competency: Describing peripheral devices
+  nature:
+  - th
+  objectives:
+  - Describe RFID readers, QR code readers, OMR readers, OCR readers, and contactless card readers.
+  - Describe plotters, 3D printer, and actuators.
+  - Choose appropriate input and output peripheral in a given context.
+- title: Integration activities
+  kind: integration_activity
+  term: 2
+  week: 19
+  lesson_no: 49
+  module: Hardware and Software Systems 3
+  competency: Describing peripheral devices
+  nature:
+  - th
+- title: Using a word processor 1
+  kind: content
+  term: 2
+  week: 19
+  lesson_no: 50
+  module: Hardware and Software Systems 3
+  competency: Creating digital content using a software
+  nature:
+  - th
+  objectives:
+  - >-
+    Produce a formatted word-processed document that makes use of text, tables, graphics, and text boxes.
+- title: Using a word processor 2
+  kind: content
+  term: 2
+  week: 19
+  lesson_no: 51
+  module: Hardware and Software Systems 3
+  competency: Creating digital content using a software
+  nature:
+  - th
+  objectives:
+  - Reproduce a document of at most two pages with the help of a word processor.
+- title: Solve problems with spreadsheets 1
+  kind: content
+  term: 2
+  week: 20
+  lesson_no: 52
+  module: Hardware and Software Systems 3
+  competency: Creating digital content using a software
+  nature:
+  - th
+  objectives:
+  - Reproduce the data and formatting applied to a spreadsheet.
+  - Determine appropriate formulas to meet the different goals in a problem.
+- title: Solve problems with spreadsheets 2
+  kind: content
+  term: 2
+  week: 20
+  lesson_no: 53
+  module: Hardware and Software Systems 3
+  competency: Creating digital content using a software
+  nature:
+  - th
+  objectives:
+  - Determine appropriate formulas to meet the different goals in a problem.
+  - Represent specific spreadsheet data as a given chart.
+  - Make use of features of spreadsheets such as sort and filter.
+- title: Create presentations
+  kind: content
+  term: 2
+  week: 20
+  lesson_no: 54
+  module: Hardware and Software Systems 3
+  competency: Creating digital content using a software
+  nature:
+  - th
+  objectives:
+  - Create simple presentations of at most 5 slides when given a model of the presentation.
+  - Modify a presentation by adding and formatting objects such as images, sound, and videos.
+  - Create animations using a presentation software that meet a given situation.
+- title: Create publications
+  kind: content
+  term: 2
+  week: 21
+  lesson_no: 55
+  module: Hardware and Software Systems 3
+  competency: Creating digital content using a software
+  nature:
+  - th
+  objectives:
+  - Produce a given publication when given the model of the publication.
+- title: Create digital content using generative AI
+  kind: content
+  term: 2
+  week: 21
+  lesson_no: 56
+  module: Hardware and Software Systems 3
+  competency: Creating digital content using a software
+  nature:
+  - th
+  objectives:
+  - Produce word processed documents, presentations, and publications using generative AI tools.
+- title: Integration activities
+  kind: integration_activity
+  term: 2
+  week: 21
+  lesson_no: 57
+  module: Hardware and Software Systems 3
+  competency: Creating digital content using a software
+  nature:
+  - th
+- title: Assistive technology and disabilities
+  kind: content
+  term: 2
+  week: 22
+  lesson_no: 58
+  module: Hardware and Software Systems 3
+  competency: Proposing assistive technology for social inclusion
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of disability, and assistive technology.
+  - Describe common assistive technologies for a given disability.
+  - Outline features common to operating systems aimed at helping the disabled.
+- title: Assistive technologies for the elderly
+  kind: content
+  term: 2
+  week: 22
+  lesson_no: 59
+  module: Hardware and Software Systems 3
+  competency: Proposing assistive technology for social inclusion
+  nature:
+  - th
+  objectives:
+  - Explain the importance of assistive technologies for the elderly.
+  - Describe technologies that can be used to assist the elderly.
+- title: Integration activities
+  kind: integration_activity
+  term: 2
+  week: 22
+  lesson_no: 60
+  module: Hardware and Software Systems 3
+  competency: Proposing assistive technology for social inclusion
+  nature:
+  - th
+- title: Evaluation
+  kind: evaluation
+  term: 2
+  week: 23
+  module: Hardware and Software Systems 3
+  competency: Proposing assistive technology for social inclusion
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 2
+  week: 23
+  module: Hardware and Software Systems 3
+  competency: Proposing assistive technology for social inclusion
+  nature:
+  - th
+- title: Notions on packets
+  kind: content
+  term: 2
+  week: 23
+  lesson_no: 61
+  module: Network Systems 2
+  competency: Exploring the concepts related to data communication
+  nature:
+  - th
+  objectives:
+  - Explain the concepts packet header, payload, trailer, packet switching.
+  - Describe the structure of a packet.
+  - Describe the USB interface and explain mechanisms it uses to transmit data.
+- title: Error detection and packet security
+  kind: content
+  term: 2
+  week: 24
+  lesson_no: 62
+  module: Network Systems 2
+  competency: Exploring the concepts related to data communication
+  nature:
+  - th
+  objectives:
+  - Explain the need to check for errors after data transmission and how these errors occur.
+  - Explain the need for and purpose of encryption when transmitting data.
+  - Describe error detection methods and how data is encrypted.
+- title: Integration activities
+  kind: integration_activity
+  term: 2
+  week: 24
+  lesson_no: 63
+  module: Network Systems 2
+  competency: Exploring the concepts related to data communication
+  nature:
+  - th
+- title: Network hardware
+  kind: content
+  term: 2
+  week: 24
+  lesson_no: 64
+  module: Network Systems 2
+  competency: Setting up LANs
+  nature:
+  - th
+  objectives:
+  - >-
+    Explain the role of NIC, modem, router, multiplexer, bridge, repeater in a network. Identify hardware
+    needed for internet connectivity in a house, school or organizational network.
+- title: Network IP configuration
+  kind: content
+  term: 3
+  week: 25
+  lesson_no: 65
+  module: Network Systems 2
+  competency: Setting up LANs
+  nature:
+  - th
+  objectives:
+  - State the purpose of MAC address and IP address.
+  - Differentiate between IPv4 and IPv6 addresses.
+  - Compare static ip addresses to dynamic ip addresses.
+  - Explain the purpose of configuring ip addresses on a LAN.
+- title: Integration activities
+  kind: integration_activity
+  term: 3
+  week: 25
+  lesson_no: 66
+  module: Network Systems 2
+  competency: Setting up LANs
+  nature:
+  - th
+- title: Notions on security
+  kind: content
+  term: 3
+  week: 25
+  lesson_no: 67
+  module: System Security
+  competency: Securing data, computers, and networks
+  nature:
+  - th
+  objectives:
+  - Differentiate between computer security, data security, and network security.
+  - Differentiate between vulnerability, threat, and attack.
+  - >-
+    Identify three security objectives Identify common vulnerabilities linked to data, computers, or networks
+    in a given context.
+- title: Threats and attacks on computer systems
+  kind: content
+  term: 3
+  week: 26
+  lesson_no: 68
+  module: System Security
+  competency: Securing data, computers, and networks
+  nature:
+  - th
+  objectives:
+  - Identify common threats on data, computers, and networks.
+  - Describe common attacks on data, computers, and networks.
+  - Describe the different types of malware.
+- title: Data, computer, and network security measures
+  kind: content
+  term: 3
+  week: 26
+  lesson_no: 69
+  module: System Security
+  competency: Securing data, computers, and networks
+  nature:
+  - th
+  objectives:
+  - Explain measures to secure data.
+  - Explain measures to secure a computer.
+  - Explain measures to secure a network.
+  - Outline common data recovery strategies.
+- title: Integration activities
+  kind: integration_activity
+  term: 3
+  week: 26
+  lesson_no: 70
+  module: System Security
+  competency: Securing data, computers, and networks
+  nature:
+  - th
+- title: Evaluation
+  kind: evaluation
+  term: 3
+  week: 27
+  module: System Security
+  competency: Evaluating the impacts of digital identities and digital footprints
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 3
+  week: 27
+  module: System Security
+  competency: Evaluating the impacts of digital identities and digital footprints
+  nature:
+  - th
+- title: Notions on digital identities and digital footprints
+  kind: content
+  term: 3
+  week: 27
+  lesson_no: 71
+  module: System Security
+  competency: Evaluating the impacts of digital identities and digital footprints
+  nature:
+  - th
+  objectives:
+  - >-
+    Explain the following concepts: digital identity, password, username, identity theft, digital footprint,
+    passive and active digital footprint.
+  - >-
+    Explain characteristics of a good password Explain ways that a user creates passive and active digital
+    footprints.
+- title: Digital identities and footprints management
+  kind: content
+  term: 3
+  week: 28
+  lesson_no: 72
+  module: System Security
+  competency: Evaluating the impacts of digital identities and digital footprints
+  nature:
+  - th
+  objectives:
+  - Outline best practices to manage multiple digital identities.
+  - State positive and negative effects of digital footprints.
+  - Explain ways of protecting digital footprints.
+- title: Integration activities
+  kind: integration_activity
+  term: 3
+  week: 28
+  lesson_no: 73
+  module: System Security
+  competency: Evaluating the impacts of digital identities and digital footprints
+  nature:
+  - th
+- title: Logic gates
+  kind: content
+  term: 3
+  week: 28
+  lesson_no: 74
+  module: Data Manipulation 2
+  competency: Analysing simple logic circuits and logic expressions
+  nature:
+  - th
+  objectives:
+  - Identify various logic gates.
+  - Describe the different types of logic gates Draw the truth table for a logic gate.
+- title: Logic circuits and expressions
+  kind: content
+  term: 3
+  week: 29
+  lesson_no: 75
+  module: Data Manipulation 2
+  competency: Analysing simple logic circuits and logic expressions
+  nature:
+  - th
+  objectives:
+  - Identify logic gates in a circuit or an expression.
+  - Produce the truth table or a logic circuit or expression.
+  - Produce a logic circuit when given a logic expression.
+- title: De Morgan's law and Boolean simplification
+  kind: content
+  term: 3
+  week: 29
+  lesson_no: 76
+  module: Data Manipulation 2
+  competency: Analysing simple logic circuits and logic expressions
+  nature:
+  - th
+  objectives:
+  - State the De Morgan's laws.
+  - Identify situations where De Morgan's law can be used.
+  - State common laws of Boolean simplification.
+- title: Integration activities
+  kind: integration_activity
+  term: 3
+  week: 29
+  lesson_no: 77
+  module: Data Manipulation 2
+  competency: Analysing simple logic circuits and logic expressions
+  nature:
+  - th
+- title: Storage and processing devices
+  kind: content
+  term: 3
+  week: 30
+  lesson_no: 78
+  module: Hardware and Software Systems 3
+  competency: Describing internal components of the computer
+  nature:
+  - th
+  objectives:
+  - Describe processing and storage devices.
+  - Describe the machine instruction cycle.
+- title: Other internal components
+  kind: content
+  term: 3
+  week: 30
+  lesson_no: 79
+  module: Hardware and Software Systems 3
+  competency: Describing internal components of the computer
+  nature:
+  - th
+  objectives:
+  - State the main ports on the motherboard.
+  - Describe the different types of bus.
+  - State the role of the CMOS and battery.
+- title: Integration activities
+  kind: integration_activity
+  term: 3
+  week: 30
+  lesson_no: 80
+  module: Hardware and Software Systems 3
+  competency: Describing internal components of the computer
+  nature:
+  - th
+- title: Notions on the internet
+  kind: content
+  term: 3
+  week: 31
+  lesson_no: 81
+  module: Network Systems 2
+  competency: Working on the Internet
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of internet, intranet, extranet, protocol.
+  - Outline advantages and disadvantages of the internet.
+  - >-
+    Explain the role of ISP and browsers in accessing the internet. Describe the importance of URL and
+    its nomenclature.
+- title: Notions on digital currency
+  kind: content
+  term: 3
+  week: 31
+  lesson_no: 82
+  module: Network Systems 2
+  competency: Working on the Internet
+  nature:
+  - th
+  objectives:
+  - Outline common internet services.
+  - Explain the concept of digital currencies and how they are used.
+  - State examples of digital currencies.
+  - Explain the process of block chain and how it is used to track digital currency transactions.
+- title: Web authoring services
+  kind: content
+  term: 3
+  week: 31
+  lesson_no: 83
+  module: Network Systems 2
+  competency: Working on the Internet
+  nature:
+  - th
+  objectives:
+  - Outline examples of web authoring tools.
+  - State the role of HTML.
+  - Build a simple web page using HTML and CSS.
+- title: Integration activities
+  kind: integration_activity
+  term: 3
+  week: 32
+  lesson_no: 84
+  module: Network Systems 2
+  competency: Working on the Internet
+  nature:
+  - th
+- title: Types of application software
+  kind: content
+  term: 3
+  week: 32
+  lesson_no: 85
+  module: Hardware and Software Systems 3
+  competency: Getting application software
+  nature:
+  - th
+  objectives:
+  - >-
+    Describe common application software for productivity, personal interest, graphics and media, and
+    communication and collaboration. Choose application software for a given situation.
+- title: Integration activities
+  kind: integration_activity
+  term: 3
+  week: 32
+  lesson_no: 86
+  module: Hardware and Software Systems 3
+  competency: Getting application software
+  nature:
+  - th
+- title: Methods to obtain software
+  kind: content
+  term: 3
+  week: 33
+  lesson_no: 87
+  module: Hardware and Software Systems 3
+  competency: Describing ways of acquiring and distributing software
+  nature:
+  - th
+  objectives:
+  - >-
+    Describe the different methods of obtaining software Choose appropriate method to obtain software.
+- title: Integration activities
+  kind: integration_activity
+  term: 3
+  week: 33
+  lesson_no: 88
+  module: Hardware and Software Systems 3
+  competency: Describing ways of acquiring and distributing software
+  nature:
+  - th
+- title: Protecting Intellectual property
+  kind: content
+  term: 3
+  week: 33
+  lesson_no: 89
+  module: Ethics, Society and Legal Issues 3
+  competency: Examine licenses and copyright practices
+  nature:
+  - th
+  objectives:
+  - Explain the concepts of intellectual property, trademark, patent, copyright, license…
+  - Identify the freedoms provided by a given type of license.
+  - State possible national and international consequences of non-respect of intellectual property.
+  - Identify exceptions and legal limitations of using and sharing copyrighted content.
+- title: Assigning and respecting digital licenses
+  kind: content
+  term: 3
+  week: 34
+  lesson_no: 90
+  module: Ethics, Society and Legal Issues 3
+  competency: Examine licenses and copyright practices
+  nature:
+  - th
+  objectives:
+  - Match each type of creative common license to a given permission.
+  - Explain ways of identifying free and copyrighted digital content.
+  - State platforms where free digital content can be found.
+  - State ways of sharing and using digital content legally.
+- title: Integration activities
+  kind: integration_activity
+  term: 3
+  week: 34
+  lesson_no: 91
+  module: Ethics, Society and Legal Issues 3
+  competency: Examine licenses and copyright practices
+  nature:
+  - th
+- title: Evaluation
+  kind: evaluation
+  term: 3
+  week: 34
+  module: Ethics, Society and Legal Issues 3
+  competency: Examine licenses and copyright practices
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 3
+  week: 35
+  module: Ethics, Society and Legal Issues 3
+  competency: Examine licenses and copyright practices
+  nature:
+  - th
+- title: Revision
+  kind: revision
+  term: 3
+  week: 35
+  week_to: 36
+  module: Ethics, Society and Legal Issues 3
+  nature:
+  - th

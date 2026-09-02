@@ -74,14 +74,17 @@ export default async function Home() {
         supabase
           .from("lessons")
           .select("id", { count: "exact", head: true })
+          .is("deleted_at", null)
           .eq("syllabus_id", s.id),
         supabase
           .from("competencies")
           .select("id", { count: "exact", head: true })
+          .is("deleted_at", null)
           .eq("syllabus_id", s.id),
         supabase
           .from("modules")
           .select("id", { count: "exact", head: true })
+          .is("deleted_at", null)
           .eq("syllabus_id", s.id),
       ]);
       return {

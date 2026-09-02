@@ -72,7 +72,10 @@ TERM_WEEKS = {1: (1, 12), 2: (13, 24), 3: (25, 36)}
 
 CONTENT_KINDS = {"content"}
 STRUCTURAL_KINDS = {"diagnostic_evaluation", "integration_activity",
-                    "evaluation", "remediation", "practical"}
+                    "evaluation", "remediation", "practical", "revision"}
+
+# Structural rows that should never carry objectives.
+SILENT_KINDS = {"diagnostic_evaluation", "evaluation", "revision"}
 
 
 class LoadReport:
@@ -203,24 +206,37 @@ def validate(doc, path):
                          f"{syl.get('total_weeks')}")
 
     # --- integration activities --------------------------------------------
-    if comps:
+    #
+    # The Form 5 sheet closes each category of action with one. The Lower Sixth
+    # 2026/2027 sheet does not: it has six, placed at module level with no
+    # category named. Warning per category there would print 26 lines saying
+    # nothing, so the shape is detected once and reported once.
+    integration = [ls for ls in lessons if ls.get("kind") == "integration_activity"]
+    per_category = [ls for ls in integration if ls.get("competency")]
+    if comps and per_category:
         by_comp = {}
-        for ls in lessons:
-            if ls.get("kind") == "integration_activity" and ls.get("competency"):
-                by_comp.setdefault(ls["competency"], []).append(ls)
+        for ls in per_category:
+            by_comp.setdefault(ls["competency"], []).append(ls)
         for name in comps:
             n = len(by_comp.get(name, []))
             if n == 0:
                 rpt.add("warning", f"category '{name}' has no integration activity")
             elif n > 1:
                 rpt.add("info", f"category '{name}' has {n} integration activities")
+    elif integration:
+        rpt.add("info", f"{len(integration)} integration activities, placed at "
+                        f"module level rather than per category of action")
 
     # --- content lessons should carry objectives ----------------------------
     for ls in lessons:
         kind = ls.get("kind", "content")
         if kind in CONTENT_KINDS and not (ls.get("objectives") or ls.get("content_points")):
             rpt.add("warning", "content lesson has no objectives", _ref(ls))
-        if kind in STRUCTURAL_KINDS and ls.get("objectives"):
+        # Evaluation and diagnostic rows are a date, not a lesson, so objectives
+        # on them are a transcription error. Remediation and integration rows
+        # are different: the 2026/2027 sheets spell out what each one covers,
+        # and that text is worth keeping.
+        if kind in SILENT_KINDS and ls.get("objectives"):
             rpt.add("warning", f"{kind} row unexpectedly carries objectives", _ref(ls))
 
     # --- proposed cross-year links -----------------------------------------

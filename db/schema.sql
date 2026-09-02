@@ -173,9 +173,11 @@ CREATE TABLE lessons (
   is_practical     BOOLEAN NOT NULL DEFAULT false,
   is_digitalised   BOOLEAN NOT NULL DEFAULT false,
 
+  -- 'revision' was added with the 2026/2027 sheets: both close the year with
+  -- a revision block spanning several weeks.
   lesson_kind      TEXT NOT NULL DEFAULT 'content' CHECK (lesson_kind IN
                    ('content','diagnostic_evaluation','integration_activity',
-                    'evaluation','remediation','practical')),
+                    'evaluation','remediation','practical','revision')),
 
   content          TEXT,
   teacher_notes    TEXT,

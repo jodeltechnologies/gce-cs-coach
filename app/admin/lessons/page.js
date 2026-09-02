@@ -32,6 +32,7 @@ export default async function LessonsPage({ searchParams }) {
     .select(
       "id, sequence, lesson_no_start, lesson_no_end, title, term, week_from, lesson_kind, status, content, competency_id"
     )
+    .is("deleted_at", null)
     .eq("syllabus_id", selected ?? "")
     .eq("lesson_kind", "content")
     .order("sequence");
@@ -39,6 +40,7 @@ export default async function LessonsPage({ searchParams }) {
   const { data: competencies } = await supabase
     .from("competencies")
     .select("id, category_of_action, sequence")
+    .is("deleted_at", null)
     .eq("syllabus_id", selected ?? "")
     .order("sequence");
 

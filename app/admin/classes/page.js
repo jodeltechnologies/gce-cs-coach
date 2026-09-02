@@ -45,6 +45,7 @@ export default async function ClassesPage() {
         supabase
           .from("lessons")
           .select("id", { count: "exact", head: true })
+          .is("deleted_at", null)
           .eq("syllabus_id", c.syllabus_id)
           .eq("lesson_kind", "content"),
         supabase

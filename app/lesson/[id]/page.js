@@ -58,6 +58,7 @@ export default async function LessonReader({ params }) {
     .select(
       "id, lesson_no_start, lesson_no_end, title, term, week_from, status, content, duration_minutes, competency_id, syllabus_id"
     )
+    .is("deleted_at", null)
     .eq("id", id)
     .maybeSingle();
 
@@ -90,6 +91,7 @@ export default async function LessonReader({ params }) {
         ? supabase
             .from("competencies")
             .select("category_of_action")
+            .is("deleted_at", null)
             .eq("id", lesson.competency_id)
             .maybeSingle()
         : Promise.resolve({ data: null }),

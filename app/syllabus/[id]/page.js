@@ -23,6 +23,7 @@ const KIND_LABEL = {
   evaluation: "Evaluation",
   remediation: "Remediation",
   practical: "Practical",
+  revision: "Revision",
 };
 
 const TERM_NAME = { 1: "First term", 2: "Second term", 3: "Third term" };
@@ -98,11 +99,18 @@ function BreakBar({ brk }) {
   );
 }
 
-function TimetableCard({ formLevel }) {
+function TimetableCard({ formLevel, prescribed }) {
   const streams = timetableFor(formLevel);
   if (streams.length === 0) return null;
   const load = weeklyLoad(formLevel);
   const lost = lostDays(formLevel);
+
+  // The Ministry states a workload in periods. Comparing it against what the
+  // timetable actually gives is the one check on this page that can tell you
+  // the sheet is undeliverable before you are eight weeks behind it.
+  const short = prescribed
+    ? load.filter((l) => l.periods < prescribed)
+    : [];
 
   return (
     <div className="timetable-card">
@@ -119,11 +127,34 @@ function TimetableCard({ formLevel }) {
                   </span>
                 ))}
               </td>
-              <td className="load">{load[i].minutes} min a week</td>
+              <td className="load">
+                {load[i].periods} {load[i].periods === 1 ? "period" : "periods"}
+                {prescribed ? (
+                  <span className={load[i].periods < prescribed ? "load-short" : "load-ok"}>
+                    {load[i].periods < prescribed
+                      ? ` of ${prescribed}`
+                      : " \u2713"}
+                  </span>
+                ) : null}
+                <span className="load-min"> · {load[i].minutes} min</span>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {short.length > 0 && (
+        <p className="timetable-short">
+          <strong>The sheet asks for {prescribed} periods a week.</strong>{" "}
+          {short.length === load.length
+            ? `The timetable gives ${short.map((l) => `${l.periods}`).join(" and ")}.`
+            : `${short.map((l) => l.stream ?? formLevel).join(" and ")} ${
+                short.length === 1 ? "gets" : "get"
+              } ${short.map((l) => l.periods).join(" and ")}.`}{" "}
+          At that rate the year&apos;s lessons will not fit into the year, which
+          is a timetable question rather than a planning one.
+        </p>
+      )}
 
       {lost.length > 0 && (
         <p className="timetable-lost">
@@ -172,22 +203,47 @@ export default async function SyllabusPage({ params }) {
     );
   }
 
-  const [{ data: lessons }, { data: competencies }] = await Promise.all([
+  const [{ data: lessons }, { data: competencies }, { data: modules }] =
+    await Promise.all([
     supabase
       .from("lessons")
       .select(
         "id, lesson_no_start, lesson_no_end, title, term, week_from, lesson_kind, competency_id, is_practical, status, objectives(description, kind, sequence)"
       )
+      .is("deleted_at", null)
       .eq("syllabus_id", id)
       .order("sequence"),
     supabase
       .from("competencies")
-      .select("id, category_of_action, competency_statement, sequence")
+      .select("id, category_of_action, competency_statement, sequence, module_id")
+      .is("deleted_at", null)
+      .eq("syllabus_id", id)
+      .order("sequence"),
+    supabase
+      .from("modules")
+      .select("id, title, sequence")
+      .is("deleted_at", null)
       .eq("syllabus_id", id)
       .order("sequence"),
   ]);
 
   const catById = new Map((competencies ?? []).map((c) => [c.id, c]));
+  const modById = new Map((modules ?? []).map((m) => [m.id, m]));
+
+  // The 2026/2027 sheets group categories of action under a Module band. A
+  // module runs for weeks at a time, so it is announced once, at the row where
+  // it turns over. Worked out here in sheet order rather than during render:
+  // the render walks week by week, and a per-week variable would reprint the
+  // band at the top of every week.
+  const moduleStartsAt = new Set();
+  let seenModule = null;
+  for (const l of lessons ?? []) {
+    const m = catById.get(l.competency_id)?.module_id ?? null;
+    if (m && m !== seenModule) {
+      moduleStartsAt.add(l.id);
+      seenModule = m;
+    }
+  }
   const formLevel = syllabus.form_level;
   const now = currentWeek();
 
@@ -230,7 +286,10 @@ export default async function SyllabusPage({ params }) {
         <span className="tag plain">{syllabus.total_weeks} weeks</span>
       </div>
 
-      <TimetableCard formLevel={formLevel} />
+      <TimetableCard
+        formLevel={formLevel}
+        prescribed={syllabus.weekly_periods_theory}
+      />
 
       {terms.map((t) => (
         <section className="term" key={t.term}>
@@ -253,12 +312,15 @@ export default async function SyllabusPage({ params }) {
                       const cat = catById.get(l.competency_id);
                       const showCat = cat && cat.id !== lastCat;
                       if (cat) lastCat = cat.id;
+                      const mod = modById.get(cat?.module_id);
+                      const showMod = moduleStartsAt.has(l.id);
                       const objectives = (l.objectives ?? []).sort(
                         (a, b) => a.sequence - b.sequence
                       );
                       const structural = l.lesson_kind !== "content";
                       return (
                         <div key={l.id}>
+                          {showMod && <div className="module-band">{mod.title}</div>}
                           {showCat && (
                             <h3 title={cat.competency_statement ?? undefined}>
                               {cat.category_of_action}

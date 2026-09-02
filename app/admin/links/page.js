@@ -17,6 +17,7 @@ export default async function LinksPage() {
     .select(
       "id, category_of_action, link_confirmed, continues_from_id, syllabi(form_level), previous:continues_from_id(category_of_action, syllabi(form_level))"
     )
+    .is("deleted_at", null)
     .not("continues_from_id", "is", null)
     .order("sequence");
 

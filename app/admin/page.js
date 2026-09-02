@@ -51,7 +51,8 @@ export default async function AdminHome() {
          { count: studentCount }, { count: questionCount }] = await Promise.all([
     supabase
       .from("competencies")
-      .select("id, exam_frequency, continues_from_id, link_confirmed"),
+      .select("id, exam_frequency, continues_from_id, link_confirmed")
+      .is("deleted_at", null),
     supabase
       .from("classes")
       .select("id, name, academic_year")
@@ -59,6 +60,7 @@ export default async function AdminHome() {
     supabase
       .from("lessons")
       .select("id, content, status")
+      .is("deleted_at", null)
       .eq("lesson_kind", "content"),
     supabase
       .from("students")

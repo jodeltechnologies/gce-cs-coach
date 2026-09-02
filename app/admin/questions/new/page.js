@@ -15,6 +15,7 @@ export default async function NewQuestionPage() {
     supabase
       .from("lessons")
       .select("id, syllabus_id, lesson_no_start, title")
+      .is("deleted_at", null)
       .eq("lesson_kind", "content")
       .order("sequence"),
   ]);

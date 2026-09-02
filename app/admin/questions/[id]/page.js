@@ -28,6 +28,7 @@ export default async function EditQuestionPage({ params }) {
       supabase.from("syllabi").select("id, form_level").order("form_level"),
       supabase.from("lessons")
         .select("id, syllabus_id, lesson_no_start, title")
+        .is("deleted_at", null)
         .eq("lesson_kind", "content").order("sequence"),
       supabase.from("question_options")
         .select("label, option_text, is_correct").eq("question_id", id).order("sequence"),

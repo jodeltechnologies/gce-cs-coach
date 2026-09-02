@@ -515,6 +515,33 @@ table.timetable td.load {
   white-space: nowrap;
   padding-left: 10px;
 }
+/* The Module band on the 2026/2027 sheets — one level above the category of
+   action, announced once where it turns over. */
+.module-band {
+  margin: 22px 0 2px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 5px;
+}
+
+.load-short { color: var(--red); font-weight: 600; }
+.load-ok { color: var(--green); }
+.load-min { color: var(--muted); }
+
+.timetable-short {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border-radius: var(--radius, 8px);
+  background: var(--red-soft);
+  border: 1px solid var(--red);
+  font-size: 0.82rem;
+}
+.timetable-short strong { color: var(--red); }
+
 .timetable-lost {
   margin: 10px 0 0;
   font-size: 0.78rem;
