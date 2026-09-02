@@ -316,6 +316,173 @@ p.lede { color: var(--muted); margin: 4px 0 20px; }
 }
 .break-note { font-style: italic; }
 
+/* ---- the weekly timetable grid ---- */
+
+/* Eleven columns will not fit a phone at a readable size. Let this one box
+   slide sideways rather than shrink the type or push the page over. */
+.tt-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 6px;
+  padding-bottom: 4px;
+}
+
+table.tt {
+  border-collapse: separate;
+  border-spacing: 3px;
+  min-width: 780px;
+  table-layout: fixed;
+  width: 100%;
+}
+
+table.tt th,
+table.tt td {
+  padding: 0;
+  vertical-align: middle;
+}
+
+table.tt thead th {
+  width: 68px;
+  padding: 0 2px 6px;
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.25;
+}
+table.tt thead th.tt-corner { width: 62px; }
+table.tt thead th.tt-break-col { width: 26px; }
+
+.tt-no {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.tt-time {
+  display: block;
+  font-size: 0.62rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Pinned, so that scrolling the grid sideways on a phone does not carry the
+   day names off the screen and leave five anonymous rows of boxes. */
+th.tt-day,
+table.tt thead th.tt-corner {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--bg);
+}
+th.tt-day {
+  text-align: left;
+  padding-right: 8px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+.tt-day-name { font-weight: 600; }
+.tt-day-count {
+  margin-left: 5px;
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+td.tt-free {
+  height: 54px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+}
+
+td.tt-break-col { width: 26px; }
+.tt-break-mark {
+  display: block;
+  height: 54px;
+  border-left: 1px dashed var(--line);
+  border-right: 1px dashed var(--line);
+  background: transparent;
+}
+
+td.tt-block {
+  height: 54px;
+  border-radius: 6px;
+  padding: 5px 7px;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid var(--green);
+  background: var(--green-soft, var(--gold-soft));
+}
+/* Gold rather than cyan: in dark mode --green resolves to --cyan, so a cyan
+   ICT block would be indistinguishable from a Computer Science one. */
+td.tt-block.tt-ict {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+}
+
+.tt-block-class {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.tt-block-sub {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.tt-block-time {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+tr.tt-today th.tt-day { color: var(--gold-ink); }
+tr.tt-today td.tt-free { border-color: var(--gold); }
+tr.tt-today td.tt-block { box-shadow: 0 0 0 2px var(--gold); }
+
+.tt-next h3 { margin-bottom: 8px; }
+
+table.tt-load {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 380px;
+  font-size: 0.86rem;
+}
+table.tt-load th {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 500;
+  padding: 0 12px 6px 0;
+  border-bottom: 1px solid var(--line);
+}
+table.tt-load td {
+  padding: 7px 12px 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+table.tt-load td.num,
+table.tt-load th:nth-child(3),
+table.tt-load th:nth-child(4) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  padding-right: 0;
+  width: 76px;
+}
+table.tt-load tr.tt-total td {
+  font-weight: 700;
+  border-bottom: none;
+  border-top: 2px solid var(--line);
+}
+
 /* The timetable summary at the head of a sheet. */
 
 .timetable-card {
