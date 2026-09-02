@@ -201,6 +201,9 @@ p.lede { color: var(--muted); margin: 4px 0 20px; }
 .tag.gold { background: var(--gold-soft); color: var(--gold-ink); border: 1px solid var(--gold); }
 .tag.cyan { background: var(--cyan-soft); color: var(--navy); border: 1px solid var(--cyan); }
 .tag.alert { background: var(--red-soft); color: var(--red); border: 1px solid var(--red); }
+/* The sheet has always asked for this one for evaluations and remediation;
+   until now it fell through to the plain tag. */
+.tag.warn { background: var(--gold-soft); color: var(--gold-ink); border: 1px solid var(--gold); }
 
 /* ---- progression sheet rows ---- */
 
@@ -215,6 +218,149 @@ p.lede { color: var(--muted); margin: 4px 0 20px; }
   border: 1px solid var(--gold);
   border-radius: 999px;
   padding: 1px 10px;
+}
+
+/* The dated week header: week number, calendar dates, and the sittings this
+   class actually has that week. */
+
+.week-head {
+  padding: 8px 0 2px;
+  border-top: 1px solid var(--line);
+}
+.week-head.now {
+  border-top: 2px solid var(--gold);
+  background: var(--gold-soft);
+  border-radius: var(--radius, 8px);
+  padding: 10px 12px 6px;
+  margin: 0 -12px;
+}
+
+.week-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+.week-dates {
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.week-sub {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.sittings {
+  list-style: none;
+  margin: 7px 0 0;
+  padding: 0;
+  font-size: 0.82rem;
+}
+.sittings li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+  padding: 2px 0 2px 10px;
+  border-left: 2px solid var(--green);
+  margin-bottom: 3px;
+}
+.sittings li.warn { border-left-color: var(--gold); }
+.sittings li.off  { border-left-color: var(--red); }
+
+.sit-day {
+  min-width: 74px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.sit-slot {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.sit-slot b { color: var(--ink, inherit); font-weight: 600; }
+.sit-slot + .sit-slot { border-left: 1px solid var(--line); padding-left: 12px; }
+.sittings li.off .sit-note { color: var(--red); }
+.sittings li.warn .sit-note { color: var(--gold-ink); }
+.sit-note { font-style: italic; }
+
+.week-note {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.reading-sittings { margin: 0 0 20px; }
+
+/* Holidays, shown between the weeks they separate. */
+
+.break-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin: 4px 0 22px;
+  padding: 9px 14px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius, 8px);
+  background: transparent;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.break-bar strong {
+  color: var(--gold-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+}
+.break-note { font-style: italic; }
+
+/* The timetable summary at the head of a sheet. */
+
+.timetable-card {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: var(--radius, 8px);
+  padding: 14px 16px;
+  margin: 20px 0 6px;
+}
+.timetable-card h3 {
+  margin: 0 0 8px;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+}
+table.timetable { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+table.timetable th {
+  text-align: left;
+  width: 72px;
+  padding: 4px 10px 4px 0;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+table.timetable td { padding: 4px 0; vertical-align: baseline; }
+table.timetable td.load {
+  text-align: right;
+  color: var(--muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  padding-left: 10px;
+}
+.timetable-lost {
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  padding-top: 9px;
+}
+
+@media (max-width: 560px) {
+  .sit-day { min-width: 100%; }
+  .sit-slot + .sit-slot { border-left: none; padding-left: 0; }
+  table.timetable th { width: auto; }
+  table.timetable td.load { text-align: left; padding-left: 0; }
 }
 
 .lesson {

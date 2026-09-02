@@ -1,5 +1,10 @@
 import Link from "next/link";
 import { createClient } from "../../../lib/supabase-server";
+import {
+  currentWeek,
+  formatRange,
+  weekByNumber,
+} from "../../../lib/school-calendar";
 
 export const metadata = { title: "Lesson notes" };
 
@@ -8,6 +13,9 @@ export const dynamic = "force-dynamic";
 export default async function LessonsPage({ searchParams }) {
   const supabase = await createClient();
   if (!supabase) return <p>Not configured.</p>;
+
+  // Which calendar week we are actually in, so the row for it stands out.
+  const thisWeek = currentWeek();
 
   const sp = await searchParams;
   const filter = sp?.filter ?? "gaps";
@@ -137,6 +145,18 @@ export default async function LessonsPage({ searchParams }) {
                   <span className="tag plain">
                     Term {l.term}, week {l.week_from}
                   </span>
+                  {weekByNumber(l.week_from) && (
+                    <span
+                      className={
+                        thisWeek?.week === l.week_from ? "tag alert" : "tag plain"
+                      }
+                    >
+                      {formatRange(
+                        weekByNumber(l.week_from).start,
+                        weekByNumber(l.week_from).end
+                      )}
+                    </span>
+                  )}
                   {!hasContent(l) ? (
                     <span className="tag alert">No notes</span>
                   ) : l.status === "published" ? (

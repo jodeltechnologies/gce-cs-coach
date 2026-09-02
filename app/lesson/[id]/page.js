@@ -1,5 +1,10 @@
 import Link from "next/link";
 import { createClient } from "../../../lib/supabase-server";
+import {
+  formatRange,
+  sittingsForWeek,
+  weekByNumber,
+} from "../../../lib/school-calendar";
 
 export const metadata = { title: "Lesson" };
 export const dynamic = "force-dynamic";
@@ -95,6 +100,14 @@ export default async function LessonReader({ params }) {
         .maybeSingle(),
     ]);
 
+  // The week this lesson falls in, and when this class actually sits in it.
+  // The syllabus page has the same block; a lesson opened from a bookmark or a
+  // student's Notes list arrives without that context.
+  const cal = weekByNumber(lesson.week_from);
+  const days = syllabus
+    ? sittingsForWeek(syllabus.form_level, lesson.week_from)
+    : [];
+
   const num =
     lesson.lesson_no_start == null
       ? ""
@@ -118,8 +131,31 @@ export default async function LessonReader({ params }) {
       <h1>{lesson.title}</h1>
       <p className="byline">
         {num} · Term {lesson.term}, week {lesson.week_from}
+        {cal ? ` · ${formatRange(cal.start, cal.end)}` : ""}
         {lesson.duration_minutes ? ` · ${lesson.duration_minutes} minutes` : ""}
       </p>
+
+      {days.length > 0 && (
+        <ul className="sittings reading-sittings">
+          {days.map((d) => (
+            <li key={d.iso} className={d.closed ? "off" : d.disrupted ? "warn" : ""}>
+              <span className="sit-day">{d.label}</span>
+              {d.closed ? (
+                <span className="sit-note">No lesson — {d.closed}</span>
+              ) : (
+                <>
+                  {d.periods.map((p, i) => (
+                    <span className="sit-slot" key={i}>
+                      {p.stream ? <b>{p.stream}</b> : null} {p.time}
+                    </span>
+                  ))}
+                  {d.disrupted && <span className="sit-note">{d.disrupted}</span>}
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {(objectives ?? []).length > 0 && (
         <aside className="objectives-box">

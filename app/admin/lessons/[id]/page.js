@@ -7,6 +7,11 @@ import {
   removeResource,
 } from "../actions";
 import Uploader from "./Uploader";
+import {
+  formatRange,
+  sittingsForWeek,
+  weekByNumber,
+} from "../../../../lib/school-calendar";
 
 export const metadata = { title: "Edit lesson" };
 
@@ -83,13 +88,42 @@ export default async function LessonEditor({ params }) {
         ? `Lessons ${lesson.lesson_no_start}–${lesson.lesson_no_end}`
         : `Lesson ${lesson.lesson_no_start}`;
 
+  // When this class is actually in front of you for this week.
+  const cal = weekByNumber(lesson.week_from);
+  const days = syllabus
+    ? sittingsForWeek(syllabus.form_level, lesson.week_from)
+    : [];
+
   return (
     <>
       <h2>{lesson.title}</h2>
       <p className="lede">
         {syllabus?.form_level} · {num} · Term {lesson.term}, week{" "}
         {lesson.week_from}
+        {cal ? ` · ${formatRange(cal.start, cal.end)}` : ""}
       </p>
+
+      {days.length > 0 && (
+        <ul className="sittings" style={{ margin: "0 0 20px" }}>
+          {days.map((d) => (
+            <li key={d.iso} className={d.closed ? "off" : d.disrupted ? "warn" : ""}>
+              <span className="sit-day">{d.label}</span>
+              {d.closed ? (
+                <span className="sit-note">No lesson — {d.closed}</span>
+              ) : (
+                <>
+                  {d.periods.map((p, i) => (
+                    <span className="sit-slot" key={i}>
+                      {p.stream ? <b>{p.stream}</b> : null} {p.time}
+                    </span>
+                  ))}
+                  {d.disrupted && <span className="sit-note">{d.disrupted}</span>}
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {category && (
         <div className="notice">
