@@ -77,7 +77,18 @@ into a new query, click **Run**.
 | 21 | `db/seed/09_lesson_pages.sql` | 67 notes, one per lesson — the main reading |
 | 22 | `db/phase11.sql` | Lets you read and mark written student work |
 | 23 | `db/phase12.sql` | Tests you set for a class |
-| 24 | `db/phase13.sql` | Notes belong to one year — **fixes Lower Sixth seeing Form 5 notes** |
+| 24 | `db/seed/10_lesson_pages_l6.sql` | 71 Lower Sixth notes, and notes belong to one year |
+
+There is no `db/phase13.sql`. Earlier drafts of this file listed one; the job it
+was meant to do — stop a student being shown another year's notes — is done at
+the foot of `10_lesson_pages_l6.sql` instead, so there is one less file to keep
+in step. If you have already run a `phase13.sql` from somewhere, run file 24
+anyway: it replaces that function rather than adding a second one.
+
+**File 24 must come after 21.** `09_lesson_pages.sql` and `08_lesson_notes.sql`
+both define the function that decides what a student sees, and the last one to
+run wins. Re-run either of those later and you must re-run 24 after it, or every
+student is shown every year's notes again.
 
 `db/approve_safe_questions.sql` is not part of the sequence. It clears the
 straightforward half of the review queue from the SQL editor, and is there
