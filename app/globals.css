@@ -168,6 +168,11 @@ header.site .crest {
 
 h2 { font-size: 1.38rem; margin: 30px 0 4px; letter-spacing: -0.02em; font-weight: 700; }
 h3 { font-size: 0.99rem; margin: 24px 0 8px; color: var(--navy); letter-spacing: -0.01em; font-weight: 600; }
+/* In dark mode --navy is a background colour, darker than the page itself, so
+   a heading asking for it vanishes. Headings follow the ink colour there. */
+@media (prefers-color-scheme: dark) {
+  h3 { color: var(--ink); }
+}
 p.lede { color: var(--muted); margin: 4px 0 20px; }
 
 /* ---- cards ---- */
@@ -938,12 +943,19 @@ body { font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif; }
      whole page sideways on a narrow screen. */
   overflow-x: auto;
 }
-.note-html figure.fig svg {
+.note-html figure.fig svg,
+.note-html figure.fig img {
   display: block;
   width: 100%;
   height: auto;
   min-width: 320px;
   margin: 0 auto;
+}
+/* The drawn figures are PNG on a white ground, so they keep their own
+   background in dark mode instead of turning into dark shapes on dark. */
+.note-html figure.fig img {
+  border-radius: 6px;
+  background: #ffffff;
 }
 .note-html figure.fig figcaption {
   margin-top: 10px;
@@ -982,6 +994,55 @@ body { font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif; }
 
 @media (prefers-color-scheme: dark) {
   .note-html .objectives p { color: var(--cyan); }
+}
+
+/* ---------------------------------------------------------------------
+   The two blocks that close a student note.
+
+   "In short" gathers the four things worth carrying away. "Test yourself"
+   holds the answer under each question rather than at the back, because a
+   learner checking their own work should not have to go hunting for it.
+   --------------------------------------------------------------------- */
+
+.note-html .in-short {
+  border-left: 3px solid var(--gold);
+  background: var(--gold-soft);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 26px 0 22px;
+}
+.note-html .in-short h3 {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--gold-ink);
+}
+.note-html .in-short ul { margin: 0; padding-left: 20px; }
+.note-html .in-short li { margin-bottom: 5px; font-size: 0.93rem; }
+
+.note-html .quiz {
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 24px 0;
+}
+.note-html .quiz h3 {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+}
+.note-html .quiz ol { margin: 0; padding-left: 20px; }
+.note-html .quiz li { margin-bottom: 14px; }
+.note-html .quiz p.q { margin: 0 0 5px; font-weight: 600; }
+.note-html .quiz p.a {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding-left: 12px;
+  border-left: 2px solid var(--rule);
 }
 
 /* Code samples appear in most of the programming lessons. */

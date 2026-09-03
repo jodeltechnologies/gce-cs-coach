@@ -1,258 +1,215 @@
-# Deploying the Lower Sixth notes
+# Progression sheets, timetable and student notes
 
-No terminal. No commands. Upload files on github.com, paste SQL into Supabase,
-click buttons. About twenty-five minutes, most of it waiting.
+Everything in one download. Three parts, in this order.
 
-What you are adding: 71 written notes for Lower Sixth ICT, one for every
-teaching lesson and every practical on the progression sheet, with 30 drawn
-diagrams. And a fix — Lower Sixth students currently open Notes and are told
-their year's notes are not ready. After this they see all 71.
+| | Where | Roughly |
+|---|---|---|
+| **Part 1** | GitHub, 56 files | 5 minutes |
+| **Part 2** | Supabase, 2 files | 5 minutes |
+| **Part 3** | Supabase, 1 file | 2 minutes |
 
-Do the parts in order. **Part 2 is the long one; do not stop in the middle of
-it.**
+**Take a Supabase backup before Part 2.** Dashboard, then Database, then
+Backups. I could not run any of this SQL against a live database while writing
+it, so treat the first run as untested.
 
 ---
 
-## Part 1 — Put the files on GitHub
+## Read this first
+
+### The Lower Sixth workload does not add up
+
+The new ICT sheet asks for **8 periods a week**. Your timetable gives Lower
+Sixth **2**, being one Thursday double period. The sheet holds 105 numbered
+lessons across 31 teaching weeks. At one double period a week, less the three
+Thursdays lost to public holidays, that is about 28 sittings for 105 lessons.
+
+It cannot be taught as timetabled, and no work on this app changes that. After
+Part 1 the Lower Sixth sheet says so in red at the top of the page, so you have
+something to point at. Form 5 is fine. The sheet asks for 3 periods and both 5A
+and 5B get 3.
+
+You mentioned extra periods after school on Tuesday and Thursday. Send me the
+times and I will put them in, which is a four line change to
+`lib/school-calendar.js`.
+
+### Most Lower Sixth notes will come off their lessons
+
+The new ICT sheet is a different document from the old one, not a revision of
+it. Of the 71 notes loaded in August, **3** have a lesson of the same name on
+the new sheet.
+
+The notes themselves are safe and students keep seeing them, because they are
+scoped by source rather than by lesson. What is lost is the reading link from
+the progression sheet, and Part 3 replaces that for all 43 First Term lessons
+anyway. Form 5 comes through far better, keeping **61 of 68**.
+
+### Nothing is deleted
+
+Seven tables hang off lessons, including your uploaded handouts, your question
+tagging and student progress. Five would be destroyed by a delete and two would
+refuse it outright. So old rows are archived instead, and attachments are
+carried across to the new row of the same name.
+
+---
+
+## Part 1, GitHub
 
 Sign in at **github.com** and open your `gce-cs-coach` repository.
 
-### 1.1 The notes folder
+1. **Add file**, then **Upload files**.
+2. Drag the `app`, `lib`, `db`, `tools` and `public` folders in together.
+   GitHub keeps the structure and overwrites only the files listed below.
+3. Commit message: `2026/2027 sheets, timetable and student notes`
+4. **Commit changes**.
 
-1. Click **Add file** (top right, next to the green Code button) → **Upload
-   files**.
-2. Drag the whole **`tools`** folder from the download into the dashed box.
-   GitHub keeps the folder structure, so `lesson_notes_l6` and everything in it
-   lands in the right place.
-3. Scroll down. In the box under **Commit changes**, type:
-   `Lower Sixth ICT lesson notes`
-4. Click **Commit changes**.
+Wait for Vercel to say **Ready** before starting Part 2. Two or three minutes.
 
-### 1.2 The database files
+### What is in it
 
-1. **Add file** → **Upload files** again.
-2. Drag the whole **`db`** folder in.
-3. Commit message: `Lower Sixth notes SQL`
-4. Click **Commit changes**.
+| Area | Files |
+|---|---|
+| The sheets | `db/seed/02_...sql`, `db/seed/03_...sql`, and their two YAML files |
+| The notes | `db/seed/11_student_notes_term1.sql` |
+| Figures | 22 PNG diagrams under `public/notes/figures` |
+| Tools | `tools/build_progression.py`, `tools/extract_progression.py`, `tools/notes/` |
+| Pages | 15 files under `app/`, plus `lib/school-calendar.js` |
 
-### 1.3 The stylesheet
+Twelve of the page files change for one reason. They now ignore archived rows.
+Nothing had ever been archived before, so the filter was never needed. Without
+it you would see the old sheet and the new one mixed together on every screen.
 
-This one replaces a file you already have, so it works differently.
-
-1. In your repository, click into the **`app`** folder, then click
-   **`globals.css`** to open it.
-2. Click the **pencil** icon (top right of the file) to edit it.
-3. Select everything in the box — click inside it, then **Ctrl+A** (**Cmd+A** on
-   a Mac) — and press **Delete**.
-4. Open the `globals.css` from the download in Notepad or TextEdit, select all,
-   copy, and paste it into the empty GitHub box.
-5. Scroll down, commit message `Style the drawn diagrams`, click **Commit
-   changes**.
-
-Miss this file and the diagrams still appear, but with no border, and a wide one
-pushes the whole page sideways on a phone.
-
-### 1.4 The two guides
-
-Same as 1.1: **Add file** → **Upload files**, drag in `UPLOAD.md` and
-`DEPLOYMENT.md`, commit.
-
-### 1.5 Let Vercel finish
-
-Nothing to do. Vercel noticed the first commit and is already rebuilding. Open
-**vercel.com** → your project → **Deployments** if you want to watch it. Two or
-three minutes, and it must say **Ready** before Part 3.
-
-Only the stylesheet affects the website, so there is no new setting and no
-environment variable to add.
+`app/globals.css` also carries two fixes. Figures in notes were styled only for
+inline drawings, so the new images would not have been sized. And every `h3`
+heading on the site asked for `--navy`, which in dark mode is darker than the
+page background, so **every heading was invisible in dark mode**. That was there
+before today and it affected the notes you already had.
 
 ---
 
-## Part 2 — Load the notes into Supabase
+## Part 2, the progression sheets
 
-The notes are 280 KB of SQL. That is too much for the web SQL editor in one
-paste, so they come as **seven small files** in
-`db/seed/lower_sixth_notes_parts/`. You run them one at a time, in alphabetical
-order — a, b, c, d, e, f, g.
+**SQL Editor**, then **New query**. Two files, whole, one at a time, in this
+order.
 
-| File | What it does | Size |
+1. `db/seed/02_form5_computer_science.sql`
+2. `db/seed/03_lower_sixth_ict.sql`
+
+Each is one transaction. It either does all of it or none of it. Both are safe
+to run twice, because the row ids come from the sheet.
+
+Expect these counts.
+
+| | Form 5 | Lower Sixth |
 |---|---|---|
-| `10a_lower_sixth_notes.sql` | Creates the notes source | 2 KB |
-| `10b_lower_sixth_notes.sql` | Notes 1–19 | 56 KB |
-| `10c_lower_sixth_notes.sql` | Notes 20–34 | 56 KB |
-| `10d_lower_sixth_notes.sql` | Notes 35–49 | 56 KB |
-| `10e_lower_sixth_notes.sql` | Notes 50–61 | 55 KB |
-| `10f_lower_sixth_notes.sql` | Notes 62–71 | 51 KB |
-| `10g_lower_sixth_notes.sql` | Attaches them to lessons, fixes the year | 4 KB |
-
-### Do this seven times
-
-1. Go to **supabase.com/dashboard** → your `gce-cs-coach` project.
-2. Click **SQL Editor** in the left sidebar.
-3. Click **New query**.
-4. Open `10a_lower_sixth_notes.sql` in Notepad or TextEdit. **Ctrl+A**,
-   **Ctrl+C**.
-5. Click in the Supabase query box, **Ctrl+V**.
-6. Click **Run** (or Ctrl+Enter). Wait for **Success**.
-7. Repeat from step 3 with `10b`, then `10c`, and so on to `10g`.
-
-Paste each file whole. Do not paste half of one, and do not paste two into the
-same query — each file is a single transaction that has to open and close in one
-run.
-
-Some of the notes are long, so `10b` to `10f` may take ten or fifteen seconds
-each and the browser may look frozen. Leave it. It is finished when the green
-**Success** appears.
-
-**If you lose your place, start that file again.** Running any of these twice is
-safe: they update what is there rather than adding a second copy. Running all
-seven again from the start is also safe.
-
-**`10g` is the important one.** It attaches the notes to the lessons and installs
-the fix that keeps each year's notes to that year. If you stop before it, the
-notes are in the database but no student can see them.
-
-When `10g` finishes it prints a small table underneath. It should read something
-like:
-
-| source | notes |
-|---|---|
-| Form 5 Computer Science — lesson notes | 19 |
-| Lower Sixth ICT lesson notes | **71** |
-| O-Level Computer Science Notes, Part 1 | 4 |
-| Form 5 Computer Science Notes, Part 2 | 4 |
-
-If the Lower Sixth line says 71, Part 2 worked.
+| rows on the new sheet | 105 | 125 |
+| numbered lessons | 91 | 105 |
+| objectives | 172 | 376 |
+| categories of action | 23 | 26 |
+| modules | 7 | 4 |
 
 ### If a file gives a red error
 
-Read the first line of the message.
+**`violates check constraint`** means the `ALTER TABLE` at the top did not run,
+so you pasted from partway down. Clear the box and paste the whole file.
 
-**`relation "note_sections" does not exist`** — you are in the wrong Supabase
-project, or the schema was never loaded. Check the project name at the top left.
+**`relation "new_lesson_ids" already exists`** means a previous run stopped
+halfway. Harmless. Run the file again from the top.
 
-**`syntax error at or near`** — a partial paste. Clear the box and paste that
-whole file again.
+**`Key (syllabus_id)=(...) is not present in table "syllabi"`** should no longer
+happen. An earlier version of these files hard-coded a syllabus id from the
+August seed. They now look the row up by form level.
 
-**`null value in column "note_source_id"`** — you ran a notes file before `10a`.
-Run `10a`, then carry on from where you were.
-
----
-
-## Part 3 — Check it worked
-
-Two accounts, and the answer to both should have changed.
-
-**A Lower Sixth student.** Sign in at `/student/login` with their code. Open
-**Notes**. There should be 71 lessons under *Lower Sixth ICT lesson notes*. Open
-one with a drawing in it — try **Processor architecture**, **Boolean Logic and
-Logic Gates**, or **Phases of SDLC** — and the diagram should be there and
-sharp. If your phone is in dark mode, it should still read clearly.
-
-Before today that student saw an empty page saying their year's notes were being
-prepared.
-
-**A Form 5 student.** Sign in as one. They should see exactly what they saw
-before, and **no Lower Sixth notes at all**. If Lower Sixth material shows up in
-a Form 5 account, `10g` did not run — go back and run it.
-
-If you have no student account handy, **SQL Editor → New query**, paste this,
-**Run**:
-
-```sql
-SELECT src.title AS source, sy.form_level AS belongs_to, count(*) AS notes
-FROM note_sections s
-JOIN note_sources src ON src.id = s.note_source_id
-LEFT JOIN syllabi sy ON sy.id = src.syllabus_id
-WHERE s.deleted_at IS NULL
-GROUP BY src.title, sy.form_level
-ORDER BY src.title;
-```
-
-The Lower Sixth line must say **Lower Sixth** under `belongs_to` and **71** under
-`notes`. A written source with a blank `belongs_to` is one that will be shown to
-every student in the school.
-
-And this should return **94**:
-
-```sql
-SELECT count(*) FROM lesson_note_sections lns
-JOIN note_sections s ON s.id = lns.note_section_id
-WHERE s.note_source_id = '7df11f03-a526-56c6-abb9-562db2871de7';
-```
-
-94 links from 71 notes across 103 rows on the sheet. More links than notes
-because the practicals repeat — *Practical: Presentation* is fourteen lessons
-sharing one note. Fewer than rows because nine rows are the evaluations, the
-integration activities and the diagnostic week, which have no reading. A note
-there would be padding, and a student who opens one expecting help and finds
-padding trusts the next one less.
+Anything else, stop and send me the message.
 
 ---
 
-## If you need to undo it
+## Part 3, the student notes
 
-**SQL Editor → New query**, paste, **Run**:
+Same place. Paste `db/seed/11_student_notes_term1.sql` whole and run it.
 
-```sql
-DELETE FROM note_sources WHERE title = 'Lower Sixth ICT lesson notes';
-```
+Expect **43 notes loaded** and **43 attached to a lesson**. If the third line,
+`not matched to any lesson`, is anything other than zero, tell me which ones.
 
-That removes the 71 notes and their links and leaves everything else untouched.
-The Form 5 notes, the booklet chapters, your students, marks and classes are all
-in other rows. You can re-run Part 2 afterwards.
-
-This does **not** undo the year fix in `10g`, and you would not want it to — that
-is what stops a Form 5 student being shown the wrong year.
+Part 2 must be done first. The notes attach themselves to lessons by name, so
+the lessons have to exist.
 
 ---
 
-## Correcting a note later
+## Check it worked
 
-You do not need the terminal for a small fix either.
-
-1. On GitHub, open `tools/lesson_notes_l6/` and click the term file that holds
-   the lesson — `term1.py`, `term2.py` or `term3.py`.
-2. Click the **pencil**, use **Ctrl+F** to find the lesson title, fix the words,
-   commit.
-
-That corrects the written source, which is what the next person to rebuild will
-read. It does **not** change what students see — the database still holds the old
-wording. To push a correction through to students you need the file rebuilt, and
-that does need the command line. Send me the change and I will send back a
-replacement part file to paste.
-
-If you only need one note fixed quickly, it is faster to edit it in the app at
-**/admin/notes**.
+- **Form 5** and **Lower Sixth** sheets. Module bands in small capitals above
+  the categories. Competency statements on the Form 5 categories, which the old
+  sheet did not have. The red workload note at the top of Lower Sixth.
+- **Admin, then My timetable.** 5A and 5B show `3 periods` with a tick. Lower
+  Sixth shows `2 periods of 8` in red.
+- **Open any First Term lesson.** The note should be there, with its diagram.
+  Try Lesson 13 on the instruction cycle, or Lesson 34 on cell referencing.
+- **Switch your phone to dark mode** and open a note. Headings should be
+  readable. Before this upload they were not.
+- **Sign in as a Lower Sixth student and open Notes.** All 71 old notes should
+  still be listed, plus the new ones. If a student sees an empty Notes page,
+  tell me before doing anything else.
 
 ---
 
-## Notes for whoever has a terminal
+## The notes
 
-Everything above has a one-line equivalent.
+43 of them, covering every First Term lesson on the new sheets that had none.
+40 for Lower Sixth and 3 for Form 5, being the new AI lessons.
 
-```bash
-psql "YOUR-CONNECTION-STRING" -f db/seed/10_lesson_pages_l6.sql
-```
+They are written for the student rather than for you. There is nothing in them
+about examiners, mark schemes or losing marks. A note that spends its last
+paragraph coaching a candidate teaches the reader that the topic is worth
+guessing at rather than worth knowing.
 
-That single file is the same content as the seven parts. Rebuild both after
-editing the notes:
+Each one opens with what the lesson covers, taken from the sheet itself, and
+closes with **In short** and **Test yourself**, where the answer sits under each
+question rather than at the back.
 
-```bash
-cd tools
-python3 load_lesson_pages_l6.py                     # 71 / none / none
-python3 load_lesson_pages_l6.py --emit-sql > ../db/seed/10_lesson_pages_l6.sql
-python3 load_lesson_pages_l6.py --emit-parts ../db/seed/lower_sixth_notes_parts
-```
+`tools/notes/style.py` holds the writing rules and fails the build when they are
+broken. No em dashes, no semicolons, no ellipses, plain words in place of formal
+ones, and no exam coaching. All 43 pass with nothing flagged.
 
-The first command is the one that matters. It prints two lists that must both be
-empty: notes whose title is not on the progression sheet, and lessons on the
-sheet with no note. A title that drifts by one word stops matching and the note
-silently detaches from its lesson — nobody notices until a student cannot find
-the reading for a Thursday.
+The **Word document** is separate and is your copy. It keeps the exam guidance,
+because that is useful to you and not to them.
 
-`10_lesson_pages_l6.sql` must run after `08_lesson_notes.sql` and
-`09_lesson_pages.sql`. All three define the function that decides which notes a
-student sees, and the last one to run wins. Re-run 08 or 09 later and you must
-re-run this one after it. There is no `db/phase13.sql`; that fix now lives at the
-foot of this file and in part `10g`.
+### The figures
+
+22 diagrams, drawn rather than taken from the web. A photograph of a processor
+teaches nothing that a labelled diagram does not teach better, and anything
+found online would carry someone else's copyright into your classroom.
+
+They cover the topics that were hardest to follow as plain words. The fetch,
+decode and execute cycle. The order of memory. Von Neumann against Harvard. A
+worked Gantt chart showing the convoy effect. Flynn's four categories. The
+storage ladder with the bit and byte trap. The nested circles of AI and machine
+learning. The workstation. The spreadsheet grid. Relative against absolute
+referencing side by side. How a virus spreads against how a worm spreads.
+
+---
+
+## Things to check yourself
+
+- **The Cameroon law references.** Law No. 2010/012 of 21 December 2010, Law
+  No. 2010/013, and OAPI for copyright, in Lower Sixth lessons 36 and 37. The
+  notes tell students to confirm them with you. Please confirm or correct them.
+- **The local examples.** Mobile money fraud detection, crop disease apps, power
+  supply and surge protection. Swap any that do not land with your students.
+- **Terms 2 and 3** are not written yet. That is 61 more Lower Sixth notes and 6
+  more for Form 5.
+
+---
+
+## Rebuilding later
+
+Nothing here should be hand edited. Everything generated comes from a tool.
+
+    cd tools
+    pip install pdfplumber pyyaml
+    SHEET_DIR=/path/to/pdfs python3 build_progression.py ..
+    python3 load_curriculum.py --validate curriculum/*.yaml     # must be 0 errors
+
+    cd notes
+    node render_figures.mjs && cp fig/*.png ../../public/notes/figures/
+    python3 style.py                                            # must be 0 problems
+    python3 emit_notes.py ../../db/seed/11_student_notes_term1.sql
