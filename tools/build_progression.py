@@ -199,7 +199,7 @@ SHEETS = {
         pdf=os.path.join(SHEET_DIR, "2026-2027_National_progression_sheet_for_Fom_5.pdf"),
         # Reused, not regenerated: note_sources.syllabus_id and classes.syllabus_id
         # point here, and a new id would orphan every note and every class.
-        syllabus_id="d280ec19-0e1f-436e-806e-f8c5fcdf9c6b",
+        fallback_id="d280ec19-0e1f-436e-806e-f8c5fcdf9c6b",
         yaml_name="form5_computer_science",
         sql_name="02_form5_computer_science",
         syllabus=dict(
@@ -218,7 +218,7 @@ SHEETS = {
     ),
     "l6": dict(
         pdf=os.path.join(SHEET_DIR, "2026-2027_ICT_Lower_Sixth_Progression_Sheet.pdf"),
-        syllabus_id="b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c",
+        fallback_id="b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c",
         yaml_name="lower_sixth_ict",
         sql_name="03_lower_sixth_ict",
         syllabus=dict(
@@ -323,8 +323,20 @@ def q(v):
 
 def emit_sql(key, doc):
     cfg = SHEETS[key]
-    sid = cfg["syllabus_id"]
+    fallback = cfg["fallback_id"]
+    # Identifies rows in this file only. The real syllabus id is whatever the
+    # database already holds for this form level; see TARGET below.
+    sid = fallback
     syl = doc["syllabus"]
+    # The syllabus row is found, not assumed. An earlier version of this file
+    # hard-coded the id from the August seed; on a database where that seed had
+    # never run under that id, every insert below failed the foreign key with
+    # "Key (syllabus_id)=(...) is not present in table syllabi".
+    #
+    # Resolved by form level instead, preferring the row that classes and notes
+    # are actually attached to, and created only if the form level has no sheet
+    # at all.
+    TARGET = "(SELECT id FROM target_syllabus)"
     o = []
     W = o.append
 
@@ -368,7 +380,70 @@ def emit_sql(key, doc):
     W("                  'evaluation','remediation','practical','revision'));")
     W("")
     W("-- ------------------------------------------------------------------")
-    W("-- 1. What this sheet is going to consist of.")
+    W("-- 1. Find the syllabus row this sheet belongs to.")
+    W("--")
+    W("-- Found rather than assumed. Hard-coding the id from an earlier seed")
+    W("-- fails on any database where that seed ran with a different one, and it")
+    W("-- fails late: the UPDATE silently matches nothing and the first INSERT")
+    W("-- then reports a foreign key violation with no hint of the cause.")
+    W("--")
+    W("-- Preference order is the row your classes point at, then the row your")
+    W("-- notes point at, then the oldest. Those are the same row on a healthy")
+    W("-- database; where they differ, the classes win, because that is the sheet")
+    W("-- your students are actually attached to.")
+    W("-- ------------------------------------------------------------------")
+    W("")
+    W(f"INSERT INTO subjects (name) VALUES ({q(syl['subject'])}) ON CONFLICT (name) DO NOTHING;")
+    W(f"INSERT INTO levels (name, short_name) VALUES ({q(syl['level'])}, {q(syl['level_short'])}) ON CONFLICT (name) DO NOTHING;")
+    W("")
+    W("DROP TABLE IF EXISTS target_syllabus;")
+    W("CREATE TEMP TABLE target_syllabus AS")
+    W("SELECT s.id FROM syllabi s")
+    W(f" WHERE s.form_level = {q(syl['form_level'])} AND s.deleted_at IS NULL")
+    W(" ORDER BY (SELECT count(*) FROM classes c WHERE c.syllabus_id = s.id) DESC,")
+    W("          (SELECT count(*) FROM note_sources n WHERE n.syllabus_id = s.id) DESC,")
+    W("          s.created_at")
+    W(" LIMIT 1;")
+    W("")
+    W("-- Nothing for this form level yet, so start one.")
+    W("INSERT INTO syllabi (")
+    W("  id, subject_id, level_id, title, form_level, issuing_authority, scope,")
+    W("  region, version_label, effective_from, total_weeks, weekly_periods_theory,")
+    W("  weekly_periods_practical, coefficient, module_label, has_modules,")
+    W("  uses_competencies, has_competency_statements, has_practical_stream)")
+    W("SELECT")
+    W(f"  {q(fallback)},")
+    W(f"  (SELECT id FROM subjects WHERE name = {q(syl['subject'])}),")
+    W(f"  (SELECT id FROM levels   WHERE name = {q(syl['level'])}),")
+    W(f"  {q(syl['title'])}, {q(syl['form_level'])}, {q(syl['issuing_authority'])},")
+    W(f"  {q(syl['scope'])}, {q(syl['region'])}, {q(syl['version_label'])},")
+    W(f"  {q(syl['effective_from'])}, {q(syl['total_weeks'])},")
+    W(f"  {q(syl['weekly_periods_theory'])}, {q(syl['weekly_periods_practical'])},")
+    W(f"  {q(syl['coefficient'])}, {q(syl['module_label'])}, {q(syl['has_modules'])},")
+    W(f"  {q(syl['uses_competencies'])}, {q(syl['has_competency_statements'])},")
+    W(f"  {q(syl['has_practical_stream'])}")
+    W("WHERE NOT EXISTS (SELECT 1 FROM target_syllabus)")
+    W("ON CONFLICT (id) DO NOTHING;")
+    W("")
+    W("DROP TABLE IF EXISTS target_syllabus;")
+    W("CREATE TEMP TABLE target_syllabus AS")
+    W("SELECT s.id FROM syllabi s")
+    W(f" WHERE s.form_level = {q(syl['form_level'])} AND s.deleted_at IS NULL")
+    W(" ORDER BY (SELECT count(*) FROM classes c WHERE c.syllabus_id = s.id) DESC,")
+    W("          (SELECT count(*) FROM note_sources n WHERE n.syllabus_id = s.id) DESC,")
+    W("          s.created_at")
+    W(" LIMIT 1;")
+    W("")
+    W("-- Stop here, loudly, rather than fail forty inserts later with a foreign")
+    W("-- key message that says nothing about what went wrong.")
+    W("DO $$ BEGIN")
+    W("  IF NOT EXISTS (SELECT 1 FROM target_syllabus) THEN")
+    W(f"    RAISE EXCEPTION 'No syllabus row for {syl['form_level']} and none could be created';")
+    W("  END IF;")
+    W("END $$;")
+    W("")
+    W("-- ------------------------------------------------------------------")
+    W("-- 2. What this sheet is going to consist of.")
     W("-- ------------------------------------------------------------------")
     W("")
     W("DROP TABLE IF EXISTS new_lesson_ids;")
@@ -391,7 +466,7 @@ def emit_sql(key, doc):
     W("DROP TABLE IF EXISTS old_lessons;")
     W("CREATE TEMP TABLE old_lessons AS")
     W("SELECT id, title, status, content FROM lessons")
-    W(f" WHERE syllabus_id = {q(sid)} AND deleted_at IS NULL")
+    W(f" WHERE syllabus_id = {TARGET} AND deleted_at IS NULL")
     W("   AND id NOT IN (SELECT id FROM new_lesson_ids);")
     W("")
     W("-- Exam frequency is the teacher's judgement, not the Ministry's, and it")
@@ -399,14 +474,11 @@ def emit_sql(key, doc):
     W("DROP TABLE IF EXISTS old_freq;")
     W("CREATE TEMP TABLE old_freq AS")
     W("SELECT category_of_action, exam_frequency, continues_from_id, link_confirmed")
-    W(f"  FROM competencies WHERE syllabus_id = {q(sid)} AND exam_frequency IS NOT NULL;")
+    W(f"  FROM competencies WHERE syllabus_id = {TARGET} AND exam_frequency IS NOT NULL;")
     W("")
     W("-- ------------------------------------------------------------------")
-    W("-- 2. The sheet header")
+    W("-- 3. The sheet header")
     W("-- ------------------------------------------------------------------")
-    W("")
-    W(f"INSERT INTO subjects (name) VALUES ({q(syl['subject'])}) ON CONFLICT (name) DO NOTHING;")
-    W(f"INSERT INTO levels (name, short_name) VALUES ({q(syl['level'])}, {q(syl['level_short'])}) ON CONFLICT (name) DO NOTHING;")
     W("")
     W("UPDATE syllabi SET")
     W(f"  subject_id = (SELECT id FROM subjects WHERE name = {q(syl['subject'])}),")
@@ -427,10 +499,10 @@ def emit_sql(key, doc):
     W(f"  has_competency_statements = {q(syl['has_competency_statements'])},")
     W(f"  has_practical_stream = {q(syl['has_practical_stream'])},")
     W("  updated_at = now()")
-    W(f"WHERE id = {q(sid)};")
+    W(f"WHERE id = {TARGET};")
     W("")
     W("-- ------------------------------------------------------------------")
-    W("-- 3. Archive the outgoing rows.")
+    W("-- 4. Archive the outgoing rows.")
     W("--")
     W("-- The sequence has to move because of UNIQUE (syllabus_id, sequence),")
     W("-- which a soft delete does not exempt a row from. Offsetting past the")
@@ -442,17 +514,17 @@ def emit_sql(key, doc):
         extra = ", status = 'archived'" if tbl == "lessons" else ""
         W(f"UPDATE {tbl} SET deleted_at = now(){extra},")
         W(f"  sequence = sequence + 1000 + (SELECT coalesce(max(sequence), 0)")
-        W(f"                                  FROM {tbl} WHERE syllabus_id = {q(sid)})")
-        W(f" WHERE syllabus_id = {q(sid)} AND deleted_at IS NULL")
+        W(f"                                  FROM {tbl} WHERE syllabus_id = {TARGET})")
+        W(f" WHERE syllabus_id = {TARGET} AND deleted_at IS NULL")
         W(f"   AND id NOT IN (SELECT id FROM {tmp});")
         W("")
     W("-- ------------------------------------------------------------------")
-    W("-- 4. The new sheet")
+    W("-- 5. The new sheet")
     W("-- ------------------------------------------------------------------")
     W("")
     for m in doc["modules"]:
         W(f"INSERT INTO modules (id, syllabus_id, title, sequence) VALUES "
-          f"({q(ids[('m', m['title'])])}, {q(sid)}, {q(m['title'])}, {q(m['sequence'])})")
+          f"({q(ids[('m', m['title'])])}, {TARGET}, {q(m['title'])}, {q(m['sequence'])})")
         W("ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, "
           "sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();")
     W("")
@@ -460,7 +532,7 @@ def emit_sql(key, doc):
         stmt = " ".join(c["statement"].split()) if c.get("statement") else None
         W(f"INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, "
           f"competency_statement, sequence) VALUES ({q(ids[('c', c['category'])])}, "
-          f"{q(sid)}, {q(ids.get(('m', c.get('module'))))}, {q(c['category'])}, "
+          f"{TARGET}, {q(ids.get(('m', c.get('module'))))}, {q(c['category'])}, "
           f"{q(stmt)}, {q(c['sequence'])})")
         W("ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, "
           "category_of_action = EXCLUDED.category_of_action, competency_statement = "
@@ -478,7 +550,7 @@ def emit_sql(key, doc):
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  {q(lid)}, {q(sid)}, {q(ids.get(('m', ls.get('module'))))},
+  {q(lid)}, {TARGET}, {q(ids.get(('m', ls.get('module'))))},
   {q(ids.get(('c', ls.get('competency'))))},
   {q(ls.get('lesson_no'))}, {q(ls.get('lesson_no'))}, {q(ls['title'])},
   {q(ls['term'])}, {q(ls['week'])}, {q(ls.get('week_to', ls['week']))},
@@ -498,7 +570,7 @@ def emit_sql(key, doc):
 
     W("")
     W("-- ------------------------------------------------------------------")
-    W("-- 5. Carry the attachments across.")
+    W("-- 6. Carry the attachments across.")
     W("--")
     W("-- Matched on the lesson title, stripped of case and punctuation, and")
     W("-- ONLY where that title is unique on both sides. Twenty-three rows are")
@@ -521,7 +593,7 @@ def emit_sql(key, doc):
     W("    SELECT n.id,")
     W("           lower(regexp_replace(n.title, '[^a-zA-Z0-9]', '', 'g')) AS key,")
     W("           count(*) OVER (PARTITION BY lower(regexp_replace(n.title, '[^a-zA-Z0-9]', '', 'g'))) AS c")
-    W(f"      FROM lessons n WHERE n.syllabus_id = {q(sid)} AND n.deleted_at IS NULL) t")
+    W(f"      FROM lessons n WHERE n.syllabus_id = {TARGET} AND n.deleted_at IS NULL) t")
     W("  WHERE c = 1)")
     W("SELECT o.id AS old_id, n.id AS new_id, o.status AS old_status, o.content AS old_content")
     W("  FROM old_u o JOIN new_u n USING (key);")
@@ -541,7 +613,7 @@ def emit_sql(key, doc):
     W("UPDATE competencies c SET exam_frequency = f.exam_frequency,")
     W("       continues_from_id = f.continues_from_id, link_confirmed = f.link_confirmed")
     W("  FROM old_freq f")
-    W(f" WHERE c.syllabus_id = {q(sid)} AND c.deleted_at IS NULL")
+    W(f" WHERE c.syllabus_id = {TARGET} AND c.deleted_at IS NULL")
     W("   AND c.category_of_action = f.category_of_action;")
     W("")
     W("-- Written notes attach to the lesson of the same name, rebuilt from the")
@@ -552,8 +624,8 @@ def emit_sql(key, doc):
     W("  JOIN note_sources src ON src.id = s.note_source_id")
     W("  JOIN lessons l ON lower(regexp_replace(l.title, '[^a-zA-Z0-9]', '', 'g'))")
     W("                 = lower(regexp_replace(s.title, '[^a-zA-Z0-9]', '', 'g'))")
-    W(f" WHERE l.syllabus_id = {q(sid)} AND l.deleted_at IS NULL")
-    W(f"   AND src.syllabus_id = {q(sid)} AND s.deleted_at IS NULL")
+    W(f" WHERE l.syllabus_id = {TARGET} AND l.deleted_at IS NULL")
+    W(f"   AND src.syllabus_id = {TARGET} AND s.deleted_at IS NULL")
     W("ON CONFLICT (lesson_id, note_section_id) DO NOTHING;")
     W("")
     W("COMMIT;")
@@ -563,29 +635,29 @@ def emit_sql(key, doc):
     W("-- ------------------------------------------------------------------")
     W("")
     W("SELECT 'rows on the new sheet' AS item, count(*)::text AS value FROM lessons")
-    W(f" WHERE syllabus_id = {q(sid)} AND deleted_at IS NULL")
+    W(f" WHERE syllabus_id = {TARGET} AND deleted_at IS NULL")
     W("UNION ALL SELECT 'numbered lessons', count(*)::text FROM lessons")
-    W(f" WHERE syllabus_id = {q(sid)} AND deleted_at IS NULL AND lesson_no_start IS NOT NULL")
+    W(f" WHERE syllabus_id = {TARGET} AND deleted_at IS NULL AND lesson_no_start IS NOT NULL")
     W("UNION ALL SELECT 'objectives', count(*)::text FROM objectives o")
-    W(f" JOIN lessons l ON l.id = o.lesson_id WHERE l.syllabus_id = {q(sid)} AND l.deleted_at IS NULL")
+    W(f" JOIN lessons l ON l.id = o.lesson_id WHERE l.syllabus_id = {TARGET} AND l.deleted_at IS NULL")
     W("UNION ALL SELECT 'categories of action', count(*)::text FROM competencies")
-    W(f" WHERE syllabus_id = {q(sid)} AND deleted_at IS NULL")
+    W(f" WHERE syllabus_id = {TARGET} AND deleted_at IS NULL")
     W("UNION ALL SELECT 'modules', count(*)::text FROM modules")
-    W(f" WHERE syllabus_id = {q(sid)} AND deleted_at IS NULL")
+    W(f" WHERE syllabus_id = {TARGET} AND deleted_at IS NULL")
     W("UNION ALL SELECT 'rows archived from the old sheet', count(*)::text FROM lessons")
-    W(f" WHERE syllabus_id = {q(sid)} AND deleted_at IS NOT NULL")
+    W(f" WHERE syllabus_id = {TARGET} AND deleted_at IS NOT NULL")
     W("UNION ALL SELECT 'notes attached to a lesson', count(*)::text")
     W("  FROM lesson_note_sections lns JOIN lessons l ON l.id = lns.lesson_id")
-    W(f" WHERE l.syllabus_id = {q(sid)} AND l.deleted_at IS NULL")
+    W(f" WHERE l.syllabus_id = {TARGET} AND l.deleted_at IS NULL")
     W("UNION ALL SELECT 'notes with no lesson on the new sheet', count(*)::text")
     W("  FROM note_sections s JOIN note_sources src ON src.id = s.note_source_id")
-    W(f" WHERE src.syllabus_id = {q(sid)} AND s.deleted_at IS NULL")
+    W(f" WHERE src.syllabus_id = {TARGET} AND s.deleted_at IS NULL")
     W("   AND NOT EXISTS (SELECT 1 FROM lesson_note_sections lns")
     W("                     JOIN lessons l ON l.id = lns.lesson_id AND l.deleted_at IS NULL")
     W("                    WHERE lns.note_section_id = s.id)")
     W("UNION ALL SELECT 'uploaded files still attached', count(*)::text")
     W("  FROM lesson_resources r JOIN lessons l ON l.id = r.lesson_id")
-    W(f" WHERE l.syllabus_id = {q(sid)} AND l.deleted_at IS NULL AND r.deleted_at IS NULL;")
+    W(f" WHERE l.syllabus_id = {TARGET} AND l.deleted_at IS NULL AND r.deleted_at IS NULL;")
     return "\n".join(o) + "\n"
 
 

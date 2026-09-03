@@ -26,7 +26,70 @@ ALTER TABLE lessons ADD CONSTRAINT lessons_lesson_kind_check CHECK (
                   'evaluation','remediation','practical','revision'));
 
 -- ------------------------------------------------------------------
--- 1. What this sheet is going to consist of.
+-- 1. Find the syllabus row this sheet belongs to.
+--
+-- Found rather than assumed. Hard-coding the id from an earlier seed
+-- fails on any database where that seed ran with a different one, and it
+-- fails late: the UPDATE silently matches nothing and the first INSERT
+-- then reports a foreign key violation with no hint of the cause.
+--
+-- Preference order is the row your classes point at, then the row your
+-- notes point at, then the oldest. Those are the same row on a healthy
+-- database; where they differ, the classes win, because that is the sheet
+-- your students are actually attached to.
+-- ------------------------------------------------------------------
+
+INSERT INTO subjects (name) VALUES ('Information and Communication Technology') ON CONFLICT (name) DO NOTHING;
+INSERT INTO levels (name, short_name) VALUES ('GCE Advanced Level', 'A/L') ON CONFLICT (name) DO NOTHING;
+
+DROP TABLE IF EXISTS target_syllabus;
+CREATE TEMP TABLE target_syllabus AS
+SELECT s.id FROM syllabi s
+ WHERE s.form_level = 'Lower Sixth' AND s.deleted_at IS NULL
+ ORDER BY (SELECT count(*) FROM classes c WHERE c.syllabus_id = s.id) DESC,
+          (SELECT count(*) FROM note_sources n WHERE n.syllabus_id = s.id) DESC,
+          s.created_at
+ LIMIT 1;
+
+-- Nothing for this form level yet, so start one.
+INSERT INTO syllabi (
+  id, subject_id, level_id, title, form_level, issuing_authority, scope,
+  region, version_label, effective_from, total_weeks, weekly_periods_theory,
+  weekly_periods_practical, coefficient, module_label, has_modules,
+  uses_competencies, has_competency_statements, has_practical_stream)
+SELECT
+  'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c',
+  (SELECT id FROM subjects WHERE name = 'Information and Communication Technology'),
+  (SELECT id FROM levels   WHERE name = 'GCE Advanced Level'),
+  'National Harmonised Lower Sixth Progression Sheet for Information & Communication Technology', 'Lower Sixth', 'Inspectorate General of Education, Inspectorate of Pedagogy in charge of the Teaching of Computer Science',
+  'national', NULL, 'National Harmonised Progression 2026/2027',
+  2026, 36,
+  8, NULL,
+  NULL, 'Module', true,
+  true, false,
+  false
+WHERE NOT EXISTS (SELECT 1 FROM target_syllabus)
+ON CONFLICT (id) DO NOTHING;
+
+DROP TABLE IF EXISTS target_syllabus;
+CREATE TEMP TABLE target_syllabus AS
+SELECT s.id FROM syllabi s
+ WHERE s.form_level = 'Lower Sixth' AND s.deleted_at IS NULL
+ ORDER BY (SELECT count(*) FROM classes c WHERE c.syllabus_id = s.id) DESC,
+          (SELECT count(*) FROM note_sources n WHERE n.syllabus_id = s.id) DESC,
+          s.created_at
+ LIMIT 1;
+
+-- Stop here, loudly, rather than fail forty inserts later with a foreign
+-- key message that says nothing about what went wrong.
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM target_syllabus) THEN
+    RAISE EXCEPTION 'No syllabus row for Lower Sixth and none could be created';
+  END IF;
+END $$;
+
+-- ------------------------------------------------------------------
+-- 2. What this sheet is going to consist of.
 -- ------------------------------------------------------------------
 
 DROP TABLE IF EXISTS new_lesson_ids;
@@ -201,7 +264,7 @@ INSERT INTO new_module_ids (id) VALUES
 DROP TABLE IF EXISTS old_lessons;
 CREATE TEMP TABLE old_lessons AS
 SELECT id, title, status, content FROM lessons
- WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND deleted_at IS NULL
+ WHERE syllabus_id = (SELECT id FROM target_syllabus) AND deleted_at IS NULL
    AND id NOT IN (SELECT id FROM new_lesson_ids);
 
 -- Exam frequency is the teacher's judgement, not the Ministry's, and it
@@ -209,14 +272,11 @@ SELECT id, title, status, content FROM lessons
 DROP TABLE IF EXISTS old_freq;
 CREATE TEMP TABLE old_freq AS
 SELECT category_of_action, exam_frequency, continues_from_id, link_confirmed
-  FROM competencies WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND exam_frequency IS NOT NULL;
+  FROM competencies WHERE syllabus_id = (SELECT id FROM target_syllabus) AND exam_frequency IS NOT NULL;
 
 -- ------------------------------------------------------------------
--- 2. The sheet header
+-- 3. The sheet header
 -- ------------------------------------------------------------------
-
-INSERT INTO subjects (name) VALUES ('Information and Communication Technology') ON CONFLICT (name) DO NOTHING;
-INSERT INTO levels (name, short_name) VALUES ('GCE Advanced Level', 'A/L') ON CONFLICT (name) DO NOTHING;
 
 UPDATE syllabi SET
   subject_id = (SELECT id FROM subjects WHERE name = 'Information and Communication Technology'),
@@ -237,10 +297,10 @@ UPDATE syllabi SET
   has_competency_statements = false,
   has_practical_stream = false,
   updated_at = now()
-WHERE id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c';
+WHERE id = (SELECT id FROM target_syllabus);
 
 -- ------------------------------------------------------------------
--- 3. Archive the outgoing rows.
+-- 4. Archive the outgoing rows.
 --
 -- The sequence has to move because of UNIQUE (syllabus_id, sequence),
 -- which a soft delete does not exempt a row from. Offsetting past the
@@ -249,86 +309,86 @@ WHERE id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c';
 
 UPDATE lessons SET deleted_at = now(), status = 'archived',
   sequence = sequence + 1000 + (SELECT coalesce(max(sequence), 0)
-                                  FROM lessons WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c')
- WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND deleted_at IS NULL
+                                  FROM lessons WHERE syllabus_id = (SELECT id FROM target_syllabus))
+ WHERE syllabus_id = (SELECT id FROM target_syllabus) AND deleted_at IS NULL
    AND id NOT IN (SELECT id FROM new_lesson_ids);
 
 UPDATE competencies SET deleted_at = now(),
   sequence = sequence + 1000 + (SELECT coalesce(max(sequence), 0)
-                                  FROM competencies WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c')
- WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND deleted_at IS NULL
+                                  FROM competencies WHERE syllabus_id = (SELECT id FROM target_syllabus))
+ WHERE syllabus_id = (SELECT id FROM target_syllabus) AND deleted_at IS NULL
    AND id NOT IN (SELECT id FROM new_comp_ids);
 
 UPDATE modules SET deleted_at = now(),
   sequence = sequence + 1000 + (SELECT coalesce(max(sequence), 0)
-                                  FROM modules WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c')
- WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND deleted_at IS NULL
+                                  FROM modules WHERE syllabus_id = (SELECT id FROM target_syllabus))
+ WHERE syllabus_id = (SELECT id FROM target_syllabus) AND deleted_at IS NULL
    AND id NOT IN (SELECT id FROM new_module_ids);
 
 -- ------------------------------------------------------------------
--- 4. The new sheet
+-- 5. The new sheet
 -- ------------------------------------------------------------------
 
-INSERT INTO modules (id, syllabus_id, title, sequence) VALUES ('9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', 'Computing Systems and Components', 1)
+INSERT INTO modules (id, syllabus_id, title, sequence) VALUES ('9d8c1629-d8e2-5770-8a24-d3d706d0737d', (SELECT id FROM target_syllabus), 'Computing Systems and Components', 1)
 ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO modules (id, syllabus_id, title, sequence) VALUES ('2f0e60c8-d69c-5445-bc16-31925a7d6d8e', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', 'Impacting society with digital technologies', 2)
+INSERT INTO modules (id, syllabus_id, title, sequence) VALUES ('2f0e60c8-d69c-5445-bc16-31925a7d6d8e', (SELECT id FROM target_syllabus), 'Impacting society with digital technologies', 2)
 ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO modules (id, syllabus_id, title, sequence) VALUES ('3de0008f-bcac-5962-bbda-493c5b336cae', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', 'Practical Problem solving in the digital world', 3)
+INSERT INTO modules (id, syllabus_id, title, sequence) VALUES ('3de0008f-bcac-5962-bbda-493c5b336cae', (SELECT id FROM target_syllabus), 'Practical Problem solving in the digital world', 3)
 ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO modules (id, syllabus_id, title, sequence) VALUES ('4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', 'Building ICT systems', 4)
+INSERT INTO modules (id, syllabus_id, title, sequence) VALUES ('4ec0615d-ca9c-5b3c-8105-8eadaf108c60', (SELECT id FROM target_syllabus), 'Building ICT systems', 4)
 ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
 
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('65ac05e3-a835-5772-920f-8a919b919fd6', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'History and Evolution of Computing', NULL, 1)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('65ac05e3-a835-5772-920f-8a919b919fd6', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'History and Evolution of Computing', NULL, 1)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('830acb3a-4573-5563-9cda-43602aa2fd30', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '2f0e60c8-d69c-5445-bc16-31925a7d6d8e', 'Exploring AI Concepts', NULL, 2)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('830acb3a-4573-5563-9cda-43602aa2fd30', (SELECT id FROM target_syllabus), '2f0e60c8-d69c-5445-bc16-31925a7d6d8e', 'Exploring AI Concepts', NULL, 2)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('44b5cf57-a434-5c4f-bcc7-707deb75dba0', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Description of computing trends and categorization of computers', NULL, 3)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('44b5cf57-a434-5c4f-bcc7-707deb75dba0', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Description of computing trends and categorization of computers', NULL, 3)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('af1eb006-e993-5b7a-9adf-a5b35f2f9675', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Hardware and Categorisation of Hardware components', NULL, 4)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('af1eb006-e993-5b7a-9adf-a5b35f2f9675', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Hardware and Categorisation of Hardware components', NULL, 4)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('0666fd6c-f109-5674-9bf2-1df9a86a4455', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Computer Software', NULL, 5)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('0666fd6c-f109-5674-9bf2-1df9a86a4455', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Computer Software', NULL, 5)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('31af8d70-30f8-50b4-9b0c-2c0891157ffb', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Operating Systems', NULL, 6)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('31af8d70-30f8-50b4-9b0c-2c0891157ffb', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Operating Systems', NULL, 6)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('10e83d61-1765-5e26-a605-f8d17d8d6733', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Hardware and Software Maintenance', NULL, 7)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('10e83d61-1765-5e26-a605-f8d17d8d6733', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Hardware and Software Maintenance', NULL, 7)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('993300b1-eb0c-5fd2-adf3-ce9054db7ae3', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Assistive technologies and computer ergonomics', NULL, 8)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('993300b1-eb0c-5fd2-adf3-ce9054db7ae3', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Assistive technologies and computer ergonomics', NULL, 8)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('52e21c21-52c0-552e-ac0b-8f57dab65dbd', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Using a word processor', NULL, 9)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('52e21c21-52c0-552e-ac0b-8f57dab65dbd', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d', 'Using a word processor', NULL, 9)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('8b731be1-5f87-5408-a5bc-d50434791e0a', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae', 'Using electronic spreadsheets', NULL, 10)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('8b731be1-5f87-5408-a5bc-d50434791e0a', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae', 'Using electronic spreadsheets', NULL, 10)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('4382cb4f-68be-5032-907b-4d1eed4eefaa', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae', 'Digital Citizenship and Ethics', NULL, 11)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('4382cb4f-68be-5032-907b-4d1eed4eefaa', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae', 'Digital Citizenship and Ethics', NULL, 11)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('caaac11e-b955-53bf-a70d-8c4f81a38dc7', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae', 'Cybersecurity', NULL, 12)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('caaac11e-b955-53bf-a70d-8c4f81a38dc7', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae', 'Cybersecurity', NULL, 12)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('1fb28a5a-011f-598d-a0d2-f99d0e41155c', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae', 'Description of Systems', NULL, 13)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('1fb28a5a-011f-598d-a0d2-f99d0e41155c', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae', 'Description of Systems', NULL, 13)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('166d5a9b-4ea3-5087-87f8-cd35abf03e24', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae', 'Information Systems and Data processing', NULL, 14)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('166d5a9b-4ea3-5087-87f8-cd35abf03e24', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae', 'Information Systems and Data processing', NULL, 14)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('c9785f29-72ff-5342-b8d3-54cc48031baf', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae', 'Artificial Intelligence and emerging technologies', NULL, 15)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('c9785f29-72ff-5342-b8d3-54cc48031baf', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae', 'Artificial Intelligence and emerging technologies', NULL, 15)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('f10ac2bc-d88a-559f-8589-22e3474f0415', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'SDLC and SDLC models', NULL, 16)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('f10ac2bc-d88a-559f-8589-22e3474f0415', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'SDLC and SDLC models', NULL, 16)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('a60b7173-21a6-5d56-8660-147722e05933', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Modelling Data in an Information System', NULL, 17)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('a60b7173-21a6-5d56-8660-147722e05933', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Modelling Data in an Information System', NULL, 17)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('058df9b2-0004-583a-b7c2-295fac317f2c', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Software Testing', NULL, 18)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('058df9b2-0004-583a-b7c2-295fac317f2c', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Software Testing', NULL, 18)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('2669441c-d28a-5263-9573-dcd185ec34e0', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Representing numbers', NULL, 19)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('2669441c-d28a-5263-9573-dcd185ec34e0', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Representing numbers', NULL, 19)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('89d29b21-7f91-5bb5-b490-4cf26298f774', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Building Logic Circuits', NULL, 20)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('89d29b21-7f91-5bb5-b490-4cf26298f774', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Building Logic Circuits', NULL, 20)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('d330ecdb-a288-5bb1-b280-032796a90f61', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Developing Software — Data Types and Structures', NULL, 21)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('d330ecdb-a288-5bb1-b280-032796a90f61', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Developing Software — Data Types and Structures', NULL, 21)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('e1036e41-be20-5f29-b943-18298e4af913', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Designing Software', NULL, 22)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('e1036e41-be20-5f29-b943-18298e4af913', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Designing Software', NULL, 22)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('b7db2566-60df-540e-a8fc-a03089929f1a', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Writing and Testing Algorithms', NULL, 23)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('b7db2566-60df-540e-a8fc-a03089929f1a', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Writing and Testing Algorithms', NULL, 23)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('f2fbc32f-b43b-544a-9bee-83faa31da178', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Programming Paradigms and Software Reuse', NULL, 24)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('f2fbc32f-b43b-544a-9bee-83faa31da178', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Programming Paradigms and Software Reuse', NULL, 24)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('c1597efa-27c6-5b16-85f0-4fd053988465', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Implementing algorithms', NULL, 25)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('c1597efa-27c6-5b16-85f0-4fd053988465', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Implementing algorithms', NULL, 25)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
-INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('6c6f4f78-d9e8-58f0-9640-96df4f295b36', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Writing functions and testing a developed program', NULL, 26)
+INSERT INTO competencies (id, syllabus_id, module_id, category_of_action, competency_statement, sequence) VALUES ('6c6f4f78-d9e8-58f0-9640-96df4f295b36', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60', 'Writing functions and testing a developed program', NULL, 26)
 ON CONFLICT (id) DO UPDATE SET module_id = EXCLUDED.module_id, category_of_action = EXCLUDED.category_of_action, competency_statement = EXCLUDED.competency_statement, sequence = EXCLUDED.sequence, deleted_at = NULL, updated_at = now();
 
 -- Objectives are rebuilt wholesale rather than matched: they are the
@@ -340,7 +400,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '4146a719-7f22-59fe-abdc-370b4633e42e', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '4146a719-7f22-59fe-abdc-370b4633e42e', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '65ac05e3-a835-5772-920f-8a919b919fd6',
   NULL, NULL, 'Diagnostic evaluation',
   1, 1, 1,
@@ -359,7 +419,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'defac6bf-3000-5843-8fc4-95f45f6edd27', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  'defac6bf-3000-5843-8fc4-95f45f6edd27', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '65ac05e3-a835-5772-920f-8a919b919fd6',
   1, 1, 'History and Evolution of Computing',
   1, 1, 1,
@@ -382,7 +442,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '1e29f9be-bd8d-5669-baac-cff04bc57eec', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '2f0e60c8-d69c-5445-bc16-31925a7d6d8e',
+  '1e29f9be-bd8d-5669-baac-cff04bc57eec', (SELECT id FROM target_syllabus), '2f0e60c8-d69c-5445-bc16-31925a7d6d8e',
   '830acb3a-4573-5563-9cda-43602aa2fd30',
   2, 2, 'Introduction to Artificial Intelligence (AI)',
   1, 1, 1,
@@ -404,7 +464,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '0b1bbe1d-fe59-5b14-8fc2-762ed3b57b37', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '2f0e60c8-d69c-5445-bc16-31925a7d6d8e',
+  '0b1bbe1d-fe59-5b14-8fc2-762ed3b57b37', (SELECT id FROM target_syllabus), '2f0e60c8-d69c-5445-bc16-31925a7d6d8e',
   '830acb3a-4573-5563-9cda-43602aa2fd30',
   3, 3, 'AI Ethics and Responsible Use',
   1, 1, 1,
@@ -426,7 +486,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'ac6a40b7-279c-58bb-8c2f-8abfd1662e11', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '2f0e60c8-d69c-5445-bc16-31925a7d6d8e',
+  'ac6a40b7-279c-58bb-8c2f-8abfd1662e11', (SELECT id FROM target_syllabus), '2f0e60c8-d69c-5445-bc16-31925a7d6d8e',
   '830acb3a-4573-5563-9cda-43602aa2fd30',
   4, 4, 'AI Techniques and Intelligent Systems',
   1, 1, 1,
@@ -448,7 +508,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'a882c73e-4402-56b8-996e-59ce7daed66b', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '2f0e60c8-d69c-5445-bc16-31925a7d6d8e',
+  'a882c73e-4402-56b8-996e-59ce7daed66b', (SELECT id FROM target_syllabus), '2f0e60c8-d69c-5445-bc16-31925a7d6d8e',
   '830acb3a-4573-5563-9cda-43602aa2fd30',
   5, 5, 'Machine Learning',
   1, 2, 2,
@@ -470,7 +530,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '3fcc0e62-49c6-5b68-b542-6862e1140aa9', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '2f0e60c8-d69c-5445-bc16-31925a7d6d8e',
+  '3fcc0e62-49c6-5b68-b542-6862e1140aa9', (SELECT id FROM target_syllabus), '2f0e60c8-d69c-5445-bc16-31925a7d6d8e',
   '830acb3a-4573-5563-9cda-43602aa2fd30',
   6, 6, 'Developing AI Systems',
   1, 2, 2,
@@ -492,7 +552,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '3771d1ea-be70-5391-b30a-9c83e9f6fc2d', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '3771d1ea-be70-5391-b30a-9c83e9f6fc2d', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '44b5cf57-a434-5c4f-bcc7-707deb75dba0',
   7, 7, 'Types of Computers',
   1, 2, 2,
@@ -514,7 +574,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '7ff2f57a-1761-5e72-8dc1-154ea499043c', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '7ff2f57a-1761-5e72-8dc1-154ea499043c', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '44b5cf57-a434-5c4f-bcc7-707deb75dba0',
   8, 8, 'Basic Components of a Computer',
   1, 2, 2,
@@ -536,7 +596,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '276977f5-86e8-51a7-9538-3db12650e981', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '276977f5-86e8-51a7-9538-3db12650e981', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '44b5cf57-a434-5c4f-bcc7-707deb75dba0',
   9, 9, 'Input devices',
   1, 3, 3,
@@ -558,7 +618,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'c8cb5943-a818-54e6-89dd-401e9056728a', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  'c8cb5943-a818-54e6-89dd-401e9056728a', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   'af1eb006-e993-5b7a-9adf-a5b35f2f9675',
   10, 10, 'Output devices',
   1, 3, 3,
@@ -580,7 +640,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'ec50d70e-8b7c-5f8f-8ad6-6ffa64c123b5', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  'ec50d70e-8b7c-5f8f-8ad6-6ffa64c123b5', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   'af1eb006-e993-5b7a-9adf-a5b35f2f9675',
   11, 11, 'Secondary Storage media and devices',
   1, 3, 3,
@@ -602,7 +662,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '57ad17ad-5d87-593f-98e1-c7bdea64e962', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '57ad17ad-5d87-593f-98e1-c7bdea64e962', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   'af1eb006-e993-5b7a-9adf-a5b35f2f9675',
   12, 12, 'Primary Storage devices',
   1, 3, 3,
@@ -624,7 +684,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'ec28cc07-b74e-5517-a3db-9ffbfd3834ce', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  'ec28cc07-b74e-5517-a3db-9ffbfd3834ce', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   'af1eb006-e993-5b7a-9adf-a5b35f2f9675',
   13, 13, 'Processing device and the machine instruction cycle',
   1, 4, 4,
@@ -646,7 +706,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'ad33a160-4ae5-5fd4-9b5b-1ff6ff0434c9', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  'ad33a160-4ae5-5fd4-9b5b-1ff6ff0434c9', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   'af1eb006-e993-5b7a-9adf-a5b35f2f9675',
   14, 14, 'Processor architectures, parallel & distributed computing',
   1, 4, 4,
@@ -668,7 +728,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '250577d6-261c-5209-b4fd-991b30fe7e4d', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '250577d6-261c-5209-b4fd-991b30fe7e4d', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   'af1eb006-e993-5b7a-9adf-a5b35f2f9675',
   15, 15, 'Conversion between units of storage and units of processing',
   1, 4, 4,
@@ -690,7 +750,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '2562c6d1-ac6e-5099-a1cd-d3c3517ca996', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '2562c6d1-ac6e-5099-a1cd-d3c3517ca996', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '0666fd6c-f109-5674-9bf2-1df9a86a4455',
   16, 16, 'Definitions and classification of software',
   1, 4, 4,
@@ -712,7 +772,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '8e0cfa56-b7ec-500a-8da8-d7a0eecf6ea0', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '8e0cfa56-b7ec-500a-8da8-d7a0eecf6ea0', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '0666fd6c-f109-5674-9bf2-1df9a86a4455',
   17, 17, 'Application software',
   1, 5, 5,
@@ -734,7 +794,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '36462e43-bc26-5e16-b9d8-d097463eff4a', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '36462e43-bc26-5e16-b9d8-d097463eff4a', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '0666fd6c-f109-5674-9bf2-1df9a86a4455',
   NULL, NULL, 'Evaluation No 1',
   1, 5, 5,
@@ -753,7 +813,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '7566e640-bf53-5c85-b582-64ad742266d7', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '7566e640-bf53-5c85-b582-64ad742266d7', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '0666fd6c-f109-5674-9bf2-1df9a86a4455',
   NULL, NULL, 'Remediation No 1',
   1, 5, 5,
@@ -775,7 +835,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'b20be4ef-377b-55a0-a8d7-1344eeafd534', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  'b20be4ef-377b-55a0-a8d7-1344eeafd534', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '0666fd6c-f109-5674-9bf2-1df9a86a4455',
   18, 18, 'System software and examples',
   1, 5, 5,
@@ -797,7 +857,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '32d4b7d1-f281-54c2-9a4c-e9997b577596', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '32d4b7d1-f281-54c2-9a4c-e9997b577596', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '31af8d70-30f8-50b4-9b0c-2c0891157ffb',
   19, 19, 'Notions of the Operating System',
   1, 6, 6,
@@ -819,7 +879,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '7c6d2c94-c52a-51f7-8186-eddf5a52b95c', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '7c6d2c94-c52a-51f7-8186-eddf5a52b95c', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '31af8d70-30f8-50b4-9b0c-2c0891157ffb',
   20, 20, 'Functions of an operating system 1',
   1, 6, 6,
@@ -841,7 +901,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'def13e76-2dca-5abc-9b85-1bdf3d087af0', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  'def13e76-2dca-5abc-9b85-1bdf3d087af0', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '31af8d70-30f8-50b4-9b0c-2c0891157ffb',
   21, 21, 'Functions of the operating system 2',
   1, 6, 6,
@@ -862,7 +922,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '03b1272a-06a4-5c6a-be44-4ccaf816fd7b', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '03b1272a-06a4-5c6a-be44-4ccaf816fd7b', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '31af8d70-30f8-50b4-9b0c-2c0891157ffb',
   22, 22, 'Installing an operating system and user interfaces',
   1, 6, 6,
@@ -884,7 +944,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '502d2d2f-ef56-52b6-a915-c75e97618bba', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '502d2d2f-ef56-52b6-a915-c75e97618bba', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '31af8d70-30f8-50b4-9b0c-2c0891157ffb',
   23, 23, 'Using the GUI of an operating system',
   1, 7, 7,
@@ -906,7 +966,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '13494487-0588-5fc5-adcb-21d95c78db0d', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '13494487-0588-5fc5-adcb-21d95c78db0d', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '31af8d70-30f8-50b4-9b0c-2c0891157ffb',
   24, 24, 'Using the CLI of an operating system',
   1, 7, 7,
@@ -928,7 +988,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '07a2154c-4110-5833-821c-1c9332fce7f3', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '07a2154c-4110-5833-821c-1c9332fce7f3', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '10e83d61-1765-5e26-a605-f8d17d8d6733',
   25, 25, 'Hardware faults identification and correction',
   1, 7, 7,
@@ -949,7 +1009,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '25d7af29-a68b-5ba5-8b86-a41811a70679', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '25d7af29-a68b-5ba5-8b86-a41811a70679', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '10e83d61-1765-5e26-a605-f8d17d8d6733',
   26, 26, 'Software faults identification and correction',
   1, 7, 7,
@@ -970,7 +1030,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '7024e4d4-a79d-5dd7-9a80-764e519696f6', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '7024e4d4-a79d-5dd7-9a80-764e519696f6', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '993300b1-eb0c-5fd2-adf3-ce9054db7ae3',
   27, 27, 'Assistive technology',
   1, 8, 8,
@@ -992,7 +1052,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'c97e8511-58a9-545c-9c01-9b1fc1656a9c', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  'c97e8511-58a9-545c-9c01-9b1fc1656a9c', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '993300b1-eb0c-5fd2-adf3-ce9054db7ae3',
   28, 28, 'Computer ergonomics',
   1, 8, 8,
@@ -1014,7 +1074,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '93254295-9f6c-5238-9bb9-cb47894d2f00', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  '93254295-9f6c-5238-9bb9-cb47894d2f00', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '52e21c21-52c0-552e-ac0b-8f57dab65dbd',
   29, 29, 'Editing and Formatting text',
   1, 8, 8,
@@ -1036,7 +1096,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'd0b7018a-f6c9-50b9-9713-41d6a01920e0', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  'd0b7018a-f6c9-50b9-9713-41d6a01920e0', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '52e21c21-52c0-552e-ac0b-8f57dab65dbd',
   30, 30, 'Editing and formatting images and tables',
   1, 8, 8,
@@ -1057,7 +1117,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'fb3f9398-226a-5de2-af56-170cbeed9780', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
+  'fb3f9398-226a-5de2-af56-170cbeed9780', (SELECT id FROM target_syllabus), '9d8c1629-d8e2-5770-8a24-d3d706d0737d',
   '52e21c21-52c0-552e-ac0b-8f57dab65dbd',
   31, 31, 'Using Text boxes and adjusting Page layout',
   1, 9, 9,
@@ -1079,7 +1139,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'b1a6c8ab-6afd-5734-a976-1c6c9a5ee005', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'b1a6c8ab-6afd-5734-a976-1c6c9a5ee005', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   NULL,
   NULL, NULL, 'Integration Activity No 1',
   1, 9, 9,
@@ -1101,7 +1161,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '4bc9ce68-1497-50ff-b6d2-8fa266f881de', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '4bc9ce68-1497-50ff-b6d2-8fa266f881de', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '8b731be1-5f87-5408-a5bc-d50434791e0a',
   32, 32, 'Introduction to spreadsheets',
   1, 9, 9,
@@ -1123,7 +1183,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '34cce036-4f2e-5d80-a7de-fbad068f1c81', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '34cce036-4f2e-5d80-a7de-fbad068f1c81', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '8b731be1-5f87-5408-a5bc-d50434791e0a',
   33, 33, 'Performing calculations using spreadsheets',
   1, 9, 9,
@@ -1145,7 +1205,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '3933f789-586e-57f4-9551-911df0e07217', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '3933f789-586e-57f4-9551-911df0e07217', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '8b731be1-5f87-5408-a5bc-d50434791e0a',
   34, 34, 'Types of cells referencing and calculations',
   1, 10, 10,
@@ -1166,7 +1226,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'c9298c23-1c26-5994-9900-268f2b78489f', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'c9298c23-1c26-5994-9900-268f2b78489f', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '8b731be1-5f87-5408-a5bc-d50434791e0a',
   NULL, NULL, 'Evaluation No 2',
   1, 10, 10,
@@ -1185,7 +1245,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'ea802248-d8c8-5986-b85b-a3134e39fd50', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'ea802248-d8c8-5986-b85b-a3134e39fd50', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '8b731be1-5f87-5408-a5bc-d50434791e0a',
   NULL, NULL, 'Remediation No 2',
   1, 10, 10,
@@ -1207,7 +1267,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '1a6bd6e4-b6a9-5bc2-8284-a73ecffae1e2', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '1a6bd6e4-b6a9-5bc2-8284-a73ecffae1e2', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '4382cb4f-68be-5032-907b-4d1eed4eefaa',
   35, 35, 'Positive and Negative Uses of Computer Systems',
   1, 10, 10,
@@ -1229,7 +1289,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '76fc8526-9ee4-559f-ab0c-47813a1aaa83', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '76fc8526-9ee4-559f-ab0c-47813a1aaa83', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '4382cb4f-68be-5032-907b-4d1eed4eefaa',
   36, 36, 'Computer Ethics, Legislation and Cameroon Law',
   1, 11, 11,
@@ -1251,7 +1311,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'f40f3006-21a2-5756-86d1-01ae04a130b8', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'f40f3006-21a2-5756-86d1-01ae04a130b8', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '4382cb4f-68be-5032-907b-4d1eed4eefaa',
   37, 37, 'Data Protection, Copyright and the Digital Divide',
   1, 11, 11,
@@ -1273,7 +1333,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '55450b04-3caa-59b4-80f4-fb6c10937866', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '55450b04-3caa-59b4-80f4-fb6c10937866', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'caaac11e-b955-53bf-a70d-8c4f81a38dc7',
   38, 38, 'Protecting Computer Systems from Illegal Access',
   1, 11, 11,
@@ -1295,7 +1355,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '575140f4-faec-582c-94d2-bd88fbce08d7', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '575140f4-faec-582c-94d2-bd88fbce08d7', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'caaac11e-b955-53bf-a70d-8c4f81a38dc7',
   39, 39, 'System Recovery and Safe Working Practices',
   1, 11, 11,
@@ -1317,7 +1377,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '82c0cd33-437e-58ad-8c7d-1717a2d08092', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '82c0cd33-437e-58ad-8c7d-1717a2d08092', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'caaac11e-b955-53bf-a70d-8c4f81a38dc7',
   40, 40, 'Computer Crimes and Combat Measures',
   1, 12, 12,
@@ -1339,7 +1399,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '2bdb3aba-0d8b-5555-a18e-b411c81acf61', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '2bdb3aba-0d8b-5555-a18e-b411c81acf61', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'caaac11e-b955-53bf-a70d-8c4f81a38dc7',
   41, 41, 'Malware — Types and Characteristics',
   1, 12, 12,
@@ -1361,7 +1421,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '133ba569-70b5-5165-ada0-3e1119eccf1e', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '133ba569-70b5-5165-ada0-3e1119eccf1e', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'caaac11e-b955-53bf-a70d-8c4f81a38dc7',
   42, 42, 'Protecting a Computer System from Malware',
   1, 12, 12,
@@ -1383,7 +1443,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'ed586cb6-2e80-5a66-abb3-bcce2b0a0420', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'ed586cb6-2e80-5a66-abb3-bcce2b0a0420', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   NULL,
   NULL, NULL, 'Integration Activity No 2',
   1, 12, 12,
@@ -1405,7 +1465,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'f5b2a9e6-bcad-502e-ae74-3d828e05a140', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'f5b2a9e6-bcad-502e-ae74-3d828e05a140', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '1fb28a5a-011f-598d-a0d2-f99d0e41155c',
   43, 43, 'Types of Systems',
   2, 13, 13,
@@ -1427,7 +1487,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'e43edb97-bb27-5fe3-95a4-89fb7845a5b9', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'e43edb97-bb27-5fe3-95a4-89fb7845a5b9', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '1fb28a5a-011f-598d-a0d2-f99d0e41155c',
   44, 44, 'Modelling a System with a Data Flow Diagram',
   2, 13, 13,
@@ -1449,7 +1509,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'e7998683-e61d-5c25-9ce8-9eed9c01799f', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'e7998683-e61d-5c25-9ce8-9eed9c01799f', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '166d5a9b-4ea3-5087-87f8-cd35abf03e24',
   45, 45, 'Introduction to Information Systems',
   2, 13, 13,
@@ -1473,7 +1533,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '977b0a05-d65f-5d1e-adac-00363bfb6e3e', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '977b0a05-d65f-5d1e-adac-00363bfb6e3e', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '166d5a9b-4ea3-5087-87f8-cd35abf03e24',
   46, 46, 'Types of Information Systems',
   2, 13, 13,
@@ -1496,7 +1556,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '18a37fc0-9adf-570f-aa10-fef40e3a0cc7', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '18a37fc0-9adf-570f-aa10-fef40e3a0cc7', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   '166d5a9b-4ea3-5087-87f8-cd35abf03e24',
   47, 47, 'General and Commercial Data Processing',
   2, 14, 14,
@@ -1519,7 +1579,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '8287fe7b-e6e0-5701-9c52-e66f2f3bb8cb', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '8287fe7b-e6e0-5701-9c52-e66f2f3bb8cb', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   48, 48, 'Computer Systems in Industry and Science',
   2, 14, 14,
@@ -1541,7 +1601,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'c458013c-ffd6-56e0-9caf-7305135c9574', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'c458013c-ffd6-56e0-9caf-7305135c9574', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   49, 49, 'Robots and Their Application in Daily Life',
   2, 14, 14,
@@ -1563,7 +1623,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'ac66daa8-6932-5178-8921-65f0796911ea', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'ac66daa8-6932-5178-8921-65f0796911ea', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   50, 50, 'Monitoring systems, Control systems, and Monitoring & Control systems',
   2, 14, 14,
@@ -1587,7 +1647,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '8037984e-af47-5d7a-8dce-a0b4eb70a2e6', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '8037984e-af47-5d7a-8dce-a0b4eb70a2e6', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   51, 51, 'Simulation and Modelling',
   2, 15, 15,
@@ -1611,7 +1671,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '7577135d-c436-572b-ba21-b86bbdfbd29d', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '7577135d-c436-572b-ba21-b86bbdfbd29d', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   52, 52, 'Embedded systems and IoT',
   2, 15, 15,
@@ -1635,7 +1695,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '2abdc0da-f59a-5c9c-babb-5c056f65044f', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '2abdc0da-f59a-5c9c-babb-5c056f65044f', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   53, 53, 'Virtual Reality and Augmented Reality',
   2, 15, 15,
@@ -1658,7 +1718,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '67d5cc64-94d4-539e-8708-4b0a8e588cf3', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '67d5cc64-94d4-539e-8708-4b0a8e588cf3', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   NULL, NULL, 'Evaluation No 3',
   2, 15, 15,
@@ -1677,7 +1737,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'b25cadc1-131f-5590-b8c7-bfc133297f1b', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'b25cadc1-131f-5590-b8c7-bfc133297f1b', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   NULL, NULL, 'Remediation No 3',
   2, 16, 16,
@@ -1699,7 +1759,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'e1f4f5b9-853b-5890-8e8f-d044d1ae2be9', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'e1f4f5b9-853b-5890-8e8f-d044d1ae2be9', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   54, 54, 'Multimedia Systems and Authoring',
   2, 16, 16,
@@ -1722,7 +1782,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '04515d2a-bb3e-5d53-b6d5-f64a4e879bf7', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '04515d2a-bb3e-5d53-b6d5-f64a4e879bf7', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   55, 55, 'Multimodal Systems',
   2, 16, 16,
@@ -1745,7 +1805,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '3db06467-6f52-5f7f-ab98-cfd539771d0c', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '3db06467-6f52-5f7f-ab98-cfd539771d0c', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   56, 56, 'AI technologies',
   2, 16, 16,
@@ -1768,7 +1828,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '5cefd3a4-8e72-562c-9322-8c28038ed69d', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '5cefd3a4-8e72-562c-9322-8c28038ed69d', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   57, 57, 'Generative AI',
   2, 17, 17,
@@ -1792,7 +1852,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'f7abf33b-eb78-5f74-8443-af8c18ca930c', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  'f7abf33b-eb78-5f74-8443-af8c18ca930c', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   'c9785f29-72ff-5342-b8d3-54cc48031baf',
   58, 58, 'Using generative AI for day-to-day activities',
   2, 17, 17,
@@ -1813,7 +1873,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '1f57d02a-4ee6-5b86-a4b0-3a25856bb26d', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '3de0008f-bcac-5962-bbda-493c5b336cae',
+  '1f57d02a-4ee6-5b86-a4b0-3a25856bb26d', (SELECT id FROM target_syllabus), '3de0008f-bcac-5962-bbda-493c5b336cae',
   NULL,
   NULL, NULL, 'Integration Activity No 3',
   2, 17, 17,
@@ -1835,7 +1895,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'd772cdac-1913-5620-b1ea-a9c0812b5c1f', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'd772cdac-1913-5620-b1ea-a9c0812b5c1f', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'f10ac2bc-d88a-559f-8589-22e3474f0415',
   59, 59, 'Introduction to the System Development Life Cycle (SDLC)',
   2, 17, 17,
@@ -1857,7 +1917,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '580591ac-c50b-51b2-b1e6-b19b332834a0', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '580591ac-c50b-51b2-b1e6-b19b332834a0', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'f10ac2bc-d88a-559f-8589-22e3474f0415',
   60, 60, 'SDLC Models',
   2, 18, 18,
@@ -1878,7 +1938,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '10ba0519-f583-5aa7-a9a3-2a407be70704', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '10ba0519-f583-5aa7-a9a3-2a407be70704', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'f10ac2bc-d88a-559f-8589-22e3474f0415',
   61, 61, 'The prototyping model',
   2, 18, 18,
@@ -1902,7 +1962,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '0b749b3a-042a-5b2f-b28b-9ad6e8d66b68', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '0b749b3a-042a-5b2f-b28b-9ad6e8d66b68', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'f10ac2bc-d88a-559f-8589-22e3474f0415',
   62, 62, 'Changeover Strategies',
   2, 18, 18,
@@ -1925,7 +1985,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'efd16fa2-a187-5fb9-aae0-bc240ea5e5a6', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'efd16fa2-a187-5fb9-aae0-bc240ea5e5a6', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'a60b7173-21a6-5d56-8660-147722e05933',
   63, 63, 'Data Modelling Concepts',
   2, 18, 18,
@@ -1949,7 +2009,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'bf9777ad-57a2-57cd-bfe5-5aed8e6f6932', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'bf9777ad-57a2-57cd-bfe5-5aed8e6f6932', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'a60b7173-21a6-5d56-8660-147722e05933',
   64, 64, 'Entity Relationship Model Concepts and representation systems',
   2, 19, 19,
@@ -1972,7 +2032,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '45366509-0993-5c35-9920-3fb341f0b333', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '45366509-0993-5c35-9920-3fb341f0b333', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'a60b7173-21a6-5d56-8660-147722e05933',
   65, 65, 'Designing an ER diagram and normalisation',
   2, 19, 19,
@@ -1994,7 +2054,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '053d2a10-48a7-5682-9725-4e389505547a', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '053d2a10-48a7-5682-9725-4e389505547a', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'a60b7173-21a6-5d56-8660-147722e05933',
   66, 66, 'Normalisation and converting ER model to relational model.',
   2, 19, 19,
@@ -2017,7 +2077,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '25ac369c-eef6-591c-8e4c-226f65a6b546', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '25ac369c-eef6-591c-8e4c-226f65a6b546', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'a60b7173-21a6-5d56-8660-147722e05933',
   67, 67, 'Implementing a relational model',
   2, 19, 19,
@@ -2039,7 +2099,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'd8b19cce-7b4e-5f61-9eb8-fb1e9b85054a', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'd8b19cce-7b4e-5f61-9eb8-fb1e9b85054a', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'a60b7173-21a6-5d56-8660-147722e05933',
   68, 68, 'Using an RDBMS for sorting, filtering and queries',
   2, 20, 20,
@@ -2061,7 +2121,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'daed1695-f6d8-5316-87ea-4e715bfc3197', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'daed1695-f6d8-5316-87ea-4e715bfc3197', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   NULL,
   NULL, NULL, 'Integration Activity No 4',
   2, 20, 20,
@@ -2083,7 +2143,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'b4778cb6-d19f-5f20-8ec0-598f222a06e9', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'b4778cb6-d19f-5f20-8ec0-598f222a06e9', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '058df9b2-0004-583a-b7c2-295fac317f2c',
   69, 69, 'Types of software testing',
   2, 20, 20,
@@ -2107,7 +2167,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '02b219b2-fca9-53cd-9362-0c723ad50982', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '02b219b2-fca9-53cd-9362-0c723ad50982', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '058df9b2-0004-583a-b7c2-295fac317f2c',
   70, 70, 'Module testing',
   2, 20, 20,
@@ -2130,7 +2190,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '2f5fd5a3-e9a0-547e-a499-bc428a5f88f8', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '2f5fd5a3-e9a0-547e-a499-bc428a5f88f8', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '058df9b2-0004-583a-b7c2-295fac317f2c',
   NULL, NULL, 'Evaluation No 4',
   2, 21, 21,
@@ -2149,7 +2209,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '75541fc4-e26b-5764-8757-3cde7c444ec9', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '75541fc4-e26b-5764-8757-3cde7c444ec9', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '058df9b2-0004-583a-b7c2-295fac317f2c',
   NULL, NULL, 'Remediation No 4',
   2, 21, 21,
@@ -2171,7 +2231,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '7cab8797-7518-579d-ae23-ad7a45e40bed', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '7cab8797-7518-579d-ae23-ad7a45e40bed', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '058df9b2-0004-583a-b7c2-295fac317f2c',
   71, 71, 'Introduction to data representation and number systems',
   2, 21, 21,
@@ -2196,7 +2256,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'c89fa51a-73d1-592d-8fc4-be67a5307794', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'c89fa51a-73d1-592d-8fc4-be67a5307794', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '2669441c-d28a-5263-9573-dcd185ec34e0',
   72, 72, 'Conversion between number systems and representing negative numbers',
   2, 21, 21,
@@ -2219,7 +2279,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'a7b69421-821f-5acb-a206-67e580cceae2', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'a7b69421-821f-5acb-a206-67e580cceae2', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '2669441c-d28a-5263-9573-dcd185ec34e0',
   73, 73, 'Subtraction and representing negative numbers',
   2, 22, 22,
@@ -2240,7 +2300,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '1e74c24f-936b-52ae-8f69-da716df1f460', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '1e74c24f-936b-52ae-8f69-da716df1f460', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '89d29b21-7f91-5bb5-b490-4cf26298f774',
   74, 74, 'Logic gates',
   2, 22, 22,
@@ -2262,7 +2322,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '807fd404-e36e-53c7-aeb4-a01259217bef', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '807fd404-e36e-53c7-aeb4-a01259217bef', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '89d29b21-7f91-5bb5-b490-4cf26298f774',
   75, 75, 'Logic circuits',
   2, 22, 22,
@@ -2285,7 +2345,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '2ff82afc-948c-552f-ad7b-e9d7632786bc', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '2ff82afc-948c-552f-ad7b-e9d7632786bc', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '89d29b21-7f91-5bb5-b490-4cf26298f774',
   76, 76, 'Boolean expressions from truth table and De Morgan’s laws',
   2, 22, 22,
@@ -2308,7 +2368,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '85064535-c45c-5683-bbe9-4ed4a629d271', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '85064535-c45c-5683-bbe9-4ed4a629d271', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '89d29b21-7f91-5bb5-b490-4cf26298f774',
   77, 77, 'Simplification of Boolean expressions',
   2, 23, 23,
@@ -2331,7 +2391,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '8a315fa7-2be1-5c47-b327-1f3c865cc3a1', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '8a315fa7-2be1-5c47-b327-1f3c865cc3a1', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'd330ecdb-a288-5bb1-b280-032796a90f61',
   78, 78, 'Data Types and Data structures',
   2, 23, 23,
@@ -2355,7 +2415,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '89335fc8-06e8-5a30-a810-2c6c3a13104f', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '89335fc8-06e8-5a30-a810-2c6c3a13104f', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'd330ecdb-a288-5bb1-b280-032796a90f61',
   79, 79, 'Operations on data structures',
   2, 23, 23,
@@ -2377,7 +2437,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'd74e4ecd-cc01-59ee-9fb7-d2116d358f98', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'd74e4ecd-cc01-59ee-9fb7-d2116d358f98', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   NULL,
   NULL, NULL, 'Integration Activity No 5',
   2, 23, 23,
@@ -2399,7 +2459,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '3af33401-bd4d-5f18-be45-82efa610ef9d', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '3af33401-bd4d-5f18-be45-82efa610ef9d', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'e1036e41-be20-5f29-b943-18298e4af913',
   80, 80, 'Approaches to Software Design',
   2, 24, 24,
@@ -2420,7 +2480,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '0675ba71-689f-5055-a86e-988b44f204b5', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '0675ba71-689f-5055-a86e-988b44f204b5', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'e1036e41-be20-5f29-b943-18298e4af913',
   81, 81, 'Applying software design techniques',
   2, 24, 24,
@@ -2441,7 +2501,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'e3df1dfc-82fa-5261-adc6-4f448106d8f5', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'e3df1dfc-82fa-5261-adc6-4f448106d8f5', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'e1036e41-be20-5f29-b943-18298e4af913',
   82, 82, 'Representing Software Design',
   2, 24, 24,
@@ -2463,7 +2523,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '1f240df6-f563-55fc-a25a-737371a162f5', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '1f240df6-f563-55fc-a25a-737371a162f5', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'e1036e41-be20-5f29-b943-18298e4af913',
   83, 83, 'Introduction to Algorithms',
   2, 24, 24,
@@ -2486,7 +2546,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '2a0dcd22-fc89-5ef1-babc-af837b411dae', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '2a0dcd22-fc89-5ef1-babc-af837b411dae', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'b7db2566-60df-540e-a8fc-a03089929f1a',
   84, 84, 'Algorithmic instructions',
   3, 25, 25,
@@ -2507,7 +2567,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '9050ff22-3b26-5f6e-959c-da6b2ce4cef0', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '9050ff22-3b26-5f6e-959c-da6b2ce4cef0', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'b7db2566-60df-540e-a8fc-a03089929f1a',
   85, 85, 'Representing Algorithms — Flowcharts',
   3, 25, 25,
@@ -2529,7 +2589,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '090d233e-f8b5-57e2-9124-a788f3c9a953', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '090d233e-f8b5-57e2-9124-a788f3c9a953', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'b7db2566-60df-540e-a8fc-a03089929f1a',
   86, 86, 'Representing Algorithms — Pseudocode',
   3, 25, 25,
@@ -2551,7 +2611,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '87b746de-e15c-5ecd-aaf3-71b78c44dd95', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '87b746de-e15c-5ecd-aaf3-71b78c44dd95', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'b7db2566-60df-540e-a8fc-a03089929f1a',
   87, 87, 'Control Structures — Sequence and Selection',
   3, 25, 25,
@@ -2572,7 +2632,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '0230bd6e-5ad6-5ea6-b4ad-99ca63e6fadf', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '0230bd6e-5ad6-5ea6-b4ad-99ca63e6fadf', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'b7db2566-60df-540e-a8fc-a03089929f1a',
   88, 88, 'Control Structures — Loops',
   3, 26, 26,
@@ -2594,7 +2654,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '740c4748-0551-5d26-abc7-88dc5d230476', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '740c4748-0551-5d26-abc7-88dc5d230476', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'b7db2566-60df-540e-a8fc-a03089929f1a',
   89, 89, 'Sorting and Searching',
   3, 26, 26,
@@ -2615,7 +2675,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '90ad241c-0b77-51d2-894d-6ff0bf740716', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '90ad241c-0b77-51d2-894d-6ff0bf740716', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'b7db2566-60df-540e-a8fc-a03089929f1a',
   90, 90, 'Establishing Correctness of Algorithms',
   3, 26, 26,
@@ -2637,7 +2697,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '26bb72a0-879a-5fd2-8e1d-d4a1002320e8', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '26bb72a0-879a-5fd2-8e1d-d4a1002320e8', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'b7db2566-60df-540e-a8fc-a03089929f1a',
   91, 91, 'Evaluating Algorithm Performance',
   3, 26, 26,
@@ -2660,7 +2720,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '432bfe2f-0b27-5c5c-bf66-b8b33ece5ec9', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '432bfe2f-0b27-5c5c-bf66-b8b33ece5ec9', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'b7db2566-60df-540e-a8fc-a03089929f1a',
   NULL, NULL, 'Evaluation No 5',
   3, 27, 27,
@@ -2679,7 +2739,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '1aa282ed-2c8f-56cf-b0d7-8e1f96c61549', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '1aa282ed-2c8f-56cf-b0d7-8e1f96c61549', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'b7db2566-60df-540e-a8fc-a03089929f1a',
   NULL, NULL, 'Remediation No 5',
   3, 27, 27,
@@ -2701,7 +2761,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '6c319b75-fe57-563c-8bab-57538f50c983', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '6c319b75-fe57-563c-8bab-57538f50c983', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'f2fbc32f-b43b-544a-9bee-83faa31da178',
   92, 92, 'Programming Paradigms',
   3, 27, 27,
@@ -2723,7 +2783,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '3be9132f-5389-59d7-88a4-9f3d8fcf32cf', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '3be9132f-5389-59d7-88a4-9f3d8fcf32cf', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'f2fbc32f-b43b-544a-9bee-83faa31da178',
   93, 93, 'Software Reuse',
   3, 27, 27,
@@ -2746,7 +2806,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '48ebc7e6-8b9e-5665-8a9b-35d5ca7688a2', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '48ebc7e6-8b9e-5665-8a9b-35d5ca7688a2', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'f2fbc32f-b43b-544a-9bee-83faa31da178',
   94, 94, 'Internally versus Externally Developed Software',
   3, 28, 28,
@@ -2769,7 +2829,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '53a3e043-d136-5ca8-a1d4-6dc5e7afd43a', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '53a3e043-d136-5ca8-a1d4-6dc5e7afd43a', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   NULL,
   NULL, NULL, 'Integration Activity No 6',
   3, 28, 28,
@@ -2791,7 +2851,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '33d59e1f-4892-5cd6-bbb8-d52d635d866e', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '33d59e1f-4892-5cd6-bbb8-d52d635d866e', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'c1597efa-27c6-5b16-85f0-4fd053988465',
   95, 95, 'Language Translators and IDE',
   3, 28, 28,
@@ -2815,7 +2875,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '196cf332-121b-5aba-ac2a-24cba302622d', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '196cf332-121b-5aba-ac2a-24cba302622d', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'c1597efa-27c6-5b16-85f0-4fd053988465',
   96, 96, 'introduction to coding',
   3, 28, 28,
@@ -2838,7 +2898,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'be852494-7c87-5e04-a257-1b99ea3bec3c', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'be852494-7c87-5e04-a257-1b99ea3bec3c', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'c1597efa-27c6-5b16-85f0-4fd053988465',
   97, 97, 'Writing code 1 (C or Python)',
   3, 29, 29,
@@ -2860,7 +2920,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'efacb5d1-146c-5e28-a7c7-f2371f4e70f4', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'efacb5d1-146c-5e28-a7c7-f2371f4e70f4', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'c1597efa-27c6-5b16-85f0-4fd053988465',
   98, 98, 'Writing code 2',
   3, 29, 29,
@@ -2880,7 +2940,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '020d7563-9060-5407-9aff-faa3a9896fd4', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '020d7563-9060-5407-9aff-faa3a9896fd4', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'c1597efa-27c6-5b16-85f0-4fd053988465',
   99, 99, 'writing code 3',
   3, 29, 29,
@@ -2900,7 +2960,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'a230e376-6614-52ab-8f91-60ec94ff3fde', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'a230e376-6614-52ab-8f91-60ec94ff3fde', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'c1597efa-27c6-5b16-85f0-4fd053988465',
   100, 100, 'writing code 4',
   3, 29, 29,
@@ -2920,7 +2980,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'd747fb28-8e7d-58fd-a114-d14016d70f07', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'd747fb28-8e7d-58fd-a114-d14016d70f07', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   'c1597efa-27c6-5b16-85f0-4fd053988465',
   101, 101, 'writing code 5',
   3, 30, 30,
@@ -2940,7 +3000,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '34a0537c-4078-5228-8332-3e0ee7cf9473', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '34a0537c-4078-5228-8332-3e0ee7cf9473', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '6c6f4f78-d9e8-58f0-9640-96df4f295b36',
   102, 102, 'Functions and procedures 1',
   3, 30, 30,
@@ -2965,7 +3025,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  'e58ea640-a2fe-5a58-9b97-5db645aed024', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  'e58ea640-a2fe-5a58-9b97-5db645aed024', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '6c6f4f78-d9e8-58f0-9640-96df4f295b36',
   103, 103, 'Functions and procedures 2',
   3, 30, 30,
@@ -2987,7 +3047,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '048e6fd1-ba47-582c-a0c2-3daa7bd9c3d5', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '048e6fd1-ba47-582c-a0c2-3daa7bd9c3d5', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '6c6f4f78-d9e8-58f0-9640-96df4f295b36',
   104, 104, 'Testing a program 1',
   3, 30, 30,
@@ -3009,7 +3069,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '6a5d140b-1f59-5026-9250-132298b2c8f0', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '6a5d140b-1f59-5026-9250-132298b2c8f0', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '6c6f4f78-d9e8-58f0-9640-96df4f295b36',
   105, 105, 'Testing a program 2',
   3, 31, 31,
@@ -3031,7 +3091,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '61bdfa2e-5fcf-51ad-93e9-f9db71bad032', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '61bdfa2e-5fcf-51ad-93e9-f9db71bad032', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '6c6f4f78-d9e8-58f0-9640-96df4f295b36',
   NULL, NULL, 'Evaluation No 6',
   3, 31, 31,
@@ -3050,7 +3110,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '3431f40e-24f7-529b-82fa-862b45cc448a', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '3431f40e-24f7-529b-82fa-862b45cc448a', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   '6c6f4f78-d9e8-58f0-9640-96df4f295b36',
   NULL, NULL, 'Remediation No 6',
   3, 31, 31,
@@ -3072,7 +3132,7 @@ INSERT INTO lessons (
   title, term, week_from, week_to, is_theory, is_practical, is_digitalised,
   lesson_kind, sequence
 ) VALUES (
-  '3017c889-fb7a-53fb-a6c0-ae5afdba3069', 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c', '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
+  '3017c889-fb7a-53fb-a6c0-ae5afdba3069', (SELECT id FROM target_syllabus), '4ec0615d-ca9c-5b3c-8105-8eadaf108c60',
   NULL,
   NULL, NULL, 'Revision',
   3, 32, 36,
@@ -3088,7 +3148,7 @@ INSERT INTO lessons (
   deleted_at = NULL, updated_at = now();
 
 -- ------------------------------------------------------------------
--- 5. Carry the attachments across.
+-- 6. Carry the attachments across.
 --
 -- Matched on the lesson title, stripped of case and punctuation, and
 -- ONLY where that title is unique on both sides. Twenty-three rows are
@@ -3111,7 +3171,7 @@ new_u AS (
     SELECT n.id,
            lower(regexp_replace(n.title, '[^a-zA-Z0-9]', '', 'g')) AS key,
            count(*) OVER (PARTITION BY lower(regexp_replace(n.title, '[^a-zA-Z0-9]', '', 'g'))) AS c
-      FROM lessons n WHERE n.syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND n.deleted_at IS NULL) t
+      FROM lessons n WHERE n.syllabus_id = (SELECT id FROM target_syllabus) AND n.deleted_at IS NULL) t
   WHERE c = 1)
 SELECT o.id AS old_id, n.id AS new_id, o.status AS old_status, o.content AS old_content
   FROM old_u o JOIN new_u n USING (key);
@@ -3135,7 +3195,7 @@ UPDATE lessons n SET status = 'published', content = m.old_content, updated_at =
 UPDATE competencies c SET exam_frequency = f.exam_frequency,
        continues_from_id = f.continues_from_id, link_confirmed = f.link_confirmed
   FROM old_freq f
- WHERE c.syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND c.deleted_at IS NULL
+ WHERE c.syllabus_id = (SELECT id FROM target_syllabus) AND c.deleted_at IS NULL
    AND c.category_of_action = f.category_of_action;
 
 -- Written notes attach to the lesson of the same name, rebuilt from the
@@ -3146,8 +3206,8 @@ SELECT l.id, s.id, 'full'
   JOIN note_sources src ON src.id = s.note_source_id
   JOIN lessons l ON lower(regexp_replace(l.title, '[^a-zA-Z0-9]', '', 'g'))
                  = lower(regexp_replace(s.title, '[^a-zA-Z0-9]', '', 'g'))
- WHERE l.syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND l.deleted_at IS NULL
-   AND src.syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND s.deleted_at IS NULL
+ WHERE l.syllabus_id = (SELECT id FROM target_syllabus) AND l.deleted_at IS NULL
+   AND src.syllabus_id = (SELECT id FROM target_syllabus) AND s.deleted_at IS NULL
 ON CONFLICT (lesson_id, note_section_id) DO NOTHING;
 
 COMMIT;
@@ -3157,26 +3217,26 @@ COMMIT;
 -- ------------------------------------------------------------------
 
 SELECT 'rows on the new sheet' AS item, count(*)::text AS value FROM lessons
- WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND deleted_at IS NULL
+ WHERE syllabus_id = (SELECT id FROM target_syllabus) AND deleted_at IS NULL
 UNION ALL SELECT 'numbered lessons', count(*)::text FROM lessons
- WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND deleted_at IS NULL AND lesson_no_start IS NOT NULL
+ WHERE syllabus_id = (SELECT id FROM target_syllabus) AND deleted_at IS NULL AND lesson_no_start IS NOT NULL
 UNION ALL SELECT 'objectives', count(*)::text FROM objectives o
- JOIN lessons l ON l.id = o.lesson_id WHERE l.syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND l.deleted_at IS NULL
+ JOIN lessons l ON l.id = o.lesson_id WHERE l.syllabus_id = (SELECT id FROM target_syllabus) AND l.deleted_at IS NULL
 UNION ALL SELECT 'categories of action', count(*)::text FROM competencies
- WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND deleted_at IS NULL
+ WHERE syllabus_id = (SELECT id FROM target_syllabus) AND deleted_at IS NULL
 UNION ALL SELECT 'modules', count(*)::text FROM modules
- WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND deleted_at IS NULL
+ WHERE syllabus_id = (SELECT id FROM target_syllabus) AND deleted_at IS NULL
 UNION ALL SELECT 'rows archived from the old sheet', count(*)::text FROM lessons
- WHERE syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND deleted_at IS NOT NULL
+ WHERE syllabus_id = (SELECT id FROM target_syllabus) AND deleted_at IS NOT NULL
 UNION ALL SELECT 'notes attached to a lesson', count(*)::text
   FROM lesson_note_sections lns JOIN lessons l ON l.id = lns.lesson_id
- WHERE l.syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND l.deleted_at IS NULL
+ WHERE l.syllabus_id = (SELECT id FROM target_syllabus) AND l.deleted_at IS NULL
 UNION ALL SELECT 'notes with no lesson on the new sheet', count(*)::text
   FROM note_sections s JOIN note_sources src ON src.id = s.note_source_id
- WHERE src.syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND s.deleted_at IS NULL
+ WHERE src.syllabus_id = (SELECT id FROM target_syllabus) AND s.deleted_at IS NULL
    AND NOT EXISTS (SELECT 1 FROM lesson_note_sections lns
                      JOIN lessons l ON l.id = lns.lesson_id AND l.deleted_at IS NULL
                     WHERE lns.note_section_id = s.id)
 UNION ALL SELECT 'uploaded files still attached', count(*)::text
   FROM lesson_resources r JOIN lessons l ON l.id = r.lesson_id
- WHERE l.syllabus_id = 'b1d5eedc-70f1-4c68-b4ae-7de9e311fc1c' AND l.deleted_at IS NULL AND r.deleted_at IS NULL;
+ WHERE l.syllabus_id = (SELECT id FROM target_syllabus) AND l.deleted_at IS NULL AND r.deleted_at IS NULL;
