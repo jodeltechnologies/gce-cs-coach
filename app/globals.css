@@ -1232,3 +1232,59 @@ body { font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif; }
   .release-src { display: none; }
   .msg { max-width: 94%; }
 }
+
+/* ---- releasing notes, one card per source ---- */
+
+.src-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.src-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.src-title { font-weight: 600; font-size: 1rem; }
+.src-sub { font-size: 0.84rem; color: var(--muted); margin-top: 3px; }
+.src-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+/* The new screens ask for .btn. The site already had button.primary, so this
+   is the same button under the name the newer pages use, plus a quieter
+   variant for the actions that sit beside a main one. Two names for one look
+   is a small untidiness; two looks would be a worse one. */
+.btn {
+  background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 120ms ease;
+}
+.btn:hover { filter: brightness(1.18); }
+.btn:disabled { filter: grayscale(0.7) brightness(1.4); cursor: not-allowed; }
+
+.btn.ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  font-weight: 500;
+}
+.btn.ghost:hover { border-color: var(--green); filter: none; }
+
+.btn.small { font-size: 0.82rem; padding: 6px 13px; }
+@media (prefers-color-scheme: dark) { .btn { color: #fff; } }

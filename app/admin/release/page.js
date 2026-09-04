@@ -1,23 +1,22 @@
 import Link from "next/link";
 import { createClient, getUser } from "../../../lib/supabase-server";
-import { setRelease } from "./actions";
+import { setMode, releaseAll, setRelease } from "./actions";
 
 export const metadata = { title: "Release notes" };
 export const dynamic = "force-dynamic";
 
 /**
- * Which notes a class can see.
+ * What a class is allowed to read.
  *
- * A source is either open, meaning everything in it is visible, or staged,
- * meaning nothing is visible until it is released here. Only staged sources
- * appear on this page, so turning this feature on did not hide the notes
- * students already had.
+ * Every source is either open, meaning the class sees all of it, or held
+ * back, meaning it sees only the chapters ticked here. Any source can be
+ * either. The first version only offered this for the notes written this
+ * year, which left the older booklets permanently visible and made the
+ * feature look broken.
  */
 export default async function ReleaseNotes({ searchParams }) {
   const supabase = await createClient();
   if (!supabase) return <p>Not configured.</p>;
-
-  const sp = await searchParams;
 
   const user = await getUser();
   const { data: teacher } = await supabase
@@ -29,9 +28,7 @@ export default async function ReleaseNotes({ searchParams }) {
     return (
       <div className="notice bad">
         <h3>Account not linked</h3>
-        <p>
-          Go back to <Link href="/admin">Admin</Link> for the fix.
-        </p>
+        <p>Go back to <Link href="/admin">Admin</Link> for the fix.</p>
       </div>
     );
   }
@@ -43,39 +40,35 @@ export default async function ReleaseNotes({ searchParams }) {
     .is("deleted_at", null)
     .order("name");
   const classes = classData ?? [];
+
+  const sp = await searchParams;
   const classId = sp?.class || classes[0]?.id || "";
   const klass = classes.find((c) => c.id === classId);
+  const openSourceId = sp?.source || "";
 
+  let sources = [];
   let sections = [];
-  let released = new Set();
   if (klass) {
-    const { data: secData } = await supabase
-      .from("note_sections")
-      .select("id, chapter_number, title, sequence, note_sources!inner(id, title, release_mode, syllabus_id)")
-      .is("deleted_at", null)
-      .eq("note_sources.release_mode", "staged")
-      .order("sequence");
-
-    sections = (secData ?? []).filter(
-      (s) =>
-        !s.note_sources?.syllabus_id ||
-        s.note_sources.syllabus_id === klass.syllabus_id
-    );
-
-    const { data: relData } = await supabase
-      .from("note_releases")
-      .select("note_section_id")
-      .eq("class_id", classId);
-    released = new Set((relData ?? []).map((r) => r.note_section_id));
+    const { data } = await supabase.rpc("teacher_sources", { p_class: classId });
+    sources = data ?? [];
+    if (openSourceId) {
+      const { data: secs } = await supabase.rpc("teacher_source_sections", {
+        p_class: classId,
+        p_source: openSourceId,
+      });
+      sections = secs ?? [];
+    }
   }
+  const openSource = sources.find((s) => s.id === openSourceId);
 
   return (
     <>
       <h2>Release notes</h2>
       <p className="lede">
-        Tick a note to let this class read it. Untick it to take it back. A
-        student who has already answered the questions keeps their answers
-        either way.
+        A source your class can see all of is <strong>open</strong>. One they
+        see only part of is <strong>held back</strong>, and you decide which
+        chapters. Taking a chapter back never deletes what a student has
+        already written about it.
       </p>
 
       {classes.length === 0 && (
@@ -90,8 +83,7 @@ export default async function ReleaseNotes({ searchParams }) {
           <select id="class" name="class" defaultValue={classId}>
             {classes.map((c) => (
               <option key={c.id} value={c.id}>
-                {c.name}
-                {c.form_level ? ` · ${c.form_level}` : ""}
+                {c.name}{c.form_level ? ` · ${c.form_level}` : ""}
               </option>
             ))}
           </select>
@@ -101,47 +93,96 @@ export default async function ReleaseNotes({ searchParams }) {
         </form>
       )}
 
-      {klass && sections.length === 0 && (
+      {klass && sources.length === 0 && (
         <div className="notice">
-          <h3 style={{ marginTop: 0 }}>Nothing staged for this class</h3>
-          <p style={{ margin: 0 }}>
-            Every note source for {klass.name} is set to open, so the class can
-            already read all of it. Only sources marked staged appear here.
-          </p>
+          <p style={{ margin: 0 }}>No notes exist for {klass.name} yet.</p>
         </div>
       )}
 
-      {klass && sections.length > 0 && (
-        <form action={setRelease}>
-          <input type="hidden" name="class_id" value={classId} />
+      {klass && sources.map((s) => {
+        const staged = s.release_mode === "staged";
+        const all = Number(s.sections);
+        const out = Number(s.released);
+        return (
+          <div className="src-card" key={s.id}>
+            <div className="src-head">
+              <div>
+                <div className="src-title">{s.title}</div>
+                <div className="src-sub">
+                  {all} {all === 1 ? "chapter" : "chapters"} ·{" "}
+                  {staged ? (
+                    <>
+                      held back, <strong>{out} released</strong> to {klass.name}
+                    </>
+                  ) : (
+                    <span style={{ color: "var(--red)" }}>
+                      open, the class sees all {all}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <form action={setMode}>
+                <input type="hidden" name="source_id" value={s.id} />
+                <input type="hidden" name="mode" value={staged ? "open" : "staged"} />
+                <button className="btn ghost small" type="submit">
+                  {staged ? "Open to all" : "Hold back"}
+                </button>
+              </form>
+            </div>
 
-          <p style={{ fontSize: "0.88rem", color: "var(--muted)" }}>
-            {released.size} of {sections.length} released to {klass.name}.
-          </p>
+            {staged && (
+              <div className="src-actions">
+                <Link
+                  className="link"
+                  href={`/admin/release?class=${classId}&source=${s.id}`}
+                >
+                  {openSourceId === s.id ? "Hide chapters" : "Choose chapters"}
+                </Link>
+                <form action={releaseAll} style={{ display: "inline" }}>
+                  <input type="hidden" name="class_id" value={classId} />
+                  <input type="hidden" name="source_id" value={s.id} />
+                  <input type="hidden" name="release" value="yes" />
+                  <button className="btn ghost small" type="submit">Release all</button>
+                </form>
+                <form action={releaseAll} style={{ display: "inline" }}>
+                  <input type="hidden" name="class_id" value={classId} />
+                  <input type="hidden" name="source_id" value={s.id} />
+                  <input type="hidden" name="release" value="no" />
+                  <button className="btn ghost small" type="submit">Take all back</button>
+                </form>
+              </div>
+            )}
 
-          <div style={{ display: "grid", gap: 2, margin: "16px 0 20px" }}>
-            {sections.map((s) => (
-              <label key={s.id} className="release-row">
-                <input type="hidden" name="offered" value={s.id} />
-                <input
-                  type="checkbox"
-                  name="release"
-                  value={s.id}
-                  defaultChecked={released.has(s.id)}
-                />
-                <span className="release-no">{s.chapter_number ?? ""}</span>
-                <span className="release-title">{s.title}</span>
-                <span className="release-src">{s.note_sources?.title}</span>
-              </label>
-            ))}
+            {openSourceId === s.id && sections.length > 0 && (
+              <form action={setRelease} style={{ marginTop: 14 }}>
+                <input type="hidden" name="class_id" value={classId} />
+                <div style={{ display: "grid", gap: 2, marginBottom: 14 }}>
+                  {sections.map((sec) => (
+                    <label key={sec.id} className="release-row">
+                      <input type="hidden" name="offered" value={sec.id} />
+                      <input
+                        type="checkbox"
+                        name="release"
+                        value={sec.id}
+                        defaultChecked={sec.released}
+                      />
+                      <span className="release-no">{sec.chapter_number ?? ""}</span>
+                      <span className="release-title">{sec.title}</span>
+                      <span className="release-src">
+                        {sec.released ? "released" : ""}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+                <button className="btn" type="submit">Save these chapters</button>
+                <span style={{ marginLeft: 12, fontSize: "0.85rem", color: "var(--muted)" }}>
+                  Nothing changes for the class until you press this.
+                </span>
+              </form>
+            )}
           </div>
-
-          <button className="btn" type="submit">Save</button>
-          <span style={{ marginLeft: 12, fontSize: "0.85rem", color: "var(--muted)" }}>
-            Nothing changes for the class until you press this.
-          </span>
-        </form>
-      )}
+        );
+      })}
     </>
   );
 }
