@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { createBrowserClient } from "@supabase/ssr";
 
 export default function LoginPage() {
@@ -83,9 +84,20 @@ export default function LoginPage() {
         </button>
       </form>
 
-      <p className="lede" style={{ marginTop: 28 }}>
-        Forgot the password? There is no self-service reset yet — reset it from
-        the Supabase dashboard under Authentication → Users.
+      {/* The progression sheet is closed now, so a student following an old
+          link arrives here rather than at the sheet. Without this they would
+          sit staring at a form they have no account for. */}
+      <div className="notice" style={{ marginTop: 26 }}>
+        <h3 style={{ marginTop: 0 }}>Are you a student?</h3>
+        <p style={{ margin: 0 }}>
+          This form is for teachers. Sign in with the code from your register
+          at <Link className="link" href="/student/login">student sign-in</Link>.
+        </p>
+      </div>
+
+      <p className="lede" style={{ marginTop: 22 }}>
+        Forgot the password? There is no self-service reset yet. Reset it from
+        the Supabase dashboard under Authentication, then Users.
       </p>
     </>
   );

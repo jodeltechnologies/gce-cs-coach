@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getSupabase } from "../../../lib/supabase";
+import { requireTeacher } from "../../../lib/guards";
 import {
   ACADEMIC_YEAR,
   breakAfter,
@@ -175,7 +175,7 @@ function TimetableCard({ formLevel, prescribed }) {
 
 export default async function SyllabusPage({ params }) {
   const { id } = await params;
-  const supabase = getSupabase();
+  const { supabase } = await requireTeacher();
 
   if (!supabase) {
     return (

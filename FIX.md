@@ -1,8 +1,9 @@
-# Two fixes
+# Three fixes
 
-Both faults were mine, and both were the same kind of mistake in different
-places. Something was switched on for safety and then never given permission
-to work.
+Two bugs you found, and the sheet closed.
+
+**Upload the whole download to GitHub, then run the two SQL files in order,
+`phase14.sql` before `phase15.sql`.** Both go after `phase13.sql`.
 
 ---
 
@@ -11,101 +12,117 @@ to work.
 `phase13.sql` turned row level security on for `messages`,
 `self_check_attempts` and `note_releases`, and then wrote no policies for
 them. My comment said the anon key would reach none of those tables, which was
-true and was the point.
+true and was the point. What it missed is that **your own session obeys the
+same policies**. With none written, you could read nothing and write nothing
+either.
 
-What it missed is that **your own session is subject to the same policies**.
-With none written, you could read nothing and write nothing either.
+So a student pressing Send really did insert a row, through a function that
+runs as its owner and steps past the policies. Your inbox then looked in the
+same table by the ordinary path and was told there was nothing there. No error
+on either side. The message existed and was unreachable.
 
-So a student pressing Send really did insert a row. That goes through a
-function which runs as its owner and steps past the policies. Your inbox then
-looked in the same table through the ordinary path and was told there was
-nothing there. No error on either side. The message existed and was
-unreachable.
-
-The same fault broke releasing notes, because that page reads and writes
+The same fault broke releasing notes, since that page writes to
 `note_releases` directly.
 
-**Nothing was lost.** Every message a student sent is sitting in the table and
-will appear the moment this is loaded.
+**Nothing was lost.** Every message already sent appears the moment
+`phase14.sql` runs.
 
 ## 2. Notes stayed visible
 
-I only held back the two sources written for 2026/2027. Every older source
-kept its release mode as open, so those chapters carried on showing. That is
-what you were seeing on the student Notes screen.
+I had only held back the two sources written for 2026/2027. Every older source
+stayed open, so those chapters carried on showing.
 
-That was deliberate, so a class would not have notes pulled away mid-term. But
-it was the wrong call to make on your behalf. **Any source can now be held
-back**, and the choice is yours.
+**Any source can now be held back**, and the choice is yours. Each card on
+Release notes says how much the class can currently see, with a red line on
+anything still open. Release all and Take all back save ticking forty boxes.
 
----
+## 3. The progression sheet was open to anybody
 
-## What to do
+You are right, and it was open in two separate ways. Closing one without the
+other would have looked like a fix without being one.
 
-### Step 1, GitHub
+**The routes were open.** Signing out left `/`, `/syllabus` and `/lesson`
+serving the whole year to whoever asked.
 
-Four files. Upload the `app` and `db` folders from this download.
+**The data was open, which is the part that mattered.** Every curriculum table
+carried a policy reading `FOR SELECT USING (true)`, meaning anybody at all,
+signed in or not. The anon key sits in the page source of every visit, so the
+sheet could be read straight from the API whatever the pages did. Hiding a
+link does not close a door.
 
-| File | |
+Both are shut now. There are three layers, and each is there because the
+others can fail:
+
+| | |
 |---|---|
-| `db/phase14.sql` | New |
-| `app/admin/release/page.js` | Replaces |
-| `app/admin/release/actions.js` | Replaces |
-| `app/globals.css` | Replaces |
+| `middleware.js` | Turns the request away at the door |
+| `lib/guards.js` | The page checks again, so a route the matcher forgets is still closed |
+| `phase15.sql` | The database refuses. This is the only real protection |
 
-Wait for Vercel to say Ready.
+**Students are unaffected.** Everything they see comes through functions that
+run as their owner and never consult these policies. I checked that function
+by function before writing the file rather than assuming it.
 
-### Step 2, Supabase
+Where people now go:
 
-Paste `db/phase14.sql` whole and run it. It must go after `phase13.sql`.
+| Who | Asking for | Goes to |
+|---|---|---|
+| Nobody | the sheet or admin | teacher sign-in |
+| Student | the sheet | their own progress page |
+| Student | admin | their own dashboard |
+| Teacher | anything | through |
 
-It prints six rows at the end. **The first must say true.** If it says false,
-you are running the SQL editor as a different account from the one the app
-signs in with, and the counts below it will be wrong. The fix is to check in
-the app rather than in the editor.
-
-The other rows tell you how many messages, self checks and releases you can
-now see. If messages had been sent before today, that count will not be zero.
-
----
-
-## Then check it
-
-**Admin, Messages.** Anything a student has already sent should be there now.
-
-**Admin, Release notes.** One card for each source, with how many chapters the
-class can currently see.
-
-- A source marked **open** shows a red line saying the class sees all of it.
-- **Hold back** switches it off. The class immediately sees none of it.
-- **Choose chapters** opens the tick list. **Release all** and **Take all
-  back** save you ticking forty boxes.
-
-**As a student.** Sign in and open Notes. A source you have held back should
-show only the chapters you released, and a source you have released nothing
-from should not appear at all.
-
-That last one is the check worth doing twice, since it is the one that was
-broken.
+A student following an old link to the sheet lands on the teacher sign-in, so
+that page now carries a line pointing them at student sign-in. Without it they
+would sit staring at a form they have no account for.
 
 ---
 
-## A note on how it is fixed
+## Running it
 
-The teacher policies lean on two helpers, `is_my_class` and `is_my_student`.
-Both run as their owner rather than as the caller.
+### GitHub
 
-That matters more than it looks. A policy that has to read another table in
-order to decide is itself subject to *that* table's policies. Written the
-obvious way, the check reads nothing, concludes nothing, and refuses every
-row, which is precisely how the first version failed. Running the lookup as
-the owner is what stops the check quietly answering no to everything.
+Upload the `app`, `lib` and `db` folders, plus **`middleware.js`, which sits
+at the top level of the repository, not inside a folder**. Wait for Vercel to
+say Ready.
 
-Releasing notes also no longer writes to the table from the page. It calls a
-function that raises an error when the class is not yours. The old code wrote
-directly, was refused by the very policies that did not exist, and reported
-success anyway. A refusal that says so is worth more than a save that lies.
+### Supabase, in order
 
-Students still never touch any of these tables. Everything they do goes
-through a function that takes their id from a signed cookie the server checked
-first.
+**`phase14.sql` first.** It prints six rows. The first must say **true**. If
+it says false you are running the editor as a different account from the one
+the app uses, and the counts below it will mislead you.
+
+**`phase15.sql` second.** It prints two tables.
+
+- The first is what you can read signed in. Every count should be above zero.
+- The second is what an anonymous request can read. **All four must be zero.**
+  That is the check that proves the sheet is shut.
+
+If the second table is not all zeros, stop and send it to me.
+
+---
+
+## Then check it in the app
+
+**Signed out, in a private window**, try the site address. You should land on
+sign-in, not on the sheet. Try `/syllabus/` followed by any id you have seen
+before. Same thing.
+
+**As a student**, the site address should take you to your own progress page,
+not the sheet.
+
+**As yourself**, everything as before.
+
+**Admin, Messages.** Anything a student sent earlier is there now.
+
+**Admin, Release notes.** Hold back a source, then check as a student that it
+has gone from Notes. That is the check worth doing twice, since it is the one
+that was broken.
+
+---
+
+## Still outstanding
+
+- The after-school Lower Sixth times, whenever you have them.
+- The Cameroon law citations in Lower Sixth lessons 36 and 37.
+- Terms 2 and 3 of the notes.

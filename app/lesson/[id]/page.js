@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createClient } from "../../../lib/supabase-server";
+import { requireTeacher } from "../../../lib/guards";
 import {
   formatRange,
   sittingsForWeek,
@@ -50,7 +50,7 @@ function render(text) {
 
 export default async function LessonReader({ params }) {
   const { id } = await params;
-  const supabase = await createClient();
+  const { supabase } = await requireTeacher();
   if (!supabase) return <p>Not configured.</p>;
 
   const { data: lesson } = await supabase

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getSupabase } from "../lib/supabase";
+import { requireTeacher } from "../lib/guards";
 
 export const metadata = { title: "Progression sheets" };
 
@@ -46,7 +46,9 @@ function ErrorNotice({ message }) {
 }
 
 export default async function Home() {
-  const supabase = getSupabase();
+  // Sends anonymous visitors to sign in and students to their own page. The
+  // sheet itself is the teacher's planning document.
+  const { supabase } = await requireTeacher();
   if (!supabase) return <SetupNotice />;
 
   const { data: syllabi, error } = await supabase
