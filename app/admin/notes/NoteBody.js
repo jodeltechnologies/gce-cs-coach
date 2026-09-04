@@ -185,7 +185,69 @@ function sanitize(html) {
     .replace(/(href|src)\s*=\s*"\s*javascript:[^"]*"/gi, "");
 }
 
-export default function NoteBody({ body, format = "markdown" }) {
+/**
+ * Pull the questions out of a note body.
+ *
+ * The seed writes them as a block of <li> holding a question and its answer.
+ * On the teacher's screen that is fine as it stands. On a student's screen the
+ * answers have to be held back, so the block is lifted out here and handed to
+ * a component that can hide them. Returning the prose either side keeps the
+ * note in one piece if the shape ever changes.
+ */
+export function splitSelfCheck(body) {
+  const html = String(body ?? "");
+  const open = html.indexOf('<div class="quiz">');
+  if (open < 0) return { before: html, questions: [], after: "" };
+
+  const close = html.indexOf("</div>", html.lastIndexOf("</ol>", html.length));
+  const end = close < 0 ? html.length : close + 6;
+  const block = html.slice(open, end);
+
+  const questions = [];
+  const item = /<li>\s*<p class="q">([\s\S]*?)<\/p>\s*<p class="a">([\s\S]*?)<\/p>\s*<\/li>/g;
+  let m;
+  while ((m = item.exec(block)) !== null) {
+    questions.push({
+      question: stripTags(m[1]),
+      answer: stripTags(m[2]),
+    });
+  }
+
+  const heading = /<h3>([\s\S]*?)<\/h3>/.exec(block);
+  return {
+    before: html.slice(0, open),
+    questions,
+    title: heading ? stripTags(heading[1]) : "Test yourself",
+    after: html.slice(end),
+  };
+}
+
+const ENTITIES = {
+  amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ",
+  times: "\u00d7", divide: "\u00f7", minus: "\u2212", deg: "\u00b0",
+  hellip: "\u2026", mdash: "\u2014", ndash: "\u2013", rsquo: "\u2019",
+  lsquo: "\u2018", ldquo: "\u201c", rdquo: "\u201d", middot: "\u00b7",
+};
+
+function stripTags(s) {
+  return String(s)
+    .replace(/<[^>]+>/g, "")
+    // &amp; has to go last or it would double-decode the others, so the whole
+    // lot is handled in a single pass instead.
+    .replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (whole, name) => {
+      if (name[0] === "#") {
+        const code = name[1] === "x" || name[1] === "X"
+          ? parseInt(name.slice(2), 16)
+          : parseInt(name.slice(1), 10);
+        return Number.isFinite(code) ? String.fromCodePoint(code) : whole;
+      }
+      return ENTITIES[name.toLowerCase()] ?? whole;
+    })
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export default function NoteBody({ body, format = "markdown", children }) {
   if (!body) return null;
 
   if (format === "html") {
@@ -199,4 +261,19 @@ export default function NoteBody({ body, format = "markdown" }) {
   }
 
   return <div style={{ maxWidth: "68ch" }}>{renderMarkdown(body)}</div>;
+}
+
+/** The same note with the questions held back for a student to attempt. */
+export function NoteBodyForStudent({ body, format = "markdown", checks }) {
+  if (!body) return null;
+  if (format !== "html") return <NoteBody body={body} format={format} />;
+
+  const { before, questions, title, after } = splitSelfCheck(body);
+  return (
+    <div className="note-html" style={{ maxWidth: "68ch", lineHeight: 1.7 }}>
+      <div dangerouslySetInnerHTML={{ __html: sanitize(before) }} />
+      {questions.length > 0 && checks ? checks({ questions, title }) : null}
+      {after ? <div dangerouslySetInnerHTML={{ __html: sanitize(after) }} /> : null}
+    </div>
+  );
 }

@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "../../lib/supabase-server";
 import {
@@ -358,4 +359,69 @@ export async function submitAssessment(attemptId) {
     outOf: row?.out_of ?? 0,
     awaitingMarking: Number(row?.awaiting_marking ?? 0),
   };
+}
+
+// ---------------------------------------------------------------------------
+// The questions at the foot of a note
+// ---------------------------------------------------------------------------
+
+/**
+ * Record what a student said about one question.
+ *
+ * Nothing here marks a written answer. The student compares their own against
+ * the model and reports which of three things happened, and that report is
+ * stored as a report. It shows on the progress page and on the teacher's, and
+ * it is labelled everywhere as the student's own judgement rather than as a
+ * score, because a number would suggest a precision that is not there.
+ */
+export async function recordSelfCheck(sectionId, index, question, report) {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const { error } = await supabase.rpc("record_self_check", {
+    p_student: session.id,
+    p_section: sectionId,
+    p_index: Number(index),
+    p_question: String(question ?? "").slice(0, 500),
+    p_report: report,
+  });
+  if (error) return { error: error.message };
+  return { saved: true };
+}
+
+// ---------------------------------------------------------------------------
+// Writing to the teacher
+// ---------------------------------------------------------------------------
+
+export async function sendMessage(prevState, formData) {
+  const session = await getStudentSession();
+  if (!session) return { error: "Signed out." };
+  const supabase = await createClient();
+  if (!supabase) return { error: "Not connected." };
+
+  const body = String(formData.get("body") ?? "").trim();
+  if (!body) return { error: "Write something first." };
+
+  const { error } = await supabase.rpc("student_send_message", {
+    p_student: session.id,
+    p_body: body,
+    p_lesson: formData.get("lesson_id") || null,
+    p_section: formData.get("note_section_id") || null,
+  });
+  if (error) {
+    // The rate limit raises rather than returning a code, so the message is
+    // turned into something a student can act on.
+    if (String(error.message).includes("too many messages")) {
+      return {
+        error:
+          "You have sent a lot of messages in the last hour. Wait a while, " +
+          "then send the rest in one message.",
+      };
+    }
+    return { error: error.message };
+  }
+  revalidatePath("/student/messages");
+  return { sent: true };
 }

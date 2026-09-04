@@ -2,7 +2,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "../../../lib/supabase-server";
 import { getStudentSession } from "../../../lib/student-session";
-import NoteBody from "../../admin/notes/NoteBody";
+import NoteBody, { splitSelfCheck } from "../../admin/notes/NoteBody";
+import SelfCheckPanel from "./SelfCheckPanel";
+import MessageForm from "../messages/MessageForm";
 
 export const metadata = { title: "Notes" };
 export const dynamic = "force-dynamic";
@@ -22,6 +24,21 @@ export default async function StudentNotes({ searchParams }) {
   });
   const chapters = data ?? [];
   const open = chapters.find((c) => c.id === openId);
+
+  // What this student already said about the questions in this note, so the
+  // page comes back the way they left it rather than asking again.
+  let saved = {};
+  let parts = null;
+  if (open && open.body_format === "html") {
+    parts = splitSelfCheck(open.body);
+    if (parts.questions.length > 0) {
+      const { data: prior } = await supabase.rpc("student_section_checks", {
+        p_student: session.id,
+        p_section: open.id,
+      });
+      for (const row of prior ?? []) saved[row.question_index] = row.self_report;
+    }
+  }
 
   // Grouped by where they came from, in the order the function returned them:
   // the written notes, then the booklet chapters that hold the figures.
@@ -84,7 +101,28 @@ export default async function StudentNotes({ searchParams }) {
           <h2 style={{ marginBottom: 18 }}>
             {open.chapter_number ? `${open.chapter_number}. ` : ""}{open.title}
           </h2>
-          <NoteBody body={open.body} format={open.body_format} />
+
+          {parts && parts.questions.length > 0 ? (
+            <SelfCheckPanel
+              sectionId={open.id}
+              before={parts.before}
+              after={parts.after}
+              title={parts.title}
+              questions={parts.questions}
+              saved={saved}
+            />
+          ) : (
+            <NoteBody body={open.body} format={open.body_format} />
+          )}
+
+          <div className="notice" style={{ marginTop: 30 }}>
+            <h3 style={{ marginTop: 0 }}>Not clear yet?</h3>
+            <p style={{ margin: "0 0 4px", fontSize: "0.9rem" }}>
+              Read it once more first. If it still will not go in, say so and
+              your teacher will see which note you were on.
+            </p>
+            <MessageForm sectionId={open.id} compact />
+          </div>
         </>
       )}
     </main>

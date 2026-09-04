@@ -19,19 +19,27 @@ from figures import DIAGRAMS
 
 NS = uuid.UUID("7df11f03-a526-56c6-abb9-562db2871de7")
 
+# Their own sources, not the ones already in the database.
+#
+# The first version of this file reused the existing Lower Sixth source id.
+# That put the new notes in with the old ones, which was harmless until the
+# source was staged for release: staging it would have hidden all seventy-one
+# notes students were already reading. Separate sources keep the two sets
+# independent, and let the old ones stay open while the new ones are released
+# week by week.
 SOURCES = {
     "Form 5": dict(
-        id="c1a7f2d4-88b1-5a3e-9f60-4d2e7b915c33",
-        title="Form 5 Computer Science lesson notes",
-        attribution="Written for the Form 5 Computer Science progression sheet, "
-                    "one note per lesson",
-        form_level="Form 5", sequence=0),
+        id="947e8ce4-cb63-5847-98b1-d4cc5cf2f67f",
+        title="Form 5 Computer Science, First Term 2026/2027",
+        attribution="One note per lesson, written for the 2026/2027 "
+                    "progression sheet",
+        form_level="Form 5", sequence=1),
     "Lower Sixth": dict(
-        id="7df11f03-a526-56c6-abb9-562db2871de7",
-        title="Lower Sixth ICT lesson notes",
-        attribution="Written for the Lower Sixth ICT progression sheet, "
-                    "one note per lesson",
-        form_level="Lower Sixth", sequence=0),
+        id="394dbea1-e9d4-5da2-b9db-e2fe1953c8ec",
+        title="Lower Sixth ICT, First Term 2026/2027",
+        attribution="One note per lesson, written for the 2026/2027 "
+                    "progression sheet",
+        form_level="Lower Sixth", sequence=1),
 }
 
 

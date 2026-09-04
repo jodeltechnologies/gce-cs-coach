@@ -19,9 +19,9 @@ ALTER TABLE note_sources
   ADD COLUMN IF NOT EXISTS sequence INTEGER NOT NULL DEFAULT 100,
   ADD COLUMN IF NOT EXISTS syllabus_id UUID REFERENCES syllabi(id);
 
--- Form 5 Computer Science lesson notes
+-- Form 5 Computer Science, First Term 2026/2027
 INSERT INTO note_sources (id, title, attribution, sequence) VALUES
-  ('c1a7f2d4-88b1-5a3e-9f60-4d2e7b915c33', 'Form 5 Computer Science lesson notes', 'Written for the Form 5 Computer Science progression sheet, one note per lesson', 0)
+  ('947e8ce4-cb63-5847-98b1-d4cc5cf2f67f', 'Form 5 Computer Science, First Term 2026/2027', 'One note per lesson, written for the 2026/2027 progression sheet', 1)
 ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
   attribution = EXCLUDED.attribution, sequence = EXCLUDED.sequence,
   deleted_at = NULL, updated_at = now();
@@ -29,11 +29,11 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 UPDATE note_sources SET syllabus_id = (
   SELECT id FROM syllabi WHERE form_level = 'Form 5'
     AND deleted_at IS NULL ORDER BY created_at LIMIT 1)
-WHERE id = 'c1a7f2d4-88b1-5a3e-9f60-4d2e7b915c33';
+WHERE id = '947e8ce4-cb63-5847-98b1-d4cc5cf2f67f';
 
--- Lower Sixth ICT lesson notes
+-- Lower Sixth ICT, First Term 2026/2027
 INSERT INTO note_sources (id, title, attribution, sequence) VALUES
-  ('7df11f03-a526-56c6-abb9-562db2871de7', 'Lower Sixth ICT lesson notes', 'Written for the Lower Sixth ICT progression sheet, one note per lesson', 0)
+  ('394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lower Sixth ICT, First Term 2026/2027', 'One note per lesson, written for the 2026/2027 progression sheet', 1)
 ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
   attribution = EXCLUDED.attribution, sequence = EXCLUDED.sequence,
   deleted_at = NULL, updated_at = now();
@@ -41,12 +41,12 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 UPDATE note_sources SET syllabus_id = (
   SELECT id FROM syllabi WHERE form_level = 'Lower Sixth'
     AND deleted_at IS NULL ORDER BY created_at LIMIT 1)
-WHERE id = '7df11f03-a526-56c6-abb9-562db2871de7';
+WHERE id = '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec';
 
 -- Form 5 lesson 4: Introduction to Artificial Intelligence
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('4493286e-a09c-5cb9-a5d7-64c2b055a373', 'c1a7f2d4-88b1-5a3e-9f60-4d2e7b915c33', 'Lesson 4',
+  ('c79259fb-122b-56d2-97df-38ecca79a022', '947e8ce4-cb63-5847-98b1-d4cc5cf2f67f', 'Lesson 4',
    'Introduction to Artificial Intelligence',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>What AI is</li><li>How AI grew</li><li>The types of AI around us</li></ul></div>
 <p>You have used artificial intelligence already today, probably more than
@@ -134,7 +134,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Form 5 lesson 5: Applications and Ethics of Artificial Intelligence
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('ea30624f-62dc-5de7-9cd6-9be7ad178377', 'c1a7f2d4-88b1-5a3e-9f60-4d2e7b915c33', 'Lesson 5',
+  ('2ee75a6c-e91e-5582-a486-392ac0a2058e', '947e8ce4-cb63-5847-98b1-d4cc5cf2f67f', 'Lesson 5',
    'Applications and Ethics of Artificial Intelligence',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Where AI is used</li><li>AI in different fields</li><li>The problems AI brings</li></ul></div>
 <p>The last lesson said what artificial intelligence is. This one asks two
@@ -200,7 +200,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Form 5 lesson 6: The use of appropriate Prompts to generate AI responses
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('51b7b8c1-ccdf-5196-a6c9-abb5457b90d8', 'c1a7f2d4-88b1-5a3e-9f60-4d2e7b915c33', 'Lesson 6',
+  ('00890984-e46e-5bb7-947a-dd83eaa73ac8', '947e8ce4-cb63-5847-98b1-d4cc5cf2f67f', 'Lesson 6',
    'The use of appropriate Prompts to generate AI responses',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Looking at what a prompt returns</li><li>Judging the result</li><li>Writing prompts that solve a problem</li></ul></div>
 <p>This lesson is done at the machine. A prompt is what you type to an AI tool.
@@ -263,7 +263,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 1: History and Evolution of Computing
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('19d58096-53f4-5397-bb12-2bbf956d7b73', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 1',
+  ('a52dc80f-f196-5162-bae1-60ee052822d1', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 1',
    'History and Evolution of Computing',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>The generations of computers</li><li>How size, power and price changed</li><li>Von Neumann and Harvard architecture</li><li>The stored program idea</li></ul></div>
 <p>Computers are usually divided into five generations, and each one is named
@@ -323,7 +323,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 3: AI Ethics and Responsible Use
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('301b6e6f-05d7-503a-bbb1-88153446f446', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 3',
+  ('00e5d24a-38cc-5d18-ae06-97275d3c7244', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 3',
    'AI Ethics and Responsible Use',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>The problems AI raises</li><li>Its risks and its benefits</li><li>Rules for using it responsibly</li></ul></div>
 <p>Artificial intelligence is a tool, and the questions we ask of it are the
@@ -390,7 +390,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 4: AI Techniques and Intelligent Systems
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('fbeb6134-b80a-5df5-880a-4fed2c2a1523', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 4',
+  ('85b6fec0-9ded-5c25-b981-99faae3ed5c1', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 4',
    'AI Techniques and Intelligent Systems',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Common AI techniques</li><li>What makes a system intelligent</li><li>Choosing between the techniques</li></ul></div>
 <p>Artificial intelligence is not one method. It is a shelf of them, and the
@@ -461,7 +461,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 5: Machine Learning
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('5cd51218-846e-5923-9177-c44988349904', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 5',
+  ('848d224a-c609-5125-83e1-e4120f150377', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 5',
    'Machine Learning',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>What machine learning is</li><li>How it works</li><li>Supervised, unsupervised and reinforcement learning</li></ul></div>
 <p>In ordinary programming you write the rules and the computer applies them.
@@ -533,7 +533,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 6: Developing AI Systems
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('39695d0b-04a2-5be9-a539-fc49aaf6dd5a', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 6',
+  ('25e5f5a0-83d4-580e-9cd0-d9ea30bc5dfa', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 6',
    'Developing AI Systems',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>The stages of building an AI system</li><li>Languages and tools</li><li>Why Python is used so widely</li></ul></div>
 <p>Building an artificial intelligence system is a project like any other, with
@@ -601,7 +601,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 7: Types of Computers
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('babd6083-9274-5676-935a-d5567356d959', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 7',
+  ('5ec90a26-d22e-5c07-bd28-f5930c52fde3', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 7',
    'Types of Computers',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Supercomputer, mainframe, minicomputer, microcomputer</li><li>Size, power, cost and purpose</li><li>Choosing the right one</li></ul></div>
 <p>Computers are grouped into four types, in order of size and power. The
@@ -654,7 +654,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 8: Basic Components of a Computer
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('2b5fe5aa-3b0c-5ba8-8da2-03bad1c7176f', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 8',
+  ('a3b11170-deae-50d5-824c-f4d91baa1dc8', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 8',
    'Basic Components of a Computer',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Hardware, input, output, storage and processing</li><li>What the common devices do</li><li>Choosing a device</li></ul></div>
 <p>Every computer, from a smartwatch to a mainframe, is the same four things
@@ -715,7 +715,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 9: Input devices
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('cd8583b2-1a94-5e19-b7a4-c0423fbaccd3', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 9',
+  ('7ef36eaf-35af-5940-9f1a-bd03e5c372fe', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 9',
    'Input devices',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Automatic data capture</li><li>MICR, OCR, OMR, barcode, QR, card and RFID</li><li>How AI reading extends data capture</li></ul></div>
 <p>Typing is slow, and typing is where mistakes come from. Even a trained
@@ -783,7 +783,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 10: Output devices
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('ebcbee9e-d3fe-5e9b-8edd-1bdd846d0b60', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 10',
+  ('1e6aec68-9081-551c-9aa1-7f5903081969', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 10',
    'Output devices',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Dot matrix, laser and inkjet printers</li><li>Projector, plotter, 3D printer, actuator</li><li>Choosing an output device</li></ul></div>
 <p>Output is where the computer''s work becomes something a person, or another
@@ -841,7 +841,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 11: Secondary Storage media and devices
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('9b5294fb-8c34-5242-8e43-28846e4ed8b5', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 11',
+  ('bf89c24c-0b82-5203-88f2-d4f4de7e0fdc', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 11',
    'Secondary Storage media and devices',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Secondary against primary storage</li><li>Magnetic, optical and solid state storage</li><li>Choosing storage</li></ul></div>
 <p>Primary storage is the desk you work on. Secondary storage is the cupboard
@@ -900,7 +900,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 12: Primary Storage devices
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('81b95010-f0e7-5513-a211-d4637eb91f3e', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 12',
+  ('ede86a80-e0be-5e1b-9e9d-1cac1f7060b1', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 12',
    'Primary Storage devices',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>RAM, ROM, cache and registers</li><li>Comparing them</li><li>Why AI training needs so much storage</li></ul></div>
 <p>There is an order inside the machine, and it holds all the way down. The
@@ -961,7 +961,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 13: Processing device and the machine instruction cycle
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('ffe3e413-d5b3-553b-b6f2-62ef4908aeb8', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 13',
+  ('d0c08724-6802-56ec-afd4-5e46e191df52', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 13',
    'Processing device and the machine instruction cycle',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>CPU and GPU</li><li>The machine instruction cycle</li><li>Why AI work leans on the GPU</li></ul></div>
 <p>The processor does one thing over and over, billions of times a second. It
@@ -1031,7 +1031,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 14: Processor architectures, parallel and distributed computing
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('450b5374-8828-56af-879b-e22721e7a0d3', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 14',
+  ('159b7963-b68f-5a9e-9b7d-09234cc6c6be', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 14',
    'Processor architectures, parallel and distributed computing',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>CISC and RISC</li><li>Flynn''s four categories</li><li>Parallel against distributed computing</li></ul></div>
 <p>Three separate ideas sit in this lesson. An argument about how to design an
@@ -1090,7 +1090,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 15: Conversion between units of storage and units of processing
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('362a31a9-2019-507d-96c0-ab35619faca9', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 15',
+  ('d531453e-c52a-595f-a015-cdd343124d4a', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 15',
    'Conversion between units of storage and units of processing',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Units of storage</li><li>Units of processing</li><li>Converting between them</li></ul></div>
 <p>There are two separate ladders here and they are easy to confuse. Storage is
@@ -1153,7 +1153,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 17: Application software
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('658a7b91-8f9d-53da-bdda-b4c23676c5e1', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 17',
+  ('1289e1a7-10c8-55fd-8f1d-dbe568e91396', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 17',
    'Application software',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>General purpose, specific purpose and tailor made</li><li>Common types</li><li>Choosing software for a task</li></ul></div>
 <p>Application software is what you open to get something done, as
@@ -1206,7 +1206,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 18: System software and examples
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('2769c2eb-7313-5bc4-936b-f8d38b5d1338', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 18',
+  ('1c3b758a-a058-584b-8f7f-30ccdee35ef2', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 18',
    'System software and examples',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Operating systems, drivers and utilities</li><li>Common utilities</li><li>Utilities that use AI</li></ul></div>
 <p>System software works for the machine. Application software works for you.
@@ -1268,7 +1268,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 19: Notions of the Operating System
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('7a907f81-5181-5fef-9f7e-9e7ff05bab66', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 19',
+  ('0b165e2a-cbc7-5313-9102-6f2d95428f37', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 19',
    'Notions of the Operating System',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>How operating systems grew</li><li>Types of operating system</li><li>What an operating system does</li></ul></div>
 <p>Without an operating system a computer is a heap of parts that cannot work
@@ -1335,7 +1335,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 20: Functions of an operating system 1
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('b66ec48c-e52e-585c-be81-0968f08c9aca', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 20',
+  ('95d4da52-8268-575e-a6c2-533f73a839e4', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 20',
    'Functions of an operating system 1',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Pre-emptive and non pre-emptive scheduling</li><li>FCFS, SJF, SRT and round robin</li><li>AI in scheduling</li></ul></div>
 <p>One processor, and many programs all wanting it. Scheduling is how the
@@ -1400,7 +1400,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 21: Functions of the operating system 2
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('33e0995b-b38b-595c-a711-07e93b400a84', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 21',
+  ('b81b3136-538b-5037-af82-84b7c86d41ba', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 21',
    'Functions of the operating system 2',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Managing memory, files and devices</li><li>Deallocation, virtual memory, buffering, spooling, metadata</li></ul></div>
 <p>Scheduling shares out the processor. This lesson is about sharing out
@@ -1458,7 +1458,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 22: Installing an operating system and user interfaces
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('d966221b-b0f7-5b4d-9003-8caad542929e', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 22',
+  ('5dc968a9-9b43-5ad2-93b5-26cc49c6dce4', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 22',
    'Installing an operating system and user interfaces',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Installing Windows or Linux</li><li>Graphical and command line interfaces</li><li>Choosing an interface</li></ul></div>
 <p>This lesson is done at the machine. By the end of it you should have
@@ -1518,7 +1518,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 23: Using the GUI of an operating system
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('20c21e2f-7e81-562a-9cc8-659dcbb2f699', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 23',
+  ('c18398d3-b3b5-5681-a7ee-4dac14757c7d', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 23',
    'Using the GUI of an operating system',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Files, folders and file formats</li><li>Working with files and folders</li><li>Keeping other people out</li></ul></div>
 <p>This lesson is done at the machine. Most of what follows you have probably
@@ -1587,7 +1587,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 24: Using the CLI of an operating system
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('4b2d3db8-28a7-50af-b5f2-e24c83e34978', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 24',
+  ('75b90d72-30c7-5e83-aeea-36188aa97e59', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 24',
    'Using the CLI of an operating system',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Opening a command line</li><li>Working with files and folders</li><li>Writing a script</li></ul></div>
 <p>The command line looks unfriendly and is far more powerful than the windows
@@ -1657,7 +1657,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 25: Hardware faults identification and correction
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('a439048b-a033-539d-88b8-f1caec65ed12', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 25',
+  ('8c6b2cc7-752a-5ce8-9361-a3439c3c766c', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 25',
    'Hardware faults identification and correction',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Preventive and corrective maintenance</li><li>Common hardware faults</li><li>How to prevent them</li></ul></div>
 <p>Machines fail. The only question is whether they fail on a day you chose or
@@ -1710,7 +1710,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 26: Software faults identification and correction
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('532036ce-e62c-5ac9-becb-472e4aad6db5', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 26',
+  ('1e7cc82b-bde3-59f8-9f31-6b13df48e069', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 26',
    'Software faults identification and correction',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Hardware against software maintenance</li><li>Common software faults</li><li>A method for finding the cause</li></ul></div>
 <p>If the fault follows the machine, suspect hardware. If it follows the
@@ -1777,7 +1777,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 27: Assistive technology
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('a8a4017d-5324-5513-82ca-28792c0c5339', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 27',
+  ('680d3156-adf8-5077-84b9-b3357a1b67d4', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 27',
    'Assistive technology',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>What assistive technology is</li><li>Braille, audio and speech tools</li><li>How AI improved them</li></ul></div>
 <p>A computer is only useful to somebody who can operate it. Assistive
@@ -1845,7 +1845,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 28: Computer ergonomics
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('d0813e39-bc1d-5ca6-b8dc-3fff56983015', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 28',
+  ('d1da1d67-f668-5001-8ad0-94d40681dadd', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 28',
    'Computer ergonomics',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>What ergonomics means</li><li>Health problems and their causes</li><li>Correct posture and equipment</li></ul></div>
 <p>You will spend years of your life in front of a screen. The injuries that
@@ -1911,7 +1911,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 29: Editing and Formatting text
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('6f53efd1-8123-553c-a0a8-23e62c003de7', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 29',
+  ('ce68821e-0eb1-5fe6-95cb-f629720027e1', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 29',
    'Editing and Formatting text',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Editing text</li><li>Formatting text</li><li>Styles</li><li>AI writing helpers</li></ul></div>
 <p>This lesson is done at the machine. <strong>Editing</strong> means changing
@@ -1974,7 +1974,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 30: Editing and formatting images and tables
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('1303385b-85ce-5a51-85a5-a23762eca782', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 30',
+  ('8d3ad759-22bb-575e-8b45-12b8909bf8f5', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 30',
    'Editing and formatting images and tables',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Working with images</li><li>Text wrapping</li><li>Working with tables</li></ul></div>
 <p>This lesson carries on from the last. A document that mixes text, pictures
@@ -2039,7 +2039,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 31: Using Text boxes and adjusting Page layout
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('a9eaad6a-48ab-50e0-8e31-d982a20bd9ec', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 31',
+  ('422440b1-e8c3-5c9f-882a-558c6f0b2005', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 31',
    'Using Text boxes and adjusting Page layout',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Text boxes</li><li>Page layout</li><li>Comments</li></ul></div>
 <p>This is the last of the word processing lessons. Text boxes and page setup
@@ -2101,7 +2101,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 32: Introduction to spreadsheets
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('39490209-12e0-54b5-adba-387de4226453', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 32',
+  ('3cc17784-7175-5af6-81e2-1594b2a85875', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 32',
    'Introduction to spreadsheets',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>The parts of a worksheet</li><li>Selecting cells and ranges</li><li>Editing and formatting</li></ul></div>
 <p>A spreadsheet is a grid that recalculates. Change one number and everything
@@ -2163,7 +2163,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 33: Performing calculations using spreadsheets
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('5a741f72-2f32-5384-b5c9-73e774c73723', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 33',
+  ('649c95ca-ea97-558f-a7f4-c5ea1612eed9', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 33',
    'Performing calculations using spreadsheets',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Arithmetic in a spreadsheet</li><li>SUM, AVERAGE, COUNT, PRODUCT, IF, COUNTIF</li><li>AI features in spreadsheets</li></ul></div>
 <p>Now the grid earns its keep. Every formula begins with an equals sign.
@@ -2236,7 +2236,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 34: Types of cells referencing and calculations
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('0c3d0437-0ff2-5f48-82ee-e5ed57a0e650', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 34',
+  ('dcc6a25a-3283-5715-846c-fd43efd43007', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 34',
    'Types of cells referencing and calculations',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Relative, absolute and mixed references</li><li>Using RANK</li><li>Building a mark sheet</li></ul></div>
 <p>This is the lesson that separates people who use a spreadsheet from people
@@ -2301,7 +2301,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 35: Positive and Negative Uses of Computer Systems
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('3f201260-1e6c-5d92-9ec8-d41387832cce', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 35',
+  ('42bd2533-721e-57de-9bff-0123772b9621', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 35',
    'Positive and Negative Uses of Computer Systems',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>The good uses</li><li>The harmful uses</li><li>Social and economic effects</li><li>Using ICT responsibly</li></ul></div>
 <p>Every technology cuts both ways. This topic asks you to weigh both sides
@@ -2378,7 +2378,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 36: Computer Ethics, Legislation and Cameroon Law
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('5b607be8-b0e7-531d-b4e3-6d62739b1bd4', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 36',
+  ('50ea657b-7078-5897-81a4-b843240fd55e', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 36',
    'Computer Ethics, Legislation and Cameroon Law',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>A code of ethics for computer users</li><li>Cameroon law</li><li>New problems from AI</li></ul></div>
 <p>Ethics is what you should do. Law is what you must do. They overlap and they
@@ -2450,7 +2450,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 37: Data Protection, Copyright and the Digital Divide
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('09f9c0f6-8e63-59a3-ad14-352cc8b917b6', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 37',
+  ('be410b50-ef49-5292-b7de-fddba72cf113', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 37',
    'Data Protection, Copyright and the Digital Divide',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Data protection</li><li>Copyright</li><li>The digital divide</li></ul></div>
 <p>Three connected ideas. Who controls information about you, who owns what
@@ -2515,7 +2515,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 38: Protecting Computer Systems from Illegal Access
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('dc3e4c18-b793-53da-9a46-94048e2094ed', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 38',
+  ('baecd70c-5997-5e0c-a8b7-d26be1770e0b', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 38',
    'Protecting Computer Systems from Illegal Access',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Security, reliability and resilience</li><li>Ways to keep people out</li><li>Backup</li></ul></div>
 <p>Security means keeping people out. Reliability means working correctly.
@@ -2576,7 +2576,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 39: System Recovery and Safe Working Practices
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('f3ba617e-965e-541b-b170-995b1c536eb6', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 39',
+  ('6b781fa4-db14-5994-959b-17bf92e052a9', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 39',
    'System Recovery and Safe Working Practices',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Why recovery matters</li><li>Recovery measures</li><li>Safe working</li></ul></div>
 <p>The last lesson was about stopping bad things happening. This one accepts
@@ -2639,7 +2639,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 40: Computer Crimes and Combat Measures
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('e19cc19c-13aa-5d68-a8f6-ba731d3c60ff', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 40',
+  ('d5e5b616-6963-526f-aa28-97a48f89aab1', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 40',
    'Computer Crimes and Combat Measures',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Computer as target or as tool</li><li>The crimes</li><li>Matching crimes to defences</li></ul></div>
 <p>One idea runs through this whole topic, and it turns on a single question.
@@ -2712,7 +2712,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 41: Malware, Types and Characteristics
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('95cdd1ca-a2e7-5a0a-8870-854c37d73e8c', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 41',
+  ('77b40a2c-02e1-57eb-bc83-7d5ca4c909e6', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 41',
    'Malware, Types and Characteristics',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Virus, worm, Trojan, rootkit, backdoor, spyware</li><li>How they spread and what they do</li><li>AI on both sides</li></ul></div>
 <p>Malware is harmful software. The types are told apart by two questions. How
@@ -2778,7 +2778,7 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title,
 -- Lower Sixth lesson 42: Protecting a Computer System from Malware
 INSERT INTO note_sections (id, note_source_id, chapter_number, title,
                            body, body_format, sequence) VALUES
-  ('d4a0aa32-d17e-5245-a658-3d421386f90e', '7df11f03-a526-56c6-abb9-562db2871de7', 'Lesson 42',
+  ('93ca2523-4130-5160-85c3-e91576142375', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec', 'Lesson 42',
    'Protecting a Computer System from Malware',
    '<div class="objectives"><h3>This lesson covers</h3><ul><li>Good habits</li><li>Scanning with an antivirus</li><li>Setting up a firewall</li></ul></div>
 <p>This is the last topic of the term, and it is done at the machine. Most
@@ -2861,7 +2861,7 @@ SELECT l.id, s.id, 'full'
     ON l.syllabus_id = src.syllabus_id
    AND lower(regexp_replace(l.title, '[^a-zA-Z0-9]', '', 'g'))
      = lower(regexp_replace(s.title, '[^a-zA-Z0-9]', '', 'g'))
- WHERE src.id IN ('c1a7f2d4-88b1-5a3e-9f60-4d2e7b915c33', '7df11f03-a526-56c6-abb9-562db2871de7')
+ WHERE src.id IN ('947e8ce4-cb63-5847-98b1-d4cc5cf2f67f', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec')
    AND s.deleted_at IS NULL AND l.deleted_at IS NULL
 ON CONFLICT (lesson_id, note_section_id) DO NOTHING;
 
@@ -2870,16 +2870,16 @@ COMMIT;
 -- What happened. Read every row.
 SELECT 'notes loaded' AS item, count(*)::text AS value
   FROM note_sections s JOIN note_sources src ON src.id = s.note_source_id
- WHERE src.id IN ('c1a7f2d4-88b1-5a3e-9f60-4d2e7b915c33', '7df11f03-a526-56c6-abb9-562db2871de7')
+ WHERE src.id IN ('947e8ce4-cb63-5847-98b1-d4cc5cf2f67f', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec')
    AND s.deleted_at IS NULL
 UNION ALL SELECT 'attached to a lesson', count(*)::text
   FROM lesson_note_sections lns
   JOIN note_sections s ON s.id = lns.note_section_id
   JOIN note_sources src ON src.id = s.note_source_id
- WHERE src.id IN ('c1a7f2d4-88b1-5a3e-9f60-4d2e7b915c33', '7df11f03-a526-56c6-abb9-562db2871de7')
+ WHERE src.id IN ('947e8ce4-cb63-5847-98b1-d4cc5cf2f67f', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec')
 UNION ALL SELECT 'not matched to any lesson', count(*)::text
   FROM note_sections s JOIN note_sources src ON src.id = s.note_source_id
- WHERE src.id IN ('c1a7f2d4-88b1-5a3e-9f60-4d2e7b915c33', '7df11f03-a526-56c6-abb9-562db2871de7')
+ WHERE src.id IN ('947e8ce4-cb63-5847-98b1-d4cc5cf2f67f', '394dbea1-e9d4-5da2-b9db-e2fe1953c8ec')
    AND s.deleted_at IS NULL
    AND NOT EXISTS (SELECT 1 FROM lesson_note_sections x
                     WHERE x.note_section_id = s.id);

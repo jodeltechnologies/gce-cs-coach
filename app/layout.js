@@ -1,6 +1,7 @@
 import { Literata, Outfit } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
+import { getStudentSession } from "../lib/student-session";
 
 // Two fonts, each doing one job.
 //
@@ -59,7 +60,19 @@ export const viewport = {
   themeColor: "#1b8a2b",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  // A signed-in student sees their own two links. Sending them to /admin only
+  // to be turned away teaches them there is a door, and invites them to keep
+  // trying it.
+  let student = null;
+  try {
+    student = await getStudentSession();
+  } catch {
+    // getStudentSession throws when the signing secret is not set. The site
+    // should still render for everybody else if that happens.
+    student = null;
+  }
+
   return (
     <html lang="en" className={`${reading.variable} ${ui.variable}`}>
       <body>
@@ -84,8 +97,17 @@ export default function RootLayout({ children }) {
             </div>
             <img className="crest" src="/ghs-mbonjo.jpg" alt="G.H.S. Mbonjo crest" />
             <nav>
-              <Link href="/">Progression</Link>
-              <Link href="/admin">Admin</Link>
+              {student ? (
+                <>
+                  <Link href="/student/progress">Progression</Link>
+                  <Link href="/student">My revision</Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/">Progression</Link>
+                  <Link href="/admin">Admin</Link>
+                </>
+              )}
             </nav>
           </div>
         </header>
