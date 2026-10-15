@@ -21,18 +21,14 @@ export default async function LinksPage() {
     .not("continues_from_id", "is", null)
     .order("sequence");
 
-  const pending = (rows ?? []).filter((r) => !r.link_confirmed);
-  const confirmed = (rows ?? []).filter((r) => r.link_confirmed);
+  const pending = (rows ?? []).filter((r) => !r.link_confirmed && r.previous?.syllabi?.form_level !== "Form 4");
+  const confirmed = (rows ?? []).filter((r) => r.link_confirmed && r.previous?.syllabi?.form_level !== "Form 4");
 
   return (
     <>
       <h2>Cross-year links</h2>
       <p className="lede">
-        These say that a Form 5 category continues one from Form 4. Confirmed
-        links let the system carry a student&apos;s weak areas forward — in
-        September, before you have taught a single lesson, you can see who
-        arrived weak on logic circuits. Names drift between the two sheets and
-        one even changes spelling, so a computer should not decide these alone.
+        Links between active progression sheets appear here.
       </p>
 
       {pending.length === 0 && (

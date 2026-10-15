@@ -34,7 +34,7 @@ export default async function StudentsPage({ searchParams }) {
 
   const { data: classes } = await supabase
     .from("classes")
-    .select("id, name, form_level, academic_year")
+    .select("id, name, form_level, academic_year").neq("form_level", "Form 4")
     .eq("teacher_id", teacher.id)
     .order("academic_year", { ascending: false });
 

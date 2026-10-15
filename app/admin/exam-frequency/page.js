@@ -20,7 +20,7 @@ export default async function ExamFrequencyPage() {
 
   const { data: syllabi } = await supabase
     .from("syllabi")
-    .select("id, form_level, title")
+    .select("id, form_level, title").is("deleted_at", null).neq("form_level", "Form 4")
     .order("form_level");
 
   const { data: competencies } = await supabase

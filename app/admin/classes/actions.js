@@ -29,7 +29,7 @@ export async function createClass(formData) {
 
   const { data: syllabus } = await supabase
     .from("syllabi")
-    .select("form_level")
+    .select("form_level").is("deleted_at", null).neq("form_level", "Form 4")
     .eq("id", syllabus_id)
     .maybeSingle();
 

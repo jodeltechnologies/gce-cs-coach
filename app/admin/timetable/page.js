@@ -2,6 +2,8 @@ import Link from "next/link";
 import { createClient } from "../../../lib/supabase-server";
 import {
   ACADEMIC_YEAR,
+  schoolNow,
+  subjectKey,
   CLASSES,
   CLOSURES,
   DISRUPTIONS,
@@ -102,11 +104,11 @@ export default async function TimetablePage() {
   // the timetable is still the timetable without it.
   let syllabusByLevel = new Map();
   if (supabase) {
-    const { data } = await supabase.from("syllabi").select("id, form_level");
-    syllabusByLevel = new Map((data ?? []).map((s) => [s.form_level, s.id]));
+    const { data } = await supabase.from("syllabi").select("id, form_level, title").is("deleted_at", null).neq("form_level", "Form 4");
+    syllabusByLevel = new Map((data ?? []).map((s) => [`${s.form_level}/${subjectKey(s.title)}`, s.id]));
   }
 
-  const now = new Date();
+  const now = schoolNow();
   const todayISO = toISO(now);
   const todayDay = now.getDay() >= 1 && now.getDay() <= 5 ? now.getDay() : null;
   const week = currentWeek(now);
@@ -212,7 +214,7 @@ export default async function TimetablePage() {
           </div>
           <ul className="sittings" style={{ marginTop: 8 }}>
             {row.teaching.map((c, i) => {
-              const sid = syllabusByLevel.get(c.formLevel);
+              const sid = syllabusByLevel.get(`${c.formLevel}/${subjectKey(c.subject)}`);
               return (
                 <li key={i}>
                   <span className="sit-day">{c.label}</span>

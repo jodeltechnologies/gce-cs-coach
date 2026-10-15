@@ -1288,3 +1288,9 @@ body { font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif; }
 
 .btn.small { font-size: 0.82rem; padding: 6px 13px; }
 @media (prefers-color-scheme: dark) { .btn { color: #fff; } }
+
+[data-progression-week] { scroll-margin-top: 100px; }
+.current-progression-week { outline: 2px solid var(--gold, #b58b32); outline-offset: 8px; border-radius: 4px; }
+.week-status { padding: 12px 14px; background: var(--paper, #faf8f1); border-left: 4px solid var(--gold, #b58b32); }
+.week-status a { margin-left: 12px; text-decoration: underline; }
+@media print { .week-status { display: none; } .current-progression-week { outline: none; } }

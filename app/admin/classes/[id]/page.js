@@ -60,7 +60,7 @@ export default async function ClassPlanner({ params, searchParams }) {
 
   const { data: klass } = await supabase
     .from("classes")
-    .select("id, name, form_level, academic_year, exam_year, syllabus_id")
+    .select("id, name, form_level, academic_year, exam_year, syllabus_id").neq("form_level", "Form 4")
     .eq("id", id)
     .maybeSingle();
 

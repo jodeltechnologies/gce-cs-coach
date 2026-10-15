@@ -55,7 +55,7 @@ export default async function AdminHome() {
       .is("deleted_at", null),
     supabase
       .from("classes")
-      .select("id, name, academic_year")
+      .select("id, name, academic_year").neq("form_level", "Form 4")
       .eq("teacher_id", teacher.id),
     supabase
       .from("lessons")
@@ -179,7 +179,7 @@ export default async function AdminHome() {
       <Link className="card" href="/admin/links">
         <h3>Cross-year links</h3>
         <div className="meta">
-          Confirm which Form 5 categories continue a Form 4 category, so a
+          Review continuity between active progression sheets, so a
           student&apos;s weak areas carry forward from last year.
         </div>
         <div className="tags">

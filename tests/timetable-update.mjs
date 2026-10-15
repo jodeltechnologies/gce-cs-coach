@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import { CLASSES, timetableFor, weeklyLoad, sittingsForWeek, currentWeek, weekGrid, schoolNow } from '../lib/school-calendar.js';
+assert.equal(CLASSES.length,4);
+assert.deepEqual(timetableFor('Lower Sixth','ICT')[0].slots,[{day:4,start:'09:10',end:'10:50'}]);
+assert.deepEqual(timetableFor('Lower Sixth','Computer Science')[0].slots,[{day:2,start:'07:30',end:'09:10'},{day:3,start:'13:00',end:'14:40'}]);
+assert.equal(weeklyLoad('Lower Sixth','Computer Science')[0].minutes,200);
+assert.equal(weeklyLoad('Lower Sixth','ICT')[0].minutes,100);
+assert.equal(sittingsForWeek('Lower Sixth',6,'Computer Science').length,2);
+assert.equal(sittingsForWeek('Lower Sixth',6,'ICT').length,1);
+assert.equal(currentWeek(new Date(2026,9,15)).week,6);
+assert.equal(currentWeek(new Date(2026,11,25)).week,16);
+assert.equal(currentWeek(new Date(2027,5,12)),null);
+assert.equal(schoolNow(new Date('2026-10-14T23:30:00Z')).getDate(),15);
+assert.equal(timetableFor('Form 4').length,0);
+for(const row of weekGrid()) assert.equal(row.cells.reduce((sum,c)=>sum+c.span,0),11);
+assert.deepEqual(CLASSES[0].slots,[{day:2,start:'14:40',end:'16:00'},{day:4,start:'11:20',end:'12:10'}]);
+assert.deepEqual(CLASSES[1].slots,[{day:2,start:'11:20',end:'13:00'},{day:4,start:'13:50',end:'14:40'}]);
+console.log('Timetable and school-week checks passed. Form 5 times are unchanged.');

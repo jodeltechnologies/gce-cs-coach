@@ -25,7 +25,7 @@ export default async function EditQuestionPage({ params }) {
 
   const [{ data: syllabi }, { data: lessons }, { data: options }, { data: tags }] =
     await Promise.all([
-      supabase.from("syllabi").select("id, form_level").order("form_level"),
+      supabase.from("syllabi").select("id, form_level, title").is("deleted_at", null).neq("form_level", "Form 4").order("form_level"),
       supabase.from("lessons")
         .select("id, syllabus_id, lesson_no_start, title")
         .is("deleted_at", null)

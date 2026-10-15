@@ -35,7 +35,7 @@ export default async function ReleaseNotes({ searchParams }) {
 
   const { data: classData } = await supabase
     .from("classes")
-    .select("id, name, form_level, syllabus_id, academic_year")
+    .select("id, name, form_level, syllabus_id, academic_year").neq("form_level", "Form 4")
     .eq("teacher_id", teacher.id)
     .is("deleted_at", null)
     .order("name");

@@ -1,0 +1,1852 @@
+syllabus:
+  title: National Harmonised Progression Sheet for Computer Science Lower Sixth
+  subject: Computer Science
+  level: GCE Advanced Level
+  level_short: A/L
+  form_level: Lower Sixth
+  issuing_authority: Inspectorate General of Education, Inspectorate of Pedagogy in charge of the Teaching
+    of Computer Science
+  scope: national
+  region: null
+  version_label: National Harmonised Progression 2026/2027
+  effective_from: 2026
+  total_weeks: 36
+  weekly_periods_theory: 8
+  weekly_periods_practical: null
+  coefficient: null
+  module_label: Module
+  has_modules: true
+  uses_competencies: true
+  has_competency_statements: false
+  has_practical_stream: false
+modules:
+- sequence: 1
+  title: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+- sequence: 2
+  title: Computer Organisation and Architecture
+- sequence: 3
+  title: Problem-Solving and Algorithm Design
+- sequence: 4
+  title: Programming I
+- sequence: 5
+  title: Data Structures 1
+- sequence: 6
+  title: Algorithm Efficiency
+- sequence: 7
+  title: Computer Networks and Data Communication
+- sequence: 8
+  title: Introduction to Web Development Technologies
+competencies:
+- sequence: 1
+  category: Exploring AI Concepts and Emerging technologies
+  statement: null
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+- sequence: 2
+  category: Description of Computer Systems
+  statement: null
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+- sequence: 3
+  category: Utilization of digital resources
+  statement: null
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+- sequence: 4
+  category: Application areas of computers and evaluating the Implications of Computers
+  statement: null
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+- sequence: 5
+  category: Representing data in Computer Systems
+  statement: null
+  module: Computer Organisation and Architecture
+- sequence: 6
+  category: Designing and Analysing Digital Logic Circuits
+  statement: null
+  module: Computer Organisation and Architecture
+- sequence: 7
+  category: Exploring Computer Organisation and Architecture
+  statement: null
+  module: Computer Organisation and Architecture
+- sequence: 8
+  category: Managing Computer Memory
+  statement: null
+  module: Computer Organisation and Architecture
+- sequence: 9
+  category: Understanding Peripheral Communication and Data Transfer
+  statement: null
+  module: Computer Organisation and Architecture
+- sequence: 10
+  category: Designing Algorithms
+  statement: null
+  module: Problem-Solving and Algorithm Design
+- sequence: 11
+  category: Designing Modular Algorithms
+  statement: null
+  module: Problem-Solving and Algorithm Design
+- sequence: 12
+  category: Understanding Programming Language Concepts
+  statement: null
+  module: Programming I
+- sequence: 13
+  category: Selecting and Manipulating Data Structures
+  statement: null
+  module: Data Structures 1
+- sequence: 14
+  category: Evaluating Algorithm Efficiency
+  statement: null
+  module: Algorithm Efficiency
+- sequence: 15
+  category: Exploring Internet Technologies
+  statement: null
+  module: Computer Networks and Data Communication
+- sequence: 16
+  category: Designing simple Web Pages
+  statement: null
+  module: Introduction to Web Development Technologies
+lessons:
+- title: Introduction to artificial intelligence – Part 1
+  kind: content
+  term: 1
+  week: 1
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Exploring AI Concepts and Emerging technologies
+  nature:
+  - th
+  lesson_no: 1
+  objectives:
+  - Define AI and explain its history and evolution.
+  - Identify and describe the main types of AI.
+  - Explain common applications of AI.
+- title: Introduction to artificial intelligence – Part 2
+  kind: content
+  term: 1
+  week: 1
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Exploring AI Concepts and Emerging technologies
+  nature:
+  - th
+  lesson_no: 2
+  objectives:
+  - Explain ethical issues associated with AI.
+  - Examine the potential risks and benefits of AI.
+  - Discuss principles for the responsible use of AI.
+- title: AI techniques and Machine Learning
+  kind: content
+  term: 1
+  week: 1
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Exploring AI Concepts and Emerging technologies
+  nature:
+  - th
+  lesson_no: 3
+  objectives:
+  - Describe common AI techniques and their applications.
+  - Explain the characteristics of intelligent systems.
+  - Compare AI techniques and intelligent systems based on their applications.
+  - Define Machine Learning.
+  - Explain the basic principles of Machine Learning.
+  - Distinguish between supervised, unsupervised and reinforcement learning.
+- title: Developing AI Systems and the importance of data in AI systems – Part 1
+  kind: content
+  term: 1
+  week: 1
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Exploring AI Concepts and Emerging technologies
+  nature:
+  - th
+  lesson_no: 4
+  objectives:
+  - Explain the stages involved in developing an AI system.
+  - Identify programming languages and tools used in AI development.
+  - Explain why Python is widely used in AI development.
+- title: Developing AI Systems and the importance of data in AI systems – Part 2
+  kind: content
+  term: 1
+  week: 2
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Exploring AI Concepts and Emerging technologies
+  nature:
+  - th
+  lesson_no: 5
+  objectives:
+  - Distinguish between primary and secondary data.
+  - Classify different types of data including quantitative, qualitative, structured and unstructured
+    data.
+  - Relate the quality and type of training data to the performance and reliability of an AI system.
+- title: Data collection and Data analysis
+  kind: content
+  term: 1
+  week: 2
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Exploring AI Concepts and Emerging technologies
+  nature:
+  - th
+  lesson_no: 6
+  objectives:
+  - Use questionnaires, interviews and observation collection methods Collect data using digital forms
+    and online surveys.
+  - Describe data analysis.
+  - List examples of tools that can be used for data analysis (machine learning, spreadsheets, DBMS…...).
+  - Explain the objectives of data analysis (organise, calculate, transform, interpret…..).
+- title: Integration Activity
+  kind: integration_activity
+  term: 1
+  week: 2
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Exploring AI Concepts and Emerging technologies
+  nature:
+  - th
+  lesson_no: 7
+- title: Components of a computer and basic operations. – Part 1
+  kind: content
+  term: 1
+  week: 2
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Description of Computer Systems
+  nature:
+  - th
+  lesson_no: 8
+  objectives:
+  - Describe types of computers.
+  - Describe how the computer systems function.
+  - Identify input and output devices.
+  - Connect correctly input, processing and output devices.
+  - Power a computer using soft and warm booting.
+- title: Components of a computer and basic operations. – Part 2
+  kind: content
+  term: 1
+  week: 3
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Description of Computer Systems
+  nature:
+  - th
+  lesson_no: 9
+  objectives:
+  - Transfer data/information to/from peripheral devices.
+  - Enter information into a computer system.
+  - Print a document.
+  - Identify the hardware resources commonly required to run AI- enabled applications and explain their
+    roles.
+- title: Integration Activity
+  kind: integration_activity
+  term: 1
+  week: 3
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Description of Computer Systems
+  nature:
+  - th
+  lesson_no: 10
+- title: Communication and collaboration tools
+  kind: content
+  term: 1
+  week: 3
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Utilization of digital resources
+  nature:
+  - th
+  lesson_no: 11
+  objectives:
+  - Describe communication and collaboration tools.
+  - Select a suitable communication and collaboration tool for a given situation.
+  - Set up a learning environment using communication and collaboration tools.
+  - Share information/data over a network.
+  - Participate in learning using communication and collaboration tools.
+  - Communicate, collaborate and share resources using social media.
+- title: 'Digital systems: manual, automated, processing, simulation and modelling – Part 1'
+  kind: content
+  term: 1
+  week: 3
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Utilization of digital resources
+  nature:
+  - th
+  lesson_no: 12
+  objectives:
+  - Describe manual and automated systems.
+  - Compare manual and automated systems.
+  - Describe monitoring and control systems.
+  - Describe batch and online processing systems.
+- title: 'Digital systems: manual, automated, processing, simulation and modelling – Part 2'
+  kind: content
+  term: 1
+  week: 4
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Utilization of digital resources
+  nature:
+  - th
+  lesson_no: 13
+  objectives:
+  - Describe simulations and modelling systems.
+  - Outline the advantages and disadvantages of manual and automated systems.
+  - Explain how automated systems can use AI techniques to monitor conditions, make predictions and support
+    decisions.
+- title: Integration Activity
+  kind: integration_activity
+  term: 1
+  week: 4
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Utilization of digital resources
+  nature:
+  - th
+  lesson_no: 14
+- title: Computer Applications and Productivity Tools
+  kind: content
+  term: 1
+  week: 4
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Application areas of computers and evaluating the Implications of Computers
+  nature:
+  - th
+  lesson_no: 15
+  objectives:
+  - Identify domains of use of general-purpose and other computing applications.
+  - Exploit productivity tools such as word processors and desktop publishers.
+  - Determine the use of general-purpose applications in commerce, industry, science, education, arts
+    and media.
+  - Accomplish tasks using productivity tools such as spreadsheets, word processors, databases and presentation
+    software.
+- title: Social and Economic Implications of Computers, Security of Computer Systems. – Part 1
+  kind: content
+  term: 1
+  week: 4
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Application areas of computers and evaluating the Implications of Computers
+  nature:
+  - th
+  lesson_no: 16
+  objectives:
+  - Identify social and economic effects of computerisation.
+  - Explain how computing affects employment, products, services, and working environments.
+  - Evaluate the advantages and disadvantages of computerisation to people, organisations, and society.
+  - Explain the concepts of computer system security, reliability, and resilience.
+- title: Social and Economic Implications of Computers, Security of Computer Systems. – Part 2
+  kind: content
+  term: 1
+  week: 5
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Application areas of computers and evaluating the Implications of Computers
+  nature:
+  - th
+  lesson_no: 17
+  objectives:
+  - Explain how confidentiality, integrity, privacy and availability contribute to computer system security.
+  - Analyse the consequences of system failure, data loss, and security breaches.
+  - Evaluate the social, economic, privacy and security implications of deploying AI-based systems.
+- title: Computer Crimes, Professional Ethics and Conduct.
+  kind: content
+  term: 1
+  week: 5
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Application areas of computers and evaluating the Implications of Computers
+  nature:
+  - th
+  lesson_no: 18
+  objectives:
+  - Define computer crime and identify common types of computer crime.
+  - Explain how selected computer crimes are committed and their effects.
+  - Describe measures used to prevent and combat computer crime.
+  - Identify professional, ethical, and moral responsibilities in the use of information systems.
+  - Explain ethical principles governing the use and management of computerised information.
+  - Apply professional codes of conduct to given computing situations.
+- title: Evaluation
+  kind: evaluation
+  term: 1
+  week: 5
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Application areas of computers and evaluating the Implications of Computers
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 1
+  week: 5
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Application areas of computers and evaluating the Implications of Computers
+  nature:
+  - th
+- title: Legislation and Global Communication, Responsible and Ethical Use of Computers – Part 1
+  kind: content
+  term: 1
+  week: 6
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Application areas of computers and evaluating the Implications of Computers
+  nature:
+  - th
+  lesson_no: 19
+  objectives:
+  - Explain the purpose of laws relating to computer misuse, copyright, and data protection.
+  - Analyse the effects of global communication on citizenship and cultural issues.
+  - Evaluate the impact of the digital divide and promote responsible participation in the digital society.
+- title: Legislation and Global Communication, Responsible and Ethical Use of Computers – Part 2
+  kind: content
+  term: 1
+  week: 6
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Application areas of computers and evaluating the Implications of Computers
+  nature:
+  - th
+  lesson_no: 20
+  objectives:
+  - Examine the effects of the use of computer material on health and the workplace.
+  - Differentiate between legislation and ethical issues related to the use of computers.
+  - Emulate professional, ethical and moral obligations of computing.
+- title: Integration Activity
+  kind: integration_activity
+  term: 1
+  week: 6
+  module: Computer Applications, Artificial Intelligence & Emerging technologies and their Socio-Economic
+    Implications
+  competency: Application areas of computers and evaluating the Implications of Computers
+  nature:
+  - th
+  lesson_no: 21
+- title: Computer Hardware Components and Embedded Systems – Part 1
+  kind: content
+  term: 1
+  week: 6
+  module: Computer Organisation and Architecture
+  competency: Representing data in Computer Systems
+  nature:
+  - th
+  lesson_no: 22
+  objectives:
+  - Connect computer hardware components and outline the benefits and drawbacks of embedded systems.
+  - Describe principal operations of peripherals including laser/3D printers, microphones, speakers, magnetic
+    disks, flash memory, optical drives, touch screens and virtual headsets.
+- title: Computer Hardware Components and Embedded Systems – Part 2
+  kind: content
+  term: 1
+  week: 7
+  module: Computer Organisation and Architecture
+  competency: Representing data in Computer Systems
+  nature:
+  - th
+  lesson_no: 23
+  objectives:
+  - Explain the roles of internal components including motherboard, power supply, video card and sound
+    card, and relate hardware devices to applications and people.
+- title: Base Conversions
+  kind: content
+  term: 1
+  week: 7
+  module: Computer Organisation and Architecture
+  competency: Representing data in Computer Systems
+  nature:
+  - th
+  lesson_no: 24
+  objectives:
+  - Describe common number systems and their characteristics.
+  - Explain the applications of number systems in computing.
+  - Determine the positional value of digits in different number systems Convert numbers between binary
+    and decimal. Convert numbers between binary, octal and hexadecimal. Convert numbers between decimal,
+    octal and hexadecimal.
+- title: operations on Number Systems and Computer Data Units – Part 1
+  kind: content
+  term: 1
+  week: 7
+  module: Computer Organisation and Architecture
+  competency: Representing data in Computer Systems
+  nature:
+  - th
+  lesson_no: 25
+  objectives:
+  - Carry out arithmetic operations in bases 2, 8, 10 and 16.
+  - Distinguish kibi/kilo, mebi/mega, gibi/giga and tebi/tera.
+- title: operations on Number Systems and Computer Data Units – Part 2
+  kind: content
+  term: 1
+  week: 7
+  module: Computer Organisation and Architecture
+  competency: Representing data in Computer Systems
+  nature:
+  - th
+  lesson_no: 26
+  objectives:
+  - Describe practical applications of BCD and hexadecimal.
+  - Explain how binary and hexadecimal representations support the storage and processing of data used
+    by AI systems.
+- title: Representation of signed integers
+  kind: content
+  term: 1
+  week: 8
+  module: Computer Organisation and Architecture
+  competency: Representing data in Computer Systems
+  nature:
+  - th
+  lesson_no: 27
+  objectives:
+  - Describe methods used to represent signed integers, including sign magnitude, one’s complement, and
+    two’s complement.
+  - Represent and interpret signed integers using different binary representation methods.
+- title: Signed Integer Arithmetic
+  kind: content
+  term: 1
+  week: 8
+  module: Computer Organisation and Architecture
+  competency: Representing data in Computer Systems
+  nature:
+  - th
+  lesson_no: 28
+  objectives:
+  - Perform addition and subtraction of signed integers using sign- magnitude, one’s complement, and two’s
+    complement representations.
+  - Identify overflow and underflow conditions when performing signed integer arithmetic.
+- title: Representation of characters, images and sound – Part 1
+  kind: content
+  term: 1
+  week: 8
+  module: Computer Organisation and Architecture
+  competency: Representing data in Computer Systems
+  nature:
+  - th
+  lesson_no: 29
+  objectives:
+  - Explain different character encoding schemes (ASCII, EBCDIC, Unicode).
+  - Describe basic principles of digitizing images (pixels, resolution, colour depth).
+- title: Representation of characters, images and sound – Part 2
+  kind: content
+  term: 1
+  week: 8
+  module: Computer Organisation and Architecture
+  competency: Representing data in Computer Systems
+  nature:
+  - th
+  lesson_no: 30
+  objectives:
+  - Describe basic principles of digitizing sound (sampling rate, bit depth).
+  - Explain how character, image and sound data can be represented as digital inputs for AI applications.
+- title: Integration Activity
+  kind: integration_activity
+  term: 1
+  week: 9
+  module: Computer Organisation and Architecture
+  competency: Representing data in Computer Systems
+  nature:
+  - th
+  lesson_no: 31
+- title: Digital Logic and Logic Gates
+  kind: content
+  term: 1
+  week: 9
+  module: Computer Organisation and Architecture
+  competency: Designing and Analysing Digital Logic Circuits
+  nature:
+  - th
+  lesson_no: 32
+  objectives:
+  - Explain the role of digital logic circuits in computer systems.
+  - Describe the functions and symbols of basic, universal, and exclusive logic gates.
+  - Construct truth tables for different logic gates.
+- title: Logic Circuit Design 1 – Part 1
+  kind: content
+  term: 1
+  week: 9
+  module: Computer Organisation and Architecture
+  competency: Designing and Analysing Digital Logic Circuits
+  nature:
+  - th
+  lesson_no: 33
+  objectives:
+  - Define combinational logic circuit.
+  - Explain the relationship between logic gates, inputs, and outputs in digital circuits.
+  - Design simple combinational circuits using logic gates.
+- title: Logic Circuit Design 1 – Part 2
+  kind: content
+  term: 1
+  week: 9
+  module: Computer Organisation and Architecture
+  competency: Designing and Analysing Digital Logic Circuits
+  nature:
+  - th
+  lesson_no: 34
+  objectives:
+  - Analyse digital circuits by deriving outputs and constructing truth tables.
+  - Explain how logic circuits provide the basic computational operations used by AI-enabled digital systems.
+- title: Binary Arithmetic Circuits
+  kind: content
+  term: 1
+  week: 10
+  module: Computer Organisation and Architecture
+  competency: Designing and Analysing Digital Logic Circuits
+  nature:
+  - th
+  lesson_no: 35
+  objectives:
+  - Explain the operation of half-adder and full-adder circuits.
+  - Design and analyse binary addition circuits using logic gates.
+  - Explain the operation of half-subtractor and full-subtractor circuits.
+- title: Sequential Logic Circuits
+  kind: content
+  term: 1
+  week: 10
+  module: Computer Organisation and Architecture
+  competency: Designing and Analysing Digital Logic Circuits
+  nature:
+  - th
+  lesson_no: 36
+  objectives:
+  - Define sequential logic circuit.
+  - Explain the difference between combinational and sequential logic circuits.
+  - Describe the purpose and operation of flip-flops in digital systems.
+  - Derive truth tables and determine outputs of SR and JK flip- flops.
+- title: Practical Digital Logic and Sequential Circuits
+  kind: content
+  term: 1
+  week: 10
+  module: Computer Organisation and Architecture
+  competency: Designing and Analysing Digital Logic Circuits
+  nature:
+  - th
+  lesson_no: 37
+  objectives:
+  - Construct logic circuits/truth tables, implement universal NAND/NOR logic, design simple circuits
+    such as traffic lights, deduce inputs/outputs and identify application areas.
+  - Produce truth tables for half/full adders; describe SR and JK flip-flops and their role as storage
+    elements; derive flip-flop truth tables.
+  - Perform Boolean algebra using De Morgan's laws.
+  - Relate sequential logic and storage elements to the operation of hardware used in AI and intelligent
+    systems.
+- title: Integration Activity
+  kind: integration_activity
+  term: 1
+  week: 10
+  module: Computer Organisation and Architecture
+  competency: Designing and Analysing Digital Logic Circuits
+  nature:
+  - th
+  lesson_no: 38
+- title: Evaluation
+  kind: evaluation
+  term: 1
+  week: 11
+  module: Computer Organisation and Architecture
+  competency: Designing and Analysing Digital Logic Circuits
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 1
+  week: 11
+  module: Computer Organisation and Architecture
+  competency: Designing and Analysing Digital Logic Circuits
+  nature:
+  - th
+- title: Introduction to Computer Organisation and Architecture – Part 1
+  kind: content
+  term: 1
+  week: 11
+  module: Computer Organisation and Architecture
+  competency: Exploring Computer Organisation and Architecture
+  nature:
+  - th
+  lesson_no: 39
+  objectives:
+  - Define computer organisation and computer architecture.
+  - Differentiate between organisation and architecture.
+  - Identify major computer system components.
+- title: Introduction to Computer Organisation and Architecture – Part 2
+  kind: content
+  term: 1
+  week: 11
+  module: Computer Organisation and Architecture
+  competency: Exploring Computer Organisation and Architecture
+  nature:
+  - th
+  lesson_no: 40
+  objectives:
+  - Explain the roles of the CPU, memory and I/O devices.
+  - Explain the stored-program concept.
+  - Describe and illustrate the organisation of Von Neumann and Harvard architectures.
+- title: Advanced Processor Architectures – Part 1
+  kind: content
+  term: 1
+  week: 12
+  module: Computer Organisation and Architecture
+  competency: Exploring Computer Organisation and Architecture
+  nature:
+  - th
+  lesson_no: 41
+  objectives:
+  - Outline differences between RISC and CISC architectures and the importance/use of pipelining and registers
+    in RISC.
+  - Compare Von Neumann with Flynn(SISD, SIMD, MISD, MIMD), CRAY, Dataflow and Harvard architectures.
+  - Analise parallel processing techniques used to improve computational performance.
+- title: Advanced Processor Architectures – Part 2
+  kind: content
+  term: 1
+  week: 12
+  module: Computer Organisation and Architecture
+  competency: Exploring Computer Organisation and Architecture
+  nature:
+  - th
+  lesson_no: 42
+  objectives:
+  - Outline roles of virtual machines and explain their benefits and limitations.
+  - Compare the advantages and limitations of Von Neumann and Harvard architectures.
+  - Explain why parallel processing and specialized processor architectures are important for AI workloads.
+- title: System Communication and Timing
+  kind: content
+  term: 1
+  week: 12
+  module: Computer Organisation and Architecture
+  competency: Exploring Computer Organisation and Architecture
+  nature:
+  - th
+  lesson_no: 43
+  objectives:
+  - Explain the purpose of system buses in a computer system.
+  - Describe the functions of the data bus, address bus, and control bus.
+  - Illustrate how system buses enable communication between the CPU, memory, and I/O devices.
+  - Explain how data are transferred between computer-system components.
+  - Explain roles of the system clock and Immediate Access Store (IAS).
+- title: The Processor, Its Components and the machine cycle
+  kind: content
+  term: 1
+  week: 12
+  module: Computer Organisation and Architecture
+  competency: Exploring Computer Organisation and Architecture
+  nature:
+  - th
+  lesson_no: 44
+  objectives:
+  - Explain the functions of the major components of the processor, including the Control Unit, ALU, and
+    registers.
+  - Describe fetch, decode and execute stages.
+  - Trace instruction execution.
+  - Identify registers used.
+- title: Interrupts, Polling and Parallel Processing
+  kind: content
+  term: 2
+  week: 13
+  module: Computer Organisation and Architecture
+  competency: Exploring Computer Organisation and Architecture
+  nature:
+  - th
+  lesson_no: 45
+  objectives:
+  - Explain situations in which polling occurs and where interrupts occur; compare pipelining and parallel
+    processing.
+  - Describe interrupt-detection strategy.
+  - Relate cycle efficiency to performance.
+  - Explain how interrupts and parallel processing can improve the responsiveness and performance of AI-enabled
+    systems.
+- title: Assembly Instructions and Addressing Modes
+  kind: content
+  term: 2
+  week: 13
+  module: Computer Organisation and Architecture
+  competency: Exploring Computer Organisation and Architecture
+  nature:
+  - th
+  lesson_no: 46
+  objectives:
+  - Trace a simple assembly-language program and explain/manipulate instruction sets, including data movement,
+    I/O, arithmetic, unconditional/conditional and compare instructions.
+  - Give examples of instruction formats; explain fixed- versus variable-length instructions; and distinguish
+    immediate, direct, indirect, register, relative and indexed addressing modes.
+- title: Integration Activity
+  kind: integration_activity
+  term: 2
+  week: 13
+  module: Computer Organisation and Architecture
+  competency: Exploring Computer Organisation and Architecture
+  nature:
+  - th
+  lesson_no: 47
+- title: Primary Storage – Part 1
+  kind: content
+  term: 2
+  week: 13
+  module: Computer Organisation and Architecture
+  competency: Managing Computer Memory
+  nature:
+  - th
+  lesson_no: 48
+  objectives:
+  - Explain the concept of memory hierarchy.
+  - Evaluate the relationship between speed, capacity, and cost in memory organisation.
+  - Explain the functions and characteristics of primary memory (RAM, ROM, Cache).
+  - Differentiate between RAM and ROM types.
+- title: Primary Storage – Part 2
+  kind: content
+  term: 2
+  week: 14
+  module: Computer Organisation and Architecture
+  competency: Managing Computer Memory
+  nature:
+  - th
+  lesson_no: 49
+  objectives:
+  - State applications of RAM, ROM and Cache.
+  - Differentiate SRAM and DRAM.
+  - Explain how memory capacity, speed and hierarchy affect the performance of AI applications and data
+    processing.
+- title: Memory Addressing Concepts
+  kind: content
+  term: 2
+  week: 14
+  module: Computer Organisation and Architecture
+  competency: Managing Computer Memory
+  nature:
+  - th
+  lesson_no: 50
+  objectives:
+  - Explain memory addressing concepts.
+  - Perform memory capacity calculations.
+  - Calculate the number of memory locations from address lines. Solve problems involving memory organisation.
+- title: Secondary Storage Technologies
+  kind: content
+  term: 2
+  week: 14
+  module: Computer Organisation and Architecture
+  competency: Managing Computer Memory
+  nature:
+  - th
+  lesson_no: 51
+  objectives:
+  - Describe different secondary storage technologies (HDD, SSD, optical media).
+  - Classify storage devices based on their technologies.
+  - Analyse factors that influence the performance of storage devices.
+- title: Integration Activity
+  kind: integration_activity
+  term: 2
+  week: 14
+  module: Computer Organisation and Architecture
+  competency: Managing Computer Memory
+  nature:
+  - th
+  lesson_no: 52
+  objectives:
+  - Integrate the concepts and practical skills developed in the category to solve a contextual problem.
+  - Apply memory concepts to propose an appropriate storage arrangement for an AI application and justify
+    the choice.
+- title: Peripheral Devices and Interfaces
+  kind: content
+  term: 2
+  week: 15
+  module: Computer Organisation and Architecture
+  competency: Understanding Peripheral Communication and Data Transfer
+  nature:
+  - th
+  lesson_no: 53
+  objectives:
+  - Analyse the characteristics used to evaluate the performance and suitability of peripheral devices.
+  - Explain how different interfaces and communication methods that enable peripherals to exchange data
+    with a computer system.
+- title: The I/O Controller
+  kind: content
+  term: 2
+  week: 15
+  module: Computer Organisation and Architecture
+  competency: Understanding Peripheral Communication and Data Transfer
+  nature:
+  - th
+  lesson_no: 54
+  objectives:
+  - Explain the role of I/O controllers in managing communication between the processor and peripheral
+    devices.
+  - Describe polling and interrupt-driven processing as techniques for handling I/O operations.
+- title: Integration Activity
+  kind: integration_activity
+  term: 2
+  week: 15
+  module: Computer Organisation and Architecture
+  competency: Understanding Peripheral Communication and Data Transfer
+  nature:
+  - th
+  lesson_no: 55
+- title: Evaluation
+  kind: evaluation
+  term: 2
+  week: 15
+  module: Computer Organisation and Architecture
+  competency: Understanding Peripheral Communication and Data Transfer
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 2
+  week: 16
+  module: Computer Organisation and Architecture
+  competency: Understanding Peripheral Communication and Data Transfer
+  nature:
+  - th
+- title: Algorithm Design Approaches 1
+  kind: content
+  term: 2
+  week: 16
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 56
+  objectives:
+  - Explain common algorithm design approaches/strategies (brute force, divide and conquer, stepwise refinement,
+    greedy algorithm, ….).
+- title: Algorithm Design Approaches 2
+  kind: content
+  term: 2
+  week: 16
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 57
+  objectives:
+  - Differentiate between top-down and bottom-up design.
+  - Apply stepwise refinement to develop an algorithm.
+- title: Represenation of algorithms – Part 1
+  kind: content
+  term: 2
+  week: 16
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 58
+  objectives:
+  - Describe forms and characteristics of algorithms and write steps to solve a problem.
+  - Distinguish good and poor algorithms with respect to stated characteristics.
+  - Use control constructs to show how a problem can be solved and determine the appropriate course of
+    action under prevailing conditions.
+- title: Represenation of algorithms – Part 2
+  kind: content
+  term: 2
+  week: 17
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 59
+  objectives:
+  - Interpret algorithms represented in various ways, convert an algorithm from one form to another and
+    represent an algorithm in various ways.
+  - Use an algorithmic representation to describe a simple AI decision-making or classification process.
+- title: Algorithm Design Strategies
+  kind: content
+  term: 2
+  week: 17
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 60
+  objectives:
+  - Identify the strategies used in existing algorithms.
+  - Select an appropriate strategy for a given problem.
+- title: Sequence and Selection Structures 1
+  kind: content
+  term: 2
+  week: 17
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 61
+  objectives:
+  - Explain the concept and need for control structures.
+  - Explain sequence and selection control structures.
+- title: Sequence and Selection Structures 2
+  kind: content
+  term: 2
+  week: 17
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 62
+  objectives:
+  - Define dry running and trace table.
+  - Design and trace algorithms using simple selection (decision- making) constructs.
+  - Design and trace a simple decision algorithm that could be used as a rule-based component of an AI
+    system.
+- title: Sequence and Selection Structures
+  kind: content
+  term: 2
+  week: 18
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 63
+  objectives:
+  - Explain the need for multiple selection structures in algorithm design.
+  - Design algorithms using nested IF and CASE constructs.
+  - Trace algorithms involving multiple decision paths.
+- title: Repetition Structures 1a
+  kind: content
+  term: 2
+  week: 18
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 64
+  objectives:
+  - Explain the concept, purpose, and types of repetition structures.
+  - Define count controlled loop.
+  - Explain the syntax, characteristics, and execution of the FOR loop.
+  - Construct and trace algorithms using the FOR loop to solve simple computational problems.
+- title: Repetition Structures – Part 1
+  kind: content
+  term: 2
+  week: 18
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 65
+  objectives:
+  - Explain the concept and characteristics of condition-controlled loop.
+  - Distinguish between post test and pre-test loop.
+  - Describe the syntax and execution of the WHILE and REPEAT...UNTIL loops.
+- title: Repetition Structures – Part 2
+  kind: content
+  term: 2
+  week: 18
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Algorithms
+  nature:
+  - th
+  lesson_no: 66
+  objectives:
+  - Construct and trace simple algorithms using the WHILE and REPEAT...UNTIL loops.
+  - Develop a repetition-based algorithm for processing a dataset as a preliminary step in an AI application.
+- title: Subroutines
+  kind: content
+  term: 2
+  week: 19
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Modular Algorithms
+  nature:
+  - th
+  lesson_no: 67
+  objectives:
+  - Explain the concept, purpose, and characteristics of subroutines in algorithm design.
+  - Differentiate between procedures and functions. Demonstrate how subroutines are called within algorithms.
+- title: Parameter Passing
+  kind: content
+  term: 2
+  week: 19
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Modular Algorithms
+  nature:
+  - th
+  lesson_no: 68
+  objectives:
+  - Explain the purpose of parameters in subroutines.
+  - Differentiate between formal and actual parameters.
+  - Explain different methods of passing parameters to subroutines, including pass-by-value and pass-by-reference.
+- title: Processing Subroutine Calls
+  kind: content
+  term: 2
+  week: 19
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Modular Algorithms
+  nature:
+  - th
+  lesson_no: 69
+  objectives:
+  - Explain how the processor executes subroutine calls during program execution.
+  - Describe the role of the stack in storing return addresses and supporting subroutine execution.
+  - Explain how subroutines can modularise data-processing tasks within an AI-oriented program.
+- title: Processing Subroutine Calls
+  kind: content
+  term: 2
+  week: 19
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Modular Algorithms
+  nature:
+  - th
+  lesson_no: 70
+  objectives:
+  - Trace the sequence of operations involved in calling and returning from a subroutine.
+  - Explain the concept and characteristics of recursion.
+- title: Recursion
+  kind: content
+  term: 2
+  week: 20
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Modular Algorithms
+  nature:
+  - th
+  lesson_no: 71
+  objectives:
+  - Define recursion.
+  - Trace the execution of recursive algorithms.
+  - Develop simple recursive solutions to computational problems.
+- title: Recursion Limitations and Complexity
+  kind: content
+  term: 2
+  week: 20
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Modular Algorithms
+  nature:
+  - th
+  lesson_no: 72
+  objectives:
+  - Explain how the operating system uses stacks during recursive function calls.
+  - Differentiate between iteration and recursion Dry run recursive algorithms.
+  - Assess limitations of recursion, including high runtime space use and difficulties with high values.
+  - Compare iterative and recursive approaches for solving computational tasks that may occur in AI data
+    processing.
+- title: Integration Activity
+  kind: integration_activity
+  term: 2
+  week: 20
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Modular Algorithms
+  nature:
+  - th
+  lesson_no: 73
+- title: Evaluation
+  kind: evaluation
+  term: 2
+  week: 20
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Modular Algorithms
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 2
+  week: 21
+  module: Problem-Solving and Algorithm Design
+  competency: Designing Modular Algorithms
+  nature:
+  - th
+- title: Programming Language Basics
+  kind: content
+  term: 2
+  week: 21
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 74
+  objectives:
+  - Explain the role of programming languages (PLs) in software development.
+  - Categorise PLs into low-level and high-level languages.
+  - Compare the characteristics, advantages, and limitations of low-level and high-level PLs.
+- title: programming paradigms 1
+  kind: content
+  term: 2
+  week: 21
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 75
+  objectives:
+  - Define programming paradigm.
+  - Describe imperative(procedural, OOP) and declarative (Logic, functional, SQL) programming paradigms.
+  - Differentiate the imperative and declarative programming paradigms using suitable examples.
+  - Justify the use of imperative and declarative programming for different software development tasks.
+  - Compare imperative and declarative programming approaches used in the development of AI and data-driven
+    applications.
+- title: programming paradigms 2
+  kind: content
+  term: 2
+  week: 21
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 76
+  objectives:
+  - 'Explain the core concepts of object-oriented programming (OOP): class, object, attributes, and methods,
+    using suitable examples.'
+  - 'Describe, with suitable examples, the key characteristics of OOP: encapsulation, abstraction, inheritance
+    (single, multiple, and multi-level), polymorphism, coupling, and cohesion.'
+- title: Language Translators
+  kind: content
+  term: 2
+  week: 22
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 77
+  objectives:
+  - Explain the purpose of language translators.
+  - Describe and distinguish the functions of an assembler, compiler, and interpreter.
+  - Explain the main stages involved in program translation and compilation.
+- title: Program Errors and Debugging
+  kind: content
+  term: 2
+  week: 22
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 78
+  objectives:
+  - Explain the terms syntax, semantics, syntax error, semantic error, and runtime error, using suitable
+    examples.
+  - Describe the purpose and use of common debugging concepts and tools, including debuggers, breakpoints,
+    watchpoints, and step execution.
+  - Use debugging tools to identify and correct errors in a program that processes data for an AI application.
+- title: Integration Activity
+  kind: integration_activity
+  term: 2
+  week: 22
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 79
+- title: Introduction to C & Python Programming 1
+  kind: content
+  term: 2
+  week: 22
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 80
+  objectives:
+  - Describe the features and applications of C & Python.
+  - Explain the basic syntax and structure of C & Python programs.
+- title: Introduction to C & Python Programming 2
+  kind: content
+  term: 2
+  week: 23
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 81
+  objectives:
+  - Write simple C & Python programs using print statement Declare and use variables in C & Python.
+  - Write a simple program that prepares or formats input data for use in an AI application.
+- title: Introduction to C & Python Programming 3
+  kind: content
+  term: 2
+  week: 23
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 82
+  objectives:
+  - Identify and use C & Python data types (integer, float, string, Boolean).
+- title: Python/C Operators and Expressions 1
+  kind: content
+  term: 2
+  week: 23
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 83
+  objectives:
+  - Identify common C & Python operators.
+  - Explain how C & Python expressions are evaluated.
+  - Construct C & Python expressions to solve simple problems.
+- title: Python/C Operators and Expressions 2
+  kind: content
+  term: 2
+  week: 23
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 84
+  objectives:
+  - Use input() in Python or scanf() in C to accept user input Combine input and output statements in
+    simple programs.
+  - Use program input and output to collect, validate and display data that could be used by an AI system.
+- title: Python/C Selection Structures 1
+  kind: content
+  term: 2
+  week: 24
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 85
+  objectives:
+  - Explain the use of selection structures in C & Python.
+  - Construct C & Python programs using simple and multiple selection.
+- title: Python /C Selection Structures 2
+  kind: content
+  term: 2
+  week: 24
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 86
+  objectives:
+  - Apply selection structures to solve computational problems C & Python.
+- title: Python/C Iterative Structures
+  kind: content
+  term: 2
+  week: 24
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 87
+  objectives:
+  - Explain the use of iteration structures in C & Python.
+  - Construct C & Python programs using for and while loops.
+  - Apply iteration structures to solve computational problems.
+  - Apply iteration structures to process a dataset or repeated computations used in a simple AI-related
+    task.
+- title: Writing and Debugging C programs
+  kind: content
+  term: 2
+  week: 24
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 88
+  objectives:
+  - Apply algorithmic design C coding to solve a simple problem Debug simple syntax and logic errors in
+    C programs.
+- title: Writing and Debugging Python programs
+  kind: content
+  term: 3
+  week: 25
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 89
+  objectives:
+  - Apply algorithmic design Python coding to solve a simple problem Debug simple syntax and logic errors
+    in Python programs.
+- title: Python Program Development and Debugging Project – Part 1
+  kind: content
+  term: 3
+  week: 25
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 90
+  objectives:
+  - Apply algorithmic design to develop a complete Python solution to a contextual problem.
+  - Test and debug the program using systematic techniques.
+- title: Python Program Development and Debugging Project – Part 2
+  kind: content
+  term: 3
+  week: 25
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 91
+  objectives:
+  - Present and explain the final solution.
+  - Develop, test and explain a Python solution for a contextual problem involving data or a simple AI-related
+    feature.
+- title: Integration Activity
+  kind: integration_activity
+  term: 3
+  week: 25
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+  lesson_no: 92
+- title: Evaluation
+  kind: evaluation
+  term: 3
+  week: 26
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 3
+  week: 26
+  module: Programming I
+  competency: Understanding Programming Language Concepts
+  nature:
+  - th
+- title: Primitive Data Types
+  kind: content
+  term: 3
+  week: 26
+  module: Data Structures 1
+  competency: Selecting and Manipulating Data Structures
+  nature:
+  - th
+  lesson_no: 93
+  objectives:
+  - Explain the concept and characteristics of primitive data types used in programming.
+  - Describe common primitive data types and their applications.
+  - Explain the need for data structures in organising and managing collections of data.
+- title: Arrays
+  kind: content
+  term: 3
+  week: 26
+  module: Data Structures 1
+  competency: Selecting and Manipulating Data Structures
+  nature:
+  - th
+  lesson_no: 94
+  objectives:
+  - Explain the structure and characteristics of arrays.
+  - Distinguish between 1D and 2D arrays.
+  - Represent and manipulate data using arrays.
+  - Use arrays to organise and process a collection of data that could serve as input to an AI application.
+- title: Records
+  kind: content
+  term: 3
+  week: 27
+  module: Data Structures 1
+  competency: Selecting and Manipulating Data Structures
+  nature:
+  - th
+  lesson_no: 95
+  objectives:
+  - Explain the structure and characteristics of records.
+  - Differentiate between arrays and 2D records based on their organisation and use.
+  - Represent and manipulate data using records.
+- title: Data Types, Memory Allocation and Data Structures
+  kind: content
+  term: 3
+  week: 27
+  module: Data Structures 1
+  competency: Selecting and Manipulating Data Structures
+  nature:
+  - th
+  lesson_no: 96
+  objectives:
+  - Associate a data type with the amount of memory allocated to an identifier having that data type.
+  - Calculate the memory allocated to each simple data type.
+  - Represent a range of data of the same type as an array; declare string data as an array of characters;
+    represent heterogeneous data as a record; and declare a list (enumeration).
+  - Compare pointer-driven data structures with fixed data structures such as arrays.
+- title: Linked lists
+  kind: content
+  term: 3
+  week: 27
+  module: Data Structures 1
+  competency: Selecting and Manipulating Data Structures
+  nature:
+  - th
+  lesson_no: 97
+  objectives:
+  - Explain the structure and characteristics of linked lists.
+  - Represent and manipulate data using linked lists in programming problems.
+  - Explain how linked lists can support dynamic data management in applications that process AI-related
+    datasets.
+- title: Hash Tables
+  kind: content
+  term: 3
+  week: 27
+  module: Data Structures 1
+  competency: Selecting and Manipulating Data Structures
+  nature:
+  - th
+  lesson_no: 98
+  objectives:
+  - Explain the structure and characteristics of hash tables.
+  - Represent and manipulate data using hash tables in programming problems.
+  - Explain linear probing and its importance when managing collision in hash tables.
+  - Explain how linked lists can be used to handle collisions in hash tables through separate chaining.
+- title: Using Repetition Structures to process arrays and lists
+  kind: content
+  term: 3
+  week: 28
+  module: Data Structures 1
+  competency: Selecting and Manipulating Data Structures
+  nature:
+  - th
+  lesson_no: 99
+  objectives:
+  - Develop algorithms using repetition structures to process arrays, validate input, generate tables,
+    and print repetitive patterns.
+- title: Integration Activity
+  kind: integration_activity
+  term: 3
+  week: 28
+  module: Data Structures 1
+  competency: Selecting and Manipulating Data Structures
+  nature:
+  - th
+  lesson_no: 100
+  objectives:
+  - Integrate the concepts and practical skills developed in the category to solve a contextual problem.
+  - Integrate data-structure skills to design an efficient data- processing solution for a simple AI application.
+- title: Complexity of Algorithms
+  kind: content
+  term: 3
+  week: 28
+  module: Algorithm Efficiency
+  competency: Evaluating Algorithm Efficiency
+  nature:
+  - th
+  lesson_no: 101
+  objectives:
+  - Explain the concepts of time complexity and space complexity. Estimate the time and space requirements
+    of simple algorithms by counting operations and memory usage.
+  - Compare simple algorithms based on their estimated resource requirements.
+- title: Big-O Notation
+  kind: content
+  term: 3
+  week: 28
+  module: Algorithm Efficiency
+  competency: Evaluating Algorithm Efficiency
+  nature:
+  - th
+  lesson_no: 102
+  objectives:
+  - Explain the purpose of Big-O notation in algorithm analysis.
+  - Express the time complexity.
+  - of simple algorithms using Big- O notation.
+  - Compare the time complexity of common searching and sorting algorithms.
+  - Explain the concepts of P and NP complexity classes.
+- title: Computational problem types
+  kind: content
+  term: 3
+  week: 29
+  module: Algorithm Efficiency
+  competency: Evaluating Algorithm Efficiency
+  nature:
+  - th
+  lesson_no: 103
+  objectives:
+  - Distinguish between tractable and intractable problems using appropriate examples.
+  - Differentiate between decidable and undecidable problems (Halting problem, Travelling Salesman problem).
+  - Provide an informal definition of turing machine.
+  - Differetiate between computable and non computable functions using appropriate examples.
+  - Explain how heuristics can be applied to obtain practical solutions to intractable problems.
+  - Explain why some AI-related computational problems are computationally difficult and relate them to
+    P and NP concepts.
+- title: Algorithm Complexity, Dry Runs and Optimisation
+  kind: content
+  term: 3
+  week: 29
+  module: Algorithm Efficiency
+  competency: Evaluating Algorithm Efficiency
+  nature:
+  - th
+  lesson_no: 104
+  objectives:
+  - Determine time and space complexity from the number of executions of key operations and perform dry
+    runs.
+  - Optimize an algorithm to improve efficiency and evaluate efficiency in terms of number of steps.
+- title: Integration Activity
+  kind: integration_activity
+  term: 3
+  week: 29
+  module: Algorithm Efficiency
+  competency: Evaluating Algorithm Efficiency
+  nature:
+  - th
+  lesson_no: 105
+- title: Introduction to Computer Networks 1
+  kind: content
+  term: 3
+  week: 29
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 106
+  objectives:
+  - Define Computer Network.
+  - Identify and give the role of network devices.
+  - Explore the main network types by geographic scope.
+  - Identify network components and explain how network connectivity enables AI services and cloud-based
+    intelligent applications.
+- title: Introduction to Computer Networks 2
+  kind: content
+  term: 3
+  week: 30
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 107
+  objectives:
+  - Distinguish between peer-to-peer and client-server network.
+  - Describe star, bus, ring and mesh topologies.
+  - Describe the different types of network cabling7media.
+  - Classify transmission media as guided or unguided.
+- title: Introduction to Computer Networks 4
+  kind: content
+  term: 3
+  week: 30
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 108
+  objectives:
+  - Compare common transmission media based on their characteristics.
+  - Select suitable transmission media for given applications.
+- title: Network Connections, Architectures and Hardware
+  kind: content
+  term: 3
+  week: 30
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 109
+  objectives:
+  - Describe types of network connections such as point-to-point and multipoint.
+  - Explain features of network operating systems, including multitasking and multi-user features.
+  - Outline network software.
+  - Differentiate types of network architectures.
+  - Select and connect network hardware components such as cables, switches, routers and modems.
+  - Compare transmission media using data rate, transmission distance and ease of installation.
+  - Explain how network architecture and hardware support the transmission of data to and from AI and
+    cloud services.
+- title: The OSI model
+  kind: content
+  term: 3
+  week: 30
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 110
+  objectives:
+  - Explain the purpose of communication protocols and standards.
+  - Describe the layers of the OSI reference model.
+  - Relate communication protocols to the layers of the OSI model.
+- title: IP addressing
+  kind: content
+  term: 3
+  week: 31
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 111
+  objectives:
+  - Explain the Structure of an IP address.
+  - Explain the different Classes of IP address.
+  - Describe the different types of IP address.
+  - Explain the notion of CIDR and subnetting.
+- title: Network Configuration and Troubleshooting
+  kind: content
+  term: 3
+  week: 31
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 112
+  objectives:
+  - Configure the operating system for networking.
+  - Explain how mobile communication technology works.
+  - Explain the difference between wired and wireless transmission.
+  - Outline errors that may occur in a network.
+  - Set up and troubleshoot a network.
+  - Use network troubleshooting techniques to maintain reliable connectivity for an AI-enabled or cloud-based
+    application.
+- title: Data Communication Modes and Transmission
+  kind: content
+  term: 3
+  week: 31
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 113
+  objectives:
+  - Identify the features of data-communication networks.
+  - Describe simplex, half-duplex and duplex communication modes.
+  - Differentiate parallel and serial digital-data transmission.
+  - Explain synchronous and asynchronous transmission.
+  - Explain the functions of multiplexers and demultiplexers.
+  - Differentiate baseband and broadband transmission.
+  - Explain the purpose of data transmission and determine differences between transmission modes.
+  - Compare serial and parallel transmission based on speed and number of bits transmitted at a time.
+  - Explain advantages and disadvantages of analogue and digital signal transmission.
+- title: Network and Data Security
+  kind: content
+  term: 3
+  week: 31
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 114
+  objectives:
+  - Explain data security and safety principles for protecting data/networks from malware and unauthorized
+    access.
+  - Use antivirus software to protect a computer/network from viruses, Trojan horses and worms.
+  - Describe error-detecting codes such as parity bits, Hamming codes and cyclic redundancy checks/checksum.
+  - Explain measures used to protect computers and networks from intruders and natural disasters, including
+    passwords, firewalls, encryption and backup.
+  - Scan a computer system using antivirus software.
+  - Set up a firewall and web filtering using antivirus software.
+  - Save data on cloud-storage systems such as Google Drive.
+- title: Network Standards, Protocols and Internet Development
+  kind: content
+  term: 3
+  week: 32
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 115
+  objectives:
+  - Describe different network standards and protocols.
+  - Produce a report comparing the OSI and TCP reference models.
+  - Discuss Internet protocols such as TCP, UDP, IP and FTP.
+  - Describe the history of the Internet.
+  - Explain intranet, extranet and Internet.
+  - Explain how Internet protocols support the exchange of data required by AI and cloud-based services.
+- title: Internet Services and Safe Online Use
+  kind: content
+  term: 3
+  week: 32
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 116
+  objectives:
+  - Describe Internet services such as e-commerce, e-learning and e-banking.
+  - Exchange information using email and use search engines.
+  - Do business online while observing safety and security risks.
+  - Change privacy settings and ensure privacy online.
+- title: Integration Activity
+  kind: integration_activity
+  term: 3
+  week: 32
+  module: Computer Networks and Data Communication
+  competency: Exploring Internet Technologies
+  nature:
+  - th
+  lesson_no: 117
+  objectives:
+  - Integrate the concepts and practical skills developed in the category to solve a contextual problem.
+  - Evaluate the safe and responsible use of AI-enabled Internet services, including privacy, security
+    and information reliability.
+- title: Introduction to Web technology, Internet Connectivity, Online Services and Information Literacy
+  kind: content
+  term: 3
+  week: 32
+  module: Introduction to Web Development Technologies
+  competency: Designing simple Web Pages
+  nature:
+  - th
+  lesson_no: 118
+  objectives:
+  - Describe common Internet services and their uses.
+  - Explain the functions of web browsers, search engines, and email systems.
+  - Explain the role of markup languages in web development.
+  - Select suitable hardware/software for Internet connectivity and access websites using a browser.
+  - Select an appropriate Internet service for a given context and manage browser bookmarks.
+  - Apply for a job or scholarship online.
+  - Assess online information for relevance, bias, validity, reliability and sufficiency.
+  - Download images, files, software and drivers from the Internet.
+- title: Introduction to HTML 1
+  kind: content
+  term: 3
+  week: 33
+  module: Introduction to Web Development Technologies
+  competency: Designing simple Web Pages
+  nature:
+  - th
+  lesson_no: 119
+  objectives:
+  - Introduce the structure of an HTML document.
+  - Use basic HTML tags for text and headings.
+  - Use HTML tags for lists, links, and images.
+- title: Introduction to HTML 2
+  kind: content
+  term: 3
+  week: 33
+  module: Introduction to Web Development Technologies
+  competency: Designing simple Web Pages
+  nature:
+  - th
+  lesson_no: 120
+  objectives:
+  - Use HTML tags to create tables.
+  - Assess AI-generated or AI-assisted online information for relevance, bias, validity, reliability and
+    sufficiency.
+- title: Introduction to CSS 1
+  kind: content
+  term: 3
+  week: 33
+  module: Introduction to Web Development Technologies
+  competency: Designing simple Web Pages
+  nature:
+  - th
+  lesson_no: 121
+  objectives:
+  - Introduce CSS and its role in styling.
+  - Apply CSS to style text, colours, and layout. Combine HTML and CSS to build a structured webpage.
+- title: Integration Activity
+  kind: integration_activity
+  term: 3
+  week: 33
+  module: Introduction to Web Development Technologies
+  competency: Designing simple Web Pages
+  nature:
+  - th
+  lesson_no: 122
+- title: Evaluation
+  kind: evaluation
+  term: 3
+  week: 34
+  module: Introduction to Web Development Technologies
+  competency: Designing simple Web Pages
+  nature:
+  - th
+- title: Remediation
+  kind: remediation
+  term: 3
+  week: 34
+  module: Introduction to Web Development Technologies
+  competency: Designing simple Web Pages
+  nature:
+  - th
+- title: Revision
+  kind: revision
+  term: 3
+  week: 34
+  nature:
+  - th
+- title: Revision
+  kind: revision
+  term: 3
+  week: 35
+  nature:
+  - th
+- title: Revision
+  kind: revision
+  term: 3
+  week: 36
+  nature:
+  - th

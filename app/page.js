@@ -1,3 +1,4 @@
+import { currentWeek, formatRange } from "../lib/school-calendar";
 import Link from "next/link";
 import { requireTeacher } from "../lib/guards";
 
@@ -53,7 +54,7 @@ export default async function Home() {
 
   const { data: syllabi, error } = await supabase
     .from("syllabi")
-    .select("id, title, form_level, scope, region, coefficient, total_weeks")
+    .select("id, title, form_level, scope, region, coefficient, total_weeks").is("deleted_at", null).neq("form_level", "Form 4")
     .order("form_level");
 
   if (error) return <ErrorNotice message={error.message} />;
@@ -100,6 +101,7 @@ export default async function Home() {
   return (
     <>
       <h2>Progression sheets</h2>
+      {currentWeek() && <p className="notice"><strong>Week {currentWeek().week}</strong> · {formatRange(currentWeek().start, currentWeek().end)}. Open a sheet to go straight to this week.</p>}
       <p className="lede">
         Choose a sheet to see the year laid out by term and week.
       </p>

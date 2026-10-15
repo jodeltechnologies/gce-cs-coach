@@ -16,7 +16,7 @@ export default async function QuestionsPage({ searchParams }) {
 
   const sp = await searchParams;
   const { data: syllabi } = await supabase
-    .from("syllabi").select("id, form_level").order("form_level");
+    .from("syllabi").select("id, form_level, title").is("deleted_at", null).neq("form_level", "Form 4").order("form_level");
 
   const selected = sp?.syllabus ?? syllabi?.find((s) => s.form_level === "Form 5")?.id;
   const sourceFilter = sp?.source ?? "";
@@ -79,7 +79,7 @@ export default async function QuestionsPage({ searchParams }) {
           <Link key={s.id} href={`/admin/questions?syllabus=${s.id}`}
             className={s.id === selected ? "tag" : "tag plain"}
             style={{ padding: "6px 13px" }}>
-            {s.form_level}
+            {s.form_level} · {s.title}
           </Link>
         ))}
       </div>

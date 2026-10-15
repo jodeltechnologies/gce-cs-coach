@@ -26,7 +26,7 @@ export default async function Assessments() {
 
   const { data: classes } = await supabase
     .from("classes")
-    .select("id, name, academic_year, form_level")
+    .select("id, name, academic_year, form_level").neq("form_level", "Form 4")
     .eq("teacher_id", teacher.id)
     .order("name");
 

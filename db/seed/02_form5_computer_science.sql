@@ -45,7 +45,7 @@ INSERT INTO levels (name, short_name) VALUES ('GCE Ordinary Level', 'O/L') ON CO
 DROP TABLE IF EXISTS target_syllabus;
 CREATE TEMP TABLE target_syllabus AS
 SELECT s.id FROM syllabi s
- WHERE s.form_level = 'Form 5' AND s.deleted_at IS NULL
+ WHERE s.form_level = 'Form 5' AND s.deleted_at IS NULL AND s.subject_id = (SELECT id FROM subjects WHERE name = 'Computer Science')
  ORDER BY (SELECT count(*) FROM classes c WHERE c.syllabus_id = s.id) DESC,
           (SELECT count(*) FROM note_sources n WHERE n.syllabus_id = s.id) DESC,
           s.created_at
@@ -74,7 +74,7 @@ ON CONFLICT (id) DO NOTHING;
 DROP TABLE IF EXISTS target_syllabus;
 CREATE TEMP TABLE target_syllabus AS
 SELECT s.id FROM syllabi s
- WHERE s.form_level = 'Form 5' AND s.deleted_at IS NULL
+ WHERE s.form_level = 'Form 5' AND s.deleted_at IS NULL AND s.subject_id = (SELECT id FROM subjects WHERE name = 'Computer Science')
  ORDER BY (SELECT count(*) FROM classes c WHERE c.syllabus_id = s.id) DESC,
           (SELECT count(*) FROM note_sources n WHERE n.syllabus_id = s.id) DESC,
           s.created_at

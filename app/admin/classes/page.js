@@ -31,10 +31,10 @@ export default async function ClassesPage() {
   const [{ data: classes }, { data: syllabi }] = await Promise.all([
     supabase
       .from("classes")
-      .select("id, name, form_level, academic_year, exam_year, syllabus_id")
+      .select("id, name, form_level, academic_year, exam_year, syllabus_id").neq("form_level", "Form 4")
       .eq("teacher_id", teacher.id)
       .order("academic_year", { ascending: false }),
-    supabase.from("syllabi").select("id, form_level, title").order("form_level"),
+    supabase.from("syllabi").select("id, form_level, title").is("deleted_at", null).neq("form_level", "Form 4").order("form_level"),
   ]);
 
   // Progress per class, so the list is useful at a glance rather than
@@ -115,7 +115,7 @@ export default async function ClassesPage() {
           >
             {(syllabi ?? []).map((s) => (
               <option key={s.id} value={s.id}>
-                {s.form_level}
+                {s.form_level} · {s.title}
               </option>
             ))}
           </select>
@@ -132,7 +132,7 @@ export default async function ClassesPage() {
         </label>
 
         <label className="field">
-          <span>GCE exam year — leave empty for Form 4 and Lower Sixth</span>
+          <span>GCE exam year — leave empty for Lower Sixth</span>
           <input type="text" name="exam_year" placeholder={String(thisYear + 1)} />
         </label>
 

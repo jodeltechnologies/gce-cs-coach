@@ -61,7 +61,7 @@ export default async function StudentPage({ params }) {
       .is("deleted_at", null),
     supabase
       .from("classes")
-      .select("id, name, academic_year")
+      .select("id, name, academic_year").neq("form_level", "Form 4")
       .eq("teacher_id", teacher.id)
       .order("academic_year", { ascending: false }),
   ]);

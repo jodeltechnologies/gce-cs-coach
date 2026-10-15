@@ -30,7 +30,7 @@ export default async function Marking({ searchParams }) {
 
   const { data: classes } = await supabase
     .from("classes")
-    .select("id, name")
+    .select("id, name").neq("form_level", "Form 4")
     .eq("teacher_id", teacher.id)
     .order("name");
 

@@ -1,3 +1,4 @@
+import CurrentWeekFocus from "../../CurrentWeekFocus";
 import Link from "next/link";
 import { requireTeacher } from "../../../lib/guards";
 import {
@@ -45,9 +46,9 @@ function lessonNumber(l) {
  * time. Printing "Week 21 · 8 – 12 Feb 2027 · Thu 11 Feb: no lesson, Youth
  * Day" is the whole point of this change.
  */
-function WeekHead({ weekNo, formLevel, isNow }) {
+function WeekHead({ weekNo, formLevel, subject, isNow }) {
   const cal = weekByNumber(weekNo);
-  const days = sittingsForWeek(formLevel, weekNo);
+  const days = sittingsForWeek(formLevel, weekNo, subject);
 
   return (
     <div className={`week-head${isNow ? " now" : ""}`}>
@@ -99,11 +100,11 @@ function BreakBar({ brk }) {
   );
 }
 
-function TimetableCard({ formLevel, prescribed }) {
-  const streams = timetableFor(formLevel);
+function TimetableCard({ formLevel, subject, prescribed }) {
+  const streams = timetableFor(formLevel, subject);
   if (streams.length === 0) return null;
-  const load = weeklyLoad(formLevel);
-  const lost = lostDays(formLevel);
+  const load = weeklyLoad(formLevel, subject);
+  const lost = lostDays(formLevel, subject);
 
   // The Ministry states a workload in periods. Comparing it against what the
   // timetable actually gives is the one check on this page that can tell you
@@ -188,7 +189,7 @@ export default async function SyllabusPage({ params }) {
 
   const { data: syllabus } = await supabase
     .from("syllabi")
-    .select("*")
+    .select("*").is("deleted_at", null).neq("form_level", "Form 4")
     .eq("id", id)
     .single();
 
@@ -208,7 +209,7 @@ export default async function SyllabusPage({ params }) {
     supabase
       .from("lessons")
       .select(
-        "id, lesson_no_start, lesson_no_end, title, term, week_from, lesson_kind, competency_id, is_practical, status, objectives(description, kind, sequence)"
+        "id, lesson_no_start, lesson_no_end, title, term, week_from, week_to, lesson_kind, competency_id, is_practical, status, objectives(description, kind, sequence)"
       )
       .is("deleted_at", null)
       .eq("syllabus_id", id)
@@ -249,7 +250,10 @@ export default async function SyllabusPage({ params }) {
 
   // Group by term, then by week, preserving sheet order.
   const terms = [];
-  for (const l of lessons ?? []) {
+  for (const l of (lessons ?? []).flatMap((lesson) =>
+    Array.from({ length: (lesson.week_to ?? lesson.week_from) - lesson.week_from + 1 },
+      (_, i) => ({ ...lesson, week_from: lesson.week_from + i }))
+  )) {
     let t = terms[terms.length - 1];
     if (!t || t.term !== l.term) {
       t = { term: l.term, weeks: [] };
@@ -266,6 +270,7 @@ export default async function SyllabusPage({ params }) {
   return (
     <>
       <h2>{syllabus.form_level}</h2>
+      <CurrentWeekFocus weeks={terms.flatMap((t) => t.weeks.map((w) => w.week))} />
       <p className="lede">{syllabus.title}</p>
 
       <div className="tags">
@@ -288,6 +293,7 @@ export default async function SyllabusPage({ params }) {
 
       <TimetableCard
         formLevel={formLevel}
+        subject={syllabus.title}
         prescribed={syllabus.weekly_periods_theory}
       />
 
@@ -300,11 +306,12 @@ export default async function SyllabusPage({ params }) {
             let lastCat = null;
             const brk = breakAfter(w.week);
             return (
-              <div key={`${t.term}-${w.week}`}>
+              <div id={`week-${w.week}`} data-progression-week={w.week} key={`${t.term}-${w.week}`}>
                 <div style={{ marginBottom: 18 }}>
                   <WeekHead
                     weekNo={w.week}
                     formLevel={formLevel}
+        subject={syllabus.title}
                     isNow={now?.week === w.week}
                   />
                   <div style={{ marginTop: 4 }}>

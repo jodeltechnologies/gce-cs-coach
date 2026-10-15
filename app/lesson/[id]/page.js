@@ -97,7 +97,7 @@ export default async function LessonReader({ params }) {
         : Promise.resolve({ data: null }),
       supabase
         .from("syllabi")
-        .select("id, form_level")
+        .select("id, form_level, title").is("deleted_at", null).neq("form_level", "Form 4")
         .eq("id", lesson.syllabus_id)
         .maybeSingle(),
     ]);

@@ -78,7 +78,7 @@ export default async function LessonEditor({ params }) {
         : Promise.resolve({ data: null }),
       supabase
         .from("syllabi")
-        .select("form_level")
+        .select("form_level").is("deleted_at", null).neq("form_level", "Form 4")
         .eq("id", lesson.syllabus_id)
         .maybeSingle(),
     ]);
