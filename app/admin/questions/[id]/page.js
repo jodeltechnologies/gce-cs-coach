@@ -40,6 +40,8 @@ export default async function EditQuestionPage({ params }) {
       <h2>Edit question</h2>
       <p className="lede"><Link href="/admin/questions">Back to the bank</Link></p>
 
+      {question.media_url && /^https:\/\//.test(question.media_url) && <p><a href={question.media_url} target="_blank" rel="noopener noreferrer">Open the original source PDF at this question’s page</a></p>}
+
       <QuestionForm
         action={updateQuestion}
         syllabi={syllabi ?? []}

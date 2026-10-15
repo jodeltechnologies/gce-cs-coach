@@ -7,6 +7,8 @@ export const metadata = { title: "Check imported questions" };
 export const dynamic = "force-dynamic";
 
 const FLAG_NOTE = {
+  source_pdf_check_required: "Compare the wording, tables and diagrams with the original PDF before approving this question.",
+  marks_need_review: "Check the complete question and its mark allocation against the original PDF.",
   from_ocr:
     "This page was a scan, so the text was read by machine. Check the wording letter by letter.",
   no_answer_key:

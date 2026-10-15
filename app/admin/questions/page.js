@@ -68,6 +68,7 @@ export default async function QuestionsPage({ searchParams }) {
   return (
     <>
       <h2>Question bank</h2>
+      <p><Link href="/admin/past-papers">Browse complete past papers and source PDFs</Link></p>
       <p className="lede">
         Past GCE papers, mocks and your own questions, each tagged to the
         lessons it tests. The tagging is what turns a pile of questions into

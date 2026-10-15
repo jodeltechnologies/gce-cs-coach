@@ -17,6 +17,8 @@ const LINKS = [
   { href: "/admin/notes", label: "Course notes" },
   { href: "/admin/release", label: "Release notes" },
   { href: "/admin/questions", label: "Questions" },
+  { href: "/admin/past-papers", label: "Past papers" },
+  { href: "/admin/practical-guide", label: "Paper 3 teaching guide" },
   { href: "/admin/questions/review", label: "Check imports" },
   { href: "/admin/exam-frequency", label: "Exam frequency" },
   { href: "/admin/links", label: "Cross-year links" },

@@ -1,0 +1,1166 @@
+{
+  "title": "Paper 3 teaching guide",
+  "intro": "A complete route from demonstration to independent practical work. Lessons are teacher-authored, informed by the supplied national progression and the downloaded practical papers. Practice marks below are classroom rubrics, not official GCE marking schemes.",
+  "setup": [
+    "Check each computer, keyboard, mouse and available application before the lesson.",
+    "Prepare a candidate folder, a source brief and local assets. Keep a backup copy of the blank practice files.",
+    "Demonstrate for 10 minutes, guide practice for 15 minutes, give an independent task for 20 minutes and use 5 minutes for checking and saving. Use two consecutive periods for the complete rehearsals.",
+    "Pair pupils during the demonstration when machines are limited, then rotate keyboard control and assess each pupil individually.",
+    "Use the measurements, filenames, language, output and time printed on the actual paper. Paper 3 formats vary, so the current paper takes precedence."
+  ],
+  "areas": [
+    {
+      "id": "word",
+      "label": "Word processing",
+      "summary": "Teach the whole document workflow: accurate typing, editing, formatting, tables, graphics, page layout, checking, saving and printing.",
+      "ps": [
+        "Form 5 lessons 50–51, week 19.",
+        "Produce formatted documents with text, tables, graphics and text boxes. Reproduce a document of at most two pages."
+      ],
+      "lessons": [
+        {
+          "id": "w1",
+          "title": "Start, type, edit and save",
+          "minutes": 50,
+          "goals": [
+            "Create a named document in the correct folder.",
+            "Enter and correct text without changing the wording."
+          ],
+          "steps": [
+            "Before class, place the practice text below on each computer or print one copy per pair. Open a blank document and show the title bar, ribbon, page and status bar.",
+            "Create a folder named CS_Practical, then Candidate_001 inside it. File → Save As → Browse. Save the document there as Task1.docx. Ask pupils to point to the filename and folder.",
+            "Type the practice text exactly. Press Enter once at the end of a paragraph, not at the end of every visible line. Let the word processor wrap the lines.",
+            "Show click, double-click a word, drag to select a sentence and Ctrl+A. Replace selected text by typing. Compare Backspace and Delete.",
+            "Demonstrate Ctrl+Z, Ctrl+Y, Ctrl+C, Ctrl+X and Ctrl+V on a spare paragraph. Explain the difference between copying and moving.",
+            "Use Home → Find or Ctrl+F to find “practical”. Use Replace on one chosen occurrence, then undo it. Do not use Replace All until the match is checked.",
+            "Turn on paragraph marks with Home → ¶. Remove extra paragraph breaks and repeated spaces. Correct spelling against the source, including names that the spellchecker may not know.",
+            "Press Ctrl+S, close the file and reopen it from Candidate_001. Each pupil must show the saved file, not only an unsaved window."
+          ],
+          "exercise": "Type the complete practice letter. Deliberately insert one repeated word, move one paragraph and repair both changes. Save and reopen the result.",
+          "check": [
+            "The document reopens from the expected folder.",
+            "Paragraphs match the source text.",
+            "No repeated spaces are used to line up text."
+          ],
+          "mistakes": [
+            "Saving only to Recent files without knowing the folder.",
+            "Using Enter at every line end.",
+            "Accepting every spelling suggestion without reading it."
+          ]
+        },
+        {
+          "id": "w2",
+          "title": "Format characters and paragraphs",
+          "minutes": 50,
+          "goals": [
+            "Distinguish font formatting from paragraph formatting.",
+            "Apply sizes, alignment, spacing and indents accurately."
+          ],
+          "steps": [
+            "Open Task1.docx and save a working copy as Task1_Format.docx. Select only the school heading and set the requested font, size and bold.",
+            "Use Ctrl+B, Ctrl+I and Ctrl+U on separate sample words, then undo. Use superscript for x² and subscript for H₂O only where the question requires them.",
+            "Select the body paragraphs. Set Times New Roman, 12 pt. Choose the requested alignment. For the practice letter use left alignment, with the subject line centred.",
+            "Open Home → Paragraph dialog. Set line spacing to 1.5 and spacing after each body paragraph to 6 pt. Show that paragraph spacing is different from inserting empty lines.",
+            "Use the ruler or Paragraph dialog to set first-line and hanging indents. Show how a hanging indent is useful for a list. Clear an accidental indent rather than adding spaces.",
+            "Create the three-item list in the practice brief using the Bullets command. Change it to numbering, then return to bullets. Keep each item as a separate paragraph.",
+            "Use a tab stop for one aligned item, then show why repeated spaces move when the font changes. Use a table for several aligned columns.",
+            "Use Format Painter on one additional heading. Clear formatting from a deliberately damaged sentence, reapply the right style, save and compare with the source."
+          ],
+          "exercise": "Format the practice letter to the specification. Then change the body font size to 11 pt and restore it to 12 pt without retyping.",
+          "check": [
+            "The heading alone is bold and 16 pt.",
+            "Body text is 12 pt with the specified spacing.",
+            "Bullets are real list paragraphs."
+          ],
+          "mistakes": [
+            "Changing the entire document when only one heading is selected.",
+            "Using blank lines to create paragraph spacing.",
+            "Applying every decorative effect even though the brief did not request it."
+          ]
+        },
+        {
+          "id": "w3",
+          "title": "Page setup, headers, footers and page numbers",
+          "minutes": 50,
+          "goals": [
+            "Set page size, margins and orientation.",
+            "Place identification and page numbers in the correct areas."
+          ],
+          "steps": [
+            "Choose Layout → Size → A4. Choose Layout → Orientation → Portrait. Set custom margins to 2 cm on all four sides for this practice task.",
+            "Explain centimetres and inches. If a paper gives 0.75 inches, enter 0.75 inches or its stated approximation, rather than assuming the default margin.",
+            "Open Insert → Header and enter Candidate 001. Use a tab or header alignment positions to place the task name at the right.",
+            "Open Insert → Footer → Page Number. Insert a page-number field. Do not type “1” as ordinary text if the document has several pages.",
+            "Use Different First Page only when the task requests it. Demonstrate a second page and show that the page field changes automatically.",
+            "Use Ctrl+Enter to insert a page break in a sample two-page document. Remove it if the actual brief requires one page. Explain why repeated Enter presses are unreliable.",
+            "Demonstrate Layout → Breaks → Next Page on a spare copy before changing the orientation of only one section. Show that section breaks differ from page breaks.",
+            "Use File → Print to inspect margins and page count. Fix text spilling over a page before printing. Save the document."
+          ],
+          "exercise": "Add identification and page numbers to the letter, then reproduce the same content as a two-page report using one page break.",
+          "check": [
+            "A4 and the four margin values are correct.",
+            "Identification is in a header or footer.",
+            "Page numbering is automatic."
+          ],
+          "mistakes": [
+            "Putting the footer inside the final body paragraph.",
+            "Shrinking the font to hide a layout error.",
+            "Changing the whole document to landscape when only one section should change."
+          ]
+        },
+        {
+          "id": "w4",
+          "title": "Build and format tables",
+          "minutes": 50,
+          "goals": [
+            "Insert a table with the correct rows and columns.",
+            "Merge, resize, align, sort and format table contents."
+          ],
+          "steps": [
+            "Insert → Table: create 4 columns and 5 rows. Enter the supplied workshop attendance table. Explain that the first row is the heading row.",
+            "Use Table Layout → Insert Above/Below to add a row. Delete the test row with Delete Rows, not just the Delete key, which removes only its contents.",
+            "Select the header row and apply bold, light shading and centred text. Use Table Design → Borders to apply the borders requested by the brief.",
+            "Use Table Layout → AutoFit to Window or set measured column widths. Keep the Name column wider than the No column. Show Distribute Rows and Distribute Columns.",
+            "Select cells in a spare row and Merge Cells for a table title. Split the merged cells again. Explain why merging a data body can make sorting harder.",
+            "Align numbers consistently. Use cell alignment controls for vertical alignment and the Paragraph controls for text alignment.",
+            "Select the entire data table and sort by Name. Choose a header row so the headings do not become a pupil record. Check that each record remains on one row.",
+            "Check row breaks and print preview. For a table spanning pages, select its header row and use Repeat Header Rows. Save the final file."
+          ],
+          "exercise": "Reproduce the practice attendance table, add a fourth record, sort all records alphabetically by name, and keep the header intact.",
+          "check": [
+            "Every row has the correct number of cells.",
+            "Names and their class values move together after sorting.",
+            "The table fits inside the page margins."
+          ],
+          "mistakes": [
+            "Sorting one column and separating pupils from their records.",
+            "Deleting text when the task asks to delete a row.",
+            "Drawing table lines with underscore characters."
+          ]
+        },
+        {
+          "id": "w5",
+          "title": "Pictures, shapes, text boxes and columns",
+          "minutes": 50,
+          "goals": [
+            "Place and size graphics without disturbing the document.",
+            "Use text boxes, borders and columns when specified."
+          ],
+          "steps": [
+            "Work on a copy of the letter. Insert → Pictures → This Device and choose a teacher-supplied local image. Avoid spending lesson time searching online.",
+            "Use Picture Format → Size. Set the width to 2.5 cm and keep the aspect ratio locked. Crop unwanted edges instead of stretching the picture.",
+            "Demonstrate In Line with Text and Square wrapping. Move the image and observe which paragraphs move. Choose the wrapping requested in the question.",
+            "Insert a text box for a notice. Set its dimensions and remove or apply its outline as requested. Explain that a text box is a separate object.",
+            "Use Insert → Shapes to draw a rectangle on a sample page. Set fill and line separately. Use a page border only if the task asks for one.",
+            "Select two spare paragraphs and use Layout → Columns → Two. Show the section breaks created around the selection. Do not make the address or signature two columns.",
+            "Demonstrate Insert → Drop Cap on the first body paragraph of a separate story task. Keep the letter unchanged unless a drop cap is specified.",
+            "Check that no image hides text, no text box extends outside the printable area and no unwanted blank page was created. Save and preview."
+          ],
+          "exercise": "Make a one-page school notice containing a logo-sized image, a bordered text box and two body columns. Follow the specified sizes exactly.",
+          "check": [
+            "Images keep their proportions.",
+            "All body text remains visible.",
+            "Only the requested text is in columns."
+          ],
+          "mistakes": [
+            "Dragging a corner until the picture looks roughly right.",
+            "Using a floating text box for all body text.",
+            "Adding decorative objects that cover the required content."
+          ]
+        },
+        {
+          "id": "w6",
+          "title": "Reproduce a complete letter and two-page document",
+          "minutes": 100,
+          "goals": [
+            "Plan a document before formatting it.",
+            "Complete a Paper 3 style task from a single brief."
+          ],
+          "steps": [
+            "Distribute the full practice brief below. Pupils underline filenames, measurements and requested printouts before opening the application.",
+            "Show the finished structure: letterhead, date, recipient, subject, body, list, table and signature. Do not type and format every line separately.",
+            "Type all text and check it first. Apply body formatting to the complete body selection, then format headings and addresses.",
+            "Insert the table in the required position. Enter each record once, then apply its formatting. Keep the closing paragraph below the table.",
+            "Add the header, footer and page number. Insert and size the small graphic only if included in the chosen task version.",
+            "Run a check from the top of the brief to the bottom. Use the exact requested values for margins, sizes, orientation and alignment.",
+            "Open print preview. If the task asks for two pages, manage the page break deliberately and keep the signature with its closing paragraph.",
+            "Save the editable document and export a PDF copy only if requested. Ask each pupil to explain two operations used without referring to a neighbour."
+          ],
+          "exercise": "Finish the complete worked letter independently. As an extension, reproduce it as a two-page report with a heading on the second page.",
+          "check": [
+            "The file and printed layout meet the brief.",
+            "All content is present and correctly ordered.",
+            "Pupil can repeat two formatting operations unaided."
+          ],
+          "mistakes": [
+            "Formatting before entering enough text to judge page layout.",
+            "Copying a neighbour’s finished file.",
+            "Omitting the last paragraph or table row."
+          ]
+        },
+        {
+          "id": "w7",
+          "title": "Print, submit and mark the word-processing task",
+          "minutes": 50,
+          "goals": [
+            "Produce the requested evidence.",
+            "Check a finished file against a marking checklist."
+          ],
+          "steps": [
+            "Give 10 minutes for pupils to complete a fresh short task without help. Include one deliberately unfamiliar filename to test file discipline.",
+            "Use Ctrl+S before entering print preview. Check paper size, orientation, margins, page count and whether graphics or borders are clipped.",
+            "Choose the correct printer and required pages. If no physical printer is available, use a PDF printout for class practice and explain that the examination instructions control the real submission.",
+            "Print one copy only when instructed. Show pupils how to avoid sending several accidental copies while a printer is slow.",
+            "Open the saved editable file again. Check that a PDF copy has not replaced the editable source document.",
+            "Use the practice rubric below to mark text accuracy, formatting, table, identification and output separately.",
+            "Give each pupil one correction to make, then require a new save and a recheck of the corrected item.",
+            "Collect the required files in the candidate folder. Do not accept an unexplained screenshot as proof of a working editable document."
+          ],
+          "exercise": "Submit Task1.docx and the requested printout. Exchange only the marking checklist with a partner, then make one recorded correction.",
+          "check": [
+            "The saved document and printout match.",
+            "Identification and task name are present.",
+            "No blank or clipped page is submitted."
+          ],
+          "mistakes": [
+            "Printing before saving.",
+            "Submitting the shortcut instead of the document.",
+            "Treating a correct-looking screenshot as a substitute for the required file."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "excel",
+      "label": "Excel / spreadsheets",
+      "summary": "Teach the whole workbook workflow: data entry, formatting, formulas, functions, references, conditions, sorting, filtering, charts and printouts.",
+      "ps": [
+        "Form 5 lessons 52–53, week 20.",
+        "Reproduce data and formatting, choose formulas, create charts, and use sorting and filtering."
+      ],
+      "lessons": [
+        {
+          "id": "e1",
+          "title": "Create the workbook and enter reliable data",
+          "minutes": 50,
+          "goals": [
+            "Identify cells, ranges and worksheets.",
+            "Enter text and numbers in the correct data types."
+          ],
+          "steps": [
+            "Create a blank workbook. File → Save As → Candidate_001 → Task2.xlsx. Rename Sheet1 to Registration.",
+            "Explain a cell reference using A6, a range using A6:D11, and the active cell using the Name Box. Use the Name Box to select A5:L11.",
+            "Enter the twelve headers from the worked example in row 5. Enter only the supplied data in A6:D11. Keep one student per row.",
+            "Enter the four constants in N2:N5, with labels in M2:M5. Type 10% in N5. Explain that its numeric value is 0.1.",
+            "Enter codes with leading zeros as text. Enter quantities and fees as numbers. Do not type FCFA inside numeric fee cells.",
+            "Demonstrate editing a cell with F2, clearing contents and undoing a mistake. Explain Delete Cells versus Clear Contents.",
+            "Use Home → Find & Select → Go To Special or a simple visual check to locate unexpected blanks in the data range. Compare every record against the source.",
+            "Save, close and reopen Task2.xlsx. Ask pupils to select the Practical flag column and state what 0 and 1 mean."
+          ],
+          "exercise": "Enter the entire worked dataset and four constants. Swap two figures deliberately, then check and repair them against the source.",
+          "check": [
+            "Six student records are present.",
+            "The practical flags are numeric 0 or 1.",
+            "N5 displays 10%, not 1000%."
+          ],
+          "mistakes": [
+            "Entering “5 papers” instead of numeric 5.",
+            "Putting several students inside one cell.",
+            "Using merged cells in the middle of the data records."
+          ]
+        },
+        {
+          "id": "e2",
+          "title": "Format the sheet and prepare a readable table",
+          "minutes": 50,
+          "goals": [
+            "Format values without changing their underlying numbers.",
+            "Use widths, wrapping and borders efficiently."
+          ],
+          "steps": [
+            "Enter SCHOOL EXAMINATION REGISTRATION in A1. Select A1:L1 and use Merge & Center for this display title only.",
+            "Bold row 5, apply a light fill and turn on Wrap Text. Set the row height so each heading is visible.",
+            "Use column widths suited to the content. Make Name wider than No. Demonstrate AutoFit using a double-click on the column boundary.",
+            "Format C and D as whole numbers. Format E:K as numeric values with thousands separators. Use zero decimal places for these whole-franc practice values.",
+            "Apply outside and inside borders to A5:L11 as the brief requests. Do not confuse printed borders with worksheet gridlines.",
+            "Format N5 as Percentage with zero decimal places. Click it and show 10% in the formula bar as the stored entry.",
+            "Use View → Freeze Panes after selecting C6 to keep rows 1–5 and columns A–B visible in a larger practice sheet.",
+            "Check that no #### is displayed. Widen the column before assuming the calculation is wrong. Save."
+          ],
+          "exercise": "Format the data table to the given brief without merging the data rows. Explain why a number remains calculable after applying a comma format.",
+          "check": [
+            "Headers fit and data rows remain separate.",
+            "Currency values are still numeric.",
+            "The worksheet is readable at normal zoom."
+          ],
+          "mistakes": [
+            "Typing commas or currency labels into text cells instead of applying a number format.",
+            "Merging records that must later be sorted.",
+            "Interpreting #### as a formula error."
+          ]
+        },
+        {
+          "id": "e3",
+          "title": "Write formulas and fill relative references",
+          "minutes": 50,
+          "goals": [
+            "Build formulas from the problem.",
+            "Copy formulas down and explain which references change."
+          ],
+          "steps": [
+            "On a spare sheet, type 6 in A1 and 4 in B1. In C1 enter =A1*B1. Change A1 to 7 and show that C1 recalculates to 28.",
+            "Explain that every formula begins with =. Demonstrate +, -, *, / and parentheses. Use =(A1+B1)*2 to distinguish calculation order.",
+            "Return to Registration. Explain Subject total = number of papers × fee per paper. In F6 enter =C6*E6.",
+            "Temporarily enter 1000 in E6:E11. Drag the fill handle from F6 to F11. Click F7 and confirm that the formula became =C7*E7.",
+            "Use Home → Fill → Down or Ctrl+D after selecting F6:F11 as an alternative to dragging.",
+            "Click a formula cell and inspect the formula bar. Explain why typing the displayed answer is not equivalent to entering a formula.",
+            "Change C6 from 5 to 6 and verify F6 changes from 5000 to 6000. Restore C6 to 5.",
+            "Demonstrate an intentional #DIV/0! on a spare sheet, then repair the denominator. Delete the demonstration cells and save."
+          ],
+          "exercise": "Calculate every subject total. Change one input, predict the new result, test it and restore the original input.",
+          "check": [
+            "F6:F11 contain formulas.",
+            "Relative references advance correctly by row.",
+            "Changing an input changes the result."
+          ],
+          "mistakes": [
+            "Using x instead of * for multiplication.",
+            "Typing 5000 directly in a formula cell.",
+            "Copying only the displayed values rather than formulas."
+          ]
+        },
+        {
+          "id": "e4",
+          "title": "Use absolute references, percentages and discounts",
+          "minutes": 50,
+          "goals": [
+            "Lock a constant when filling formulas.",
+            "Distinguish a percentage amount from the amount after discount."
+          ],
+          "steps": [
+            "Explain why the fee in N2 must stay fixed for every pupil. In E6 enter =$N$2 and fill down to E11.",
+            "Click E7 to verify that it still refers to $N$2. Show F4 as a way to cycle references while editing a formula on a compatible keyboard.",
+            "In G6 enter =$N$3 and fill to G11. Show what goes wrong with =N3 when copied down, then undo the mistake.",
+            "Explain Discount = Gross × rate and Net = Gross − Discount. On a spare cell show 12000*10%=1200 and 12000-1200=10800.",
+            "Show that $N$5 locks both row and column. Briefly compare N5, $N$5, N$5 and $N5 using a spare 2×2 range.",
+            "Calculate a discount manually for one worked row before entering the formula. Pupils should be able to predict whether the result is sensible.",
+            "Change the fee constant N2 to 1100 and show that every dependent fee changes. Restore N2 to 1000.",
+            "Save. Ask each pupil to point to one relative reference and one absolute reference and explain the difference."
+          ],
+          "exercise": "Fill E6:E11 and G6:G11 from the constants, then calculate a separate 10% discount on 12000 without typing its final answer.",
+          "check": [
+            "The fee constants remain fixed after filling.",
+            "A 10% discount on 12000 is 1200.",
+            "The discounted amount is 10800."
+          ],
+          "mistakes": [
+            "Typing 10 instead of 10% for the rate.",
+            "Adding a discount to the gross amount.",
+            "Locking the student’s row instead of the constant."
+          ]
+        },
+        {
+          "id": "e5",
+          "title": "Use IF for practical fees and registration discounts",
+          "minutes": 50,
+          "goals": [
+            "Translate a written condition into an IF formula.",
+            "Test both true and false cases."
+          ],
+          "steps": [
+            "Write the rule in words first: if Practical equals 1, charge the constant practical fee, otherwise charge zero.",
+            "In H6 enter =IF(D6=1,$N$4,0). Fill down. Check Awa’s 5000 fee and Bih’s zero fee.",
+            "In I6 enter =SUM(F6:H6). Fill down. Explain that this adds subject total, registration and practical fee, rather than charging the fee per paper twice.",
+            "Explain that No is the order of registration in this practice dataset. In J6 enter =IF(A6<=5,I6*$N$5,0). Fill down.",
+            "In K6 enter =I6-J6 and fill down. Verify the sixth student receives no discount.",
+            "In L6 enter =IF(K6>=10000,\"High\",\"Standard\") and fill down. Explain why text outputs need quotation marks.",
+            "Test a flag of 0 and a flag of 1, then a registration number of 5 and 6. Restore the source values after each test.",
+            "If the installed spreadsheet uses semicolons between arguments, use the same formulas with semicolons. Keep the decimal and percentage entries appropriate to the computer’s locale."
+          ],
+          "exercise": "Complete H6:L11. Describe the true and false results of each IF formula before copying it.",
+          "check": [
+            "H6=5000, H7=0.",
+            "J10=1200 and J11=0.",
+            "K6=10800 and K11=6000."
+          ],
+          "mistakes": [
+            "Testing D6 against the text \"Yes\" when the supplied flag is numeric.",
+            "Forgetting quotes around text outputs.",
+            "Using the worksheet row number as the registration order."
+          ]
+        },
+        {
+          "id": "e6",
+          "title": "Summarise, count, compare and rank",
+          "minutes": 50,
+          "goals": [
+            "Use functions for totals and summaries.",
+            "Select the correct range and verify the result."
+          ],
+          "steps": [
+            "In K12 enter =SUM(K6:K11). Compare the total with the expected 49200. Keep the label Total in B12.",
+            "In a spare summary area enter =AVERAGE(K6:K11), =MAX(K6:K11) and =MIN(K6:K11). Verify 8200, 11700 and 4500.",
+            "Use =COUNT(C6:C11) to count numeric paper entries and =COUNTA(B6:B11) to count names. Both should return 6 for this dataset.",
+            "Use =COUNTIF(L6:L11,\"High\") to count the High category. The answer is 3. Change the criterion to Standard and confirm another 3.",
+            "Use =SUMIF(D6:D11,1,K6:K11) to add net fees for pupils taking a practical subject. Verify 33300.",
+            "Demonstrate =ROUND(AVERAGE(K6:K11),2). Explain the difference between rounding a result and merely changing the displayed decimal places.",
+            "On a copy, add a Rank column using =RANK.EQ(K6,$K$6:$K$11,0). Explain that equal net fees get equal ranks and that the next rank may be skipped.",
+            "Check that the total row is outside every summary’s source range. Save the workbook."
+          ],
+          "exercise": "Create a labelled summary with total, average, largest, smallest, number of pupils and practical-pupil total. Explain one result in words.",
+          "check": [
+            "The total is 49200.",
+            "COUNTIF returns 3 for High.",
+            "No function includes its own total cell."
+          ],
+          "mistakes": [
+            "Including the total row in AVERAGE.",
+            "Counting blank template rows as pupils.",
+            "Assuming tied ranks must be different."
+          ]
+        },
+        {
+          "id": "e7",
+          "title": "Sort, filter and preserve complete records",
+          "minutes": 50,
+          "goals": [
+            "Sort a whole table safely.",
+            "Use filters without deleting data."
+          ],
+          "steps": [
+            "Save a copy before sorting. Select A5:L11, including the headers and all related columns.",
+            "Use Data → Sort. Confirm My data has headers. Sort by Name, A to Z. Check two names against their practical flags and net fees.",
+            "Explain why selecting only B6:B11 would separate names from the other record values. Demonstrate the mistake on a spare copy, then undo.",
+            "Sort by Net, largest to smallest. Observe that the first-five discount follows the registration No value, not the new row position.",
+            "Use Data → Filter. Filter Practical to 1, then read the three visible student records. Do not delete the hidden rows.",
+            "Clear the filter and restore the original registration order by sorting No, smallest to largest.",
+            "Insert a spare row on a practice copy and demonstrate how formulas and sort ranges must be checked when the dataset grows.",
+            "Save the clean original. Confirm that all six records are visible before printing unless the task requests a filtered printout."
+          ],
+          "exercise": "Show only practical candidates, then restore all records. Sort by net fee and restore the original order without changing any record values.",
+          "check": [
+            "Names stay matched to their own records.",
+            "All six records return after clearing the filter.",
+            "The discount rule still uses registration No."
+          ],
+          "mistakes": [
+            "Sorting one column.",
+            "Deleting records that the filter has hidden.",
+            "Printing only filtered rows unintentionally."
+          ]
+        },
+        {
+          "id": "e8",
+          "title": "Create the required chart",
+          "minutes": 50,
+          "goals": [
+            "Choose a suitable chart and correct source range.",
+            "Label and print the chart accurately."
+          ],
+          "steps": [
+            "Identify the requested comparison: each pupil’s net registration fee. Use names as categories and net fees as the values.",
+            "Select B5:B11, then hold Ctrl and select K5:K11. If non-adjacent selection is difficult, copy linked labels and values into a two-column chart helper area.",
+            "Insert → Column or Bar Chart → Clustered Column. Explain that a pie chart is for parts of a whole and is not automatically the correct answer for every data table.",
+            "Use Chart Design → Select Data to check the series range, category labels and whether the total row was accidentally included.",
+            "Set the chart title to Net registration fees. Add axis titles Student and Amount (FCFA) if requested. Show how to add data labels.",
+            "Resize the chart so all six names are readable. Use a simple 2-D chart. Do not hide differences with unnecessary 3-D effects.",
+            "Move the chart to a separate chart sheet or keep it below the data, as the task specifies. Give the chart sheet a clear name.",
+            "Use print preview to check both the worksheet and chart. Save the workbook before printing either one."
+          ],
+          "exercise": "Produce a six-column chart of net fees with the correct title and labels. Explain why the Total row does not belong among the six pupils.",
+          "check": [
+            "Six categories appear once each.",
+            "Awa’s plotted value is 10800.",
+            "Chart labels and title are readable."
+          ],
+          "mistakes": [
+            "Plotting names as a numeric series.",
+            "Including the total as another pupil.",
+            "Choosing a chart type without reading the instruction."
+          ]
+        },
+        {
+          "id": "e9",
+          "title": "Print values, formulas and charts",
+          "minutes": 50,
+          "goals": [
+            "Set a print area and scaling.",
+            "Produce each requested spreadsheet output."
+          ],
+          "steps": [
+            "Select A1:L12. Page Layout → Print Area → Set Print Area. Keep the constants area visible in a separate output only when the brief asks for it.",
+            "Set A4 paper and Landscape. Set margins appropriate to the brief. Fit all columns to one page wide, but do not force a very long sheet onto one unreadable page.",
+            "Use Page Layout → Print Titles to repeat row 5 on each printed page if the table spans pages.",
+            "Add candidate identification and Task 2 in the header or footer. Use the page number field when several pages will be printed.",
+            "Print Preview: check that names, headings, net fees and the total are not clipped. Choose whether gridlines and row/column headings are required by the brief.",
+            "For a formula printout, use Formulas → Show Formulas. Widen columns, recheck print area and preview, then print only when requested.",
+            "Turn Show Formulas off to restore the values view. Select the chart and choose Print Selected Chart or print the dedicated chart sheet.",
+            "Save Task2.xlsx. Reopen it and check the formulas, chart and print setup. Submit the editable workbook as well as the requested printouts."
+          ],
+          "exercise": "Prepare one values printout and a separate chart printout. Make a formula printout as a teacher check, then return the workbook to normal values view.",
+          "check": [
+            "All twelve columns fit across the intended pages.",
+            "Formula evidence shows formulas, not only results.",
+            "The saved workbook opens correctly."
+          ],
+          "mistakes": [
+            "Printing only the active chart when the data table was requested.",
+            "Leaving Show Formulas on in the final values printout.",
+            "Making text unreadable to force one page."
+          ]
+        },
+        {
+          "id": "e10",
+          "title": "Complete the spreadsheet examination rehearsal",
+          "minutes": 100,
+          "goals": [
+            "Finish the registration workbook without step-by-step prompts.",
+            "Use test values to prove formulas work."
+          ],
+          "steps": [
+            "Give pupils the dataset and practice brief, without the formula key. Allow them to plan formulas on paper first.",
+            "Use the first 10 minutes for folder creation, data entry and checking. Do not let pupils copy a finished workbook.",
+            "Require all formula cells E6:L11 to be produced using formulas and fill operations. Ask pupils to write the first formula in each column in their answer booklet.",
+            "After calculations, require the summary, safe sort/filter demonstration and net-fee chart.",
+            "Give a test instruction: change N4 to 6000. Pupils predict which rows change, verify them, then restore 5000.",
+            "Use the rubric to mark data accuracy separately from formulas. A correct display produced by typed answers does not earn the formula points.",
+            "Collect the editable file and specified printouts. Open a sample file at random and inspect its formula bar.",
+            "Use the pupil’s weakest checkpoint to choose a short follow-up lesson, rather than repeating the whole workbook."
+          ],
+          "exercise": "Complete Task2.xlsx from the brief in 70 minutes, then spend 10 minutes checking and preparing the required outputs.",
+          "check": [
+            "Total net fees=49200 using formulas.",
+            "Changing a constant updates the intended rows.",
+            "The chart and printouts agree with the workbook."
+          ],
+          "mistakes": [
+            "Typing results instead of formulas.",
+            "Spending most of the time decorating the title.",
+            "Forgetting the required evidence after finishing the calculations."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c",
+      "label": "C programming",
+      "summary": "Build, run, test and debug the small programs repeatedly seen in the downloaded practical papers. The current progression sheet teaches Python in lessons 40–42, so use the Python bridge below as well.",
+      "ps": [
+        "Past-paper requirement: C program creation and output evidence.",
+        "Progression: Python coding, lessons 40–42, weeks 15–16."
+      ],
+      "lessons": [
+        {
+          "id": "c1",
+          "title": "Create, compile and run a C program",
+          "minutes": 50,
+          "goals": [
+            "Save source code, compile and distinguish source from output."
+          ],
+          "steps": [
+            "Open the installed C environment and create a console C source file. Save it in Candidate_001 as Task3.c.",
+            "Type the complete C example below. Explain #include <stdio.h>, main, braces, variables and the final return 0.",
+            "Use Build/Compile and read the first compiler error, if any. Repair one error at a time before running.",
+            "Enter 10, 12 and 14 when prompted. Compare total 36 and average 12.00 with a hand calculation.",
+            "Save the source after repairs. Run with 0, 0, 0, then with 2.5, 3.5, 4.5.",
+            "Show the source file and program output as separate evidence. If a terminal compiler is installed, gcc Task3.c -o Task3 followed by running the executable does the same job."
+          ],
+          "exercise": "Create Task3.c, compile it and demonstrate two successful test runs.",
+          "check": [
+            "The source compiles.",
+            "The output agrees with a hand calculation."
+          ],
+          "mistakes": [
+            "Saving only an executable.",
+            "Trying to fix a runtime input problem before the program compiles."
+          ]
+        },
+        {
+          "id": "c2",
+          "title": "Input, arithmetic and decisions",
+          "minutes": 50,
+          "goals": [
+            "Choose suitable data types and test a condition."
+          ],
+          "steps": [
+            "Show int for a counter and double for an average or amount.",
+            "Explain scanf(\"%lf\", &value) for a double and printf(\"%.2f\", value) for two decimal places.",
+            "Check that scanf read the expected number of values. Do not calculate with uninitialised variables after invalid input.",
+            "Add a decision: average >= 10 means Pass, otherwise Needs practice.",
+            "Test averages below 10, equal to 10 and above 10. Write an expected result before each run.",
+            "Use parentheses to make arithmetic order clear. Explain = for assignment and == for equality."
+          ],
+          "exercise": "Extend the worked program with the pass decision, using the teacher’s stated practice threshold.",
+          "check": [
+            "The equality boundary is tested.",
+            "Prompts and output labels are clear."
+          ],
+          "mistakes": [
+            "Using = inside a condition where == was intended.",
+            "Using an integer variable for a result that needs fractions."
+          ]
+        },
+        {
+          "id": "c3",
+          "title": "Loops, arrays and a running total",
+          "minutes": 50,
+          "goals": [
+            "Repeat input safely and process several values."
+          ],
+          "steps": [
+            "Replace the three separate inputs with an array of three double values.",
+            "Initialise total to 0 before the loop.",
+            "Use for (int i=0; i<3; i++) to read and add each element.",
+            "Explain why a three-element array has indexes 0, 1 and 2.",
+            "Calculate the average after the loop, then print it with a label.",
+            "Dry-run values 4, 8 and 12 in a trace table showing i, value and total. Verify final total 24 and average 8.",
+            "Change the number of test values only after updating both the array size and loop boundary."
+          ],
+          "exercise": "Write and test an array version of the average program.",
+          "check": [
+            "The running total starts at zero.",
+            "No array index exceeds its bounds."
+          ],
+          "mistakes": [
+            "Using <=3 with a three-element array.",
+            "Resetting total inside each loop iteration."
+          ]
+        },
+        {
+          "id": "c4",
+          "title": "Debug, submit and bridge to Python",
+          "minutes": 50,
+          "goals": [
+            "Identify syntax, runtime and logic errors.",
+            "Recognise the matching Python operations from the progression sheet."
+          ],
+          "steps": [
+            "Remove a semicolon deliberately, compile and repair the reported syntax error.",
+            "Change a divisor deliberately to create a logic error. Use expected outputs to find it.",
+            "Run valid zero, boundary and fractional test cases and record expected and actual results.",
+            "Show the equivalent Python example below. Explain input, float conversion, sum and formatted output.",
+            "Follow the language specified by the actual task. Do not substitute Python when an examination task explicitly asks for C.",
+            "Save the correct source file, required output evidence and a short test table. Print source code only if requested."
+          ],
+          "exercise": "Finish one small C or explicitly assigned Python problem independently, with three test cases.",
+          "check": [
+            "The chosen language follows the task.",
+            "Source code and output are both saved as required."
+          ],
+          "mistakes": [
+            "Assuming one successful run proves a program is correct.",
+            "Submitting a screenshot without the source file."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "html",
+      "label": "HTML and CSS",
+      "summary": "Create an offline web page, save it correctly and verify it in a browser. HTML appears in the downloaded 2024 Group One paper.",
+      "ps": [
+        "Progression: build a simple web page using HTML and CSS.",
+        "Past paper: 2024 Group One, Task III."
+      ],
+      "lessons": [
+        {
+          "id": "h1",
+          "title": "Create a real HTML file",
+          "minutes": 50,
+          "goals": [
+            "Save and open a working offline web page."
+          ],
+          "steps": [
+            "Create a Web folder inside Candidate_001. Open a plain-text editor.",
+            "Type the complete HTML example below. Explain doctype, html, head, title and body.",
+            "Save as index.html, selecting All files if the editor offers a file-type choice. Turn on file extensions in the file manager to detect index.html.txt.",
+            "Open the saved file in a browser. Compare the browser-tab title with the visible page heading.",
+            "Change one heading, save in the editor and refresh the browser.",
+            "Keep the source file and any images in the same project folder."
+          ],
+          "exercise": "Create the worked page and change the event title without damaging its tags.",
+          "check": [
+            "The browser renders the page.",
+            "The file ends in .html."
+          ],
+          "mistakes": [
+            "Using a word processor to save an HTML source task.",
+            "Opening an unsaved editor buffer instead of the saved file."
+          ]
+        },
+        {
+          "id": "h2",
+          "title": "Lists, tables, links, images and styling",
+          "minutes": 50,
+          "goals": [
+            "Use correct tags and relative paths."
+          ],
+          "steps": [
+            "Add an unordered list using ul and li, and a numbered list using ol and li.",
+            "Build a table with table, tr, th and td. Keep one record per row.",
+            "Add a local image with a relative filename and meaningful alt text. Confirm the image file travels with the page.",
+            "Use an anchor href to link to a second local page, or to the in-page schedule heading.",
+            "Use the style block in the example to control font, colours, borders, padding and width.",
+            "Resize the browser window and check that the table remains usable."
+          ],
+          "exercise": "Add a second table row and a local image, then verify the page without internet.",
+          "check": [
+            "The list and table are correctly nested.",
+            "Links and images work from the saved folder."
+          ],
+          "mistakes": [
+            "Typing a Windows disk path that works only on the teacher’s computer.",
+            "Forgetting a closing tag or quotation mark."
+          ]
+        },
+        {
+          "id": "h3",
+          "title": "Reproduce and check an examination page",
+          "minutes": 50,
+          "goals": [
+            "Match the task and submit a working web folder."
+          ],
+          "steps": [
+            "Read the task and list every required element before typing.",
+            "Create content first, then apply the required style and dimensions.",
+            "Check special characters, title, headings, list order, table structure and filenames.",
+            "Open the page from the final candidate folder on another computer if available.",
+            "Print the requested page or source only if the task asks.",
+            "Submit all dependent files with the HTML file."
+          ],
+          "exercise": "Reproduce a short supplied school webpage without copying the worked solution.",
+          "check": [
+            "The final page matches the brief.",
+            "It opens correctly from the submission folder."
+          ],
+          "mistakes": [
+            "Submitting only the HTML when a local image is required.",
+            "Using online resources that cannot load in an offline examination room."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "database",
+      "label": "Database",
+      "summary": "Build a small relational database from tables through queries, forms, reports and submission. Use when assigned by the practical task.",
+      "ps": [
+        "Progression lessons 19, 20, 22 and 24: databases, design, tables, queries and reports."
+      ],
+      "lessons": [
+        {
+          "id": "d1",
+          "title": "Design tables and enter records",
+          "minutes": 50,
+          "goals": [
+            "Choose fields, data types and primary keys."
+          ],
+          "steps": [
+            "Use the worked registration data as a source. Plan a Students table with StudentID, FullName, Papers and Practical.",
+            "In Access, create a blank database named TaskDB.accdb. In Table Design create StudentID as Short Text and make it the primary key.",
+            "Create FullName as Short Text, Papers as Number and Practical as Yes/No. Keep phone numbers and identifier codes as text if used.",
+            "Save Students, then enter six records. Test an attempted duplicate StudentID and explain why it is rejected.",
+            "For a second practice table, create Classes with ClassID and ClassName, then add ClassID to Students with the same compatible data type.",
+            "Use Database Tools → Relationships to join the class primary key to the student class foreign key. Enable referential integrity only after matching the existing values."
+          ],
+          "exercise": "Create the two related tables and enter a small consistent dataset.",
+          "check": [
+            "Primary keys are unique.",
+            "Matching relationship fields have compatible types."
+          ],
+          "mistakes": [
+            "Using a pupil’s full name as the only identifier.",
+            "Storing all data in one long text field."
+          ]
+        },
+        {
+          "id": "d2",
+          "title": "Queries, calculations and forms",
+          "minutes": 50,
+          "goals": [
+            "Retrieve requested records and create a usable input form."
+          ],
+          "steps": [
+            "Create → Query Design. Add Students and choose StudentID, FullName, Papers and Practical.",
+            "Set a criterion Papers>=5, run the query and compare the returned pupils with the source.",
+            "Add a second criterion Practical=True on the same Criteria row for an AND condition. Explain how a different Or row changes the logic.",
+            "Add a calculated field SubjectTotal: [Papers]*1000. Run and verify one result manually.",
+            "Save the query as PracticalCandidates. Sort FullName ascending.",
+            "Create a form from Students using the Form Wizard. Label the controls clearly and test entry of one spare record, then remove the spare practice record."
+          ],
+          "exercise": "Build and save the query and a simple data-entry form.",
+          "check": [
+            "The query criteria return only the intended records.",
+            "The form writes to the correct table."
+          ],
+          "mistakes": [
+            "Typing a calculated result into each stored record unnecessarily.",
+            "Putting AND conditions on separate Or rows."
+          ]
+        },
+        {
+          "id": "d3",
+          "title": "Reports, print preview and database submission",
+          "minutes": 50,
+          "goals": [
+            "Produce and verify a saved report."
+          ],
+          "steps": [
+            "Use Create → Report Wizard with the saved query as its source.",
+            "Choose the requested fields, grouping and sort order. Set a sensible report title.",
+            "Open Print Preview and check column widths, headers and page orientation.",
+            "Compare the report’s record count and any totals with the query.",
+            "Close the database cleanly, reopen TaskDB.accdb and verify the tables, query, form and report are all present.",
+            "Submit the database file and requested printout. Do not submit only a screenshot of the table."
+          ],
+          "exercise": "Complete the database from the brief and produce a readable report.",
+          "check": [
+            "Report values agree with the query.",
+            "All saved objects reopen."
+          ],
+          "mistakes": [
+            "Reporting from the whole table when a filtered query was required.",
+            "Leaving a report field clipped at the right edge."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "presentation",
+      "label": "Presentations",
+      "summary": "Prepare the additional digital-content skill required by the progression sheet. Follow a paper’s exact requirements when this task is assigned.",
+      "ps": [
+        "Progression lesson 54, week 20: create presentations."
+      ],
+      "lessons": [
+        {
+          "id": "p1",
+          "title": "Create a short slide presentation",
+          "minutes": 50,
+          "goals": [
+            "Use slide layouts and readable text."
+          ],
+          "steps": [
+            "Create TaskSlides.pptx in the candidate folder.",
+            "Make four slides: title, objectives, a simple table or chart, and closing information.",
+            "Use a consistent theme and the correct Title and Content layouts.",
+            "Insert one local image, crop it proportionally and add a short caption.",
+            "Use concise text, readable contrast and a font size suitable for projection.",
+            "Run the slideshow from the beginning and check every slide."
+          ],
+          "exercise": "Make a four-slide practical-workshop presentation from the practice letter.",
+          "check": [
+            "The slide order is logical.",
+            "No text is clipped or unreadable."
+          ],
+          "mistakes": [
+            "Pasting an entire page of text onto one slide.",
+            "Using many different themes in one presentation."
+          ]
+        },
+        {
+          "id": "p2",
+          "title": "Transitions, notes and output",
+          "minutes": 50,
+          "goals": [
+            "Apply requested effects and print the correct output."
+          ],
+          "steps": [
+            "Add a simple transition only if required. Test its timing in slideshow view.",
+            "Apply one entrance animation to a selected item and distinguish it from a whole-slide transition.",
+            "Add speaker notes and verify that they are not ordinary slide text.",
+            "Use File → Print and select Slides, Notes Pages or Handouts according to the brief.",
+            "Check page count and orientation in preview. Save, close and reopen the presentation.",
+            "Submit the editable presentation and requested printout."
+          ],
+          "exercise": "Produce a three-slides-per-page handout and explain how it differs from Notes Pages.",
+          "check": [
+            "The output type matches the task.",
+            "The saved file retains its notes and effects."
+          ],
+          "mistakes": [
+            "Printing full slides when handouts were requested.",
+            "Using automatic timing that rushes past the slide content."
+          ]
+        }
+      ]
+    }
+  ],
+  "wordExample": {
+    "text": "GHS MBONJO LIMBE\nCOMPUTER SCIENCE DEPARTMENT\n15 October 2026\nThe Principal\nGHS Mbonjo Limbe\n\nREQUEST TO ORGANISE A PRACTICAL WORKSHOP\n\nDear Sir or Madam,\n\nThe Computer Science Department proposes a practical workshop for Form Five students. The workshop will help learners prepare documents, calculate fees in a spreadsheet and save their work correctly. Each learner will complete a short task and explain the steps used.\n\nThe activities will take place in the computer laboratory. Students will work in pairs during the demonstration and individually during the assessment. A saved editable file and the required printout will be collected at the end of each activity.\n\nThe workshop will cover the following areas:\nDocument preparation and accurate formatting\nSpreadsheet formulas, charts and printing\nFile management and final checking\n\nThe proposed groups are shown in the table below. Each group will check its equipment before beginning. The teacher will demonstrate one procedure at a time, allow guided practice and then assess an independent task.\n\nWe request permission to use the laboratory and the available printing facilities. Please inform the department of any changes needed in the proposed arrangement. We will keep a record of attendance and report the learners’ progress after the workshop.\n\nYours faithfully,\nThe Computer Science Teacher",
+    "table": [
+      [
+        "No",
+        "Group",
+        "Activity",
+        "Learners"
+      ],
+      [
+        "1",
+        "A",
+        "Word processing",
+        "20"
+      ],
+      [
+        "2",
+        "B",
+        "Spreadsheets",
+        "20"
+      ],
+      [
+        "3",
+        "C",
+        "Programming",
+        "20"
+      ]
+    ],
+    "brief": [
+      "Save as Candidate_001/Task1.docx. Use A4 portrait and 2 cm margins.",
+      "School heading: Times New Roman 16 pt, bold, centred. Department line: 12 pt, centred.",
+      "Body: Times New Roman 12 pt, left aligned, 1.5 line spacing and 6 pt after paragraphs.",
+      "Subject line: bold, centred and underlined. Keep the address block left aligned.",
+      "Convert the three workshop areas into a real bulleted list. Insert the supplied four-column table after the paragraph introducing the groups.",
+      "Table headings: bold with light shading. Keep all borders visible. Align numeric entries consistently.",
+      "Header: Candidate 001. Footer: Task 1 and an automatic page number.",
+      "Keep all content within at most two pages. Save and produce the printout specified by the teacher."
+    ],
+    "rubric": [
+      [
+        "Text and paragraph accuracy",
+        6
+      ],
+      [
+        "Font and paragraph formatting",
+        4
+      ],
+      [
+        "Page setup and identification",
+        3
+      ],
+      [
+        "List and table",
+        4
+      ],
+      [
+        "Save, reopen and correct printout",
+        3
+      ]
+    ]
+  },
+  "excelExample": {
+    "headers": [
+      "No",
+      "Name",
+      "Papers",
+      "Practical",
+      "Subject fee",
+      "Subject total",
+      "Registration",
+      "Practical fee",
+      "Gross",
+      "Discount",
+      "Net",
+      "Status"
+    ],
+    "rows": [
+      [
+        1,
+        "Awa",
+        5,
+        1,
+        1000,
+        5000,
+        2000,
+        5000,
+        12000,
+        1200,
+        10800,
+        "High"
+      ],
+      [
+        2,
+        "Bih",
+        4,
+        0,
+        1000,
+        4000,
+        2000,
+        0,
+        6000,
+        600,
+        5400,
+        "Standard"
+      ],
+      [
+        3,
+        "Chi",
+        6,
+        1,
+        1000,
+        6000,
+        2000,
+        5000,
+        13000,
+        1300,
+        11700,
+        "High"
+      ],
+      [
+        4,
+        "Dina",
+        3,
+        0,
+        1000,
+        3000,
+        2000,
+        0,
+        5000,
+        500,
+        4500,
+        "Standard"
+      ],
+      [
+        5,
+        "Eko",
+        5,
+        1,
+        1000,
+        5000,
+        2000,
+        5000,
+        12000,
+        1200,
+        10800,
+        "High"
+      ],
+      [
+        6,
+        "Fony",
+        4,
+        0,
+        1000,
+        4000,
+        2000,
+        0,
+        6000,
+        0,
+        6000,
+        "Standard"
+      ]
+    ],
+    "constants": [
+      [
+        "N2",
+        "Subject fee",
+        1000
+      ],
+      [
+        "N3",
+        "Registration fee",
+        2000
+      ],
+      [
+        "N4",
+        "Practical fee",
+        5000
+      ],
+      [
+        "N5",
+        "Discount rate",
+        "10%"
+      ]
+    ],
+    "formulas": {
+      "E6": "=$N$2",
+      "F6": "=C6*E6",
+      "G6": "=$N$3",
+      "H6": "=IF(D6=1,$N$4,0)",
+      "I6": "=SUM(F6:H6)",
+      "J6": "=IF(A6<=5,I6*$N$5,0)",
+      "K6": "=I6-J6",
+      "L6": "=IF(K6>=10000,\"High\",\"Standard\")"
+    },
+    "brief": [
+      "Use sheet Registration. Enter headings in A5:L5 and six records in A6:D11. Put constants in N2:N5, with labels in M2:M5.",
+      "Complete E6:L6 with the formula key, then fill down to row 11. On the independent rehearsal, give pupils the rules and hide the formula key.",
+      "The first five registrations get 10% off the gross fee. The No column is the registration order.",
+      "Create a summary and a clustered column chart of names against net fees, excluding the total row.",
+      "Set an A4 landscape print area A1:L12. Save Task2.xlsx and prepare the required values, formulas and chart outputs."
+    ],
+    "summary": [
+      [
+        "SUM(K6:K11)",
+        49200
+      ],
+      [
+        "AVERAGE(K6:K11)",
+        8200
+      ],
+      [
+        "MAX(K6:K11)",
+        11700
+      ],
+      [
+        "MIN(K6:K11)",
+        4500
+      ],
+      [
+        "COUNTIF(L6:L11,\"High\")",
+        3
+      ],
+      [
+        "SUMIF(D6:D11,1,K6:K11)",
+        33300
+      ]
+    ],
+    "rubric": [
+      [
+        "Accurate source data and layout",
+        4
+      ],
+      [
+        "Relative and absolute references",
+        4
+      ],
+      [
+        "IF, discount and net formulas",
+        5
+      ],
+      [
+        "Summary functions and checks",
+        3
+      ],
+      [
+        "Chart, saving and printouts",
+        4
+      ]
+    ]
+  },
+  "codeExamples": {
+    "c": "#include <stdio.h>\nint main(void) {\n    double a, b, c, total, average;\n    printf(\"Enter three marks: \");\n    if (scanf(\"%lf %lf %lf\", &a, &b, &c) != 3) {\n        printf(\"Invalid input\\n\");\n        return 1;\n    }\n    total = a + b + c;\n    average = total / 3.0;\n    printf(\"Total: %.2f\\nAverage: %.2f\\n\", total, average);\n    if (average >= 10.0) printf(\"Pass\\n\");\n    else printf(\"Needs practice\\n\");\n    return 0;\n}",
+    "python": "try:\n    marks = [float(input(f\"Mark {i + 1}: \")) for i in range(3)]\n    total = sum(marks)\n    average = total / len(marks)\n    print(f\"Total: {total:.2f}\")\n    print(f\"Average: {average:.2f}\")\n    print(\"Pass\" if average >= 10 else \"Needs practice\")\nexcept ValueError:\n    print(\"Invalid input\")",
+    "html": "<!doctype html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Computer Science Workshop</title>\n  <style>\n    body { font: 18px/1.5 Arial, sans-serif; margin: 2rem auto; max-width: 800px; padding: 1rem; }\n    h1 { color: #173b69; }\n    table { width: 100%; border-collapse: collapse; }\n    th, td { border: 1px solid #555; padding: 8px; text-align: left; }\n  </style>\n</head>\n<body>\n  <h1>GHS Mbonjo Computer Science Workshop</h1>\n  <p>Prepare, practise and check your work.</p>\n  <a href=\"#schedule\">Go to the schedule</a>\n  <h2>Activities</h2>\n  <ul><li>Word processing</li><li>Spreadsheets</li><li>Programming</li></ul>\n  <h2 id=\"schedule\">Schedule</h2>\n  <table>\n    <tr><th>Group</th><th>Activity</th></tr>\n    <tr><td>A</td><td>Word processing</td></tr>\n    <tr><td>B</td><td>Spreadsheets</td></tr>\n  </table>\n</body>\n</html>"
+  },
+  "readiness": [
+    "Can create and reopen a correctly named editable file without help.",
+    "Can follow a measurement or formatting instruction exactly.",
+    "Can produce the expected result and explain how it was obtained.",
+    "Can change an input and check that a formula or program responds correctly.",
+    "Can find and repair one error without replacing the entire file.",
+    "Can prepare the required output, including diagrams and all requested pages."
+  ],
+  "sources": [
+    {
+      "title": "Official national Form 5 progression 2026/2027",
+      "url": "/syllabus/0a48b345-b974-4dd4-940b-fb547d9a63dc"
+    },
+    {
+      "title": "Imported MINESEC Paper 3 archive",
+      "url": "/admin/past-papers?number=3"
+    },
+    {
+      "title": "Microsoft: Excel headers and footers",
+      "url": "https://support.microsoft.com/en-us/excel/headers-and-footers-in-a-worksheet"
+    }
+  ]
+}
