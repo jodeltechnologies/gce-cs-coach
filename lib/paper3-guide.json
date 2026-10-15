@@ -5,7 +5,7 @@
     "Check each computer, keyboard, mouse and available application before the lesson.",
     "Prepare a candidate folder, a source brief and local assets. Keep a backup copy of the blank practice files.",
     "Demonstrate for 10 minutes, guide practice for 15 minutes, give an independent task for 20 minutes and use 5 minutes for checking and saving. Use two consecutive periods for the complete rehearsals.",
-    "Pair pupils during the demonstration when machines are limited, then rotate keyboard control and assess each pupil individually.",
+    "Pair students during the demonstration when machines are limited, then rotate keyboard control and assess each student individually.",
     "Use the measurements, filenames, language, output and time printed on the actual paper. Paper 3 formats vary, so the current paper takes precedence."
   ],
   "areas": [
@@ -28,13 +28,13 @@
           ],
           "steps": [
             "Before class, place the practice text below on each computer or print one copy per pair. Open a blank document and show the title bar, ribbon, page and status bar.",
-            "Create a folder named CS_Practical, then Candidate_001 inside it. File → Save As → Browse. Save the document there as Task1.docx. Ask pupils to point to the filename and folder.",
+            "Create a folder named CS_Practical, then Candidate_001 inside it. File → Save As → Browse. Save the document there as Task1.docx. Ask students to point to the filename and folder.",
             "Type the practice text exactly. Press Enter once at the end of a paragraph, not at the end of every visible line. Let the word processor wrap the lines.",
             "Show click, double-click a word, drag to select a sentence and Ctrl+A. Replace selected text by typing. Compare Backspace and Delete.",
             "Demonstrate Ctrl+Z, Ctrl+Y, Ctrl+C, Ctrl+X and Ctrl+V on a spare paragraph. Explain the difference between copying and moving.",
             "Use Home → Find or Ctrl+F to find “practical”. Use Replace on one chosen occurrence, then undo it. Do not use Replace All until the match is checked.",
             "Turn on paragraph marks with Home → ¶. Remove extra paragraph breaks and repeated spaces. Correct spelling against the source, including names that the spellchecker may not know.",
-            "Press Ctrl+S, close the file and reopen it from Candidate_001. Each pupil must show the saved file, not only an unsaved window."
+            "Press Ctrl+S, close the file and reopen it from Candidate_001. Each student must show the saved file, not only an unsaved window."
           ],
           "exercise": "Type the complete practice letter. Deliberately insert one repeated word, move one paragraph and repair both changes. Save and reopen the result.",
           "check": [
@@ -123,7 +123,7 @@
             "Use Table Layout → AutoFit to Window or set measured column widths. Keep the Name column wider than the No column. Show Distribute Rows and Distribute Columns.",
             "Select cells in a spare row and Merge Cells for a table title. Split the merged cells again. Explain why merging a data body can make sorting harder.",
             "Align numbers consistently. Use cell alignment controls for vertical alignment and the Paragraph controls for text alignment.",
-            "Select the entire data table and sort by Name. Choose a header row so the headings do not become a pupil record. Check that each record remains on one row.",
+            "Select the entire data table and sort by Name. Choose a header row so the headings do not become a student record. Check that each record remains on one row.",
             "Check row breaks and print preview. For a table spanning pages, select its header row and use Repeat Header Rows. Save the final file."
           ],
           "exercise": "Reproduce the practice attendance table, add a fourth record, sort all records alphabetically by name, and keep the header intact.",
@@ -133,7 +133,7 @@
             "The table fits inside the page margins."
           ],
           "mistakes": [
-            "Sorting one column and separating pupils from their records.",
+            "Sorting one column and separating students from their records.",
             "Deleting text when the task asks to delete a row.",
             "Drawing table lines with underscore characters."
           ]
@@ -177,20 +177,20 @@
             "Complete a Paper 3 style task from a single brief."
           ],
           "steps": [
-            "Distribute the full practice brief below. Pupils underline filenames, measurements and requested printouts before opening the application.",
+            "Distribute the full practice brief below. Students underline filenames, measurements and requested printouts before opening the application.",
             "Show the finished structure: letterhead, date, recipient, subject, body, list, table and signature. Do not type and format every line separately.",
             "Type all text and check it first. Apply body formatting to the complete body selection, then format headings and addresses.",
             "Insert the table in the required position. Enter each record once, then apply its formatting. Keep the closing paragraph below the table.",
             "Add the header, footer and page number. Insert and size the small graphic only if included in the chosen task version.",
             "Run a check from the top of the brief to the bottom. Use the exact requested values for margins, sizes, orientation and alignment.",
             "Open print preview. If the task asks for two pages, manage the page break deliberately and keep the signature with its closing paragraph.",
-            "Save the editable document and export a PDF copy only if requested. Ask each pupil to explain two operations used without referring to a neighbour."
+            "Save the editable document and export a PDF copy only if requested. Ask each student to explain two operations used without referring to a neighbour."
           ],
           "exercise": "Finish the complete worked letter independently. As an extension, reproduce it as a two-page report with a heading on the second page.",
           "check": [
             "The file and printed layout meet the brief.",
             "All content is present and correctly ordered.",
-            "Pupil can repeat two formatting operations unaided."
+            "Student can repeat two formatting operations unaided."
           ],
           "mistakes": [
             "Formatting before entering enough text to judge page layout.",
@@ -207,13 +207,13 @@
             "Check a finished file against a marking checklist."
           ],
           "steps": [
-            "Give 10 minutes for pupils to complete a fresh short task without help. Include one deliberately unfamiliar filename to test file discipline.",
+            "Give 10 minutes for students to complete a fresh short task without help. Include one deliberately unfamiliar filename to test file discipline.",
             "Use Ctrl+S before entering print preview. Check paper size, orientation, margins, page count and whether graphics or borders are clipped.",
             "Choose the correct printer and required pages. If no physical printer is available, use a PDF printout for class practice and explain that the examination instructions control the real submission.",
-            "Print one copy only when instructed. Show pupils how to avoid sending several accidental copies while a printer is slow.",
+            "Print one copy only when instructed. Show students how to avoid sending several accidental copies while a printer is slow.",
             "Open the saved editable file again. Check that a PDF copy has not replaced the editable source document.",
             "Use the practice rubric below to mark text accuracy, formatting, table, identification and output separately.",
-            "Give each pupil one correction to make, then require a new save and a recheck of the corrected item.",
+            "Give each student one correction to make, then require a new save and a recheck of the corrected item.",
             "Collect the required files in the candidate folder. Do not accept an unexplained screenshot as proof of a working editable document."
           ],
           "exercise": "Submit Task1.docx and the requested printout. Exchange only the marking checklist with a partner, then make one recorded correction.",
@@ -255,7 +255,7 @@
             "Enter codes with leading zeros as text. Enter quantities and fees as numbers. Do not type FCFA inside numeric fee cells.",
             "Demonstrate editing a cell with F2, clearing contents and undoing a mistake. Explain Delete Cells versus Clear Contents.",
             "Use Home → Find & Select → Go To Special or a simple visual check to locate unexpected blanks in the data range. Compare every record against the source.",
-            "Save, close and reopen Task2.xlsx. Ask pupils to select the Practical flag column and state what 0 and 1 mean."
+            "Save, close and reopen Task2.xlsx. Ask students to select the Practical flag column and state what 0 and 1 mean."
           ],
           "exercise": "Enter the entire worked dataset and four constants. Swap two figures deliberately, then check and repair them against the source.",
           "check": [
@@ -338,14 +338,14 @@
             "Distinguish a percentage amount from the amount after discount."
           ],
           "steps": [
-            "Explain why the fee in N2 must stay fixed for every pupil. In E6 enter =$N$2 and fill down to E11.",
+            "Explain why the fee in N2 must stay fixed for every student. In E6 enter =$N$2 and fill down to E11.",
             "Click E7 to verify that it still refers to $N$2. Show F4 as a way to cycle references while editing a formula on a compatible keyboard.",
             "In G6 enter =$N$3 and fill to G11. Show what goes wrong with =N3 when copied down, then undo the mistake.",
             "Explain Discount = Gross × rate and Net = Gross − Discount. On a spare cell show 12000*10%=1200 and 12000-1200=10800.",
             "Show that $N$5 locks both row and column. Briefly compare N5, $N$5, N$5 and $N5 using a spare 2×2 range.",
-            "Calculate a discount manually for one worked row before entering the formula. Pupils should be able to predict whether the result is sensible.",
+            "Calculate a discount manually for one worked row before entering the formula. Students should be able to predict whether the result is sensible.",
             "Change the fee constant N2 to 1100 and show that every dependent fee changes. Restore N2 to 1000.",
-            "Save. Ask each pupil to point to one relative reference and one absolute reference and explain the difference."
+            "Save. Ask each student to point to one relative reference and one absolute reference and explain the difference."
           ],
           "exercise": "Fill E6:E11 and G6:G11 from the constants, then calculate a separate 10% discount on 12000 without typing its final answer.",
           "check": [
@@ -402,12 +402,12 @@
             "In a spare summary area enter =AVERAGE(K6:K11), =MAX(K6:K11) and =MIN(K6:K11). Verify 8200, 11700 and 4500.",
             "Use =COUNT(C6:C11) to count numeric paper entries and =COUNTA(B6:B11) to count names. Both should return 6 for this dataset.",
             "Use =COUNTIF(L6:L11,\"High\") to count the High category. The answer is 3. Change the criterion to Standard and confirm another 3.",
-            "Use =SUMIF(D6:D11,1,K6:K11) to add net fees for pupils taking a practical subject. Verify 33300.",
+            "Use =SUMIF(D6:D11,1,K6:K11) to add net fees for students taking a practical subject. Verify 33300.",
             "Demonstrate =ROUND(AVERAGE(K6:K11),2). Explain the difference between rounding a result and merely changing the displayed decimal places.",
             "On a copy, add a Rank column using =RANK.EQ(K6,$K$6:$K$11,0). Explain that equal net fees get equal ranks and that the next rank may be skipped.",
             "Check that the total row is outside every summary’s source range. Save the workbook."
           ],
-          "exercise": "Create a labelled summary with total, average, largest, smallest, number of pupils and practical-pupil total. Explain one result in words.",
+          "exercise": "Create a labelled summary with total, average, largest, smallest, number of students and total for students taking practical subjects. Explain one result in words.",
           "check": [
             "The total is 49200.",
             "COUNTIF returns 3 for High.",
@@ -415,7 +415,7 @@
           ],
           "mistakes": [
             "Including the total row in AVERAGE.",
-            "Counting blank template rows as pupils.",
+            "Counting blank template rows as students.",
             "Assuming tied ranks must be different."
           ]
         },
@@ -458,7 +458,7 @@
             "Label and print the chart accurately."
           ],
           "steps": [
-            "Identify the requested comparison: each pupil’s net registration fee. Use names as categories and net fees as the values.",
+            "Identify the requested comparison: each student’s net registration fee. Use names as categories and net fees as the values.",
             "Select B5:B11, then hold Ctrl and select K5:K11. If non-adjacent selection is difficult, copy linked labels and values into a two-column chart helper area.",
             "Insert → Column or Bar Chart → Clustered Column. Explain that a pie chart is for parts of a whole and is not automatically the correct answer for every data table.",
             "Use Chart Design → Select Data to check the series range, category labels and whether the total row was accidentally included.",
@@ -467,7 +467,7 @@
             "Move the chart to a separate chart sheet or keep it below the data, as the task specifies. Give the chart sheet a clear name.",
             "Use print preview to check both the worksheet and chart. Save the workbook before printing either one."
           ],
-          "exercise": "Produce a six-column chart of net fees with the correct title and labels. Explain why the Total row does not belong among the six pupils.",
+          "exercise": "Produce a six-column chart of net fees with the correct title and labels. Explain why the Total row does not belong among the six students.",
           "check": [
             "Six categories appear once each.",
             "Awa’s plotted value is 10800.",
@@ -475,7 +475,7 @@
           ],
           "mistakes": [
             "Plotting names as a numeric series.",
-            "Including the total as another pupil.",
+            "Including the total as another student.",
             "Choosing a chart type without reading the instruction."
           ]
         },
@@ -518,14 +518,14 @@
             "Use test values to prove formulas work."
           ],
           "steps": [
-            "Give pupils the dataset and practice brief, without the formula key. Allow them to plan formulas on paper first.",
-            "Use the first 10 minutes for folder creation, data entry and checking. Do not let pupils copy a finished workbook.",
-            "Require all formula cells E6:L11 to be produced using formulas and fill operations. Ask pupils to write the first formula in each column in their answer booklet.",
+            "Give students the dataset and practice brief, without the formula key. Allow them to plan formulas on paper first.",
+            "Use the first 10 minutes for folder creation, data entry and checking. Do not let students copy a finished workbook.",
+            "Require all formula cells E6:L11 to be produced using formulas and fill operations. Ask students to write the first formula in each column in their answer booklet.",
             "After calculations, require the summary, safe sort/filter demonstration and net-fee chart.",
-            "Give a test instruction: change N4 to 6000. Pupils predict which rows change, verify them, then restore 5000.",
+            "Give a test instruction: change N4 to 6000. Students predict which rows change, verify them, then restore 5000.",
             "Use the rubric to mark data accuracy separately from formulas. A correct display produced by typed answers does not earn the formula points.",
             "Collect the editable file and specified printouts. Open a sample file at random and inspect its formula bar.",
-            "Use the pupil’s weakest checkpoint to choose a short follow-up lesson, rather than repeating the whole workbook."
+            "Use the student’s weakest checkpoint to choose a short follow-up lesson, rather than repeating the whole workbook."
           ],
           "exercise": "Complete Task2.xlsx from the brief in 70 minutes, then spend 10 minutes checking and preparing the required outputs.",
           "check": [
@@ -769,7 +769,7 @@
             "Matching relationship fields have compatible types."
           ],
           "mistakes": [
-            "Using a pupil’s full name as the only identifier.",
+            "Using a student’s full name as the only identifier.",
             "Storing all data in one long text field."
           ]
         },
@@ -782,7 +782,7 @@
           ],
           "steps": [
             "Create → Query Design. Add Students and choose StudentID, FullName, Papers and Practical.",
-            "Set a criterion Papers>=5, run the query and compare the returned pupils with the source.",
+            "Set a criterion Papers>=5, run the query and compare the returned students with the source.",
             "Add a second criterion Practical=True on the same Criteria row for an AND condition. Explain how a different Or row changes the logic.",
             "Add a calculated field SubjectTotal: [Papers]*1000. Run and verify one result manually.",
             "Save the query as PracticalCandidates. Sort FullName ascending.",
@@ -1082,7 +1082,7 @@
     },
     "brief": [
       "Use sheet Registration. Enter headings in A5:L5 and six records in A6:D11. Put constants in N2:N5, with labels in M2:M5.",
-      "Complete E6:L6 with the formula key, then fill down to row 11. On the independent rehearsal, give pupils the rules and hide the formula key.",
+      "Complete E6:L6 with the formula key, then fill down to row 11. On the independent rehearsal, give students the rules and hide the formula key.",
       "The first five registrations get 10% off the gross fee. The No column is the registration order.",
       "Create a summary and a clustered column chart of names against net fees, excluding the total row.",
       "Set an A4 landscape print area A1:L12. Save Task2.xlsx and prepare the required values, formulas and chart outputs."

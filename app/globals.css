@@ -205,6 +205,7 @@ p.lede { color: var(--muted); margin: 4px 0 20px; }
 .tag.plain { background: transparent; border: 1px solid var(--line); color: var(--muted); }
 .tag.gold { background: var(--gold-soft); color: var(--gold-ink); border: 1px solid var(--gold); }
 .tag.cyan { background: var(--cyan-soft); color: var(--navy); border: 1px solid var(--cyan); }
+@media (prefers-color-scheme: dark) { .tag.cyan { color:var(--cyan); } }
 .tag.alert { background: var(--red-soft); color: var(--red); border: 1px solid var(--red); }
 /* The sheet has always asked for this one for evaluations and remediation;
    until now it fell through to the plain tag. */
@@ -1343,7 +1344,7 @@ body { font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif; }
 .guide-table tbody tr:nth-child(even) { background:#f8fafb; }
 .guide-source { white-space:pre-wrap; font:16px/1.65 Georgia,serif; background:#faf9f5; border:1px solid #dddcd3; padding:24px; }
 .guide-code { white-space:pre-wrap; overflow-wrap:anywhere; background:#102a3b; color:#e8f3f7; padding:20px; border-radius:8px; line-height:1.6; font-size:.85rem; }
-.guide-document { padding:35px; margin:22px auto; border:1px solid #b8b8af; box-shadow:0 3px 15px #0001; font:16px/1.6 'Times New Roman',serif; color:#111; }
+.guide-document { background:#fff; color-scheme:light; padding:35px; margin:22px auto; border:1px solid #b8b8af; box-shadow:0 3px 15px #0001; font:16px/1.6 'Times New Roman',serif; color:#111; }
 .guide-document h2 { text-align:center; font-size:22px; color:#111; }
 .guide-document .guide-department { text-align:center; }
 .guide-document h3 { color:#111; font-size:17px; text-align:center; text-decoration:underline; }
@@ -1352,6 +1353,38 @@ body { font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif; }
 .guide-bars>div { display:grid; grid-template-columns:45px 1fr 110px; gap:10px; align-items:center; margin:12px 0; font-size:.8rem; }
 .guide-bar-track { height:16px; background:#e8eef2; border-radius:3px; overflow:hidden; }
 .guide-bar-track>span { display:block; height:100%; background:#386f8c; }
-.guide-html-preview { width:100%; min-height:550px; border:1px solid #cbd5da; }
+.guide-html-preview { background:#fff; color-scheme:light; width:100%; min-height:550px; border:1px solid #cbd5da; }
+/* Keep teaching materials readable when a phone uses dark appearance. */
+@media (prefers-color-scheme: dark) {
+  .practical-guide { --guide-blue:#9dcaf0; --guide-mint:#172e28; }
+  .guide-eyebrow,.guide-progress small,.guide-session-label,
+  .guide-session-nav button small { color:var(--muted); }
+  .guide-progress,.guide-prep,.guide-readiness,.guide-task {
+    background:var(--guide-mint); color:var(--ink); border-color:#456759;
+  }
+  .guide-progress progress { accent-color:#82cfaa; }
+  .guide-areas button,.guide-content,.guide-session-nav {
+    background:var(--surface); color:var(--ink); border-color:#47566d;
+  }
+  .guide-areas button[aria-pressed=true] {
+    background:#9dcaf0; color:#0b2545; border-color:#9dcaf0;
+  }
+  .guide-session-nav button { color:var(--ink); }
+  .guide-session-nav button[aria-current=step],
+  .guide-session-nav button[aria-pressed=true] { background:#213c58; color:#e8eef7; }
+  .guide-content h3,.guide-steps li::marker { color:var(--guide-blue); }
+  .guide-actions button { background:#9dcaf0; color:#0b2545; }
+  .guide-actions button+button { background:#213c58; color:#e8eef7; }
+  .guide-table th,.guide-table td { border-color:#47566d; }
+  .guide-table th { background:#213c58; color:#e8eef7; }
+  .guide-table tbody tr:nth-child(even) { background:#18263b; }
+  .guide-source { background:#172235; color:#e8eef7; border-color:#47566d; }
+  /* The sample printed document deliberately retains paper colours. */
+  .guide-document,.guide-document h2,.guide-document h3 { color:#111; }
+  .guide-document .guide-table th { background:#eef3f5; color:#244358; }
+  .guide-document .guide-table td { color:#111; }
+  .guide-document .guide-table tbody tr:nth-child(even) { background:#f8fafb; }
+  .guide-document .guide-table th,.guide-document .guide-table td { border-color:#cbd5da; }
+}
 @media(max-width:780px){.guide-heading{display:block}.guide-progress{margin-top:16px}.guide-layout{grid-template-columns:1fr}.guide-session-nav{position:static}.guide-session-nav button{min-height:44px}.guide-content{padding:18px}.guide-document{padding:18px}.guide-bars>div{grid-template-columns:40px 1fr 95px}}
 @media print{.guide-session-nav,.guide-areas,.guide-actions,.guide-progress,nav,.guide-prep{display:none!important}.guide-layout{display:block}.guide-content{border:0;padding:0}.practical-guide{color:#000}.guide-table-wrap{overflow:visible}.guide-table{font-size:8pt}.guide-table td,.guide-table th{white-space:normal;padding:3px}.guide-code{background:white;color:black;border:1px solid #bbb}.guide-html-preview{display:none}.guide-steps li{break-inside:avoid}.guide-heading .lede{font-size:10pt}}
