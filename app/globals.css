@@ -1388,3 +1388,17 @@ body { font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif; }
 }
 @media(max-width:780px){.guide-heading{display:block}.guide-progress{margin-top:16px}.guide-layout{grid-template-columns:1fr}.guide-session-nav{position:static}.guide-session-nav button{min-height:44px}.guide-content{padding:18px}.guide-document{padding:18px}.guide-bars>div{grid-template-columns:40px 1fr 95px}}
 @media print{.guide-session-nav,.guide-areas,.guide-actions,.guide-progress,nav,.guide-prep{display:none!important}.guide-layout{display:block}.guide-content{border:0;padding:0}.practical-guide{color:#000}.guide-table-wrap{overflow:visible}.guide-table{font-size:8pt}.guide-table td,.guide-table th{white-space:normal;padding:3px}.guide-code{background:white;color:black;border:1px solid #bbb}.guide-html-preview{display:none}.guide-steps li{break-inside:avoid}.guide-heading .lede{font-size:10pt}}
+
+.guide-handout { display:grid; justify-items:start; gap:6px; margin-top:14px; }
+.guide-handout a {
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  padding:8px 12px;
+  border:1px solid currentColor;
+  border-radius:6px;
+  font-weight:600;
+  text-decoration:underline;
+}
+.guide-handout small { color:var(--muted); }
+@media print { .guide-handout { display:none; } }
